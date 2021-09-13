@@ -15,7 +15,8 @@ SocialGym: A benchmarking framework for social robot navigation.
 ### Install Instructions
 1. Install Dependencies
 2. `git clone --recurse_submodule git@github.com:ut-amrl/social_gym.git`
-3. `make -j N` (N is the number of cores you want to use.)
+3. Set the necessary path variables for ROS with `scripts/set_path.sh` (This will need to be done in each terminal for running SocialGym as well)
+4. `make -j N` (N is the number of cores you want to use.)
 
 ## Recreating our Experiments
 
