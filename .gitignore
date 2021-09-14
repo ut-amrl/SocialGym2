@@ -1,0 +1,5 @@
+submodules/pedsim_ros/.catkin_workspace
+submodules/pedsim_ros/build/
+submodules/pedsim_ros/devel/
+submodules/pedsim_ros/src/CMakeLists.txt
+*/srv_gen/*
