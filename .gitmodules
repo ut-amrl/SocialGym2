@@ -1,18 +1,18 @@
 [submodule "submodules/ut_multirobot_sim"]
 	path = submodules/ut_multirobot_sim
-	url = git@github.com:ut-amrl/ut_multirobot_sim.git
+	url = https://github.com/ut-amrl/ut_multirobot_sim.git
 [submodule "submodules/graph_navigation"]
 	path = submodules/graph_navigation
-	url = git@github.com:ut-amrl/graph_navigation.git
+	url = https://github.com/ut-amrl/graph_navigation.git
 [submodule "submodules/amrl_msgs"]
 	path = submodules/amrl_msgs
-	url = git@github.com:ut-amrl/amrl_msgs.git
+	url = https://github.com/ut-amrl/amrl_msgs.git
 [submodule "submodules/amrl_maps"]
 	path = submodules/amrl_maps
-	url = git@github.com:ut-amrl/amrl_maps.git
+	url = https://github.com/ut-amrl/amrl_maps.git
 [submodule "submodules/pips"]
 	path = submodules/pips
-	url = git@github.com:ut-amrl/pips.git
+	url = https://github.com/ut-amrl/pips.git
 [submodule "submodules/pedsim_ros/src/pedsim_ros"]
 	path = submodules/pedsim_ros/src/pedsim_ros
-	url = git@github.com:simon-andrews/pedsim_ros.git
+	url = https://github.com/simon-andrews/pedsim_ros.git
