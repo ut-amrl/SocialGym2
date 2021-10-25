@@ -19,6 +19,6 @@ resetCount = 0
 action = [0]
 obs, rewards, dones, info = env.step(action)
 while resetCount < numScenarios:
-    action, _states = model.predict(obs)
+    action, _states = model.predict(obs, deterministic=True)
     obs, rewards, dones, info = env.step(action)
     resetCount = int(info[0]["resetCount"])

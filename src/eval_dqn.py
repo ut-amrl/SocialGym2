@@ -11,6 +11,8 @@ if (len(sys.argv) < 2):
     exit()
 
 # The algorithms require a vectorized environment to run
+#  env = DummyVecEnv([lambda: RosSocialEnv('1', 1, "config/gym_gen/launch.launch")])
+#  env = RosSocialEnv('1', 1, "config/gym_gen/launch.launch")
 env = DummyVecEnv([lambda: RosSocialEnv('1', 1, "config/gym_gen/launch.launch")])
 seed(1123)
 
@@ -23,6 +25,6 @@ resetCount = 0
 action = [0]
 obs, rewards, dones, info = env.step(action)
 while resetCount < numScenarios:
-    action, _states = model.predict(obs)
+    action, _states = model.predict(obs, deterministic=True)
     obs, rewards, dones, info = env.step(action)
     resetCount = int(info[0]["resetCount"])
