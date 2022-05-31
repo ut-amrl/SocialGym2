@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+!/usr/bin/env python
 
 # Ros Imports
 import roslib
@@ -120,24 +120,14 @@ class RosSocialEnv(gym.Env):
 
   def __init__(self, reward, repeats, launch):
     super(RosSocialEnv, self).__init__()
-    seed(1)
     # Halt, GoAlone, Follow, Pass
-    self.numRepeats = repeats
-    self.demos = []
-    self.last_observation = []
     self.action_space = spaces.Discrete(4)
-    self.action = 0
-    self.action_scores = [0, 0, 0, 0]
-    self.totalForce = 0
-    self.totalBlame = 0
-    self.totalSteps = 0
-    self.startDist = 1.0
-    self.lastDist = 1.0
     self.rewardType = reward
     # goal_x, goal_y, robot_1x, robot_1y, ... ,
     # robot_nx, robot_ny, robot_1vx, robot_1vy, ...,
     # human_1x, human_1y, ..., human_1vx, human_1vy ...
     # next_door_x, next_door_y, next_door_state
+    # Observation Parameters
     self.num_robots = 1
     self.max_humans = 40
     self.noPose = True
@@ -148,9 +138,9 @@ class RosSocialEnv(gym.Env):
     self.observation_space = spaces.Box(low=-9999,
                                         high=9999,
                                         shape=(self.length,))
-    # Initialize as necessary here
-    rospy.init_node('RosSocialEnv', anonymous=True)
 
+    # Initialize Ros Here
+    rospy.init_node('RosSocialGym', anonymous=True)
     # Launch the simulator launch file
     uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
     roslaunch.configure_logging(uuid)
@@ -165,7 +155,13 @@ class RosSocialEnv(gym.Env):
     self.launch.shutdown()
     self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
     self.launch.start()
-    self.lastObs = utmrsStepperResponse()
+
+    # Initialize Internal Variables
+    self.action = 0
+    self.numRepeats = repeats
+    self.last_observation = []
+    self.startDist = 1.0
+    self.lastDist = 1.0
     self.resetCount = 0
     self.stepCount = 0
     self.totalSteps = 0
@@ -177,7 +173,7 @@ class RosSocialEnv(gym.Env):
       'Steps': 0,
       'Data': []
     }
-    print("Transition TO 0")
+    self.lastObs = utmrsStepperResponse()
 
   # Do this on shutdown
   def __del__(self):
@@ -202,7 +198,7 @@ class RosSocialEnv(gym.Env):
     obs = np.append(obs, self.action)
     return obs
 
-  def CalculateReward(self, res, dataMap):
+  def CalculateReward(self, res):
     distance = DistanceFromGoal(res)
     score = (self.lastDist - distance)
     self.lastDist = distance
@@ -211,9 +207,6 @@ class RosSocialEnv(gym.Env):
     self.totalForce += force
     self.totalBlame += blame
     self.totalSteps += 1
-    dataMap['DistScore'] = score
-    dataMap['Force'] = force
-    dataMap['Blame'] = blame
     bonus = 100.0 if res.success else 0.0
     penalty = -1.0 if res.collision else 0.0
     if (self.rewardType == '0'): # No Social
@@ -241,27 +234,16 @@ class RosSocialEnv(gym.Env):
     self.totalSteps += self.stepCount
     self.stepCount = 0
     kNumRepeats = self.numRepeats
+    # Create a new scenario if necessary
     if (self.resetCount % kNumRepeats == 0):
       GenerateScenario()
     response = self.simReset()
     stepResponse = self.simStep(0)
     self.startDist = DistanceFromGoal(stepResponse)
     self.lastDist = self.startDist
-    self.data['Demos'] = self.demos
+    self.lastObs = stepResponse
 
-    with open('data/SocialGym' + str(self.resetCount) + '.json', 'w') as outputJson:
-      json.dump(self.data, outputJson, indent=2, default=np_encoder)
-      self.data = {'Iteration': self.resetCount,
-                   'NumHumans': 0,
-                   'Success': 0,
-                   'Collision': 0,
-                   'Steps': 0,
-                   'Data': [],
-                   'Demos': []
-                   }
-      self.demos.clear()
-      self.lastObs = stepResponse
-      return self.MakeObservation(stepResponse)
+    return self.MakeObservation(stepResponse)
 
   def step(self, action):
     self.stepCount += 1
@@ -273,11 +255,6 @@ class RosSocialEnv(gym.Env):
     if (self.action != self.lastObs.robot_state):
       print("Transition TO: " + str(self.action))
 
-    # Update Demonstrations
-    demo = {}
-    demo["action"] = self.action
-    demo["obs"] = self.last_observation
-
     # Step the simulator and make observation
     response = self.simStep(action)
     self.lastObs = response
@@ -285,73 +262,15 @@ class RosSocialEnv(gym.Env):
     obs = self.MakeObservation(response)
     obs = [0 if math.isnan(x) else x for x in obs]
 
-    # Update Demonstrations
-    demo["next_obs"] = obs
-    self.last_observation = obs
-    self.demos.append(demo)
-
-    dataMap = {}
-
-    reward = self.CalculateReward(response, dataMap)
+    # Calculate a Reward
+    reward = self.CalculateReward(response)
     self.data["Reward"] = reward
     done = response.done
     if (response.success):
       self.data["Success"] = 1
     if (response.collision):
       self.data["Collision"] += 1
-    self.data["Data"].append(dataMap)
-    self.action_scores[action] += reward
-    return obs, reward, done, {"resetCount" : self.resetCount}
 
-  def PipsStep(self):
-    self.stepCount += 1
-    self.data["Steps"] = self.stepCount
-    tic = time.perf_counter()
-    # Get the Action to run from the pip service
-    # Execute one time step within the environment
-    # Call the associated simulator service (with the input action)
-    lastObs = self.lastObs
-    pipsRes = self.pipsSrv(lastObs.robot_poses,
-                           lastObs.robot_vels,
-                           lastObs.human_poses,
-                           lastObs.human_vels,
-                           lastObs.goal_pose,
-                           lastObs.local_target,
-                           lastObs.door_pose,
-                           lastObs.door_state,
-                           lastObs.robot_state,
-                           lastObs.follow_target)
-    self.action = pipsRes.action;
-    if (self.action != self.lastObs.robot_state):
-      print("Transition TO: " + str(self.action))
-
-    # Update Demonstrations
-    demo = {}
-    demo["acts"] = self.action
-    demo["obs"] = self.last_observation
-
-    # Step the simulator and make observation
-    response = self.simStep(self.action)
-    self.lastObs = response
-    toc = time.perf_counter()
-    obs = self.MakeObservation(response)
-    obs = [0 if math.isnan(x) else x for x in obs]
-
-    # Update Demonstrations
-    demo["next_obs"] = obs
-    self.last_observation = obs
-    self.demos.append(demo)
-
-    dataMap = {}
-
-    reward = self.CalculateReward(response, dataMap)
-    self.data["Reward"] = reward
-    done = response.done
-    if (response.success):
-      self.data["Success"] = 1
-    if (response.collision):
-      self.data["Collision"] += 1
-    self.data["Data"].append(dataMap)
     return obs, reward, done, {"resetCount" : self.resetCount}
 
   # Depends on RVIZ for visualization, no render method

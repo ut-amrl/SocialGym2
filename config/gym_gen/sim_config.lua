@@ -11,7 +11,8 @@ function Vector2(x, y)
   end
 
   map_name =  "maps/GDC1/GDC1.vectormap.txt"
-  -- Simulator starting location.
+
+  -- Simulator starting location for robots, one 3dof pose entry per robot
   start_poses = {
     {
       -1.45,
@@ -28,6 +29,7 @@ function Vector2(x, y)
     }
   }
 
+  -- Human Configuration
   num_humans = 9
   human_config = "../../config/gym_gen/humans.lua"
 
