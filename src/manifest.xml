@@ -1,6 +1,5 @@
 <package>
     <description>OpenAI Gym Environment Link with UTMRS</description>
-    <depend package="pedsim_simulator" />
     <depend package="ut_multirobot_sim" />
     <depend package="graph_navigation" />
 </package>

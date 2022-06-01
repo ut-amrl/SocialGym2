@@ -1,4 +1,15 @@
-require("config.sim_config");
+-- require("config.sim_config");
+function Vector2(x, y)
+  return {x = x, y = y}
+end
+
+function Vector3(x, y, z)
+  return {x = x, y = y, z = z}
+end
+
+function DegToRad(d)
+  return math.pi * d / 180
+end
 
 -- MODEL PARAMETERS
 invert_linear_vel_cmds = false

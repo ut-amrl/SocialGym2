@@ -11,7 +11,7 @@ import random
 import rospy
 import roslib
 import json
-NODE_NAME = 'ros_social_gym'
+NODE_NAME = 'social_gym'
 roslib.load_manifest(NODE_NAME)
 from graph_navigation.srv import graphNavSrv
 from amrl_msgs.msg import Pose2Df

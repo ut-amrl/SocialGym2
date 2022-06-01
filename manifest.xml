@@ -1,11 +1,5 @@
 <package>
-  <description brief="social_gym">
-
-  </description>
-  <author>Jarrett Holtz</author>
-  <license>MIT License</license>
-  <review status="unreviewed" notes=""/>
-  <url></url>
+    <description>OpenAI Gym Environment Link with UTMRS</description>
+    <depend package="ut_multirobot_sim" />
+    <depend package="graph_navigation" />
 </package>
-
-

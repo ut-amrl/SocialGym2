@@ -4,7 +4,7 @@ build_type=Release
 
 .SILENT:
 
-all:  msgs navigation
+all:  msgs navigation simulator
 	$(info Build_type is [${build_type}])
 	# $(MAKE) --no-print-directory -C build
 

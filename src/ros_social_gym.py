@@ -1,8 +1,6 @@
-!/usr/bin/env python
-
 # Ros Imports
 import roslib
-NODE_NAME = 'ros_social_gym'
+NODE_NAME = 'social_gym'
 roslib.load_manifest(NODE_NAME)
 from ut_multirobot_sim.srv import utmrsStepper
 from ut_multirobot_sim.srv import utmrsReset
@@ -151,10 +149,7 @@ class RosSocialEnv(gym.Env):
     self.simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
     self.simReset = rospy.ServiceProxy('utmrsReset', utmrsReset)
     self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
-    GenerateScenario()
-    self.launch.shutdown()
-    self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
-    self.launch.start()
+    #  GenerateScenario()
 
     # Initialize Internal Variables
     self.action = 0
@@ -204,9 +199,6 @@ class RosSocialEnv(gym.Env):
     self.lastDist = distance
     force = Force(res)
     blame = Blame(res)
-    self.totalForce += force
-    self.totalBlame += blame
-    self.totalSteps += 1
     bonus = 100.0 if res.success else 0.0
     penalty = -1.0 if res.collision else 0.0
     if (self.rewardType == '0'): # No Social
@@ -235,8 +227,8 @@ class RosSocialEnv(gym.Env):
     self.stepCount = 0
     kNumRepeats = self.numRepeats
     # Create a new scenario if necessary
-    if (self.resetCount % kNumRepeats == 0):
-      GenerateScenario()
+    #  if (self.resetCount % kNumRepeats == 0):
+      #  GenerateScenario()
     response = self.simReset()
     stepResponse = self.simStep(0)
     self.startDist = DistanceFromGoal(stepResponse)

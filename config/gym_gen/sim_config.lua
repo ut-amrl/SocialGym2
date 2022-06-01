@@ -1,36 +1,45 @@
 function Vector2(x, y)
-    return {x = x, y = y}
-  end
+  return {x = x, y = y}
+end
 
-  function Vector3(x, y, z)
-    return {x = x, y = y, z = z}
-  end
+function Vector3(x, y, z)
+  return {x = x, y = y, z = z}
+end
 
-  function DegToRad(d)
-    return math.pi * d / 180
-  end
+function DegToRad(d)
+  return math.pi * d / 180
+end
 
   map_name =  "maps/GDC1/GDC1.vectormap.txt"
 
-  -- Simulator starting location for robots, one 3dof pose entry per robot
+  -- Simulator starting location.
   start_poses = {
     {
-      -1.45,
-      10.35,
-      -1.5708
+      36.04,
+      9.06,
+      3.1459
+    },
+    {
+      10,
+      10,
+      3.1459
     }
   }
 
   goal_poses = {
     {
-      -13.71,
-      16.24,
-      0
+      19.75,
+      16.35,
+      3.14
+    },
+    {
+      19.75,
+      16.35,
+      3.14
     }
   }
 
-  -- Human Configuration
-  num_humans = 9
+  num_humans = 13
   human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {
@@ -85,9 +94,10 @@ function Vector2(x, y)
   -- robot_type = RobotType.OMNIDIRECTIONAL_DRIVE
   -- robot_config = "config/cobot_config.lua"
   robot_types = {
+    RobotType.DIFF_DRIVE,
     RobotType.DIFF_DRIVE
   }
-  robot_config = "config/ut_jackal_config.lua"
+  robot_config = "../../config/ut_jackal_config.lua"
 
   laser_topic = "/Cobot/Laser"
   laser_frame = "base_laser"
