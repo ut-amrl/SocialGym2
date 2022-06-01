@@ -9,7 +9,7 @@ A branch for a simplified version of the social gym that strips out the componen
 
 ### Install Instructions
 1. Install Dependencies
-2. `git clone --recurse_submodule git@github.com:ut-amrl/social_gym.git`
+2. `git clone --recurse_submodule -b simple-sgym git@github.com:ut-amrl/social_gym.git`
 3. Set the necessary path variables for ROS with `scripts/set_paths.sh` (This will need to be done in each terminal for running SocialGym as well)
 4. `make`
 
