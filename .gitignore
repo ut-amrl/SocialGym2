@@ -6,3 +6,6 @@ submodules/pedsim_ros/src/CMakeLists.txt
 data/
 *.json
 gail_training/
+
+.idea
+__pycache__/
