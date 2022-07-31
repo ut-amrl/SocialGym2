@@ -70,11 +70,10 @@ ENV TERM=xterm
 ENV QT_X11_NO_MITSHM=1
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
-ENV QT_DEBUG_PLUGINS=1
 ENV DISPLAY=:0
 ENV QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
 
 RUN apt -y install libgoogle-glog-dev libgflags-dev liblua5.1-0-dev qt5-default libxmlrpcpp-dev
 
-ENTRYPOINT ["/bin/bash", "-c", "cd /root/social_gym && source ./scripts/set_paths.sh && export ROS_PACKAGE_PATH=/root/vector_display:$ROS_PACKAGE_PATH && (roscore &) && cd /root/vector_display &&  \"$@ --edit_localization --edit_navigation\"", "-s"]
+ENTRYPOINT ["/bin/bash", "-c", "cd /root/social_gym && source ./scripts/set_paths.sh && export ROS_PACKAGE_PATH=/root/vector_display:$ROS_PACKAGE_PATH && (roscore &) && cd /root/vector_display &&  \"$@\"", "-s"]
 

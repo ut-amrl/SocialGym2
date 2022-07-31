@@ -24,11 +24,19 @@ def vectormap_txt_to_json(
 
     vectors = []
 
+    def clean_point(point: str) -> str:
+        return point.strip().replace(',', '')
+
     with vectormap_text_file.open('r') as r:
         lines = r.readlines()
         for line in lines:
             values = line.strip().split(" ")
             p0x, p0y, p1x, p1y = values
+
+            p0x = clean_point(p0x)
+            p0y = clean_point(p0y)
+            p1x = clean_point(p1x)
+            p1y = clean_point(p1y)
 
             vectors.append({'p0': {'x': p0x, 'y': p0y}, 'p1': {'x': p1x, 'y': p1y}})
 

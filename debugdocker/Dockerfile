@@ -5,11 +5,29 @@ SHELL ["/bin/bash", "-c"]
 # Set the working director to root
 WORKDIR /root
 
+
 # Install Necessary Programs
 RUN apt-get update && apt-get install -y git openssh-server ros-noetic-tf \
     ros-noetic-geometry* libgflags-dev libgoogle-glog-dev lua5.1-dev \
     ros-noetic-gazebo-ros ros-noetic-rviz libncurses5-dev python3-pip \
-    python2.7 python-is-python3 neovim
+    python2.7 python-is-python3 neovim curl
+
+RUN #apt install software-properties-common -y
+RUN #add-apt-repository ppa:deadsnakes/ppa -y
+
+#RUN apt-get update && apt-get install -y python3.7 python3.7-distutils
+
+RUN #update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+RUN #curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN #python3.7 get-pip.py --force-reinstall
+
+RUN #pip3 install gym_collision_avoidance
+
+
+#RUN \
+#   echo 'alias python3="/usr/bin/python3.6"' >> /root/.bashrc && \
+#   echo 'alias pip3="/usr/bin/pip3.7"' >> /root/.bashrc && \
+#   source /root/.bashrc
 
 RUN pip3 install click
 RUN pip3 install jinja2
@@ -77,9 +95,13 @@ ENV TERM=xterm
 ENV QT_X11_NO_MITSHM=1
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
-ENV QT_DEBUG_PLUGINS=1
 ENV DISPLAY=:0
 ENV QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
+
+RUN #update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1
+RUN #pip3 uninstall -y netifaces
+RUN #pip3 install netifaces
+
 
 # We need to source the set_paths then start the roscore program in the background.  After than we can move into the
 # main project folder and call our python scripts.

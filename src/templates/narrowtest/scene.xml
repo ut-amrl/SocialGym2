@@ -1,0 +1,33 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <!--Obstacles-->
+    <obstacle x1="-1.014007" y1="-0.003961" x2="-1.014007" y2="-0.003961"/>
+	<obstacle x1="-1.742824" y1="-3.980769" x2="-0.483238" y2="1.010046"/>
+	<obstacle x1="-0.499081" y1="1.017968" x2="0.499081" y2="1.025890"/>
+	<obstacle x1="0.499081" y1="1.025890" x2="1.164523" y2="-4.258036"/>
+	<obstacle x1="-1.774608" y1="-3.950327" x2="-5.737090" y2="-8.058667"/>
+	<obstacle x1="-5.761400" y1="-8.107286" x2="0.486194" y2="-12.483033"/>
+	<obstacle x1="0.486194" y1="-12.483033" x2="6.223284" y2="-6.575775"/>
+	<obstacle x1="6.223284" y1="-6.575775" x2="1.191175" y2="-4.242043"/>    
+    <!--Way Points-->
+
+    <waypoint id="n0" x="-2.4389" y="-8.6855" r="1" b="0.1"/>
+    <waypoint id="n1" x="0" y="0" r="1" b="0.1"/>
+
+    <!-- This Robot Goal Doesn't Matter, but is Required -->
+    <waypoint id="robot_goal" x="2000" y="2000" r="2"/>
+    <waypoint id="robot_start" x="2000.26629" y="-2011.078" r="2"/>
+    <agent x="2000.26629" y="-2011.078" n="1" dx="0" dy="0" type="2">
+        <addwaypoint id="robot_start"/>
+        <addwaypoint id="robot_goal"/>
+    </agent>
+    
+    <!-- Agents -->
+
+   <agent x="-2.4389" y="-8.6855" n="1" dx="1.0" dy="1.0" type="0">
+           <addwaypoint id="n0" />
+           <addwaypoint id="n1" />
+   </agent>
+
+</scenario>

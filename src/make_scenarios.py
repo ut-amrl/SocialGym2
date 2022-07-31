@@ -16,8 +16,19 @@ roslib.load_manifest(NODE_NAME)
 from graph_navigation.srv import graphNavSrv
 from amrl_msgs.msg import Pose2Df
 from shutil import copyfile
-config_nav_path = 'GDC'
-config_scene_path = 'src/templates/gdc/'
+from pathlib import Path
+
+config_nav_path = 'src/templates/narrowtest/narrowtest.navigation.json'
+config_scene_path = 'src/templates/narrowtest/'
+
+test = Path(config_scene_path).absolute()
+test1 = Path(config_nav_path).absolute()
+
+print(test1)
+print(test)
+
+print(test1.exists())
+print(test1.is_file())
 # CMU Scenario
 #  config_nav_path = 'maps/GHC3/GHC3.navigation.json'
 #  config_scene_path = 'src/ros_social_gym/templates/GHC3/'
@@ -137,12 +148,12 @@ def LoadNavNodes(nav_path):
     with open(nav_path, 'r') as input:
         json_list = json.load(input)
         for entry in json_list['nodes']:
-            point = (entry['loc']['x'], entry['loc']['y'], 0.0)
+            point = (float(entry['loc']['x']), float(entry['loc']['y']), 0.0)
             temp_nav.append(point)
     return list(set(temp_nav))
 
 def MakeScenario(config):
-    dir_name = "config/gym_gen/"
+    dir_name = "config/narrowtest/"
 
     with open(config_scene_path + 'humans.lua', 'r') as f:
         human_lua_template = jinja2.Template(f.read())
@@ -193,7 +204,7 @@ def GenerateScenario():
     if (config_nav_path != 'GDC'):
         nav_map = LoadNavNodes(config_nav_path)
         robot_positions = nav_map
-    num_humans = randint(5, 25)
+    num_humans = randint(1, 1)
     robot_start = randint(0, len(robot_positions) - 1)
     robot_end = robot_start
     while (robot_start == robot_end):
@@ -213,6 +224,7 @@ def GenerateScenario():
         start = Pose2Df(h_start[0], h_start[1], 0)
         end = Pose2Df(h_end[0], h_end[1], 0)
         resp = planner(start, end)
+        print(f"RAW PLAN: {resp}")
         plan = [x for x in resp.plan if x < len(nav_map)]
         r_plan = plan[::-1]
         human_list = [robot_positions[human_start][0],
@@ -235,3 +247,7 @@ def GenerateScenario():
         'nav_map': nav_map
     }
     MakeScenario(config)
+
+
+if __name__ == "__main__":
+    GenerateScenario()

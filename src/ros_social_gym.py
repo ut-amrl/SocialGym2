@@ -139,7 +139,7 @@ class RosSocialEnv(gym.Env):
     # human_1x, human_1y, ..., human_1vx, human_1vy ...
     # next_door_x, next_door_y, next_door_state
     self.num_robots = 1
-    self.max_humans = 40
+    self.max_humans = 1
     self.noPose = True
     self.length = 1 + (self.num_robots*6) + (self.max_humans * 6)
     if self.noPose:
@@ -177,7 +177,7 @@ class RosSocialEnv(gym.Env):
       'Steps': 0,
       'Data': []
     }
-    print("Transition TO 0")
+    # print("Transition TO 0")
 
   # Do this on shutdown
   def __del__(self):
@@ -270,8 +270,8 @@ class RosSocialEnv(gym.Env):
     # Execute one time step within the environment
     # Call the associated simulator service (with the input action)
     self.action = action
-    if (self.action != self.lastObs.robot_state):
-      print("Transition TO: " + str(self.action))
+    # if (self.action != self.lastObs.robot_state):
+      # print("Transition TO: " + str(self.action))
 
     # Update Demonstrations
     demo = {}
@@ -322,8 +322,8 @@ class RosSocialEnv(gym.Env):
                            lastObs.robot_state,
                            lastObs.follow_target)
     self.action = pipsRes.action;
-    if (self.action != self.lastObs.robot_state):
-      print("Transition TO: " + str(self.action))
+    # if (self.action != self.lastObs.robot_state):
+    #   print("Transition TO: " + str(self.action))
 
     # Update Demonstrations
     demo = {}
