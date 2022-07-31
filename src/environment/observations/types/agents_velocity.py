@@ -20,6 +20,6 @@ class AgentsVelocity(Observation):
         # TODO - only works for single agent setups, update this if this changes
         return 3
 
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         agent_pose = poses_to_np_array(env_response.robot_vels)
         return agent_pose

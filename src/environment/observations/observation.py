@@ -16,7 +16,7 @@ class Observation(ABC):
         raise NotImplemented("All observations must have a name attribute.")
 
     @abstractmethod
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         """
         Given the environment being used in the sim and the response from the current timestep, generate a numpy array
         that can be used as an observation for the Agent (subsequently passed into the policy network).
@@ -26,7 +26,11 @@ class Observation(ABC):
         :returns: A numpy array that contains relevant observation data for the policy network.
         """
 
-        raise NotImplemented("All Observation classes need to have their observations() method defined.")
+        raise NotImplemented("All Observation classes need to have their __observations__() method defined.")
+
+    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+        obs = self.__observations__(env, env_response)
+        return np.pad(obs, pad_width=(0,  len(self) - obs.shape[0]), mode='constant')
 
     @abstractmethod
     def __len__(self) -> Union[int, List[int]]:

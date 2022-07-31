@@ -24,5 +24,5 @@ class AgentsPreferredVelocity(Observation):
         # TODO - only works for single agent setups, update this if this changes
         return 1
 
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         return np.array([self.preferred_velocity])

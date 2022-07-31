@@ -17,7 +17,7 @@ class AgentsHeadingDirection(Observation):
     def __len__(self):
         return 1
 
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         agent_vels = poses_to_np_array(env_response.robot_vels)
         heading_direction = np.arctan(agent_vels[1] / agent_vels[0])
         return np.array([heading_direction])

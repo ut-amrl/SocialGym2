@@ -162,7 +162,7 @@ class RosSocialEnv(gym.Env):
     # human_1x, human_1y, ..., human_1vx, human_1vy ...
     # next_door_x, next_door_y, next_door_state
     self.num_robots = 1
-    self.max_humans = 2
+    self.max_humans = 25
     self.noPose = True
 
     if self.observer is not None:

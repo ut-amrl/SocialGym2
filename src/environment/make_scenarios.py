@@ -18,17 +18,20 @@ from amrl_msgs.msg import Pose2Df
 from shutil import copyfile
 from pathlib import Path
 
-config_nav_path = 'src/templates/narrowtest/narrowtest.navigation.json'
-config_scene_path = 'src/templates/narrowtest/'
+config_nav_path = 'GDC'
+config_scene_path = 'src/templates/gdc/'
 
-test = Path(config_scene_path).absolute()
-test1 = Path(config_nav_path).absolute()
-
-print(test1)
-print(test)
-
-print(test1.exists())
-print(test1.is_file())
+# config_nav_path = 'src/templates/narrowtest/narrowtest.navigation.json'
+# config_scene_path = 'src/templates/narrowtest/'
+#
+# test = Path(config_scene_path).absolute()
+# test1 = Path(config_nav_path).absolute()
+#
+# print(test1)
+# print(test)
+#
+# print(test1.exists())
+# print(test1.is_file())
 # CMU Scenario
 #  config_nav_path = 'maps/GHC3/GHC3.navigation.json'
 #  config_scene_path = 'src/ros_social_gym/templates/GHC3/'
@@ -204,7 +207,9 @@ def GenerateScenario():
     if (config_nav_path != 'GDC'):
         nav_map = LoadNavNodes(config_nav_path)
         robot_positions = nav_map
-    num_humans = randint(2, 2)
+
+    num_humans = randint(5, 25)
+
     robot_start = randint(0, len(robot_positions) - 1)
     robot_end = robot_start
     while (robot_start == robot_end):

@@ -24,7 +24,7 @@ class OthersPoses(Observation):
         # TODO - only works for single agent setups, update this if this changes
         return self.num_others * 3
 
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         others_poses = poses_to_np_array(env_response.human_poses)
         return others_poses
 

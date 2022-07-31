@@ -57,7 +57,7 @@ class SocialNormOvertake(Reward):
         if self.goal_dist_threshold < observation_map[AgentsGoalDistance.name()][0]:
             return 0.0
 
-        poses = observation_map[OthersPoses.name()].reshape((2, 3))[:, 0:2]
+        poses = observation_map[OthersPoses.name()].reshape((-1, 3))[:, 0:2]
 
         agents_hd = observation_map[AgentsHeadingDirection.name()]
         other_agents_hd = observation_map[OthersHeadingDirection.name()]
