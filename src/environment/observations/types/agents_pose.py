@@ -5,12 +5,16 @@ from src.environment.observations import Observation
 from src.environment.utils import poses_to_np_array
 
 
-class AgentPose(Observation):
+class AgentsPose(Observation):
     """
     TODO - warning, only works for single agent environments (1 robot) can be easily fixed if needed
 
     Returns the X, Y, Theta positions of the agent in the environment.
     """
+
+    @classmethod
+    def name(cls):
+        return "agents_pose"
 
     def __len__(self):
         # TODO - only works for single agent setups, update this if this changes

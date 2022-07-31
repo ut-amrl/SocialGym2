@@ -204,7 +204,7 @@ def GenerateScenario():
     if (config_nav_path != 'GDC'):
         nav_map = LoadNavNodes(config_nav_path)
         robot_positions = nav_map
-    num_humans = randint(1, 1)
+    num_humans = randint(2, 2)
     robot_start = randint(0, len(robot_positions) - 1)
     robot_end = robot_start
     while (robot_start == robot_end):

@@ -5,10 +5,15 @@ from typing import List, Union
 from src.environment.ros_social_gym import RosSocialEnv
 
 
-class Observation:
+class Observation(ABC):
 
     def __init__(self, *args, **kwargs):
         pass
+
+    @classmethod
+    @abstractmethod
+    def name(cls):
+        raise NotImplemented("All observations must have a name attribute.")
 
     @abstractmethod
     def observations(self, env: RosSocialEnv, env_response) -> np.array:
@@ -32,3 +37,10 @@ class Observation:
 
     def __call__(self, env: RosSocialEnv, env_response, *args, **kwargs) -> np.array:
         return self.observations(env, env_response)
+
+    def __setup__(self, env: RosSocialEnv):
+        """
+        Method that can setup the observation as needed before being used in the simulation.
+        """
+
+        return

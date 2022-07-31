@@ -5,17 +5,24 @@ from src.environment.observations import Observation
 from src.environment.utils import poses_to_np_array
 
 
-class AgentVelocity(Observation):
+class AgentsPreferredVelocity(Observation):
     """
     TODO - warning, only works for single agent environments (1 robot) can be easily fixed if needed
 
-    Returns the vx, vy of the agent in the current timestep
+    Returns the preferred velocity of the agent (really just a static number)
     """
+
+    def __init__(self, preferred_velocity: float, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.preferred_velocity = preferred_velocity
+
+    @classmethod
+    def name(cls):
+        return "agents_preferred_velocity"
 
     def __len__(self):
         # TODO - only works for single agent setups, update this if this changes
-        return 3
+        return 1
 
     def observations(self, env: RosSocialEnv, env_response) -> np.array:
-        agent_pose = poses_to_np_array(env_response.robot_vels)
-        return agent_pose
+        return np.array([self.preferred_velocity])

@@ -9,28 +9,24 @@ from ut_multirobot_sim.srv import utmrsReset
 from amrl_msgs.srv import SocialPipsSrv
 from ut_multirobot_sim.srv import utmrsStepperResponse
 from src.environment.make_scenarios import GenerateScenario
-from shutil import copyfile
 import rospy
 import roslaunch
 
 # Other Imports
 import copy
-import sys
 import gym
 from gym import spaces
 import json
 import numpy as np
-import os
 import time
 import math
-from statistics import mean
 from random import seed
-from typing import Callable, List, TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 # Package imports
 if TYPE_CHECKING:
-  from src.environment.rewards import Reward
-  from src.environment.observations import Observation
+  from src.environment.rewards import Rewarder
+  from src.environment.observations.observer import Observer
 
 def MakeNpArray(poseList):
   coordList = []
@@ -124,16 +120,16 @@ def np_encoder(object):
 class RosSocialEnv(gym.Env):
   """A ros-based social navigation environment for OpenAI gym"""
 
-  registered_observations: List['Observation']
-  registered_rewards: List['Reward']
+  observer: 'Observer'
+  rewarder: 'Rewarder'
 
   def __init__(
           self,
           reward,
           repeats,
           launch,
-          registered_observations: List['Observation'] = (),
-          registered_rewards: List['Reward'] = (),
+          observer: 'Observer' = None,
+          rewarder: 'Rewarder' = None,
   ):
     """
     :param reward: Controls the built-in reward functionality (will not be used if registered_reward_functions is set)
@@ -146,8 +142,8 @@ class RosSocialEnv(gym.Env):
     super(RosSocialEnv, self).__init__()
     seed(1)
     # Halt, GoAlone, Follow, Pass
-    self.registered_rewards = registered_rewards
-    self.registered_observations = registered_observations
+    self.rewarder = rewarder
+    self.observer = observer
 
     self.numRepeats = repeats
     self.demos = []
@@ -166,8 +162,13 @@ class RosSocialEnv(gym.Env):
     # human_1x, human_1y, ..., human_1vx, human_1vy ...
     # next_door_x, next_door_y, next_door_state
     self.num_robots = 1
-    self.max_humans = 1
+    self.max_humans = 2
     self.noPose = True
+
+    if self.observer is not None:
+      self.observer.setup(self)
+    if self.rewarder is not None:
+      self.rewarder.setup(self)
 
     self.make_observation_space()
 
@@ -206,16 +207,9 @@ class RosSocialEnv(gym.Env):
   def __del__(self):
     self.launch.shutdown()
 
-  def register_reward(self, reward: 'Reward'):
-    self.registered_rewards.append(reward)
-
-  def register_observation(self, observation: 'Observation'):
-    self.registered_observations.append(observation)
-    self.make_observation_space()
-
   def make_observation_space(self):
-    if len(self.registered_observations):
-      self.length = sum([len(x) for x in self.registered_observations])
+    if self.observer is not None:
+      self.length = len(self.observer)
     else:
       self.length = 1 + (self.num_robots * 6) + (self.max_humans * 6)
       if self.noPose:
@@ -227,8 +221,8 @@ class RosSocialEnv(gym.Env):
                                         shape=(self.length,))
 
   def MakeObservation(self, res):
-    if len(self.registered_observations) > 0:
-      return np.concatenate([x(self, res) for x in self.registered_observations])
+    if self.observer is not None:
+      return self.observer.make_observation_array(self, env_response=res)
 
     obs = []
     if (self.noPose):
@@ -249,8 +243,8 @@ class RosSocialEnv(gym.Env):
     return obs
 
   def CalculateReward(self, res, dataMap):
-    if len(self.registered_rewards) > 0:
-      return sum([x(self, res, dataMap) for x in self.registered_rewards])
+    if self.rewarder is not None:
+      return self.rewarder.reward(self, res, dataMap)
     else:
       # Original reward code
       distance = DistanceFromGoal(res)

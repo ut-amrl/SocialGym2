@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Dict
 
 from src.environment.rewards import Reward
 from src.environment.ros_social_gym import RosSocialEnv
@@ -11,7 +12,7 @@ class GoalDistance(Reward):
 
     I.E.
 
-    timestep 1 -> 5 units to the goal, will return 5
+    timestep 1 -> 5 units to the goal, will return 0
     timestep 2 -> 3 units to the goal, will return 5 - 3 -> 2
     timestep 3 -> 4 units to the goal, will return 3 - 4 -> -1
     """
@@ -21,7 +22,11 @@ class GoalDistance(Reward):
 
         self.last_goal_distance = -1
 
-    def __score__(self, env: RosSocialEnv, env_response, data_map) -> float:
+    @classmethod
+    def name(cls):
+        return "goal_distance"
+
+    def __score__(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
         robot_poses = poses_to_np_array(env_response.robot_poses)
         goal_pose = poses_to_np_array(env_response.goal_pose)
 

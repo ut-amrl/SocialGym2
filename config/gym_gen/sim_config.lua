@@ -14,21 +14,21 @@ function Vector2(x, y)
   -- Simulator starting location.
   start_poses = {
     {
-      -1.604716420173645,
-      -4.507533550262451,
+      0.587033748626709,
+      -4.5393900871276855,
       0.0
     }
   }
 
   goal_poses = {
     {
-      0.2812081575393677,
-      0.6915019154548645,
+      -5.134453773498535,
+      -8.030899047851562,
       0.0
     }
   }
 
-  num_humans = 1
+  num_humans = 2
   human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {
