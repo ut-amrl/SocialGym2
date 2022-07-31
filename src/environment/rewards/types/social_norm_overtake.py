@@ -6,7 +6,7 @@ from typing import Dict, Tuple
 from src.environment.rewards import Reward
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import AgentsGoalDistance, OthersPoses, AgentsHeadingDirection,\
-    OthersHeadingDirection, AgentsVelocity, OthersVelocities
+    OthersHeadingDirection, AgentsVelocity, OthersVelocities, AgentsPose
 
 
 class SocialNormOvertake(Reward):
@@ -45,6 +45,8 @@ class SocialNormOvertake(Reward):
             'Social Norm Overtake requires the agents goal distance to be in the observation'
         assert OthersPoses.name() in observation_map, \
             'Social Norm Overtake requires the other agents/humans poses to be in the observation'
+        assert AgentsPose.name() in observation_map, \
+            'Social Norm passing requires the agents pose to be in the observation'
         assert AgentsHeadingDirection.name() in observation_map, \
             'Social Norm Overtake requires the agents heading direction to be in the observation'
         assert OthersHeadingDirection.name() in observation_map, \
@@ -58,6 +60,13 @@ class SocialNormOvertake(Reward):
             return 0.0
 
         poses = observation_map[OthersPoses.name()].reshape((-1, 3))[:, 0:2]
+        agents_pose = observation_map[AgentsPose.name()][0:2]
+
+        # TODO - paper doesn't say to use the difference between the agent and the other human/agent but it doesn't
+        #   make since otherwise
+        # pose_diffs = poses - agents_pose
+        # TODO - are the poses relative to the agent already?
+        pose_diffs = poses
 
         agents_hd = observation_map[AgentsHeadingDirection.name()]
         other_agents_hd = observation_map[OthersHeadingDirection.name()]
@@ -65,8 +74,8 @@ class SocialNormOvertake(Reward):
         agents_vel = np.linalg.norm(observation_map[AgentsVelocity.name()][0:2])
         other_vels = np.linalg.norm(observation_map[OthersVelocities.name()].reshape(-1, 3)[:, 0:2], axis=-1)
 
-        x_check = (self.px_threshold[0] < poses[:, 0]) & (poses[:, 0] < self.px_threshold[1])
-        y_check = (self.py_threshold[0] < poses[:, 1]) & (poses[:, 1] < self.py_threshold[1])
+        x_check = (self.px_threshold[0] < pose_diffs[:, 0]) & (pose_diffs[:, 0] < self.px_threshold[1])
+        y_check = (self.py_threshold[0] < pose_diffs[:, 1]) & (pose_diffs[:, 1] < self.py_threshold[1])
 
         heading_diff_magnitudes = np.absolute(other_agents_hd - agents_hd)
         heading_check = self.heading_angle_threshold < heading_diff_magnitudes

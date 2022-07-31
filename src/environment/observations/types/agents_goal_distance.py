@@ -7,8 +7,6 @@ from src.environment.utils import poses_to_np_array
 
 class AgentsGoalDistance(Observation):
     """
-    TODO - warning, only works for single agent environments (1 robot) can be easily fixed if needed
-
     Returns the Norm of the agents pose and the goal pose
     """
 
@@ -17,7 +15,6 @@ class AgentsGoalDistance(Observation):
         return "agents_goal_distance"
 
     def __len__(self):
-        # TODO - only works for single agent setups, update this if this changes
         return 1
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:

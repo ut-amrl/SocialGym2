@@ -6,14 +6,24 @@ from src.environment.ros_social_gym import RosSocialEnv
 
 
 class Reward(ABC):
+    """
+    Base class for rewarding or penalizing the agent in the simulation at each timestep according to the observation
+    and environment configs.
+    """
+
     weight: float
 
     def __init__(self, weight: float = 1.0, *args, **kwargs):
+        """
+        :param weight: How much weight should this reward/penalty have
+        """
+
         self.weight = weight
 
     @classmethod
     @abstractmethod
     def name(cls):
+        """The name of the reward/penalty (used in other places, often to keep track of the types of rewards)"""
         raise NotImplemented("All rewards must have a name class method method.")
 
     @abstractmethod

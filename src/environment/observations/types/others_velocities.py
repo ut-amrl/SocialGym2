@@ -21,7 +21,6 @@ class OthersVelocities(Observation):
         return "others_velocities"
 
     def __len__(self):
-        # TODO - only works for single agent setups, update this if this changes
         return self.num_others * 3
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:

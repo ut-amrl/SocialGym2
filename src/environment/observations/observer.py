@@ -9,6 +9,9 @@ if TYPE_CHECKING:
 
 
 class Observer:
+    """
+    Tracks all observations made in the environment
+    """
 
     registered_observations: List[Observation]
 

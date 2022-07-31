@@ -2,7 +2,7 @@ from src.environment.observations import AgentsPose, AgentsVelocity, AgentsHeadi
     OthersHeadingDirection, OthersVelocities, OthersPoses, AgentsPreferredVelocity, AgentsGoalDistance
 
 
-def dsacadrl():
+def dsacadrl_observations():
     """
     Helper for building the observations needed for the D-Sacadrl Policy.
     """

@@ -7,8 +7,6 @@ from src.environment.utils import poses_to_np_array
 
 class AgentsOthersDistance(Observation):
     """
-    TODO - Only works for single agent setups, update this if this changes
-
     Return the Normed distance between the agent and the other agents/humans
     """
 
@@ -23,7 +21,6 @@ class AgentsOthersDistance(Observation):
         return "agents_others_distance"
 
     def __len__(self):
-        # TODO - only works for single agent setups, update this if this changes
         return self.num_others
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:

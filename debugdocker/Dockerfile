@@ -102,6 +102,7 @@ RUN #update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1
 RUN #pip3 uninstall -y netifaces
 RUN #pip3 install netifaces
 
+RUN pip3 install tensorboardX
 
 # We need to source the set_paths then start the roscore program in the background.  After than we can move into the
 # main project folder and call our python scripts.
