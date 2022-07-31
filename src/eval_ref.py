@@ -1,6 +1,5 @@
-import gym
 from random import seed
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
 # The algorithms require a vectorized environment to run
 env = RosSocialEnv('1', 1, 'config/gym_gen/ref_launch.launch')

@@ -1,12 +1,10 @@
-import gym
 import sys
 from random import seed
 #  from stable_baselines3.common.policies import MlpPolicy
 from stable_baselines3.common.vec_env import DummyVecEnv
 #  import pandas as pdj
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
-from imitation.algorithms import adversarial, bc
 from imitation.policies import serialize
 
 if (len(sys.argv) < 2):

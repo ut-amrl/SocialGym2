@@ -1,8 +1,7 @@
-import gym
 from random import seed
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3 import DQN
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
 # The algorithms require a vectorized environment to run
 env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch")])

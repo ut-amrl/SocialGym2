@@ -1,10 +1,8 @@
-import gym
 import sys
 from random import seed
-import datetime as dt
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3 import DQN
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
 if (len(sys.argv) < 2):
     print("Requires the path to the model to evaluate.")

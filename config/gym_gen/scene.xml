@@ -56,31 +56,19 @@
 
     <!-- This Robot Goal Doesn't Matter, but is Required -->
   <waypoint id="robot_goal" x="22" y="27" r="2"/>
-  <waypoint id="robot_start" x="-0.27310073375701904" y="0.646902322769165" r="2"/>
+  <waypoint id="robot_start" x="-1.604716420173645" y="-4.507533550262451" r="2"/>
 
-  <agent x="-0.27310073375701904" y="0.646902322769165" n="1" dx="0" dy="0" type="2">
+  <agent x="-1.604716420173645" y="-4.507533550262451" n="1" dx="0" dy="0" type="2">
     <addwaypoint id="robot_start"/>
     <addwaypoint id="robot_goal"/>
   </agent>
 
   
-  <agent x="0.38952139019966125" y="-11.891947746276855" n="1" dx="1.0" dy="1.0" type="0">
-    
-    <addwaypoint id="n5" />
-    
-    <addwaypoint id="n1" />
-    
-    <addwaypoint id="n7" />
+  <agent x="-0.27310073375701904" y="0.646902322769165" n="1" dx="1.0" dy="1.0" type="0">
     
     <addwaypoint id="n9" />
     
     <addwaypoint id="n9" />
-    
-    <addwaypoint id="n7" />
-    
-    <addwaypoint id="n1" />
-    
-    <addwaypoint id="n5" />
     
   </agent>
   

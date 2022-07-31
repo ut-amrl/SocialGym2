@@ -1,12 +1,9 @@
-import gym
 import sys
 from random import seed
 from stable_baselines3.common.vec_env import DummyVecEnv
-from ros_social_gym import RosSocialEnv
-from make_scenarios import GenerateScenario
+from src.environment.ros_social_gym import RosSocialEnv
 
-from imitation.algorithms import adversarial, bc
-from imitation.data import rollout
+from imitation.algorithms import bc
 
 if (len(sys.argv) < 2):
     print("Requires the path to the model to evaluate.")

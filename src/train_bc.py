@@ -1,13 +1,7 @@
-import pathlib
-import pickle
-
-import stable_baselines3 as sb3
-from imitation.algorithms import adversarial, bc
-from imitation.data import rollout
-from imitation.util import logger, util
-from torch.utils.data import Dataset, DataLoader
+from imitation.algorithms import bc
+from imitation.util import logger
 from social_dataset import SocialDataset
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 # create Environtment

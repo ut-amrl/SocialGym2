@@ -1,8 +1,6 @@
-import gym
-import sys
 from random import seed
 from stable_baselines3.common.vec_env import DummyVecEnv
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
 env = DummyVecEnv([lambda: RosSocialEnv('1', 1, "config/gym_gen/launch.launch")])
 seed(1123)

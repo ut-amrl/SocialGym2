@@ -1,8 +1,7 @@
-import gym
 import sys
 from random import seed
 #  from stable_baselines3.common.policies import MlpPolicy
-from ros_social_gym import RosSocialEnv
+from src.environment.ros_social_gym import RosSocialEnv
 
 # The algorithms require a vectorized environment to run
 if (len(sys.argv) < 2):

@@ -8,7 +8,7 @@ from ut_multirobot_sim.srv import utmrsStepper
 from ut_multirobot_sim.srv import utmrsReset
 from amrl_msgs.srv import SocialPipsSrv
 from ut_multirobot_sim.srv import utmrsStepperResponse
-from make_scenarios import GenerateScenario
+from src.environment.make_scenarios import GenerateScenario
 from shutil import copyfile
 import rospy
 import roslaunch
@@ -25,6 +25,12 @@ import time
 import math
 from statistics import mean
 from random import seed
+from typing import Callable, List, TYPE_CHECKING
+
+# Package imports
+if TYPE_CHECKING:
+  from src.environment.rewards import Reward
+  from src.environment.observations import Observation
 
 def MakeNpArray(poseList):
   coordList = []
@@ -118,10 +124,31 @@ def np_encoder(object):
 class RosSocialEnv(gym.Env):
   """A ros-based social navigation environment for OpenAI gym"""
 
-  def __init__(self, reward, repeats, launch):
+  registered_observations: List['Observation']
+  registered_rewards: List['Reward']
+
+  def __init__(
+          self,
+          reward,
+          repeats,
+          launch,
+          registered_observations: List['Observation'] = (),
+          registered_rewards: List['Reward'] = (),
+  ):
+    """
+    :param reward: Controls the built-in reward functionality (will not be used if registered_reward_functions is set)
+    :param repeats:
+    :param launch:
+    :param registered_rewards: List of Reward Objects to call in order for calculating the reward instead of the
+      built-in reward functionality
+    """
+
     super(RosSocialEnv, self).__init__()
     seed(1)
     # Halt, GoAlone, Follow, Pass
+    self.registered_rewards = registered_rewards
+    self.registered_observations = registered_observations
+
     self.numRepeats = repeats
     self.demos = []
     self.last_observation = []
@@ -141,13 +168,9 @@ class RosSocialEnv(gym.Env):
     self.num_robots = 1
     self.max_humans = 1
     self.noPose = True
-    self.length = 1 + (self.num_robots*6) + (self.max_humans * 6)
-    if self.noPose:
-      self.length = 4 + (self.max_humans * 6)
-      #  self.length = 1 + (self.num_robots*3) + (self.max_humans * 6)
-    self.observation_space = spaces.Box(low=-9999,
-                                        high=9999,
-                                        shape=(self.length,))
+
+    self.make_observation_space()
+
     # Initialize as necessary here
     rospy.init_node('RosSocialEnv', anonymous=True)
 
@@ -183,7 +206,30 @@ class RosSocialEnv(gym.Env):
   def __del__(self):
     self.launch.shutdown()
 
+  def register_reward(self, reward: 'Reward'):
+    self.registered_rewards.append(reward)
+
+  def register_observation(self, observation: 'Observation'):
+    self.registered_observations.append(observation)
+    self.make_observation_space()
+
+  def make_observation_space(self):
+    if len(self.registered_observations):
+      self.length = sum([len(x) for x in self.registered_observations])
+    else:
+      self.length = 1 + (self.num_robots * 6) + (self.max_humans * 6)
+      if self.noPose:
+        self.length = 4 + (self.max_humans * 6)
+        #  self.length = 1 + (self.num_robots*3) + (self.max_humans * 6)
+
+    self.observation_space = spaces.Box(low=-9999,
+                                        high=9999,
+                                        shape=(self.length,))
+
   def MakeObservation(self, res):
+    if len(self.registered_observations) > 0:
+      return np.concatenate([x(self, res) for x in self.registered_observations])
+
     obs = []
     if (self.noPose):
       pass
@@ -203,36 +249,40 @@ class RosSocialEnv(gym.Env):
     return obs
 
   def CalculateReward(self, res, dataMap):
-    distance = DistanceFromGoal(res)
-    score = (self.lastDist - distance)
-    self.lastDist = distance
-    force = Force(res)
-    blame = Blame(res)
-    self.totalForce += force
-    self.totalBlame += blame
-    self.totalSteps += 1
-    dataMap['DistScore'] = score
-    dataMap['Force'] = force
-    dataMap['Blame'] = blame
-    bonus = 100.0 if res.success else 0.0
-    penalty = -1.0 if res.collision else 0.0
-    if (self.rewardType == '0'): # No Social
-      return (10 * score) + bonus
-    elif (self.rewardType == '1'): # Nicer
-      w1 = 5.0
-      w2 = -0.1
-      w3 = -0.01
-      if (score < 0.0):
-        w1 *= 2.0
-      cost = w1 * score + w2 * blame + w3 * force
-      return cost + bonus
-    elif (self.rewardType == '2'): # Greedier
-      w1 = 10.0
-      w2 = -0.05
-      w3 = -0.01
-      cost = w1 * score + w2 * blame + w3 * force
-      return cost + bonus
-    return score + bonus
+    if len(self.registered_rewards) > 0:
+      return sum([x(self, res, dataMap) for x in self.registered_rewards])
+    else:
+      # Original reward code
+      distance = DistanceFromGoal(res)
+      score = (self.lastDist - distance)
+      self.lastDist = distance
+      force = Force(res)
+      blame = Blame(res)
+      self.totalForce += force
+      self.totalBlame += blame
+      self.totalSteps += 1
+      dataMap['DistScore'] = score
+      dataMap['Force'] = force
+      dataMap['Blame'] = blame
+      bonus = 100.0 if res.success else 0.0
+      penalty = -1.0 if res.collision else 0.0
+      if (self.rewardType == '0'): # No Social
+        return (10 * score) + bonus
+      elif (self.rewardType == '1'): # Nicer
+        w1 = 5.0
+        w2 = -0.1
+        w3 = -0.01
+        if (score < 0.0):
+          w1 *= 2.0
+        cost = w1 * score + w2 * blame + w3 * force
+        return cost + bonus
+      elif (self.rewardType == '2'): # Greedier
+        w1 = 10.0
+        w2 = -0.05
+        w3 = -0.01
+        cost = w1 * score + w2 * blame + w3 * force
+        return cost + bonus
+      return score + bonus
 
   def reset(self):
     # Reset the state of the environment to an initial state
