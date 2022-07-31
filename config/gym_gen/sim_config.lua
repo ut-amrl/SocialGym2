@@ -10,25 +10,25 @@ function Vector2(x, y)
     return math.pi * d / 180
   end
 
-  map_name =  "maps/GDC1/GDC1.vectormap.txt"
+  map_name =  "maps/narrowtest/narrowtest.vectormap.txt"
   -- Simulator starting location.
   start_poses = {
     {
-      -1.45,
-      10.35,
-      -1.5708
+      -0.27310073375701904,
+      0.646902322769165,
+      0.0
     }
   }
 
   goal_poses = {
     {
-      -13.71,
-      16.24,
-      0
+      15.753445625305176,
+      8.936591148376465,
+      0.0
     }
   }
 
-  num_humans = 9
+  num_humans = 1
   human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {

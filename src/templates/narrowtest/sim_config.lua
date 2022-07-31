@@ -14,22 +14,22 @@ function Vector2(x, y)
   -- Simulator starting location.
   start_poses = {
     {
-       0.26629,
-      -11.078,
-      -1.5708
+      {{ robot_start[0] }},
+      {{ robot_start[1] }},
+      {{ robot_start[2] }}
     }
   }
 
   goal_poses = {
     {
-      0,
-      0,
-      0
+      {{ robot_end[0] }},
+      {{ robot_end[1] }},
+      {{ robot_end[2] }}
     }
   }
 
-  num_humans = 1
-  human_config = "../../config/narrowtest/humans.lua"
+  num_humans = {{ human_count }}
+  human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {
     -- "/home/jaholtz/code/amrl_maps/GDC1/door_list.lua"

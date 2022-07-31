@@ -4,7 +4,7 @@
 
     <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
         output="screen"
-        args="-sim_config $(find ut_multirobot_sim)/config/narrowtest/sim_config.lua -scene_config $(find ut_multirobot_sim)/config/narrowtest/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
+        args="-sim_config $(find ut_multirobot_sim)/config/gym_gen/sim_config.lua -scene_config $(find ut_multirobot_sim)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
 
     <group unless="$(optenv DOCKER false)">
         <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ut_multirobot_sim)/visualization.rviz" />
@@ -15,7 +15,7 @@
     <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen"
         args="-service_mode=true -social_mode=true" />
 
-    <include file="$(find ut_multirobot_sim)/config/narrowtest/pedsim_launch.launch" />
+    <include file="$(find ut_multirobot_sim)/config/gym_gen/pedsim_launch.launch" />
 
     <param name="enable_statistics" value="true" />
 </launch>

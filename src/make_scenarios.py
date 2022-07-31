@@ -153,7 +153,7 @@ def LoadNavNodes(nav_path):
     return list(set(temp_nav))
 
 def MakeScenario(config):
-    dir_name = "config/narrowtest/"
+    dir_name = "config/gym_gen/"
 
     with open(config_scene_path + 'humans.lua', 'r') as f:
         human_lua_template = jinja2.Template(f.read())

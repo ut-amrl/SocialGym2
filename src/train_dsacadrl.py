@@ -9,7 +9,7 @@ policy_kwargs = dict(net_arch=[150, 100, 100], activation_fn=th.nn.ReLU)
 
 
 # The algorithms require a vectorized environment to run
-env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/narrowtest/launch.launch")])
+env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch")])
 seed(1)
 model = DQN("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs, learning_starts=0)
 

@@ -24,7 +24,8 @@ local HumanMode = {
 hu_mode = HumanMode.Controlled
 hu_control_topic = "/command"
 
-
-    hu0_waypoints = {
-        { -2.4389, -8.6855, 2 }
+{% for i in range(human_count) %}
+    hu{{ i }}_waypoints = {
+        { {{ human_positions[i][0] }}, {{ human_positions[i][1] }}, {{ human_positions[i][2] }} }
     }
+{% endfor %}
