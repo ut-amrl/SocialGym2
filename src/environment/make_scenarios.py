@@ -16,7 +16,9 @@ roslib.load_manifest(NODE_NAME)
 from graph_navigation.srv import graphNavSrv
 from amrl_msgs.msg import Pose2Df
 from shutil import copyfile
+
 from pathlib import Path
+from typing import Union, Tuple
 
 config_nav_path = 'GDC'
 config_scene_path = 'src/templates/gdc/'
@@ -201,14 +203,30 @@ def MakeScenario(config):
     copyfile(config_scene_path + 'greedy_launch.launch', dir_name + 'greedy_launch.launch')
     copyfile(config_scene_path + 'pips_launch.launch', dir_name + 'pips_launch.launch')
 
-def GenerateScenario():
+def GenerateScenario(
+        env_name: str = None,
+        num_humans: Union[int, Tuple[int, int]] = (5, 25)
+):
     global robot_positions
     global nav_map
-    if (config_nav_path != 'GDC'):
+    global config_nav_path
+    global config_scene_path
+
+    if env_name:
+        config_nav_path = f'src/templates/{env_name}/{env_name}.navigation.json'
+        config_scene_path = f'src/templates/{env_name}/'
+
+        assert Path(config_nav_path).is_file(), \
+            f'The env_name ({env_name}) does not have a navigation file at {config_nav_path}.'
+        assert Path(config_scene_path).is_dir(), \
+            f'The env_name ({env_name}) does not have a folder at {config_scene_path}'
+
+    if config_nav_path != 'GDC':
         nav_map = LoadNavNodes(config_nav_path)
         robot_positions = nav_map
 
-    num_humans = randint(5, 25)
+    if isinstance(num_humans, tuple):
+        num_humans = randint(num_humans[0], num_humans[1])
 
     robot_start = randint(0, len(robot_positions) - 1)
     robot_end = robot_start
@@ -229,7 +247,6 @@ def GenerateScenario():
         start = Pose2Df(h_start[0], h_start[1], 0)
         end = Pose2Df(h_end[0], h_end[1], 0)
         resp = planner(start, end)
-        print(f"RAW PLAN: {resp}")
         plan = [x for x in resp.plan if x < len(nav_map)]
         r_plan = plan[::-1]
         human_list = [robot_positions[human_start][0],

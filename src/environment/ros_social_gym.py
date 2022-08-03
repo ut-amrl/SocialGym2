@@ -21,7 +21,7 @@ import numpy as np
 import time
 import math
 from random import seed
-from typing import List, TYPE_CHECKING
+from typing import List, Tuple, Union, TYPE_CHECKING
 
 # Package imports
 if TYPE_CHECKING:
@@ -130,13 +130,18 @@ class RosSocialEnv(gym.Env):
           launch,
           observer: 'Observer' = None,
           rewarder: 'Rewarder' = None,
+          env_name: str = None,
+          num_humans: Union[int, Tuple[int, int]] = (5, 25)
   ):
     """
     :param reward: Controls the built-in reward functionality (will not be used if registered_reward_functions is set)
     :param repeats:
     :param launch:
-    :param registered_rewards: List of Reward Objects to call in order for calculating the reward instead of the
-      built-in reward functionality
+    :param observer: Observer class object responsible for building env observation vectors per timestep
+    :param rewarder: Rewarder class object responsible for determining rewards of the agent per timestep
+    :param env_name: The name of the environment to load (should be in src/templates/{name})
+    :param num_humans: The number of humans to load -- can be a tuple (x, y) where a random number of humans will be
+      generated between x and y
     """
 
     super(RosSocialEnv, self).__init__()
@@ -162,7 +167,7 @@ class RosSocialEnv(gym.Env):
     # human_1x, human_1y, ..., human_1vx, human_1vy ...
     # next_door_x, next_door_y, next_door_state
     self.num_robots = 1
-    self.max_humans = 25
+    self.max_humans = num_humans[1] if isinstance(num_humans, tuple) else num_humans
     self.noPose = True
 
     if self.observer is not None:
@@ -185,7 +190,7 @@ class RosSocialEnv(gym.Env):
     self.simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
     self.simReset = rospy.ServiceProxy('utmrsReset', utmrsReset)
     self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
-    GenerateScenario()
+    GenerateScenario(env_name, num_humans=num_humans)
     self.launch.shutdown()
     self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
     self.launch.start()

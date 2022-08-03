@@ -29,7 +29,7 @@ observer = Observer(dsacadrl_observations())
 rewarder = Rewarder(registered_rewards=dsacadrl_rewards(), tbx_writer=tbx_writer)
 
 # The algorithms require a vectorized environment to run
-env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch", observer, rewarder)])
+env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch", observer, rewarder, 'test', 2)])
 seed(1)
 model = DQN("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs)
 
