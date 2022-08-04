@@ -42,4 +42,4 @@ def get_tboard_writer(log_name: str):
 
     print(f"Making tensorboard summary writer at {logdir}")
 
-    return SummaryWriter(logdir=str(logdir))
+    return SummaryWriter(logdir=str(logdir)), logdir

@@ -16,15 +16,15 @@ import shutil
 
 policy_kwargs = dict(net_arch=[150, 100, 100], activation_fn=th.nn.ReLU)
 
-tbx_writer = get_tboard_writer('dqn_sacadrl')
+tbx_writer, tbx_logdir = get_tboard_writer('dqn_sacadrl')
 
 observer = Observer(dsacadrl_observations())
 rewarder = Rewarder(registered_rewards=dsacadrl_rewards(), tbx_writer=tbx_writer)
 
 # The algorithms require a vectorized environment to run
-env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch", observer, rewarder, 'open_t1', 1)])
+env = DummyVecEnv([lambda: RosSocialEnv('1', 20, "config/gym_gen/launch.launch", observer, rewarder, 'closed/door/t1', 10, tbx_writer=tbx_writer)])
 seed(1)
-model = DQN("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs)
+model = DQN("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs, tensorboard_log=tbx_logdir)
 
 count = 0
 upper = 1000

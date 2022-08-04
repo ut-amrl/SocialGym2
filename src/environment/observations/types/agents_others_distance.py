@@ -24,10 +24,8 @@ class AgentsOthersDistance(Observation):
         return self.num_others
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
-        agent_pose = poses_to_np_array(env_response.robot_poses)
         others_pose = poses_to_np_array(env_response.human_poses).reshape((-1, 3))
-
-        others_distances = np.linalg.norm(agent_pose - others_pose, axis=-1)
+        others_distances = np.linalg.norm(others_pose[:, 0:2], axis=-1)
         return others_distances
 
     def __setup__(self, env: RosSocialEnv):

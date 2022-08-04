@@ -89,7 +89,7 @@ def create_new_env(name: str, template: str = None):
     hl = humans_lua()
     pl = pedsim_launch()
     sc = sim_config(name)
-    s = scene()
+    s = scene(vectormap_json_file)
     rl = ref_launch(name)
     pipsl = pips_launch(name)
     gl = greedy_launch(name)
@@ -352,20 +352,27 @@ f"map_name =  \"maps/{name}/{name}.vectormap.txt\"" + \
   """.lstrip()
 
 
-def scene():
+def scene(input_file):
+    xml_obstacles = []
+    vectors = json.load(input_file.open('r'))
+
+    for vector in vectors:
+        p0 = vector['p0']
+        p1 = vector['p1']
+
+        obstacle = f'<obstacle x1="{p0["x"]}" y1="{p0["y"]}" x2="{p1["x"]}" y2="{p1["y"]}"/>'
+        xml_obstacles.append(obstacle)
+
+    obstacle_join = "\n\t"
+
     return \
-"""
+        ("""
 <?xml version="1.0" encoding="UTF-8"?>
 <scenario>
     <!--Obstacles-->
-    <obstacle x1="-1.014007" y1="-0.003961" x2="-1.014007" y2="-0.003961"/>
-	<obstacle x1="-1.742824" y1="-3.980769" x2="-0.483238" y2="1.010046"/>
-	<obstacle x1="-0.499081" y1="1.017968" x2="0.499081" y2="1.025890"/>
-	<obstacle x1="0.499081" y1="1.025890" x2="1.164523" y2="-4.258036"/>
-	<obstacle x1="-1.774608" y1="-3.950327" x2="-5.737090" y2="-8.058667"/>
-	<obstacle x1="-5.761400" y1="-8.107286" x2="0.486194" y2="-12.483033"/>
-	<obstacle x1="0.486194" y1="-12.483033" x2="6.223284" y2="-6.575775"/>
-	<obstacle x1="6.223284" y1="-6.575775" x2="1.191175" y2="-4.242043"/>    
+""" + \
+f'\t{obstacle_join.join(xml_obstacles)}' + \
+"""
     <!--Way Points-->
 {% for i in range(position_count) %}
     <waypoint id="{{ i }}" x="{{ positions[i][0] }}" y = "{{ positions[i][1] }}" r="1" b="0.1"/>
@@ -376,7 +383,7 @@ def scene():
 {% endfor %}
 
     <!-- This Robot Goal Doesn't Matter, but is Required -->
-  <waypoint id="robot_goal" x="22" y="27" r="2"/>
+  <waypoint id="robot_goal" x="{{ robot_end[0] }}" y="{{ robot_end[1] }}" r="2"/>
   <waypoint id="robot_start" x="{{ robot_start[0] }}" y="{{ robot_start[1] }}" r="2"/>
 
   <agent x="{{ robot_start[0] }}" y="{{ robot_start[1] }}" n="1" dx="0" dy="0" type="2">
@@ -393,7 +400,7 @@ def scene():
   {% endfor %}
 
 </scenario>
-""".lstrip()
+""").lstrip()
 
 
 def ref_launch(name):

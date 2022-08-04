@@ -21,7 +21,10 @@ import numpy as np
 import time
 import math
 from random import seed
-from typing import List, Tuple, Union, TYPE_CHECKING
+from typing import Tuple, Union, TYPE_CHECKING
+from pathlib import Path
+import shutil
+from tensorboardX import SummaryWriter
 
 # Package imports
 if TYPE_CHECKING:
@@ -131,7 +134,9 @@ class RosSocialEnv(gym.Env):
           observer: 'Observer' = None,
           rewarder: 'Rewarder' = None,
           env_name: str = None,
-          num_humans: Union[int, Tuple[int, int]] = (5, 25)
+          num_humans: Union[int, Tuple[int, int]] = (5, 25),
+          data_log: str = None,
+          tbx_writer: SummaryWriter = None
   ):
     """
     :param reward: Controls the built-in reward functionality (will not be used if registered_reward_functions is set)
@@ -146,6 +151,18 @@ class RosSocialEnv(gym.Env):
 
     super(RosSocialEnv, self).__init__()
     seed(1)
+
+    self.env_name = env_name
+    self.num_humans = num_humans
+    self.data_log = data_log
+    self.tbx_writer = tbx_writer
+
+    if self.data_log:
+      data_path = Path(f'data/{self.data_log}')
+      if data_path.exists():
+        shutil.rmtree(str(data_path))
+      data_path.mkdir(exist_ok=True, parents=True)
+
     # Halt, GoAlone, Follow, Pass
     self.rewarder = rewarder
     self.observer = observer
@@ -291,15 +308,23 @@ class RosSocialEnv(gym.Env):
     self.stepCount = 0
     kNumRepeats = self.numRepeats
     if (self.resetCount % kNumRepeats == 0):
-      GenerateScenario()
+      GenerateScenario(self.env_name, self.num_humans)
     response = self.simReset()
     stepResponse = self.simStep(0)
     self.startDist = DistanceFromGoal(stepResponse)
     self.lastDist = self.startDist
     self.data['Demos'] = self.demos
 
-    # with open('data/SocialGym' + str(self.resetCount) + '.json', 'w') as outputJson:
-      # json.dump(self.data, outputJson, indent=2, default=np_encoder)
+    if self.data_log:
+      log_file = Path(f'data/{self.data_log}/reset_' + str(self.resetCount) + '.json')
+      log_file.parent.mkdir(exist_ok=True, parents=True)
+
+      with log_file.open('w') as outputJson:
+        json.dump(self.data, outputJson, indent=2, default=np_encoder)
+
+    if self.tbx_writer:
+      self.tbx_writer.add_scalars('episode/scalars', {k: v for k, v in self.data.items() if isinstance(v, int)}, self.resetCount)
+
     self.data = {'Iteration': self.resetCount,
                  'NumHumans': 0,
                  'Success': 0,
