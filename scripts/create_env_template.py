@@ -44,6 +44,11 @@ def create_new_env(name: str, template: str = None):
     navigation_file = environment_map_path / f'{name}.navigation.txt'
     navigation_json_file = environment_map_path / f'{name}.navigation.json'
 
+    vectormap_file.parent.mkdir(exist_ok=True, parents=True)
+    vectormap_json_file.parent.mkdir(exist_ok=True, parents=True)
+    navigation_file.parent.mkdir(exist_ok=True, parents=True)
+    navigation_json_file.parent.mkdir(exist_ok=True, parents=True)
+
     if template:
         template_map_path = MAPS_FOLDER / template
 
@@ -122,6 +127,8 @@ def create_new_env(name: str, template: str = None):
     with pips_file.open('w') as f:
         f.write(pipsl)
 
+    (environment_path / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
+
     # Copy over maps
     shutil.copyfile(vectormap_file, environment_path / f'{name}.vectormap.txt')
     shutil.copyfile(navigation_file, environment_path / f'{name}.navigation.txt')
@@ -130,7 +137,9 @@ def create_new_env(name: str, template: str = None):
     vectormap_txt_to_json(vectormap_file, vectormap_json_file)
 
     amrl_folder = AMRL_MAPS_FOLDER / name
-    amrl_folder.mkdir(exist_ok=True)
+    amrl_folder.mkdir(exist_ok=True, parents=True)
+
+    (amrl_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     shutil.copyfile(vectormap_file, amrl_folder / f'{name}.vectormap.txt')
     shutil.copyfile(vectormap_json_file, amrl_folder / f'{name}.vectormap.json')
@@ -138,7 +147,8 @@ def create_new_env(name: str, template: str = None):
     shutil.copyfile(navigation_json_file, amrl_folder / f'{name}.navigation.json')
 
     utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / name
-    utmulti_folder.mkdir(exist_ok=True)
+    utmulti_folder.mkdir(exist_ok=True, parents=True)
+    (utmulti_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     shutil.copyfile(vectormap_file, utmulti_folder / f'{name}.vectormap.txt')
     shutil.copyfile(vectormap_json_file, utmulti_folder / f'{name}.vectormap.json')
@@ -168,7 +178,7 @@ f"""
 
     <param name="enable_statistics" value="true" />
 </launch>
-"""
+""".lstrip()
 
 
 def humans_lua():
@@ -205,7 +215,7 @@ hu_control_topic = "/command"
         { {{ human_positions[i][0] }}, {{ human_positions[i][1] }}, {{ human_positions[i][2] }} }
     }
 {% endfor %}
-"""
+""".lstrip()
 
 
 def pedsim_launch():
@@ -241,7 +251,7 @@ f"""
   <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pedsim_simulator)/rviz/social_contexts_activities.rviz" if="$(arg visualize)"/> -->
 
 </launch>
-"""
+""".lstrip()
 
 
 def sim_config(name):
@@ -339,7 +349,7 @@ f"map_name =  \"maps/{name}/{name}.vectormap.txt\"" + \
 
   laser_topic = "/Cobot/Laser"
   laser_frame = "base_laser"
-  """
+  """.lstrip()
 
 
 def scene():
@@ -383,7 +393,7 @@ def scene():
   {% endfor %}
 
 </scenario>
-"""
+""".lstrip()
 
 
 def ref_launch(name):
@@ -410,7 +420,7 @@ f"""
 
     <param name="enable_statistics" value="true" />
 </launch>
-"""
+""".lstrip()
 
 
 def greedy_launch(name):
@@ -434,7 +444,7 @@ f"""
 
     <param name="enable_statistics" value="true" />
 </launch>
-"""
+""".lstrip()
 
 
 def pips_launch(name):
@@ -461,7 +471,7 @@ f"""
 
     <param name="enable_statistics" value="true" />
 </launch>
-"""
+""".lstrip()
 
 
 def vectormap_txt_to_json(

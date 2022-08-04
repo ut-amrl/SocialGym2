@@ -298,19 +298,19 @@ class RosSocialEnv(gym.Env):
     self.lastDist = self.startDist
     self.data['Demos'] = self.demos
 
-    with open('data/SocialGym' + str(self.resetCount) + '.json', 'w') as outputJson:
-      json.dump(self.data, outputJson, indent=2, default=np_encoder)
-      self.data = {'Iteration': self.resetCount,
-                   'NumHumans': 0,
-                   'Success': 0,
-                   'Collision': 0,
-                   'Steps': 0,
-                   'Data': [],
-                   'Demos': []
-                   }
-      self.demos.clear()
-      self.lastObs = stepResponse
-      return self.MakeObservation(stepResponse)
+    # with open('data/SocialGym' + str(self.resetCount) + '.json', 'w') as outputJson:
+      # json.dump(self.data, outputJson, indent=2, default=np_encoder)
+    self.data = {'Iteration': self.resetCount,
+                 'NumHumans': 0,
+                 'Success': 0,
+                 'Collision': 0,
+                 'Steps': 0,
+                 'Data': [],
+                 'Demos': []
+                 }
+    self.demos.clear()
+    self.lastObs = stepResponse
+    return self.MakeObservation(stepResponse)
 
   def step(self, action):
     self.stepCount += 1

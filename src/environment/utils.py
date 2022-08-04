@@ -1,5 +1,13 @@
 from typing import List
 import numpy as np
+import subprocess
+from pathlib import Path
+import shutil
+from tensorboardX import SummaryWriter
+
+
+ROOT_FOLDER = Path('/root/social_gym')
+DATA_FOLDER = ROOT_FOLDER / 'data'  # This is how it is set up in the docker container, not on your local machine
 
 
 def poses_to_np_array(poses: List) -> np.array:
@@ -20,3 +28,18 @@ def poses_to_np_array(poses: List) -> np.array:
         coord_list.append(pose.y)
         coord_list.append(pose.theta)
     return np.array(coord_list)
+
+
+def get_tboard_writer(log_name: str):
+    logdir = Path(f'{DATA_FOLDER}/{log_name}')
+
+    subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{logdir}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    if logdir.exists():
+        shutil.rmtree(str(logdir))
+
+    logdir.mkdir(exist_ok=True, parents=True)
+
+    print(f"Making tensorboard summary writer at {logdir}")
+
+    return SummaryWriter(logdir=str(logdir))
