@@ -1,14 +1,16 @@
 from random import seed
 from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3 import DQN
+from stable_baselines3 import DQN, PPO
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.evaluation import evaluate_policy
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.utils import get_tboard_writer, filter_stdout, LogFilter
-from src.environment.rewards import Rewarder, Success, GoalDistance
+from src.environment.rewards import Rewarder, Success, GoalDistance, ExistencePenalty, SocialNormPass, SocialNormOvertake, SocialNormCross, Collisions
 from src.environment.rewards.common_rewards import dsacadrl_rewards
-from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation
+from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation, \
+  AgentsVelocity, AgentsHeadingDirection, AgentsOthersDistance, AgentsPreferredVelocity, OthersPoses, OthersVelocities,\
+  OthersHeadingDirection, CollisionObservation
 from src.environment.observations.common_observations import dsacadrl_observations
 from src.environment.wrappers.new_scenario_wrapper import NewScenarioWrapper
 from src.environment.wrappers.time_limit import TimeLimitWrapper
@@ -16,14 +18,37 @@ from src.environment.wrappers.time_limit import TimeLimitWrapper
 
 tbx_writer, tbx_logdir = get_tboard_writer('dqn_sacadrl')
 
-observer = Observer([AgentsPose(), AgentsGoalDistance(1), SuccessObservation()])
-rewarder = Rewarder([GoalDistance(), Success()], tbx_writer=tbx_writer)
+observations = [
+  AgentsGoalDistance(),
+  AgentsPose(),
+  AgentsVelocity(),
+  AgentsHeadingDirection(),
+  AgentsOthersDistance(),
+  AgentsPreferredVelocity(preferred_velocity=1.0),
+  OthersPoses(),
+  OthersVelocities(),
+  OthersHeadingDirection(),
+  SuccessObservation(),
+  CollisionObservation()
+]
+
+rewards = [
+  ExistencePenalty(),
+  Success(),
+  # SocialNormCross(),
+  # SocialNormOvertake(),
+  # SocialNormPass(),
+  Collisions(weight=100)
+]
+
+observer = Observer(observations)
+rewarder = Rewarder(rewards, tbx_writer=tbx_writer)
 
 EPISODE_LENGTH = 2_000
 
 # The algorithms require a vectorized environment to run
 env = TimeLimitWrapper(NewScenarioWrapper(
-  RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, 'closed/door/t1', 0, tbx_writer=tbx_writer),
+  RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, 'closed/door/t1', 10, tbx_writer=tbx_writer),
   new_scenario_episode_frequency=1
 ), max_steps=EPISODE_LENGTH)
 env = DummyVecEnv([lambda: Monitor(env)])
@@ -31,7 +56,9 @@ env = DummyVecEnv([lambda: Monitor(env)])
 seed(1)
 
 GYM_TBX = True
-model = DQN("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None, learning_starts=EPISODE_LENGTH * 1)
+# model = DQN("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None, learning_starts=EPISODE_LENGTH * 1)
+model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None)
+
 
 model.learn(EPISODE_LENGTH * 250, eval_env=env, eval_freq=EPISODE_LENGTH * 5)
 

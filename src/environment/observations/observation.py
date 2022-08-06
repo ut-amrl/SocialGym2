@@ -27,7 +27,7 @@ class Observation(ABC):
         """
 
         obs = self.__observations__(env, env_response)
-        return np.pad(obs, pad_width=(0,  len(self) - obs.shape[0]), mode='constant')
+        return np.nan_to_num(np.pad(obs, pad_width=(0,  len(self) - obs.shape[0]), mode='constant'))
 
     def __call__(self, env: RosSocialEnv, env_response, *args, **kwargs) -> np.array:
         """

@@ -8,3 +8,4 @@ from src.environment.rewards.types.collisions import Collisions
 from src.environment.rewards.types.social_norm_pass import SocialNormPass
 from src.environment.rewards.types.social_norm_overtake import SocialNormOvertake
 from src.environment.rewards.types.social_norm_cross import SocialNormCross
+from src.environment.rewards.types.existence_penalty import ExistencePenalty

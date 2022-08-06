@@ -25,7 +25,7 @@ class OthersHeadingDirection(Observation):
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
         others_poses = poses_to_np_array(env_response.human_vels).reshape((-1, 3))
-        headings = np.arctanh(others_poses[:, 1] / others_poses[:, 0])
+        headings = np.arctanh(others_poses[:, 1] / (others_poses[:, 0]))
 
         return headings
 

@@ -32,10 +32,6 @@ class Rewarder:
         self.registered_rewards = registered_rewards
         self.tbx_writer = tbx_writer
 
-        # We reset the env so an internal step count is used
-        # TODO - is this the best way to show "episodes"?
-        self.__step_idx__ = 0
-
     def reward(self, env: 'RosSocialEnv', observation_map, data_map) -> np.array:
         """
         Given the environments response for the current timestep, calculate the total reward (sum of all the registered
@@ -47,8 +43,6 @@ class Rewarder:
         :param data_map: Not really used TODO - figure out if this is necessary
         """
 
-        self.__step_idx__ += 1
-
         total_reward = 0.
         reward_map = {}  # Build a map of reward names to reward values for the tensorboard logger.
         for reward_fn in self.registered_rewards:
@@ -59,7 +53,8 @@ class Rewarder:
         reward_map['total'] = total_reward
 
         if self.tbx_writer is not None:
-            self.tbx_writer.add_scalars('rewards/scalars', reward_map, self.__step_idx__)
+            self.tbx_writer.add_scalars('rewards/scalars', reward_map, env.totalSteps)
+            self.tbx_writer.flush()
 
         return total_reward
 

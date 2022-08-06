@@ -17,4 +17,4 @@ class SuccessObservation(Observation):
         return 1
 
     def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
-        return np.array([env_response.success])
+        return np.array([1.0 if env_response.success else 0.0])
