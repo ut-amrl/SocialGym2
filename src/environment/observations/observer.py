@@ -21,11 +21,16 @@ class Observer:
     def __len__(self):
         return sum([len(x) for x in self.registered_observations])
 
-    def make_observation_array(self, env: 'RosSocialEnv', env_response) -> np.array:
-        return np.concatenate([x(env, env_response) for x in self.registered_observations])
+    def make_observation(self, env: 'RosSocialEnv', env_response) -> np.array:
 
-    def make_observation_map(self, env: 'RosSocialEnv', env_response) -> Dict[str, np.array]:
-        return {obs.name(): obs.observations(env, env_response) for obs in self.registered_observations}
+        obs_map = {}
+        obs_arr = []
+        for obs in self.registered_observations:
+            val = obs.observations(env, env_response)
+            obs_map[obs.name()] = val
+            obs_arr.append(val)
+
+        return np.concatenate(obs_arr), obs_map
 
     def setup(self, env: 'RosSocialEnv'):
         [x.__setup__(env) for x in self.registered_observations]

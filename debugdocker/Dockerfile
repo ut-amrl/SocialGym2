@@ -51,6 +51,10 @@ WORKDIR /root
 # Messages
 RUN git clone https://github.com/ut-amrl/social_gym.git --recurse-submodules
 
+# Used this to avoid pushing to the graphnav repo (probably should fix it there) but this was done to turn off the
+# TurnInPlace print outs
+ADD tmp/src /root/social_gym/submodules/graph_navigation/src
+
 WORKDIR /root/social_gym/submodules/pedsim_ros/
 
 RUN source ../../scripts/set_paths.sh && catkin_make

@@ -41,7 +41,7 @@ class SocialNormPass(Reward):
     def name(cls):
         return "social_norm_pass"
 
-    def __score__(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
         assert AgentsGoalDistance.name() in observation_map, \
             'Social Norm passing requires the agents goal distance to be in the observation'
         assert OthersPoses.name() in observation_map, \

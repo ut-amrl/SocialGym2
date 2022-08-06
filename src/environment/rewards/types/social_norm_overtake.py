@@ -40,7 +40,7 @@ class SocialNormOvertake(Reward):
     def name(cls):
         return "social_norm_overtake"
 
-    def __score__(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
         assert AgentsGoalDistance.name() in observation_map, \
             'Social Norm Overtake requires the agents goal distance to be in the observation'
         assert OthersPoses.name() in observation_map, \

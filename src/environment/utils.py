@@ -3,7 +3,10 @@ import numpy as np
 import subprocess
 from pathlib import Path
 import shutil
+import re
+import sys
 from tensorboardX import SummaryWriter
+import time
 
 
 ROOT_FOLDER = Path('/root/social_gym')
@@ -31,6 +34,8 @@ def poses_to_np_array(poses: List) -> np.array:
 
 
 def get_tboard_writer(log_name: str):
+    time.sleep(1)
+
     logdir = Path(f'{DATA_FOLDER}/{log_name}')
 
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{logdir}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -43,3 +48,35 @@ def get_tboard_writer(log_name: str):
     print(f"Making tensorboard summary writer at {logdir}")
 
     return SummaryWriter(logdir=str(logdir)), logdir
+
+
+# TODO - This shouldn't be needed, the real fix is in changing the c++ code.
+class LogFilter(object):
+    """
+    Taken from https://stackoverflow.com/questions/34904946/how-to-filter-stdout-in-python-logging
+    """
+    def __init__(self, stream, re_pattern):
+        self.stream = stream
+        self.pattern = re.compile(re_pattern) if isinstance(re_pattern, str) else re_pattern
+        self.triggered = False
+
+    def __getattr__(self, attr_name):
+        return getattr(self.stream, attr_name)
+
+    def write(self, data):
+        if data == '\n' and self.triggered:
+            self.triggered = False
+        else:
+            if self.pattern.search(data) is None:
+                self.stream.write(data)
+                self.stream.flush()
+            else:
+                # caught bad pattern
+                self.triggered = True
+
+    def flush(self):
+        self.stream.flush()
+
+
+def filter_stdout(filter: str):
+    sys.stdout = LogFilter(sys.stdout, filter)  # filter out any line which contains "Read -1" in it

@@ -8,5 +8,7 @@ from src.environment.observations.types.others_velocities import OthersVelocitie
 from src.environment.observations.types.agents_others_distance import AgentsOthersDistance
 from src.environment.observations.types.others_heading_direction import OthersHeadingDirection
 from src.environment.observations.types.agents_heading_direction import AgentsHeadingDirection
+from src.environment.observations.types.collision_observation import CollisionObservation
+from src.environment.observations.types.success_observation import SuccessObservation
 
 from src.environment.observations.observer import Observer

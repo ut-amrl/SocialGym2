@@ -27,12 +27,12 @@ class Reward(ABC):
         raise NotImplemented("All rewards must have a name class method method.")
 
     @abstractmethod
-    def __score__(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
         """See score documentation"""
 
         raise NotImplemented("All reward functions need a __score__ function.")
 
-    def score(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
+    def score(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
         """
         Given the current environment instantiation, the current timesteps response from the environment, and the
         data_map object, calculate a float scalar as a reward.
@@ -44,13 +44,13 @@ class Reward(ABC):
         :returns: A weighted float scalar representing the amount of reward of the current timestep.
         """
 
-        return self.weight * self.__score__(env, env_response, observation_map, data_map)
+        return self.weight * self.__score__(env, observation_map, data_map)
 
-    def __call__(self, env: RosSocialEnv, env_response, observation_map: Dict[str, np.array], data_map) -> float:
+    def __call__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
         """See score documentation"""
 
         # Shorthand for calling the score fn.
-        return self.score(env, env_response, observation_map, data_map)
+        return self.score(env, observation_map, data_map)
 
     def __setup__(self, env: RosSocialEnv):
         """

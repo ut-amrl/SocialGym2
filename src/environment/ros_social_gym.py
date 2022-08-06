@@ -207,7 +207,9 @@ class RosSocialEnv(gym.Env):
     self.simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
     self.simReset = rospy.ServiceProxy('utmrsReset', utmrsReset)
     self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
-    GenerateScenario(env_name, num_humans=num_humans)
+
+    self.new_scenario()
+
     self.launch.shutdown()
     self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
     self.launch.start()
@@ -244,7 +246,7 @@ class RosSocialEnv(gym.Env):
 
   def MakeObservation(self, res):
     if self.observer is not None:
-      return self.observer.make_observation_array(self, env_response=res)
+      return self.observer.make_observation(self, env_response=res)
 
     obs = []
     if (self.noPose):
@@ -262,11 +264,11 @@ class RosSocialEnv(gym.Env):
     # Pad with zeroes to reach correct number of variables
     obs = np.append(obs, MakeNpArray([res.local_target]))
     obs = np.append(obs, self.action)
-    return obs
+    return obs, None
 
-  def CalculateReward(self, res, dataMap):
+  def CalculateReward(self, res, obs_map, dataMap):
     if self.rewarder is not None:
-      return self.rewarder.reward(self, res, dataMap)
+      return self.rewarder.reward(self, obs_map, dataMap)
     else:
       # Original reward code
       distance = DistanceFromGoal(res)
@@ -300,16 +302,18 @@ class RosSocialEnv(gym.Env):
         return cost + bonus
       return score + bonus
 
+  def new_scenario(self):
+    GenerateScenario(self.env_name, self.num_humans)
+
   def reset(self):
     # Reset the state of the environment to an initial state
     # Call the "reset" of the simulator
     self.resetCount += 1
     self.totalSteps += self.stepCount
     self.stepCount = 0
-    kNumRepeats = self.numRepeats
-    if (self.resetCount % kNumRepeats == 0):
-      GenerateScenario(self.env_name, self.num_humans)
+
     response = self.simReset()
+
     stepResponse = self.simStep(0)
     self.startDist = DistanceFromGoal(stepResponse)
     self.lastDist = self.startDist
@@ -335,7 +339,8 @@ class RosSocialEnv(gym.Env):
                  }
     self.demos.clear()
     self.lastObs = stepResponse
-    return self.MakeObservation(stepResponse)
+    obs, _ = self.MakeObservation(stepResponse)
+    return obs
 
   def step(self, action):
     self.stepCount += 1
@@ -356,7 +361,7 @@ class RosSocialEnv(gym.Env):
     response = self.simStep(action)
     self.lastObs = response
     toc = time.perf_counter()
-    obs = self.MakeObservation(response)
+    obs, obs_map = self.MakeObservation(response)
     obs = [0 if math.isnan(x) else x for x in obs]
 
     # Update Demonstrations
@@ -366,7 +371,7 @@ class RosSocialEnv(gym.Env):
 
     dataMap = {}
 
-    reward = self.CalculateReward(response, dataMap)
+    reward = self.CalculateReward(response, obs_map, dataMap)
     self.data["Reward"] = reward
     done = response.done
     if (response.success):
@@ -408,7 +413,7 @@ class RosSocialEnv(gym.Env):
     response = self.simStep(self.action)
     self.lastObs = response
     toc = time.perf_counter()
-    obs = self.MakeObservation(response)
+    obs, obs_map = self.MakeObservation(response)
     obs = [0 if math.isnan(x) else x for x in obs]
 
     # Update Demonstrations
@@ -418,7 +423,7 @@ class RosSocialEnv(gym.Env):
 
     dataMap = {}
 
-    reward = self.CalculateReward(response, dataMap)
+    reward = self.CalculateReward(response, obs_map, dataMap)
     self.data["Reward"] = reward
     done = response.done
     if (response.success):

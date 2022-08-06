@@ -36,7 +36,7 @@ class Rewarder:
         # TODO - is this the best way to show "episodes"?
         self.__step_idx__ = 0
 
-    def reward(self, env: 'RosSocialEnv', env_response, data_map) -> np.array:
+    def reward(self, env: 'RosSocialEnv', observation_map, data_map) -> np.array:
         """
         Given the environments response for the current timestep, calculate the total reward (sum of all the registered
         reward class objects) and log the individual rewards as well as the total reward if the tensorboardX Summary
@@ -49,19 +49,17 @@ class Rewarder:
 
         self.__step_idx__ += 1
 
-        observation_map = env.observer.make_observation_map(env, env_response)
-
         total_reward = 0.
         reward_map = {}  # Build a map of reward names to reward values for the tensorboard logger.
         for reward_fn in self.registered_rewards:
-            reward = reward_fn(env, env_response, observation_map, data_map)
+            reward = reward_fn(env, observation_map, data_map)
             reward_map[reward_fn.name()] = reward
             total_reward += reward
 
         reward_map['total'] = total_reward
 
         if self.tbx_writer is not None:
-            self.tbx_writer.add_scalars('data/scalars', reward_map, self.__step_idx__)
+            self.tbx_writer.add_scalars('rewards/scalars', reward_map, self.__step_idx__)
 
         return total_reward
 
