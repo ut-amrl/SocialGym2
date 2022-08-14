@@ -8,9 +8,9 @@ from ut_multirobot_sim.srv import utmrsStepper
 from ut_multirobot_sim.srv import utmrsReset
 from amrl_msgs.srv import SocialPipsSrv
 from ut_multirobot_sim.srv import utmrsStepperResponse
-from src.environment.make_scenarios import GenerateScenario
 import rospy
 import roslaunch
+from sensor_msgs.msg import Image
 
 # Other Imports
 import copy
@@ -25,6 +25,8 @@ from typing import Tuple, Union, TYPE_CHECKING
 from pathlib import Path
 import shutil
 from tensorboardX import SummaryWriter
+
+from src.environment.scenarios import Scenario, GraphNavScenario
 
 # Package imports
 if TYPE_CHECKING:
@@ -133,7 +135,7 @@ class RosSocialEnv(gym.Env):
           launch,
           observer: 'Observer' = None,
           rewarder: 'Rewarder' = None,
-          env_name: str = None,
+          scenario: Scenario = None,
           num_humans: Union[int, Tuple[int, int]] = (5, 25),
           data_log: str = None,
           tbx_writer: SummaryWriter = None
@@ -152,7 +154,11 @@ class RosSocialEnv(gym.Env):
     super(RosSocialEnv, self).__init__()
     seed(1)
 
-    self.env_name = env_name
+    if scenario is None:
+      scenario = GraphNavScenario()
+    self.scenario = scenario
+
+
     self.num_humans = num_humans
     self.data_log = data_log
     self.tbx_writer = tbx_writer
@@ -202,6 +208,7 @@ class RosSocialEnv(gym.Env):
     roslaunch.configure_logging(uuid)
     self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
     self.launch.start()
+
     rospy.wait_for_service('utmrsStepper')
     rospy.wait_for_service('utmrsReset')
     self.simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
@@ -225,6 +232,14 @@ class RosSocialEnv(gym.Env):
       'Steps': 0,
       'Data': []
     }
+
+    def image_callback(msgs):
+      print(msgs)
+
+    image_topic = "/rviz1/camera1/image"
+    rospy.Subscriber(image_topic, Image, image_callback)
+
+
     # print("Transition TO 0")
 
   # Do this on shutdown
@@ -303,7 +318,7 @@ class RosSocialEnv(gym.Env):
       return score + bonus
 
   def new_scenario(self):
-    GenerateScenario(self.env_name, self.num_humans)
+    self.scenario.generate_scenario(self.num_humans)
 
   def reset(self):
     # Reset the state of the environment to an initial state

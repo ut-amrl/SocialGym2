@@ -14,7 +14,10 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.common_observations import dsacadrl_observations
 from src.environment.wrappers.new_scenario_wrapper import NewScenarioWrapper
 from src.environment.wrappers.time_limit import TimeLimitWrapper
+from src.environment.scenarios import GraphNavScenario
+from src.environment.scenarios.common_scenarios import closed_door_1__same_goals, closed_door_1__opposing_sides
 
+seed(1)
 
 tbx_writer, tbx_logdir = get_tboard_writer('dqn_sacadrl')
 
@@ -35,9 +38,9 @@ observations = [
 rewards = [
   ExistencePenalty(),
   Success(),
-  # SocialNormCross(),
-  # SocialNormOvertake(),
-  # SocialNormPass(),
+  SocialNormCross(),
+  SocialNormOvertake(),
+  SocialNormPass(),
   Collisions(weight=100)
 ]
 
@@ -46,37 +49,16 @@ rewarder = Rewarder(rewards, tbx_writer=tbx_writer)
 
 EPISODE_LENGTH = 2_000
 
-# The algorithms require a vectorized environment to run
-env = TimeLimitWrapper(NewScenarioWrapper(
-  RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, 'closed/door/t1', 10, tbx_writer=tbx_writer),
-  new_scenario_episode_frequency=1
-), max_steps=EPISODE_LENGTH)
-env = DummyVecEnv([lambda: Monitor(env)])
+scenario = closed_door_1__same_goals()
 
-seed(1)
+env = RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, scenario, 3, tbx_writer=tbx_writer)
+env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
+env = TimeLimitWrapper(env, max_steps=EPISODE_LENGTH)
+env = Monitor(env)
+env = DummyVecEnv([lambda: env])
+
 
 GYM_TBX = True
-# model = DQN("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None, learning_starts=EPISODE_LENGTH * 1)
 model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None)
 
-
 model.learn(EPISODE_LENGTH * 250, eval_env=env, eval_freq=EPISODE_LENGTH * 5)
-
-# model = DQN("MlpPolicy", env, verbose=1)
-
-# count = 0
-# upper = 1000
-# eval_freq = 10
-
-
-# while(count < upper):
-#
-#   if count % eval_freq == 0:
-#     # evaluate_policy(model, env, n_eval_episodes=3, deterministic=True)
-#     model.learn(total_timesteps=2000, callback=EvalCallback(env, eval_freq=2000))
-#   else:
-#     model.learn(total_timesteps=2000)
-
-  # Save the agent
-  # model.save("data/dqn_" + str(count))
-  # count += 1

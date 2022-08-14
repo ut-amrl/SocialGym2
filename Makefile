@@ -36,3 +36,6 @@ simulator:
 
 pips:
 	cd submodules/pips && $(MAKE)
+
+rvis_camera_stream:
+    cd submodules/camera_stream && catkin_make
