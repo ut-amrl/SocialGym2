@@ -4,7 +4,7 @@ build_type=Release
 
 .SILENT:
 
-all:  pedsim msgs navigation rviscamerastream simulator pips
+all:  pedsim msgs navigation simulator pips
 	$(info Build_type is [${build_type}])
 	# $(MAKE) --no-print-directory -C build
 
@@ -30,9 +30,6 @@ msgs:
 
 navigation:
 	cd submodules/graph_navigation && $(MAKE)
-
-rviscamerastream:
-	cd submodules/camera_stream && catkin_make
 
 simulator:
 	cd submodules/ut_multirobot_sim && $(MAKE)
