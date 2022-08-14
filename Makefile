@@ -38,4 +38,4 @@ pips:
 	cd submodules/pips && $(MAKE)
 
 rviscamerastream:
-    cd submodules/camera_stream && catkin_make
+	cd submodules/camera_stream && catkin_make
