@@ -4,7 +4,7 @@ build_type=Release
 
 .SILENT:
 
-all:  pedsim msgs navigation simulator pips rviscamerastream
+all:  pedsim msgs navigation simulator pips
 	$(info Build_type is [${build_type}])
 	# $(MAKE) --no-print-directory -C build
 
