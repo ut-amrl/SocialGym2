@@ -49,15 +49,44 @@ WORKDIR /root
 # Clone, Source, and Build the requiste git repos
 # Clone and build a single repo
 # Messages
-RUN git clone https://github.com/ut-amrl/social_gym.git --recurse-submodules
+RUN echo "HI"
+RUN git clone -b feature/map_generation_and_custom_rewards https://github.com/ut-amrl/social_gym.git --recurse-submodules
 
 # Used this to avoid pushing to the graphnav repo (probably should fix it there) but this was done to turn off the
 # TurnInPlace print outs
 ADD tmp/src /root/social_gym/submodules/graph_navigation/src
+ADD tmp/ut_multirobot_sim /root/social_gym/submodules/ut_multirobot_sim
+
+
+WORKDIR /root/social_gym/submodules/pedsim_ros/src/pedsim_ros
+
+RUN git clone -b noetic-devel https://github.com/lucasw/rviz_camera_stream
+RUN apt-get install ros-noetic-roslint
 
 WORKDIR /root/social_gym/submodules/pedsim_ros/
 
 RUN source ../../scripts/set_paths.sh && catkin_make
+
+#
+#WORKDIR /root/social_gym/submodules
+#
+#RUN mkdir camera_stream
+#RUN mkdir camera_stream/src
+#
+#WORKDIR /root/social_gym/submodules/camera_stream/src
+#
+#RUN apt-get install ros-noetic-roslint
+#
+#RUN git clone -b noetic-devel https://github.com/lucasw/rviz_camera_stream
+#
+#WORKDIR /root/social_gym/submodules/camera_stream
+#
+#RUN source ../../scripts/set_paths.sh && catkin_make
+
+
+
+
+
 
 WORKDIR /root/social_gym/
 
@@ -66,6 +95,8 @@ RUN source scripts/set_paths.sh
 
 # Build all Packages
 RUN source scripts/set_paths.sh && make
+
+
 
 RUN cp -r /root/social_gym /project
 
@@ -108,6 +139,10 @@ RUN #pip3 install netifaces
 
 RUN pip3 install tensorboardX
 
+RUN #apt-get install ros-noetic-rviz_camera_stream
+RUN apt-get install -y ros-noetic-cv-bridge
+RUN pip3 install opencv-python-headless==4.5.2.52
+RUN pip3 install moviepy
 # We need to source the set_paths then start the roscore program in the background.  After than we can move into the
 # main project folder and call our python scripts.
 ENTRYPOINT ["/bin/bash", "-c", "cd /root/social_gym && source ./scripts/set_paths.sh && (roscore &) && \"$@\"", "-s"]

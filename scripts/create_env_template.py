@@ -159,7 +159,7 @@ def create_new_env(name: str, template: str = None):
 
 def launch_launch(name: str):
     return \
-f"""
+"""
 <launch>
     <arg name="outfile" default="screen" />
 
@@ -170,10 +170,34 @@ f"""
     <group unless="$(optenv DOCKER false)">
         <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ut_multirobot_sim)/visualization.rviz" />
     </group>
+    
+        <group ns="camera1">
+        <node pkg="tf" type="static_transform_publisher" name="camera_broadcaster"
+          args="-1 7 12 15 0 0 1 map camera1 10" />
+        <node name="camera_info" pkg="rostopic" type="rostopic"
+          args="pub camera_info sensor_msgs/CameraInfo
+         '{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'camera1'},
+          height: 480, width: 640, distortion_model: 'plumb_bob',
+          D: [0],
+          K: [500.0, 0.0, 320, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
+          R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+          P: [500.0, 0.0, 320, 0.0, 0.0, 500, 240, 0.0, 0.0, 0.0, 1.0, 0.0],
+          binning_x: 0, binning_y: 0,
+          roi: {x_offset: 0, y_offset: 0, height: 480, width: 640, do_rectify: false}}' -r 2"
+          output="screen"/>
+    </group>
 
-    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen"
-        args="-service_mode=true -map={name}"  />
+    <group ns="rviz1/camera1/image">
+      <rosparam param="disable_pub_plugins">
+        - 'image_transport/compressed'
+        - 'image_transport/compressedDepth'
+        - 'image_transport/theora'
+      </rosparam>
+    </group>
 
+""" + \
+f'    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map={name}"  />' + \
+"""
     <include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
 
     <param name="enable_statistics" value="true" />

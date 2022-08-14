@@ -13,7 +13,7 @@
     <node pkg="pips" type="social_interp" name="social_interp" output="screen" args="-ast_path $(find cpp-pips)/synthd/displ3" />
 
     <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen"
-        args="-service_mode=true -social_mode=true" />
+        args="-service_mode=true -social_mode=true -map=closed/door/t1" />
 
     <include file="$(find ut_multirobot_sim)/config/gym_gen/pedsim_launch.launch" />
 

@@ -11,6 +11,10 @@ from ut_multirobot_sim.srv import utmrsStepperResponse
 import rospy
 import roslaunch
 from sensor_msgs.msg import Image
+import cv2
+from cv_bridge import CvBridge, CvBridgeError
+
+bridge = CvBridge()
 
 # Other Imports
 import copy
@@ -233,8 +237,14 @@ class RosSocialEnv(gym.Env):
       'Data': []
     }
 
-    def image_callback(msgs):
-      print(msgs)
+    self.last_image = None
+    self.last_image_ts = 0
+    self.video = []
+    self.max_vid_length = 10_000
+    def image_callback(msg):
+      if self.last_image_ts != self.stepCount and len(self.video) < self.max_vid_length:
+        cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+        self.video.append(cv2_img.transpose(2, 0, 1))
 
     image_topic = "/rviz1/camera1/image"
     rospy.Subscriber(image_topic, Image, image_callback)
@@ -321,6 +331,11 @@ class RosSocialEnv(gym.Env):
     self.scenario.generate_scenario(self.num_humans)
 
   def reset(self):
+    if len(self.video) > 0:
+      self.tbx_writer.add_video('Episode', np.stack([np.stack(self.video)]), self.resetCount, fps=30)
+      self.video = []
+
+
     # Reset the state of the environment to an initial state
     # Call the "reset" of the simulator
     self.resetCount += 1
@@ -378,6 +393,9 @@ class RosSocialEnv(gym.Env):
     toc = time.perf_counter()
     obs, obs_map = self.MakeObservation(response)
     obs = [0 if math.isnan(x) else x for x in obs]
+
+    # if self.tbx_writer and self.last_image is not None:
+    #   self.tbx_writer.add_image('view', self.last_image.transpose(2, 0, 1), self.totalSteps * self.resetCount)
 
     # Update Demonstrations
     demo["next_obs"] = obs

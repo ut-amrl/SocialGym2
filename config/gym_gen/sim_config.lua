@@ -1,3 +1,4 @@
+
 function Vector2(x, y)
     return {x = x, y = y}
   end
@@ -9,26 +10,24 @@ function Vector2(x, y)
   function DegToRad(d)
     return math.pi * d / 180
   end
-
-  map_name =  "maps/GDC1/GDC1.vectormap.txt"
-  -- Simulator starting location.
+map_name =  "maps/closed/door/t1/closed/door/t1.vectormap.txt"-- Simulator starting location.
   start_poses = {
     {
-      -1.45,
-      10.35,
-      -1.5708
+      -5.549050331115723,
+      1.723697543144226,
+      0.0
     }
   }
 
   goal_poses = {
     {
-      -13.71,
-      16.24,
-      0
+      4.572605609893799,
+      8.539844512939453,
+      0.0
     }
   }
 
-  num_humans = 9
+  num_humans = 3
   human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {
@@ -89,3 +88,4 @@ function Vector2(x, y)
 
   laser_topic = "/Cobot/Laser"
   laser_frame = "base_laser"
+  
