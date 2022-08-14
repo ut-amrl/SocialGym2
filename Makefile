@@ -31,11 +31,11 @@ msgs:
 navigation:
 	cd submodules/graph_navigation && $(MAKE)
 
+rviscamerastream:
+	cd submodules/camera_stream && catkin_make
+
 simulator:
 	cd submodules/ut_multirobot_sim && $(MAKE)
 
 pips:
 	cd submodules/pips && $(MAKE)
-
-rviscamerastream:
-	cd submodules/camera_stream && catkin_make
