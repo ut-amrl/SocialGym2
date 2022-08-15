@@ -24,24 +24,24 @@ tbx_writer, tbx_logdir = get_tboard_writer('dqn_sacadrl')
 observations = [
   AgentsGoalDistance(),
   AgentsPose(),
-  AgentsVelocity(),
-  AgentsHeadingDirection(),
-  AgentsOthersDistance(),
-  AgentsPreferredVelocity(preferred_velocity=1.0),
-  OthersPoses(),
-  OthersVelocities(),
-  OthersHeadingDirection(),
+  # AgentsVelocity(),
+  # AgentsHeadingDirection(),
+  # AgentsOthersDistance(),
+  # AgentsPreferredVelocity(preferred_velocity=1.0),
+  # OthersPoses(),
+  # OthersVelocities(),
+  # OthersHeadingDirection(),
   SuccessObservation(),
-  CollisionObservation()
+  # CollisionObservation()
 ]
 
 rewards = [
   ExistencePenalty(),
   Success(),
-  SocialNormCross(),
-  SocialNormOvertake(),
-  SocialNormPass(),
-  Collisions(weight=100)
+  # SocialNormCross(weight=33),
+  # SocialNormOvertake(weight=33),
+  # SocialNormPass(weight=33),
+  # Collisions(weight=100)
 ]
 
 observer = Observer(observations)
@@ -49,9 +49,10 @@ rewarder = Rewarder(rewards, tbx_writer=tbx_writer)
 
 EPISODE_LENGTH = 2_000
 
-scenario = closed_door_1__same_goals()
+#scenario = GraphNavScenario('closed/door/t1')
+scenario = closed_door_1__same_goals('t2')
 
-env = RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, scenario, 3, tbx_writer=tbx_writer)
+env = RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, scenario, 0, tbx_writer=tbx_writer)
 env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
 env = TimeLimitWrapper(env, max_steps=EPISODE_LENGTH)
 env = Monitor(env)

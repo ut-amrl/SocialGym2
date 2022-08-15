@@ -13,21 +13,21 @@ function Vector2(x, y)
 map_name =  "maps/closed/door/t2/closed/door/t2.vectormap.txt"-- Simulator starting location.
   start_poses = {
     {
-      -5.0743231773376465,
-      8.123725891113281,
-      0.0
+      {{ robot_start[0] }},
+      {{ robot_start[1] }},
+      {{ robot_start[2] }}
     }
   }
 
   goal_poses = {
     {
-      4.572605609893799,
-      8.539844512939453,
-      0.0
+      {{ robot_end[0] }},
+      {{ robot_end[1] }},
+      {{ robot_end[2] }}
     }
   }
 
-  num_humans = 0
+  num_humans = {{ human_count }}
   human_config = "../../config/gym_gen/humans.lua"
 
   door_config_list = {

@@ -78,4 +78,4 @@ class SocialNormCross(Reward):
 
         num_of_violations = (dist_check & heading_check & relative_angle_check).sum()
 
-        return num_of_violations
+        return -num_of_violations

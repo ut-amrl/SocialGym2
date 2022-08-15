@@ -142,7 +142,8 @@ class RosSocialEnv(gym.Env):
           scenario: Scenario = None,
           num_humans: Union[int, Tuple[int, int]] = (5, 25),
           data_log: str = None,
-          tbx_writer: SummaryWriter = None
+          tbx_writer: SummaryWriter = None,
+          record_video: bool = False
   ):
     """
     :param reward: Controls the built-in reward functionality (will not be used if registered_reward_functions is set)
@@ -243,11 +244,12 @@ class RosSocialEnv(gym.Env):
     self.max_vid_length = 10_000
     def image_callback(msg):
       if self.last_image_ts != self.stepCount and len(self.video) < self.max_vid_length:
-        cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+        cv2_img = bridge.imgmsg_to_cv2(msg, "rgb8")
         self.video.append(cv2_img.transpose(2, 0, 1))
 
-    image_topic = "/rviz1/camera1/image"
-    rospy.Subscriber(image_topic, Image, image_callback)
+    if record_video:
+      image_topic = "/rviz1/camera1/image"
+      rospy.Subscriber(image_topic, Image, image_callback)
 
 
     # print("Transition TO 0")

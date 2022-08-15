@@ -74,4 +74,4 @@ class SocialNormPass(Reward):
 
         num_of_violations = (x_check & y_check & heading_check).sum()
 
-        return num_of_violations
+        return -num_of_violations

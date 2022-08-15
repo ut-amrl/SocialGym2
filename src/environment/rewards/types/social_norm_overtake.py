@@ -84,4 +84,4 @@ class SocialNormOvertake(Reward):
 
         num_of_violations = (x_check & y_check & heading_check & vel_checks).sum()
 
-        return num_of_violations
+        return -num_of_violations

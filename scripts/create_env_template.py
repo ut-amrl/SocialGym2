@@ -83,6 +83,7 @@ def create_new_env(name: str, template: str = None):
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{AMRL_MAPS_FOLDER}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{UT_MULTI_ROBOT_SIM_MAPS_FOLDER}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    vectormap_txt_to_json(vectormap_file, vectormap_json_file)
 
     # Build config files
     lf = launch_launch(name)
@@ -133,8 +134,6 @@ def create_new_env(name: str, template: str = None):
     shutil.copyfile(vectormap_file, environment_path / f'{name}.vectormap.txt')
     shutil.copyfile(navigation_file, environment_path / f'{name}.navigation.txt')
     shutil.copyfile(navigation_json_file, environment_path / f'{name}.navigation.json')
-
-    vectormap_txt_to_json(vectormap_file, vectormap_json_file)
 
     amrl_folder = AMRL_MAPS_FOLDER / name
     amrl_folder.mkdir(exist_ok=True, parents=True)
