@@ -4,7 +4,6 @@ submodules/pedsim_ros/devel/
 submodules/pedsim_ros/src/CMakeLists.txt
 */srv_gen/*
 data/
-*.json
 gail_training/
 
 .idea

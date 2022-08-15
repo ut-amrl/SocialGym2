@@ -1,0 +1,98 @@
+{
+    "edges": [
+        {
+            "has_automated_door": false,
+            "has_door": false,
+            "has_elevator": false,
+            "has_stairs": false,
+            "max_clearance": 50.0,
+            "max_speed": 2.0,
+            "s0_id": 2,
+            "s1_id": 0
+        },
+        {
+            "has_automated_door": false,
+            "has_door": false,
+            "has_elevator": false,
+            "has_stairs": false,
+            "max_clearance": 50.0,
+            "max_speed": 2.0,
+            "s0_id": 2,
+            "s1_id": 1
+        },
+        {
+            "has_automated_door": false,
+            "has_door": false,
+            "has_elevator": false,
+            "has_stairs": false,
+            "max_clearance": 50.0,
+            "max_speed": 2.0,
+            "s0_id": 2,
+            "s1_id": 3
+        },
+        {
+            "has_automated_door": false,
+            "has_door": false,
+            "has_elevator": false,
+            "has_stairs": false,
+            "max_clearance": 50.0,
+            "max_speed": 2.0,
+            "s0_id": 3,
+            "s1_id": 5
+        },
+        {
+            "has_automated_door": false,
+            "has_door": false,
+            "has_elevator": false,
+            "has_stairs": false,
+            "max_clearance": 50.0,
+            "max_speed": 2.0,
+            "s0_id": 3,
+            "s1_id": 4
+        }
+    ],
+    "nodes": [
+        {
+            "id": 0,
+            "loc": {
+                "x": -5.0743231773376465,
+                "y": 8.123725891113281
+            }
+        },
+        {
+            "id": 1,
+            "loc": {
+                "x": -5.549050331115723,
+                "y": 1.723697543144226
+            }
+        },
+        {
+            "id": 2,
+            "loc": {
+                "x": -1.9504997730255127,
+                "y": 5.064371585845947
+            }
+        },
+        {
+            "id": 3,
+            "loc": {
+                "x": 1.466365098953247,
+                "y": 5.081954002380371
+            }
+        },
+        {
+            "id": 4,
+            "loc": {
+                "x": 4.572605609893799,
+                "y": 8.539844512939453
+            }
+        },
+        {
+            "id": 5,
+            "loc": {
+                "x": 4.050992012023926,
+                "y": 1.3368825912475586
+            }
+        }
+    ]
+}
