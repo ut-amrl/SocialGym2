@@ -41,3 +41,29 @@ def closed_door_1__same_goals(task_id: str = 't1') -> Scenario:
     )
 
     return scenario
+
+def elevator_loading() -> Scenario:
+    allowed_robot_paths = [
+        [7, 0, 9, 13],
+        [7, 0, 9, 11],
+        [6, 0, 9, 13, 2, 1],
+        [4, 0, 9, 5, 12, 11],
+        [6, 0, 9, 13, 11, 12],
+    ]
+
+    allowed_human_paths = [
+        [5, 5],
+        [12, 12],
+        [1, 1],
+        [2, 2],
+        [11, 11],
+        [13, 13],
+    ]
+
+    scenario = ManualScenario(
+        'elevator/t1',
+        agent_paths=allowed_robot_paths,
+        human_paths=allowed_human_paths
+    )
+
+    return scenario

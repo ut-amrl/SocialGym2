@@ -143,6 +143,9 @@ RUN #apt-get install ros-noetic-rviz_camera_stream
 RUN apt-get install -y ros-noetic-cv-bridge
 RUN pip3 install opencv-python-headless==4.5.2.52
 RUN pip3 install moviepy
+
+RUN apt-get -y install gdb
+
 # We need to source the set_paths then start the roscore program in the background.  After than we can move into the
 # main project folder and call our python scripts.
 ENTRYPOINT ["/bin/bash", "-c", "cd /root/social_gym && source ./scripts/set_paths.sh && (roscore &) && \"$@\"", "-s"]

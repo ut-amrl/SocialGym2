@@ -1,4 +1,4 @@
-from typing import List, Dict, TYPE_CHECKING
+from typing import List, Tuple, Dict, TYPE_CHECKING
 
 import numpy as np
 from tensorboardX import SummaryWriter
@@ -32,7 +32,12 @@ class Rewarder:
         self.registered_rewards = registered_rewards
         self.tbx_writer = tbx_writer
 
-    def reward(self, env: 'RosSocialEnv', observation_map, data_map) -> np.array:
+    def reward(
+            self,
+            env: 'RosSocialEnv',
+            observation_map,
+            data_map
+    ) -> Tuple[np.array, Dict[str, float]]:
         """
         Given the environments response for the current timestep, calculate the total reward (sum of all the registered
         reward class objects) and log the individual rewards as well as the total reward if the tensorboardX Summary
@@ -56,7 +61,7 @@ class Rewarder:
             self.tbx_writer.add_scalars('rewards/scalars', reward_map, env.totalSteps)
             self.tbx_writer.flush()
 
-        return total_reward
+        return total_reward, reward_map
 
     def setup(self, env: 'RosSocialEnv'):
         """

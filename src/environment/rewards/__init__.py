@@ -9,3 +9,5 @@ from src.environment.rewards.types.social_norm_pass import SocialNormPass
 from src.environment.rewards.types.social_norm_overtake import SocialNormOvertake
 from src.environment.rewards.types.social_norm_cross import SocialNormCross
 from src.environment.rewards.types.existence_penalty import ExistencePenalty
+from src.environment.rewards.types.velocity_control import VelocityControl
+from src.environment.rewards.types.preferred_velocity import PreferredVelocity

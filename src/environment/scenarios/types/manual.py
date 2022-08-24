@@ -54,20 +54,19 @@ class ManualScenario(Scenario):
         # TODO - ask jarrett, but maybe having the same starting point is ok.
         allowed_human_paths = self.human_paths  # [x for x in self.human_paths if x[0] == robot_start]
 
-        assert len(allowed_human_paths) > 0, 'Every human path overlaps with the agents'
+        if len(allowed_human_paths) > 0:
+            for i in range(0, num_humans):
+                human_path = random.sample(allowed_human_paths, 1)[0]
+                human_start = human_path[0]
+                human_end = human_path[-1]
 
-        for i in range(0, num_humans):
-            human_path = random.sample(allowed_human_paths, 1)[0]
-            human_start = human_path[0]
-            human_end = human_path[-1]
+                human_list = [robot_positions[human_start][0],
+                              robot_positions[human_start][1],
+                              human_end]
 
-            human_list = [robot_positions[human_start][0],
-                          robot_positions[human_start][1],
-                          human_end]
-
-            human_list.extend(list(reversed(human_path)))
-            human_list.extend(human_path)
-            human_positions.append(human_list)
+                human_list.extend(list(reversed(human_path)))
+                human_list.extend(human_path)
+                human_positions.append(human_list)
         # Build the Config Dictionary
         human_dev = 1.0
         config = {

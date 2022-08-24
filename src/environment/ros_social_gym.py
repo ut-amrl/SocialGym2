@@ -327,7 +327,7 @@ class RosSocialEnv(gym.Env):
         w3 = -0.01
         cost = w1 * score + w2 * blame + w3 * force
         return cost + bonus
-      return score + bonus
+      return score + bonus, None
 
   def new_scenario(self):
     self.scenario.generate_scenario(self.num_humans)
@@ -359,7 +359,7 @@ class RosSocialEnv(gym.Env):
         json.dump(self.data, outputJson, indent=2, default=np_encoder)
 
     if self.tbx_writer:
-      self.tbx_writer.add_scalars('episode/scalars', {k: v for k, v in self.data.items() if isinstance(v, int)}, self.resetCount)
+      self.tbx_writer.add_scalars('episode/scalars', {k: v for k, v in self.data.items() if isinstance(v, int) or isinstance(v, float)}, self.resetCount)
 
     self.data = {'Iteration': self.resetCount,
                  'NumHumans': 0,
@@ -406,13 +406,20 @@ class RosSocialEnv(gym.Env):
 
     dataMap = {}
 
-    reward = self.CalculateReward(response, obs_map, dataMap)
+    reward, reward_map = self.CalculateReward(response, obs_map, dataMap)
     self.data["Reward"] = reward
     done = response.done
     if (response.success):
       self.data["Success"] = 1
     if (response.collision):
       self.data["Collision"] += 1
+    if obs_map is not None and "agents_velocity" in obs_map:
+      if 'VelocityChange' not in self.data:
+        self.data['VelocityChange'] = 0.
+      vels = obs_map['agents_velocity']
+      change = (vels[0:2] - vels[3:5]).sum() ** 2
+      self.data["VelocityChange"] += abs(change)
+
     self.data["Data"].append(dataMap)
     self.action_scores[action] += reward
     return obs, reward, done, {"resetCount" : self.resetCount}
@@ -458,13 +465,20 @@ class RosSocialEnv(gym.Env):
 
     dataMap = {}
 
-    reward = self.CalculateReward(response, obs_map, dataMap)
+    reward, reward_map = self.CalculateReward(response, obs_map, dataMap)
     self.data["Reward"] = reward
     done = response.done
     if (response.success):
       self.data["Success"] = 1
     if (response.collision):
       self.data["Collision"] += 1
+    if obs_map is not None and "agents_velocity" in obs_map:
+      if 'VelocityChange' not in self.data:
+        self.data['VelocityChange'] = 0.
+      vels = obs_map['agents_velocity']
+      change = (vels[0:2] - vels[3:5]).sum() ** 2
+      self.data["VelocityChange"] += abs(change)
+
     self.data["Data"].append(dataMap)
     return obs, reward, done, {"resetCount" : self.resetCount}
 
