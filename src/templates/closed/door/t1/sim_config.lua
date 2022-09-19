@@ -11,24 +11,26 @@ function Vector2(x, y)
     return math.pi * d / 180
   end
 map_name =  "maps/closed/door/t1/closed/door/t1.vectormap.txt"-- Simulator starting location.
-  start_poses = {
-    {
-      {{ robot_start[0] }},
-      {{ robot_start[1] }},
-      {{ robot_start[2] }}
-    }
-  }
 
-  goal_poses = {
-    {
-      {{ robot_end[0] }},
-      {{ robot_end[1] }},
-      {{ robot_end[2] }}
-    }
-  }
+start_poses = {
+    {% for i in range(robot_count) %}
+        {
+             {{ robot_start[i][0] }}, {{ robot_start[i][1] }}, {{ robot_start[i][2] }}
+        },
+    {% endfor %}
+}
+
+
+goal_poses = {
+    {% for i in range(robot_count) %}
+        {
+             {{ robot_end[i][0] }}, {{ robot_end[i][1] }}, {{ robot_end[i][2] }}
+        },
+    {% endfor %}
+}
 
   num_humans = {{ human_count }}
-  human_config = "../../config/gym_gen/humans.lua"
+  human_config = "/home/rosdev/social_gym/config/gym_gen/humans.lua"
 
   door_config_list = {
     -- "/home/jaholtz/code/amrl_maps/GDC1/door_list.lua"
@@ -81,11 +83,22 @@ map_name =  "maps/closed/door/t1/closed/door/t1.vectormap.txt"-- Simulator start
   -- robot_config = "config/bwibot_config.lua"
   -- robot_type = RobotType.OMNIDIRECTIONAL_DRIVE
   -- robot_config = "config/cobot_config.lua"
+
   robot_types = {
-    RobotType.DIFF_DRIVE
+    {% for i in range(robot_count) %}
+        {% if i+1 < robot_count %}
+                RobotType.DIFF_DRIVE,
+        {% else %}
+                RobotType.DIFF_DRIVE
+        {% endif %}
+    {% endfor %}
   }
+
+
+
   robot_config = "config/ut_jackal_config.lua"
 
   laser_topic = "/Cobot/Laser"
   laser_frame = "base_laser"
+
   

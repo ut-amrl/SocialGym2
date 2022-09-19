@@ -33,7 +33,8 @@ class ManualScenario(Scenario):
 
     def generate_scenario(
             self,
-            num_humans: Union[int, Tuple[int, int]] = (5, 25)
+            num_humans: Union[int, Tuple[int, int]] = (5, 25),
+            num_agents: Union[int, Tuple[int, int]] = 1
     ):
         if self.config_nav_path is not None:
             nav_map = self.load_nav_nodes(self.config_nav_path)
@@ -44,10 +45,12 @@ class ManualScenario(Scenario):
         if isinstance(num_humans, tuple):
             num_humans = randint(num_humans[0], num_humans[1])
 
+        if isinstance(num_agents, tuple):
+            num_agents = randint(num_agents[0], num_agents[1])
 
-        robot_path = random.sample(self.agent_paths, 1)[0]
-        robot_start = robot_path[0]
-        robot_end = robot_path[-1]
+        robot_paths = random.sample(self.agent_paths, num_agents)
+        robot_starts = [x[0] for x in robot_paths]
+        robot_ends = [x[-1] for x in robot_paths]
 
         human_positions = []
 
@@ -70,8 +73,9 @@ class ManualScenario(Scenario):
         # Build the Config Dictionary
         human_dev = 1.0
         config = {
-            'robot_start': robot_positions[robot_start],
-            'robot_end': robot_positions[robot_end],
+            'robot_start': [robot_positions[x] for x in robot_starts],
+            'robot_end': [robot_positions[x] for x in robot_ends],
+            'robot_count': len(robot_paths),
             'human_count': num_humans,
             'position_count': len(robot_positions),
             'nav_count': len(nav_map),

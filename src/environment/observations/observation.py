@@ -26,6 +26,9 @@ class Observation(ABC):
         :returns: A numpy array that contains relevant observation data for the policy network.
         """
 
+        if len(self) == 0:
+            return np.array([])
+
         obs = self.__observations__(env, env_response)
         return np.nan_to_num(np.pad(obs, pad_width=(0,  len(self) - obs.shape[0]), mode='constant'))
 

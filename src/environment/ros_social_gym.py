@@ -132,6 +132,8 @@ class RosSocialEnv(gym.Env):
   observer: 'Observer'
   rewarder: 'Rewarder'
 
+  num_humans: Union[int, Tuple[int, int]]
+
   def __init__(
           self,
           reward,
@@ -163,6 +165,10 @@ class RosSocialEnv(gym.Env):
       scenario = GraphNavScenario()
     self.scenario = scenario
 
+    self._launch = launch
+    self.launch = None
+    self.record_video = record_video
+
 
     self.num_humans = num_humans
     self.data_log = data_log
@@ -174,14 +180,17 @@ class RosSocialEnv(gym.Env):
         shutil.rmtree(str(data_path))
       data_path.mkdir(exist_ok=True, parents=True)
 
-    # Halt, GoAlone, Follow, Pass
+    # GoAlone, Halt, Follow, Pass
     self.rewarder = rewarder
     self.observer = observer
 
     self.numRepeats = repeats
     self.demos = []
     self.last_observation = []
-    self.action_space = spaces.Discrete(4)
+
+    # Just GoAlone and Halt for now.
+    self.action_space = spaces.Discrete(2)
+
     self.action = 0
     self.action_scores = [0, 0, 0, 0]
     self.totalForce = 0
@@ -198,6 +207,9 @@ class RosSocialEnv(gym.Env):
     self.max_humans = num_humans[1] if isinstance(num_humans, tuple) else num_humans
     self.noPose = True
 
+  def initialize(
+          self,
+  ):
     if self.observer is not None:
       self.observer.setup(self)
     if self.rewarder is not None:
@@ -211,19 +223,19 @@ class RosSocialEnv(gym.Env):
     # Launch the simulator launch file
     uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
     roslaunch.configure_logging(uuid)
-    self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
+    self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self._launch])
     self.launch.start()
 
     rospy.wait_for_service('utmrsStepper')
     rospy.wait_for_service('utmrsReset')
-    self.simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
+    self._simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
     self.simReset = rospy.ServiceProxy('utmrsReset', utmrsReset)
     self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
 
     self.new_scenario()
 
     self.launch.shutdown()
-    self.launch = roslaunch.parent.ROSLaunchParent(uuid, [launch])
+    self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self._launch])
     self.launch.start()
     self.lastObs = utmrsStepperResponse()
     self.resetCount = 0
@@ -247,7 +259,7 @@ class RosSocialEnv(gym.Env):
         cv2_img = bridge.imgmsg_to_cv2(msg, "rgb8")
         self.video.append(cv2_img.transpose(2, 0, 1))
 
-    if record_video:
+    if self.record_video:
       image_topic = "/rviz1/camera1/image"
       rospy.Subscriber(image_topic, Image, image_callback)
 
@@ -256,7 +268,8 @@ class RosSocialEnv(gym.Env):
 
   # Do this on shutdown
   def __del__(self):
-    self.launch.shutdown()
+    if self.launch:
+      self.launch.shutdown()
 
   def make_observation_space(self):
     if self.observer is not None:
@@ -273,7 +286,7 @@ class RosSocialEnv(gym.Env):
 
   def MakeObservation(self, res):
     if self.observer is not None:
-      return self.observer.make_observation(self, env_response=res)
+      return self.observer.make_observation(self, env_response=res.robot_responses[0])
 
     obs = []
     if (self.noPose):
@@ -332,6 +345,12 @@ class RosSocialEnv(gym.Env):
   def new_scenario(self):
     self.scenario.generate_scenario(self.num_humans)
 
+  def default_action(self):
+    return [0]
+
+  def simStep(self, actions):
+    return self._simStep(actions)
+
   def reset(self):
     if len(self.video) > 0:
       self.tbx_writer.add_video('Episode', np.stack([np.stack(self.video)]), self.resetCount, fps=30)
@@ -346,9 +365,9 @@ class RosSocialEnv(gym.Env):
 
     response = self.simReset()
 
-    stepResponse = self.simStep(0)
-    self.startDist = DistanceFromGoal(stepResponse)
-    self.lastDist = self.startDist
+    stepResponse = self.simStep(self.default_action())
+    # self.startDist = DistanceFromGoal(stepResponse.robot_responses[0])
+    # self.lastDist = self.startDist
     self.data['Demos'] = self.demos
 
     if self.data_log:
@@ -390,7 +409,7 @@ class RosSocialEnv(gym.Env):
     demo["obs"] = self.last_observation
 
     # Step the simulator and make observation
-    response = self.simStep(action)
+    response = self.simStep(self.action)
     self.lastObs = response
     toc = time.perf_counter()
     obs, obs_map = self.MakeObservation(response)
@@ -408,6 +427,9 @@ class RosSocialEnv(gym.Env):
 
     reward, reward_map = self.CalculateReward(response, obs_map, dataMap)
     self.data["Reward"] = reward
+
+    response = response.robot_responses[0]
+
     done = response.done
     if (response.success):
       self.data["Success"] = 1
@@ -421,7 +443,7 @@ class RosSocialEnv(gym.Env):
       self.data["VelocityChange"] += abs(change)
 
     self.data["Data"].append(dataMap)
-    self.action_scores[action] += reward
+    # self.action_scores[action[0]] += reward
     return obs, reward, done, {"resetCount" : self.resetCount}
 
   def PipsStep(self):

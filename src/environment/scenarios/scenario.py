@@ -15,13 +15,15 @@ from shutil import copyfile
 from pathlib import Path
 from typing import Union, Tuple
 
+from src.environment.utils import ROOT_FOLDER
+
 
 class Scenario:
 
     def __init__(self, env_name: str = None):
         if env_name is not None:
-            self.config_nav_path = Path(f'src/templates/{env_name}/{env_name}.navigation.json')
-            self.config_scene_path = Path(f'src/templates/{env_name}/')
+            self.config_nav_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/{env_name}.navigation.json')
+            self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
 
             assert Path(self.config_nav_path).is_file(), \
                 f'The env_name ({env_name}) does not have a navigation file at {self.config_nav_path}.'
@@ -29,7 +31,7 @@ class Scenario:
                 f'The env_name ({env_name}) does not have a folder at {self.config_scene_path}'
         else:
             self.config_nav_path = None
-            self.config_scene_path = Path('src/templates/gdc/')
+            self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/gdc/')
 
 
     def load_nav_nodes(self, nav_path):
@@ -42,7 +44,7 @@ class Scenario:
         return list(set(temp_nav))
 
     def make_scenario(self, config):
-        dir_name = "config/gym_gen/"
+        dir_name = f"{ROOT_FOLDER}/config/gym_gen/"
 
         with (self.config_scene_path / 'humans.lua').open('r') as f:
             human_lua_template = jinja2.Template(f.read())

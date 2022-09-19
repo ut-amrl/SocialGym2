@@ -1,0 +1,6 @@
+debugdocker/data
+debugdocker/tmp
+docker/data
+**/data
+**/build
+**/devel

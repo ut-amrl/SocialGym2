@@ -9,7 +9,7 @@ from tensorboardX import SummaryWriter
 import time
 
 
-ROOT_FOLDER = Path('/root/social_gym')
+ROOT_FOLDER = Path('/home/rosdev/social_gym')
 DATA_FOLDER = ROOT_FOLDER / 'data'  # This is how it is set up in the docker container, not on your local machine
 
 

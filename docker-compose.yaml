@@ -1,0 +1,90 @@
+version: "2.3"
+
+services:
+  rosmaster:
+    # In charge of Roscore, all services should use http://rosmaster:11311 as the ROS_MASTER_URI
+
+    container_name: rosmaster
+    image: ros:noetic
+    command: roscore
+    tty: true
+    ports:
+      - "11311:11311"
+
+  social_gym_image:
+    container_name: social_gym_image
+    build:
+      context: ./
+      dockerfile: docker2/social_gym_image.Dockerfile
+    depends_on:
+      - rosmaster
+
+  ut_multirobot_sim:
+    build:
+      context: ./
+      dockerfile: docker2/ut_multirobot_sim.Dockerfile
+    tty: true
+    cap_add:
+      - SYS_PTRACE  # For debugging purposes
+    environment:
+      ROS_MASTER_URI: http://rosmaster:11311
+    volumes:
+      - src:/home/rosdev/social_gym:rw
+    ports:
+      - "2222:22"
+    depends_on:
+      - social_gym_image
+      - rosmaster
+
+  social_gym:
+    build:
+      context: ./
+      dockerfile: docker2/social_gym.Dockerfile
+    runtime: nvidia
+    tty: true
+    cap_add:
+      - SYS_PTRACE  # For debugging purposes
+    environment:
+      DISPLAY: ${DISPLAY}
+      QT_X11_NO_MITSHM: 1
+      XAUTHORITY: /tmp/.docker.xauth
+      ROS_MASTER_URI: http://rosmaster:113111
+    volumes:
+      - src:/home/rosdev/social_gym:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    ports:
+      - "2223:22"
+    depends_on:
+      - social_gym_image
+      - rosmaster
+
+
+  simulation:
+    container_name: simulator
+    build:
+      context: ./
+      dockerfile: docker2/simulator.Dockerfile
+    runtime: nvidia
+    tty: true
+    environment:
+      DISPLAY: ${DISPLAY}
+      QT_X11_NO_MITSHM: 1
+      XAUTHORITY: /tmp/.docker.xauth
+      ROS_MASTER_URI: http://rosmaster:11311
+    volumes:
+      - src:/social_gym:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    ports:
+      - "11345:11345"
+    depends_on:
+      - rosmaster
+
+volumes:
+  src:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: ./

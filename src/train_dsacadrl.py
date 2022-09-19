@@ -16,8 +16,10 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.common_observations import dsacadrl_observations
 from src.environment.wrappers.new_scenario_wrapper import NewScenarioWrapper
 from src.environment.wrappers.time_limit import TimeLimitWrapper
+from src.environment.wrappers.simple_multi_agent import SimpleMultiAgent
 from src.environment.scenarios import GraphNavScenario
 from src.environment.scenarios.common_scenarios import closed_door_1__same_goals, closed_door_1__opposing_sides, elevator_loading
+from src.environment.utils import ROOT_FOLDER
 
 
 seed(1)
@@ -55,21 +57,28 @@ observer = Observer(observations)
 rewarder = Rewarder(rewards, tbx_writer=tbx_writer)
 
 EPISODE_LENGTH = 2_000
-TRAIN_LENGTH = 50
+TRAIN_LENGTH = 5_000
 
 # scenario = GraphNavScenario('elevator/t1')
-# scenario = closed_door_1__same_goals('t1')
-scenario = elevator_loading()
+scenario = closed_door_1__same_goals('t1')
+# scenario = elevator_loading()
 
-env = RosSocialEnv('1', 1, "config/gym_gen/launch.launch", observer, rewarder, scenario, 3, tbx_writer=tbx_writer, record_video=True)
+env = RosSocialEnv('1', 1, f"{ROOT_FOLDER}/config/gym_gen/launch.launch", observer, rewarder, scenario, 0, tbx_writer=tbx_writer, record_video=True)
+env = SimpleMultiAgent(env, None, number_of_agents=2)
 env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
 env = TimeLimitWrapper(env, max_steps=EPISODE_LENGTH)
+env.initialize()
+
 env = Monitor(env)
 env = DummyVecEnv([lambda: env])
 
 
+
 GYM_TBX = True
 model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=tbx_logdir if GYM_TBX else None)
+
+# TODO - fix this, the multi-agent should probably be an algorithm not an env wrapper (or maybe both)
+env.envs[0].env.env.env.model = model
 
 model.learn(EPISODE_LENGTH * TRAIN_LENGTH, eval_env=env, eval_freq=EPISODE_LENGTH * 5, n_eval_episodes=5)
 

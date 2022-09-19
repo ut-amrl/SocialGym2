@@ -10,25 +10,35 @@ function Vector2(x, y)
   function DegToRad(d)
     return math.pi * d / 180
   end
-map_name =  "maps/closed/door/t2/closed/door/t2.vectormap.txt"-- Simulator starting location.
-  start_poses = {
-    {
-      -5.0743231773376465,
-      8.123725891113281,
-      0.0
-    }
-  }
+map_name =  "maps/closed/door/t1/closed/door/t1.vectormap.txt"-- Simulator starting location.
 
-  goal_poses = {
-    {
-      4.572605609893799,
-      8.539844512939453,
-      0.0
-    }
-  }
+start_poses = {
+    
+        {
+             -5.0743231773376465, 8.123725891113281, 0.0
+        },
+    
+        {
+             -5.549050331115723, 1.723697543144226, 0.0
+        },
+    
+}
+
+
+goal_poses = {
+    
+        {
+             4.572605609893799, 8.539844512939453, 0.0
+        },
+    
+        {
+             4.572605609893799, 8.539844512939453, 0.0
+        },
+    
+}
 
   num_humans = 0
-  human_config = "../../config/gym_gen/humans.lua"
+  human_config = "/home/rosdev/social_gym/config/gym_gen/humans.lua"
 
   door_config_list = {
     -- "/home/jaholtz/code/amrl_maps/GDC1/door_list.lua"
@@ -81,11 +91,24 @@ map_name =  "maps/closed/door/t2/closed/door/t2.vectormap.txt"-- Simulator start
   -- robot_config = "config/bwibot_config.lua"
   -- robot_type = RobotType.OMNIDIRECTIONAL_DRIVE
   -- robot_config = "config/cobot_config.lua"
+
   robot_types = {
-    RobotType.DIFF_DRIVE
+    
+        
+                RobotType.DIFF_DRIVE,
+        
+    
+        
+                RobotType.DIFF_DRIVE
+        
+    
   }
+
+
+
   robot_config = "config/ut_jackal_config.lua"
 
   laser_topic = "/Cobot/Laser"
   laser_frame = "base_laser"
+
   

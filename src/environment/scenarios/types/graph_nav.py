@@ -152,7 +152,8 @@ class GraphNavScenario(Scenario):
 
     def generate_scenario(
             self,
-            num_humans: Union[int, Tuple[int, int]] = (5, 25)
+            num_humans: Union[int, Tuple[int, int]] = (5, 25),
+            num_agents: Union[int, Tuple[int, int]] = 1
     ):
         global robot_positions
         global nav_map
@@ -164,17 +165,18 @@ class GraphNavScenario(Scenario):
         if isinstance(num_humans, tuple):
             num_humans = randint(num_humans[0], num_humans[1])
 
+        if isinstance(num_agents, tuple):
+            num_agents = randint(num_agents[0], num_agents[1])
+
         if self.allowed_human_goal_positions:
-            robot_start = random.sample(self.allowed_agent_start_positions, 1)
+            robot_starts = random.sample(self.allowed_agent_start_positions, num_agents)
         else:
-            robot_start = random.sample(range(0, len(robot_positions)), 1)
-        robot_start = robot_start[0]
+            robot_starts = random.sample(range(0, len(robot_positions)), num_agents)
 
         if self.allowed_agent_goal_positions:
-            robot_end = random.sample(list(set(self.allowed_agent_goal_positions) - {robot_start}), 1)
+            robot_ends = [random.sample(list(set(self.allowed_human_goal_positions) - {x}), 1) for x in enumerate(robot_starts)]
         else:
-            robot_end = random.sample(list(set(list(range(0, len(robot_positions)))) - {robot_start}), 1)
-        robot_end = robot_end[0]
+            robot_ends = [random.sample(list(set(list(range(0, len(robot_positions)))) - {x}), 1) for x in enumerate(robot_starts)]
 
         human_positions = []
 
@@ -183,7 +185,7 @@ class GraphNavScenario(Scenario):
         else:
             allowed_human_starts = list(range(0, len(robot_positions)))
 
-        allowed_human_starts = list(set(allowed_human_starts) - {robot_start})
+        # allowed_human_starts = list(set(allowed_human_starts) - {robot_start})
 
         for i in range(0, num_humans):
             human_start = random.sample(allowed_human_starts, 1)[0]
@@ -212,8 +214,8 @@ class GraphNavScenario(Scenario):
         # Build the Config Dictionary
         human_dev = 1.0
         config = {
-            'robot_start': robot_positions[robot_start],
-            'robot_end': robot_positions[robot_end],
+            'robot_start': [robot_positions[x] for x in robot_starts],
+            'robot_end': [robot_positions[x] for x in robot_ends],
             'human_count': num_humans,
             'position_count': len(robot_positions),
             'nav_count': len(nav_map),
