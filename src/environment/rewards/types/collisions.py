@@ -18,7 +18,7 @@ class Collisions(Reward):
     def name(cls):
         return "collisions"
 
-    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array]) -> float:
         assert CollisionObservation.name() in observation_map, \
             'Collisions reward expects teh CollisionObservation in the observation.'
         return -1.0 if observation_map[CollisionObservation.name()] > 0 else 0.

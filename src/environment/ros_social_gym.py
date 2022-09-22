@@ -13,11 +13,6 @@ from amrl_msgs.srv import SocialPipsSrv
 from ut_multirobot_sim.srv import utmrsStepperResponse
 import rospy
 import roslaunch
-from sensor_msgs.msg import Image
-import cv2
-from cv_bridge import CvBridge, CvBridgeError
-
-bridge = CvBridge()
 
 # Other Imports
 import copy
@@ -57,8 +52,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     metadata = {
         "render_modes": ["human"],
         "name": "ros_social_env",
-        "is_parallelizable": True,
-        "has_manual_policy": True,
     }
 
     launch_config: str
@@ -159,9 +152,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
         self.launch.start()
 
-    def __del__(self):
-        if self.launch:
-            self.launch.shutdown()
+        self.last_obs_maps = []
+        self.last_reward_maps = []
+
+    def close(self):
+        pass
 
     def observation_space(self, agent):
         return self.observation_spaces[agent]
@@ -176,7 +171,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         return self.rewarder.reward(self, obs_map)
 
     def new_scenario(self):
-        self.scenario.generate_scenario(self.num_humans)
+        self.scenario.generate_scenario(self.ros_num_humans, self.ros_num_agents)
 
     def default_action(self):
         return [0]
@@ -213,34 +208,22 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         observations, observation_maps = self.make_observation(environment_responses)
         rewards, reward_maps = self.calculate_reward(observation_maps)
 
-        agent_truncations = {agent: False for agent in self.agents}
-        agent_terminations = {agent: obs_map['done'] for agent, obs_map in zip(self.possible_agents, observation_maps)}
+        self.last_obs_maps = observation_maps
+        self.last_reward_maps = reward_maps
+
+        # TODO - make a "done" observation
+        agent_terminations = {agent: False if obs_map['success_observation'] == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
         agent_rewards = {
             agent: reward for agent, reward in zip(self.possible_agents, rewards) if agent in self.agents
         }
         agent_infos = {agent: {} for agent in self.possible_agents if agent in self.agents}
-        self.agents = [agent for agent in self.agents if not agent_terminations[agent]]
+        # self.agents = [agent for agent in self.agents if not agent_terminations[agent]]
 
-        return agent_observations, agent_rewards, agent_terminations, agent_truncations, agent_infos
+        return agent_observations, agent_rewards, agent_terminations, agent_infos
 
-    def render(self):
+    def render(self, mode="human"):
         """
         Depends on RVIZ for visualization, no render method
         """
         pass
-
-def wrap_env(env: RosSocialEnv):
-    """
-  The env function often wraps the environment in wrappers by default.
-  You can find full documentation for these methods
-  elsewhere in the developer documentation.
-  """
-    # This wrapper is only for environments which print results to the terminal
-    env = wrappers.CaptureStdoutWrapper(env)
-    # this wrapper helps error handling for discrete action spaces
-    env = wrappers.AssertOutOfBoundsWrapper(env)
-    # Provides a wide vareity of helpful user errors
-    # Strongly recommended
-    env = wrappers.OrderEnforcingWrapper(env)
-    return env

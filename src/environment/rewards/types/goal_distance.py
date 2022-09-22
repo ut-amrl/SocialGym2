@@ -19,7 +19,7 @@ class GoalDistance(Reward):
     def name(cls):
         return "goal_distance"
 
-    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array]) -> float:
         assert AgentsGoalDistance.name() in observation_map, \
             'Goal Distance requires the agents goal distance to be in the observation'
 

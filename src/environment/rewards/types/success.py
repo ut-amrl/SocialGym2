@@ -18,7 +18,7 @@ class Success(Reward):
     def name(cls):
         return "success"
 
-    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array]) -> float:
         assert SuccessObservation.name() in observation_map, \
            'The Success Reward expects the SuccessObservation to be given'
 

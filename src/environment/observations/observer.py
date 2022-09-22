@@ -20,7 +20,7 @@ class Observer:
         self.registered_observations = [registered_observations]
 
     def __len__(self):
-        return sum([len(x) for x in self.__orig_registered_observation_stack__])
+        return sum([len(x) for x in self.registered_observations[0]])
 
     def make_observation(self, env: 'RosSocialEnv', env_response) -> Tuple[List[np.array], List[Dict[str, any]]]:
 
@@ -31,7 +31,7 @@ class Observer:
         for i in range(len(agent_responses)):
             agent_response = agent_responses[i]
 
-            if i > len(self.registered_observations):
+            if i >= len(self.registered_observations):
                 new_stack = deepcopy(self.__orig_registered_observation_stack__)
                 [obs.__setup__(env) for obs in new_stack]
                 self.registered_observations.append(new_stack)

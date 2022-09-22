@@ -18,7 +18,7 @@ class VelocityControl(Reward):
     def name(cls):
         return "velocity_control"
 
-    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array], data_map) -> float:
+    def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array]) -> float:
         assert AgentsVelocity.name() in observation_map, \
             'Velocity Control requires the agents velocity to be in the observation'
         assert len(observation_map[AgentsVelocity.name()]) >= 6, \

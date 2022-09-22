@@ -47,7 +47,7 @@ def get_tboard_writer(log_name: str):
 
     print(f"Making tensorboard summary writer at {logdir}")
 
-    return SummaryWriter(logdir=str(logdir)), logdir
+    return SummaryWriter(logdir=str(logdir), flush_secs=1)
 
 
 # TODO - This shouldn't be needed, the real fix is in changing the c++ code.

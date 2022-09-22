@@ -1,5 +1,6 @@
 # !/usr/bin/env python3
 
+from copy import deepcopy
 import os
 import sys
 from random import seed
@@ -48,7 +49,13 @@ class ManualScenario(Scenario):
         if isinstance(num_agents, tuple):
             num_agents = randint(num_agents[0], num_agents[1])
 
-        robot_paths = random.sample(self.agent_paths, num_agents)
+        allowed_robot_paths = deepcopy(self.agent_paths)
+        robot_paths = []
+        for i in range(num_agents):
+            picked_path = random.sample(allowed_robot_paths, 1)[0]
+            robot_paths.append(picked_path)
+            allowed_robot_paths = [x for x in allowed_robot_paths if x[0] != picked_path[0]]
+
         robot_starts = [x[0] for x in robot_paths]
         robot_ends = [x[-1] for x in robot_paths]
 
