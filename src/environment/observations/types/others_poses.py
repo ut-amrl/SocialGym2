@@ -48,9 +48,7 @@ class OthersPoses(Observation):
 
     def __setup__(self, env: RosSocialEnv):
         self.num_others = 0
-
         if self.allow_humans:
-            self.num_others += env.num_humans
-
-        if hasattr(env, 'number_of_agents') and self.allow_other_robots:
-            self.num_others += env.number_of_agents - 1
+            self.num_others += max(env.ros_num_agents)
+        if self.allow_other_robots:
+            self.num_others += max(env.ros_num_agents) - 1

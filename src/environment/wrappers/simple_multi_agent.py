@@ -24,18 +24,26 @@ class SimpleMultiAgent(Wrapper):
 
         self.env.new_scenario = self.new_scenario
         self.env.default_action = self.default_action
-        self.env.MakeObservation = self.make_observation
+        # self.env.MakeObservation = self.make_observation
         self.env.number_of_agents = self.number_of_agents
+        # self.env.CalculateReward = self.calcualte_reward
 
         self.model = model
 
     def default_action(self):
         return [0]*self.number_of_agents
 
+    def calcualte_reward(self, res, obs_map, dataMap):
+        return self.env.rewarder.reward(self.env, obs_map, dataMap) + \
+               sum([
+                   x.reward(self.env, obs_map, dataMap) for x, obs_map in zip(self.other_rewarders, self.other_obs_maps)
+               ])
+
     def initialize(self):
         self.env.initialize()
 
-        self.other_observers = [deepcopy(self.env.observer) for _ in range(self.number_of_agents - 1)]
+        # self.other_observers = [deepcopy(self.env.observer) for _ in range(self.number_of_agents - 1)]
+        # self.other_rewarders = [deepcopy(self.env.rewarder) for _ in range(self.number_of_agents - 1)]
 
         self.other_obs_maps = [None] * (self.number_of_agents - 1)
         self.other_actions = [0] * (self.number_of_agents - 1)

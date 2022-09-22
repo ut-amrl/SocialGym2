@@ -22,4 +22,4 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 RUN apt-get install -y ros-noetic-rviz
 
-CMD source /opt/ros/noetic/setup.bash && rosrun rviz rviz -d /social_gym/submodules/ut_multirobot_sim/visualization.rviz
+CMD source /home/rosdev/social_gym/docker2/set_paths.sh && rosrun rviz rviz -d /home/rosdev/social_gym/submodules/ut_multirobot_sim/visualization.rviz

@@ -24,7 +24,9 @@ RUN pip3 install click
 RUN pip3 install jinja2
 RUN pip3 install pandas
 RUN pip3 install stable-baselines3[extra]
-RUN pip3 install gym
+RUN pip3 install pettingzoo==1.19.0
+RUN pip3 install supersuit==3.3.3
+RUN pip3 install gym==0.21.0
 RUN pip3 install imitation
 
 # Download and install Z3
@@ -61,6 +63,7 @@ ENV QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
 
 RUN pip3 install tensorboardX
 
+RUN apt-get update --fix-missing
 RUN apt-get install -y ros-noetic-cv-bridge
 RUN pip3 install opencv-python-headless==4.5.2.52
 RUN pip3 install moviepy
@@ -102,6 +105,7 @@ SHELL ["/bin/bash", "-c"]
 
 COPY ./submodules/pedsim_ros ./pedsim_ros
 
+RUN apt-get install ros-noetic-roslint
 RUN source /home/rosdev/set_paths.sh && cd pedsim_ros && catkin_make
 
 WORKDIR ${ROS_WS}/submodules

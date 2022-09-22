@@ -15,14 +15,12 @@ class Rewarder:
     """
 
     registered_rewards: List[Reward]
-    tbx_writer: SummaryWriter
 
     __step_idx__: int
 
     def __init__(
             self,
             registered_rewards: List[Reward],
-            tbx_writer: SummaryWriter = None,
     ):
         """
         :param registered_rewards: The reward class objects to run each timestep of the environment
@@ -30,7 +28,6 @@ class Rewarder:
         """
 
         self.registered_rewards = registered_rewards
-        self.tbx_writer = tbx_writer
 
     def reward(
             self,
@@ -56,10 +53,6 @@ class Rewarder:
             total_reward += reward
 
         reward_map['total'] = total_reward
-
-        if self.tbx_writer is not None:
-            self.tbx_writer.add_scalars('rewards/scalars', reward_map, env.totalSteps)
-            self.tbx_writer.flush()
 
         return total_reward, reward_map
 
