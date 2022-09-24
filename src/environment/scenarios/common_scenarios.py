@@ -1,3 +1,5 @@
+from itertools import product
+
 from src.environment.scenarios import Scenario, GraphNavScenario, ManualScenario
 
 
@@ -42,6 +44,7 @@ def closed_door_1__same_goals(task_id: str = 't1') -> Scenario:
 
     return scenario
 
+
 def elevator_loading() -> Scenario:
     allowed_robot_paths = [
         [7, 0, 9, 13],
@@ -67,3 +70,22 @@ def elevator_loading() -> Scenario:
     )
 
     return scenario
+
+
+def exp1_train_scenario(level: str = 'easy') -> Scenario:
+    start_points = [1, 6, 18, 17, 0, 10, 3, 8, 15, 12]
+    before_hallway = [7]
+    after_hallway = [11]
+    end_points = [19, 5, 14, 4, 16, 9, 21, 2, 13, 20]
+
+    all_paths = [list(x) for x in product(start_points, before_hallway, after_hallway, end_points)]
+
+    scenario = ManualScenario(
+        f'exp1/train/{level}',
+        agent_paths=all_paths,
+        human_paths=all_paths
+    )
+
+    return scenario
+
+

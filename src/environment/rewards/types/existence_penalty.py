@@ -19,7 +19,4 @@ class ExistencePenalty(Reward):
         return "existence_penalty"
 
     def __score__(self, env: RosSocialEnv, observation_map: Dict[str, np.array]) -> float:
-        assert SuccessObservation.name() in observation_map, \
-           'The Existence Penalty expects the SuccessObservation to be in the observation map'
-
-        return 0. if observation_map[SuccessObservation.name()] > 0 else -1.
+        return 0. if observation_map.get(SuccessObservation.name(), 0) > 0 else -1.

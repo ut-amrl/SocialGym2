@@ -18,8 +18,8 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.common_observations import dsacadrl_observations
 from src.environment.wrappers import NewScenarioWrapper, TimeLimitWrapper, TensorboardWriter
 
-from src.environment.scenarios import GraphNavScenario
-from src.environment.scenarios.common_scenarios import closed_door_1__same_goals, closed_door_1__opposing_sides, elevator_loading
+from src.environment.scenarios import GraphNavScenario, CycleScenario
+from src.environment.scenarios.common_scenarios import closed_door_1__same_goals, closed_door_1__opposing_sides, elevator_loading, exp1_train_scenario
 from src.environment.utils import ROOT_FOLDER
 
 
@@ -61,12 +61,14 @@ EPISODE_LENGTH = 2_000
 TRAIN_LENGTH = 5_000
 
 # scenario = GraphNavScenario('elevator/t1')
-scenario = closed_door_1__same_goals('t1')
+# scenario = closed_door_1__same_goals('t1')
 # scenario = elevator_loading()
+# scenario = CycleScenario('exp1/train/easy')
+scenario = exp1_train_scenario(level='easy')
 
-env = RosSocialEnv(observer=observer, rewarder=rewarder, scenario=scenario, num_humans=0, num_agents=2)
-env = NewScenarioWrapper(env)
-env = TimeLimitWrapper(env, max_steps=2000)
+env = RosSocialEnv(observer=observer, rewarder=rewarder, scenario=scenario, num_humans=0, num_agents=10)
+env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
+env = TimeLimitWrapper(env, max_steps=2_000)
 env = TensorboardWriter(env, tbx_log='dqn_sacadrl')
 env = ss.pettingzoo_env_to_vec_env_v1(env)
 

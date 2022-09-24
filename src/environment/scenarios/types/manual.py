@@ -55,6 +55,7 @@ class ManualScenario(Scenario):
             picked_path = random.sample(allowed_robot_paths, 1)[0]
             robot_paths.append(picked_path)
             allowed_robot_paths = [x for x in allowed_robot_paths if x[0] != picked_path[0]]
+            allowed_robot_paths = [x for x in allowed_robot_paths if x[-1] != picked_path[-1]]
 
         robot_starts = [x[0] for x in robot_paths]
         robot_ends = [x[-1] for x in robot_paths]

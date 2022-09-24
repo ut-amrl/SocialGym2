@@ -28,7 +28,7 @@ def create_new_env(name: str, template: str = None):
 
     environment_path = TEMPLATES_FOLDER / name
 
-    if template:
+    if template and template != name:
         if environment_path.exists():
             shutil.rmtree(environment_path)
 
@@ -39,10 +39,10 @@ def create_new_env(name: str, template: str = None):
     environment_map_path = MAPS_FOLDER / name
     environment_map_path.mkdir(exist_ok=True, parents=True)
 
-    vectormap_file = environment_map_path / f'{name}.vectormap.txt'
-    vectormap_json_file = environment_path / f'{name}.vectormap.json'
-    navigation_file = environment_map_path / f'{name}.navigation.txt'
-    navigation_json_file = environment_map_path / f'{name}.navigation.json'
+    vectormap_file = environment_map_path / f'{environment_path.name}.vectormap.txt'
+    vectormap_json_file = environment_path / f'{environment_path.name}.vectormap.json'
+    navigation_file = environment_map_path / f'{environment_path.name}.navigation.txt'
+    navigation_json_file = environment_map_path / f'{environment_path.name}.navigation.json'
 
     vectormap_file.parent.mkdir(exist_ok=True, parents=True)
     vectormap_json_file.parent.mkdir(exist_ok=True, parents=True)
@@ -52,9 +52,9 @@ def create_new_env(name: str, template: str = None):
     if template:
         template_map_path = MAPS_FOLDER / template
 
-        t_vectormap_file = template_map_path / f'{template}.vectormap.txt'
-        t_navigation_file = template_map_path / f'{template}.navigation.txt'
-        t_navigation_json_file = template_map_path / f'{template}.navigation.json'
+        t_vectormap_file = template_map_path / f'{template_map_path.name}.vectormap.txt'
+        t_navigation_file = template_map_path / f'{template_map_path.name}.navigation.txt'
+        t_navigation_json_file = template_map_path / f'{template_map_path.name}.navigation.json'
 
         shutil.copyfile(t_navigation_file, navigation_file)
         shutil.copyfile(t_navigation_json_file, navigation_json_file)
@@ -68,13 +68,13 @@ def create_new_env(name: str, template: str = None):
         open(str(navigation_file), 'w').close()
 
     # Build vectormap (geometry of the env)
-    cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(MAPS_FOLDER), name, "--edit_localization"]
+    cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(environment_map_path.parent), environment_map_path.name, "--edit_localization"]
 
     out = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out.wait()
 
     # Build navigation paths (Navigation Graph)
-    cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(MAPS_FOLDER), name, "--edit_navigation"]
+    cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(environment_map_path.parent), environment_map_path.name, "--edit_navigation"]
 
     out = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out.wait()
@@ -86,15 +86,17 @@ def create_new_env(name: str, template: str = None):
     vectormap_txt_to_json(vectormap_file, vectormap_json_file)
 
     # Build config files
-    lf = launch_launch(name)
+    alf = all_launch_launch(name)
+    lf = launch_launch()
     hl = humans_lua()
     pl = pedsim_launch()
-    sc = sim_config(name)
+    sc = sim_config(name, environment_path.name)
     s = scene(vectormap_json_file)
     rl = ref_launch(name)
     pipsl = pips_launch(name)
     gl = greedy_launch(name)
 
+    all_launch_file = environment_path / 'all_launch.launch'
     launch_file = environment_path / 'launch.launch'
     humans_file = environment_path / 'humans.lua'
     pedsim_file = environment_path / 'pedsim_launch.launch'
@@ -103,6 +105,9 @@ def create_new_env(name: str, template: str = None):
     ref_file = environment_path / 'ref_launch.launch'
     greedy_file = environment_path / 'greedy_launch.launch'
     pips_file = environment_path / 'pips_launch.launch'
+
+    with all_launch_file.open('w') as f:
+        f.write(alf)
 
     with launch_file.open('w') as f:
         f.write(lf)
@@ -128,49 +133,87 @@ def create_new_env(name: str, template: str = None):
     with pips_file.open('w') as f:
         f.write(pipsl)
 
-    (environment_path / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
+    (environment_path / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     # Copy over maps
-    shutil.copyfile(vectormap_file, environment_path / f'{name}.vectormap.txt')
-    shutil.copyfile(navigation_file, environment_path / f'{name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, environment_path / f'{name}.navigation.json')
+    shutil.copyfile(vectormap_file, environment_path / f'{environment_path.name}.vectormap.txt')
+    shutil.copyfile(navigation_file, environment_path / f'{environment_path.name}.navigation.txt')
+    shutil.copyfile(navigation_json_file, environment_path / f'{environment_path.name}.navigation.json')
 
     amrl_folder = AMRL_MAPS_FOLDER / name
     amrl_folder.mkdir(exist_ok=True, parents=True)
 
-    (amrl_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
+    (amrl_folder / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
-    shutil.copyfile(vectormap_file, amrl_folder / f'{name}.vectormap.txt')
-    shutil.copyfile(vectormap_json_file, amrl_folder / f'{name}.vectormap.json')
-    shutil.copyfile(navigation_file, amrl_folder / f'{name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, amrl_folder / f'{name}.navigation.json')
+    shutil.copyfile(vectormap_file, amrl_folder / f'{environment_path.name}.vectormap.txt')
+    shutil.copyfile(vectormap_json_file, amrl_folder / f'{environment_path.name}.vectormap.json')
+    shutil.copyfile(navigation_file, amrl_folder / f'{environment_path.name}.navigation.txt')
+    shutil.copyfile(navigation_json_file, amrl_folder / f'{environment_path.name}.navigation.json')
 
     utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / name
     utmulti_folder.mkdir(exist_ok=True, parents=True)
     (utmulti_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
-    shutil.copyfile(vectormap_file, utmulti_folder / f'{name}.vectormap.txt')
-    shutil.copyfile(vectormap_json_file, utmulti_folder / f'{name}.vectormap.json')
-    shutil.copyfile(navigation_file, utmulti_folder / f'{name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, utmulti_folder / f'{name}.navigation.json')
+    shutil.copyfile(vectormap_file, utmulti_folder / f'{environment_path.name}.vectormap.txt')
+    shutil.copyfile(vectormap_json_file, utmulti_folder / f'{environment_path.name}.vectormap.json')
+    shutil.copyfile(navigation_file, utmulti_folder / f'{environment_path.name}.navigation.txt')
+    shutil.copyfile(navigation_json_file, utmulti_folder / f'{environment_path.name}.navigation.json')
 
 
+def all_launch_launch(name: str):
+    return \
+        """
+        <launch>
+            <arg name="outfile" default="screen" />
+        
+            <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
+                output="screen"
+                args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
+        
+            <group unless="$(optenv DOCKER false)">
+                <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ut_multirobot_sim)/visualization.rviz" />
+            </group>
+        
+                <group ns="camera1">
+                <node pkg="tf" type="static_transform_publisher" name="camera_broadcaster"
+                  args="-1 7 12 15 0 0 1 map camera1 10" />
+                <node name="camera_info" pkg="rostopic" type="rostopic"
+                  args="pub camera_info sensor_msgs/CameraInfo
+                 '{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'camera1'},
+                  height: 480, width: 640, distortion_model: 'plumb_bob',
+                  D: [0],
+                  K: [500.0, 0.0, 320, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
+                  R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+                  P: [500.0, 0.0, 320, 0.0, 0.0, 500, 240, 0.0, 0.0, 0.0, 1.0, 0.0],
+                  binning_x: 0, binning_y: 0,
+                  roi: {x_offset: 0, y_offset: 0, height: 480, width: 640, do_rectify: false}}' -r 2"
+                  output="screen"/>
+            </group>
+        
+            <group ns="rviz1/camera1/image">
+              <rosparam param="disable_pub_plugins">
+                - 'image_transport/compressed'
+                - 'image_transport/compressedDepth'
+                - 'image_transport/theora'
+              </rosparam>
+            </group>
+        
+        """ + \
+        f'    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map={name}"  />' + \
+        """
+            <include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
+        
+            <param name="enable_statistics" value="true" />
+        </launch>
+        """.lstrip()
 
-def launch_launch(name: str):
+def launch_launch():
     return \
 """
 <launch>
     <arg name="outfile" default="screen" />
 
-    <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
-        output="screen"
-        args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
-
-    <group unless="$(optenv DOCKER false)">
-        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ut_multirobot_sim)/visualization.rviz" />
-    </group>
-    
-        <group ns="camera1">
+    <group ns="camera1">
         <node pkg="tf" type="static_transform_publisher" name="camera_broadcaster"
           args="-1 7 12 15 0 0 1 map camera1 10" />
         <node name="camera_info" pkg="rostopic" type="rostopic"
@@ -194,9 +237,6 @@ def launch_launch(name: str):
       </rosparam>
     </group>
 
-""" + \
-f'    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map={name}"  />' + \
-"""
     <include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
 
     <param name="enable_statistics" value="true" />
@@ -277,7 +317,7 @@ f"""
 """.lstrip()
 
 
-def sim_config(name):
+def sim_config(path, name):
     return \
 """
 function Vector2(x, y)
@@ -292,24 +332,26 @@ function Vector2(x, y)
     return math.pi * d / 180
   end
 """ + \
-f"map_name =  \"maps/{name}/{name}.vectormap.txt\"" + \
+f"map_name =  \"maps/{path}/{name}.vectormap.txt\"" + \
 """
   -- Simulator starting location.
-  start_poses = {
-    {
-      {{ robot_start[0] }},
-      {{ robot_start[1] }},
-      {{ robot_start[2] }}
-    }
-  }
+start_poses = {
+    {% for i in range(robot_count) %}
+        {
+             {{ robot_start[i][0] }}, {{ robot_start[i][1] }}, {{ robot_start[i][2] }}
+        },
+    {% endfor %}
+}
 
-  goal_poses = {
-    {
-      {{ robot_end[0] }},
-      {{ robot_end[1] }},
-      {{ robot_end[2] }}
-    }
-  }
+
+goal_poses = {
+    {% for i in range(robot_count) %}
+        {
+             {{ robot_end[i][0] }}, {{ robot_end[i][1] }}, {{ robot_end[i][2] }}
+        },
+    {% endfor %}
+}
+
 
   num_humans = {{ human_count }}
   human_config = "../../config/gym_gen/humans.lua"
@@ -366,8 +408,15 @@ f"map_name =  \"maps/{name}/{name}.vectormap.txt\"" + \
   -- robot_type = RobotType.OMNIDIRECTIONAL_DRIVE
   -- robot_config = "config/cobot_config.lua"
   robot_types = {
-    RobotType.DIFF_DRIVE
+    {% for i in range(robot_count) %}
+        {% if i+1 < robot_count %}
+                RobotType.DIFF_DRIVE,
+        {% else %}
+                RobotType.DIFF_DRIVE
+        {% endif %}
+    {% endfor %}
   }
+
   robot_config = "config/ut_jackal_config.lua"
 
   laser_topic = "/Cobot/Laser"

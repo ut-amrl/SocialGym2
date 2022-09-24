@@ -212,7 +212,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.last_reward_maps = reward_maps
 
         # TODO - make a "done" observation
-        agent_terminations = {agent: False if obs_map['success_observation'] == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
+        agent_terminations = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
         agent_rewards = {
             agent: reward for agent, reward in zip(self.possible_agents, rewards) if agent in self.agents

@@ -63,7 +63,7 @@ class TensorboardWriter(BaseParallelWraper):
         self.tbx_writer.add_scalars('rewards/scalars', {f'{i}.{k}': v for i, agents_rewards in enumerate(self.unwrapped.last_reward_maps) for k, v in agents_rewards.items()}, self.total_step_count)
 
         self.number_of_collisions += sum([1 if x['collisions'] else 0 for x in last_obs])
-        self.successes = 1 if all([x['success_observation'] for x in last_obs]) else 0
+        self.successes = 1 if all([x.get('success_observation', 0) for x in last_obs]) else 0
         self.velocity_changes += sum([abs(x['agents_velocity'][0:2] - x['agents_velocity'][3:5]).sum() for x in last_obs])
 
         res = self.env.step(actions)

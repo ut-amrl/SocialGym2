@@ -1,19 +1,10 @@
-#!/usr/bin/env python3
-
-import os
-import sys
-from random import seed
-from random import randint
-import math
 import os
 import jinja2
-import random
 import json
 
 from shutil import copyfile
 
 from pathlib import Path
-from typing import Union, Tuple
 
 from src.environment.utils import ROOT_FOLDER
 
@@ -21,9 +12,10 @@ from src.environment.utils import ROOT_FOLDER
 class Scenario:
 
     def __init__(self, env_name: str = None):
+
         if env_name is not None:
-            self.config_nav_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/{env_name}.navigation.json')
             self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
+            self.config_nav_path = self.config_scene_path / f'{self.config_scene_path.name}.navigation.json'
 
             assert Path(self.config_nav_path).is_file(), \
                 f'The env_name ({env_name}) does not have a navigation file at {self.config_nav_path}.'
