@@ -157,10 +157,12 @@ class GraphNavScenario(Scenario):
     ):
         global robot_positions
         global nav_map
+        self.nav_map = nav_map
+        self.robot_positions = robot_positions
 
         if self.config_nav_path is not None:
-            nav_map = self.load_nav_nodes(self.config_nav_path)
-            robot_positions = nav_map
+            self.nav_map = self.load_nav_nodes(self.config_nav_path)
+            self.robot_positions = nav_map
 
         if isinstance(num_humans, tuple):
             num_humans = randint(num_humans[0], num_humans[1])
@@ -171,19 +173,19 @@ class GraphNavScenario(Scenario):
         if self.allowed_human_goal_positions:
             robot_starts = random.sample(self.allowed_agent_start_positions, num_agents)
         else:
-            robot_starts = random.sample(range(0, len(robot_positions)), num_agents)
+            robot_starts = random.sample(range(0, len(self.robot_positions)), num_agents)
 
         if self.allowed_agent_goal_positions:
             robot_ends = [random.sample(list(set(self.allowed_human_goal_positions) - {x}), 1) for x in enumerate(robot_starts)]
         else:
-            robot_ends = [random.sample(list(set(list(range(0, len(robot_positions)))) - {x}), 1) for x in enumerate(robot_starts)]
+            robot_ends = [random.sample(list(set(list(range(0, len(self.robot_positions)))) - {x}), 1) for x in enumerate(robot_starts)]
 
         human_positions = []
 
         if self.allowed_human_start_positions:
             allowed_human_starts = self.allowed_human_start_positions
         else:
-            allowed_human_starts = list(range(0, len(robot_positions)))
+            allowed_human_starts = list(range(0, len(self.robot_positions)))
 
         # allowed_human_starts = list(set(allowed_human_starts) - {robot_start})
 
@@ -193,20 +195,20 @@ class GraphNavScenario(Scenario):
             if self.allowed_human_goal_positions:
                 human_end = random.sample(list(set(self.allowed_human_goal_positions) - {human_start}), 1)
             else:
-                human_end = random.sample(list(set(list(range(0, len(robot_positions)))) - {human_start}), 1)
+                human_end = random.sample(list(set(list(range(0, len(self.robot_positions)))) - {human_start}), 1)
             human_end = human_end[0]
 
             planner = rospy.ServiceProxy('graphNavSrv', graphNavSrv)
             rospy.wait_for_service('graphNavSrv')
-            h_start = robot_positions[human_start]
-            h_end = robot_positions[human_end]
+            h_start = self.robot_positions[human_start]
+            h_end = self.robot_positions[human_end]
             start = Pose2Df(h_start[0], h_start[1], 0)
             end = Pose2Df(h_end[0], h_end[1], 0)
             resp = planner(start, end)
             plan = [x for x in resp.plan if x < len(nav_map)]
             r_plan = plan[::-1]
-            human_list = [robot_positions[human_start][0],
-                          robot_positions[human_start][1],
+            human_list = [self.robot_positions[human_start][0],
+                          self.robot_positions[human_start][1],
                           human_end]
             human_list.extend(r_plan)
             human_list.extend(plan)
@@ -214,14 +216,14 @@ class GraphNavScenario(Scenario):
         # Build the Config Dictionary
         human_dev = 1.0
         config = {
-            'robot_start': [robot_positions[x] for x in robot_starts],
-            'robot_end': [robot_positions[x] for x in robot_ends],
+            'robot_start': [self.robot_positions[x] for x in robot_starts],
+            'robot_end': [self.robot_positions[x] for x in robot_ends],
             'human_count': num_humans,
-            'position_count': len(robot_positions),
-            'nav_count': len(nav_map),
+            'position_count': len(self.robot_positions),
+            'nav_count': len(self.nav_map),
             'dev': human_dev,
-            'positions': robot_positions,
+            'positions': self.robot_positions,
             'human_positions': human_positions,
-            'nav_map': nav_map
+            'nav_map': self.nav_map
         }
         self.make_scenario(config)

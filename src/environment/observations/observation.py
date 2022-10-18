@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import List, Union
 
 from src.environment.ros_social_gym import RosSocialEnv
+from src.environment.services import UTMRSResponse
 
 
 class Observation(ABC):
@@ -13,7 +14,7 @@ class Observation(ABC):
     def __init__(self, *args, **kwargs):
         pass
 
-    def observations(self, env: RosSocialEnv, env_response) -> np.array:
+    def observations(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
         """
         Given the environment being used in the sim and the response from the current timestep, generate a numpy array
         that can be used as an observation for the Agent (subsequently passed into the policy network).
@@ -32,7 +33,7 @@ class Observation(ABC):
         obs = self.__observations__(env, env_response)
         return np.nan_to_num(np.pad(obs, pad_width=(0,  len(self) - obs.shape[0]), mode='constant'))
 
-    def __call__(self, env: RosSocialEnv, env_response, *args, **kwargs) -> np.array:
+    def __call__(self, env: RosSocialEnv, env_response: UTMRSResponse, *args, **kwargs) -> np.array:
         """
         See observations() documentation
         """
@@ -59,8 +60,11 @@ class Observation(ABC):
         raise NotImplemented("All observations must have a name attribute.")
 
     @abstractmethod
-    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
         """
         See observations() documentation
         """
         raise NotImplemented("All Observation classes need to have their __observations__() method defined.")
+
+    def __reset__(self):
+        return

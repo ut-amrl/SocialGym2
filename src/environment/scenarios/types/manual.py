@@ -38,8 +38,8 @@ class ManualScenario(Scenario):
             num_agents: Union[int, Tuple[int, int]] = 1
     ):
         if self.config_nav_path is not None:
-            nav_map = self.load_nav_nodes(self.config_nav_path)
-            robot_positions = nav_map
+            self.nav_map = self.load_nav_nodes(self.config_nav_path)
+            self.robot_positions = self.nav_map
         else:
             raise Exception("Manual scenarios need a custom map")
 
@@ -71,8 +71,8 @@ class ManualScenario(Scenario):
                 human_start = human_path[0]
                 human_end = human_path[-1]
 
-                human_list = [robot_positions[human_start][0],
-                              robot_positions[human_start][1],
+                human_list = [self.robot_positions[human_start][0],
+                              self.robot_positions[human_start][1],
                               human_end]
 
                 human_list.extend(list(reversed(human_path)))
@@ -81,15 +81,15 @@ class ManualScenario(Scenario):
         # Build the Config Dictionary
         human_dev = 1.0
         config = {
-            'robot_start': [robot_positions[x] for x in robot_starts],
-            'robot_end': [robot_positions[x] for x in robot_ends],
+            'robot_start': [self.robot_positions[x] for x in robot_starts],
+            'robot_end': [self.robot_positions[x] for x in robot_ends],
             'robot_count': len(robot_paths),
             'human_count': num_humans,
-            'position_count': len(robot_positions),
-            'nav_count': len(nav_map),
+            'position_count': len(self.robot_positions),
+            'nav_count': len(self.nav_map),
             'dev': human_dev,
-            'positions': robot_positions,
+            'positions': self.robot_positions,
             'human_positions': human_positions,
-            'nav_map': nav_map
+            'nav_map': self.nav_map
         }
         self.make_scenario(config)

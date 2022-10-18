@@ -57,3 +57,6 @@ class Reward(ABC):
         """
 
         return
+
+    def __reset__(self):
+        return

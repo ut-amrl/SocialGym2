@@ -40,6 +40,7 @@ services:
     build:
       context: ./
       dockerfile: docker2/social_gym.Dockerfile
+    mem_limit: 6G
     runtime: nvidia
     tty: true
     cap_add:

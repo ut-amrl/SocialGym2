@@ -2,6 +2,7 @@ import numpy as np
 
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import Observation
+from src.environment.services import UTMRSResponse
 
 
 class CollisionObservation(Observation):
@@ -16,5 +17,5 @@ class CollisionObservation(Observation):
     def __len__(self):
         return 1
 
-    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
         return np.array([env_response.collision])

@@ -75,3 +75,6 @@ class Rewarder:
         """
 
         [reward.__setup__(env) for stack in self.registered_rewards for reward in stack]
+
+    def reset(self):
+        [r.__reset__() for s in self.registered_rewards for r in s]

@@ -11,7 +11,7 @@ class Success(Reward):
     Reward for when the agent has successfully completed the goal in the env.
     """
 
-    def __init__(self, weight: float = 100.0, *args, **kwargs):
+    def __init__(self, weight: float = 1.0, *args, **kwargs):
         super().__init__(weight)
 
     @classmethod

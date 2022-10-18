@@ -35,13 +35,13 @@ class OthersHeadingDirection(Observation):
         other_heading_directions = np.zeros([len(self)])
         start_idx = 0
 
-        if self.allow_humans:
-            others_poses = poses_to_np_array(env_response.human_vels).reshape((-1, 3))
+        if self.allow_humans and len(env_response.human_vels) > 0:
+            others_poses = np.concatenate(env_response.human_vels).reshape((-1, 3))
             human_heading_directions = np.arctanh(others_poses[:, 1] / (others_poses[:, 0]))
             other_heading_directions[start_idx:len(human_heading_directions)] = human_heading_directions
             start_idx += len(human_heading_directions)
-        if self.allow_other_robots:
-            others_robot_poses = poses_to_np_array(env_response.other_robot_vels).reshape((-1, 3))
+        if self.allow_other_robots and len(env_response.other_robot_vels) > 0:
+            others_robot_poses = np.concatenate(env_response.other_robot_vels).reshape((-1, 3))
             robot_heading_directions = np.arctanh(others_robot_poses[:, 1] / (others_robot_poses[:, 0]))
             other_heading_directions[start_idx:start_idx+len(robot_heading_directions)] = robot_heading_directions
 

@@ -31,8 +31,8 @@ class CycleScenario(Scenario):
         assert num_agents == 1 or max(num_agents) == 1, 'Only one robot is allowed in the cycle scenario'
 
         if self.config_nav_path is not None:
-            nav_map = self.load_nav_nodes(self.config_nav_path)
-            robot_positions = nav_map
+            self.nav_map = self.load_nav_nodes(self.config_nav_path)
+            self.robot_positions = self.nav_map
         else:
             raise Exception("Cycle scenarios need a custom map")
 
@@ -42,22 +42,22 @@ class CycleScenario(Scenario):
         # Build the Config Dictionary
         human_dev = 1.0
         config = {
-            'robot_start': [robot_positions[x] for x in robot_starts],
-            'robot_end': [robot_positions[x] for x in robot_ends],
+            'robot_start': [self.robot_positions[x] for x in robot_starts],
+            'robot_end': [self.robot_positions[x] for x in robot_ends],
             'robot_count': 1,
             'human_count': 0,
-            'position_count': len(robot_positions),
-            'nav_count': len(nav_map),
+            'position_count': len(self.robot_positions),
+            'nav_count': len(self.nav_map),
             'dev': human_dev,
-            'positions': robot_positions,
+            'positions': self.robot_positions,
             'human_positions': [],
-            'nav_map': nav_map
+            'nav_map': self.nav_map
         }
         self.make_scenario(config)
 
         print(f"Cycle Scenario: Iter index {self.iter}. Robot at node {robot_starts[0]}.")
 
-        self.iter = self.iter + 1 if self.iter + 1 < len(robot_positions) else 0
+        self.iter = self.iter + 1 if self.iter + 1 < len(self.robot_positions) else 0
 
         if self.iter == 0:
             print("LAST NODE - resetting iter index")

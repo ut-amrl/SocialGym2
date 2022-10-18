@@ -2,7 +2,7 @@ import numpy as np
 
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import Observation
-from src.environment.utils import poses_to_np_array
+from src.environment.services import UTMRSResponse
 
 
 class AgentsPose(Observation):
@@ -21,8 +21,8 @@ class AgentsPose(Observation):
     def __len__(self):
         return 2 if self.ignore_theta else 3
 
-    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
-        agent_pose = poses_to_np_array(env_response.robot_poses)
+    def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
+        agent_pose = env_response.robot_poses
 
         if self.ignore_theta:
             agent_pose = agent_pose[0:2]

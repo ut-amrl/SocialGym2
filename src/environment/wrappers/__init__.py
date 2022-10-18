@@ -1,3 +1,4 @@
 from src.environment.wrappers.new_scenario_wrapper import NewScenarioWrapper
 from src.environment.wrappers.time_limit import TimeLimitWrapper
 from src.environment.wrappers.tensorboard_writer import TensorboardWriter
+from src.environment.wrappers.collision_episode_ender import CollisionEpisodeEnder

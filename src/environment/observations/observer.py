@@ -3,6 +3,7 @@ import numpy as np
 from copy import deepcopy
 
 from src.environment.observations import Observation
+from src.environment.services import UTMRSResponse
 
 if TYPE_CHECKING:
     from src.environment.ros_social_gym import RosSocialEnv
@@ -22,14 +23,17 @@ class Observer:
     def __len__(self):
         return sum([len(x) for x in self.registered_observations[0]])
 
-    def make_observation(self, env: 'RosSocialEnv', env_response) -> Tuple[List[np.array], List[Dict[str, any]]]:
+    def make_observation(
+            self,
+            env: 'RosSocialEnv',
+            env_response: List[UTMRSResponse]
+    ) -> Tuple[List[np.array], List[Dict[str, any]]]:
 
-        agent_responses = env_response.robot_responses
-        agent_observations = [np.zeros([len(self)]) for _ in range(len(agent_responses))]
-        agent_obs_maps = [{} for _ in range(len(agent_responses))]
+        agent_observations = [np.zeros([len(self)]) for _ in range(len(env_response))]
+        agent_obs_maps = [{} for _ in range(len(env_response))]
 
-        for i in range(len(agent_responses)):
-            agent_response = agent_responses[i]
+        for i in range(len(env_response)):
+            agent_response = env_response[i]
 
             if i >= len(self.registered_observations):
                 new_stack = deepcopy(self.__orig_registered_observation_stack__)
@@ -50,3 +54,6 @@ class Observer:
 
     def setup(self, env: 'RosSocialEnv'):
         [obs.__setup__(env) for stack in self.registered_observations for obs in stack]
+
+    def reset(self):
+        [o.__reset__() for s in self.registered_observations for o in s]

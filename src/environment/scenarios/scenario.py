@@ -12,6 +12,8 @@ from src.environment.utils import ROOT_FOLDER
 class Scenario:
 
     def __init__(self, env_name: str = None):
+        self.nav_map = None
+        self.robot_positions = None
 
         if env_name is not None:
             self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')

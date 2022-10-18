@@ -3,7 +3,7 @@ import collections
 
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import Observation
-from src.environment.utils import poses_to_np_array
+from src.environment.services import UTMRSResponse
 
 
 class AgentsVelocity(Observation):
@@ -28,11 +28,14 @@ class AgentsVelocity(Observation):
     def __len__(self):
         return self.history_length * 3
 
-    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
-        agent_pose = poses_to_np_array(env_response.robot_vels)
+    def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
+        agent_pose = env_response.robot_vels
 
         # TODO - try extend here?
         [self.history.append(x) for x in agent_pose]
 
         # Make sure to left pad (i.e., [0, 0, 0, current value])
         return np.pad(np.array(self.history), pad_width=(len(self) - len(self.history), 0), mode='constant')
+
+    def __reset__(self):
+        self.history = collections.deque(maxlen=len(self))

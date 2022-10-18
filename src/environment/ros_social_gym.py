@@ -7,10 +7,7 @@ import roslib
 
 NODE_NAME = 'ros_social_gym'
 roslib.load_manifest(NODE_NAME)
-from ut_multirobot_sim.srv import utmrsStepper
-from ut_multirobot_sim.srv import utmrsReset
 from amrl_msgs.srv import SocialPipsSrv
-from ut_multirobot_sim.srv import utmrsStepperResponse
 import rospy
 import roslaunch
 
@@ -25,13 +22,14 @@ import numpy as np
 import time
 import math
 from random import seed
-from typing import Tuple, Union, TYPE_CHECKING
+from typing import Tuple, Union, ClassVar, TYPE_CHECKING
 from pathlib import Path
 import shutil
 from tensorboardX import SummaryWriter
 from pettingzoo import ParallelEnv
 from pettingzoo.utils import agent_selector, wrappers
 
+from src.environment.services import UTMRS, UTMRSResponse
 from src.environment.scenarios import Scenario, GraphNavScenario
 from src.environment.utils import ROOT_FOLDER
 
@@ -49,6 +47,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     almost entirely about supporting multiple agents in the environment.
     """
 
+    def state(self) -> np.ndarray:
+        pass
+
     metadata = {
         "render_modes": ["human"],
         "name": "ros_social_env",
@@ -62,14 +63,18 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     num_humans: Tuple[int, int]
     num_agents: Tuple[int, int]
 
+    env_response_type: ClassVar[UTMRSResponse]
+
     def __init__(
             self,
+            *args,
             launch_config: str = f"{ROOT_FOLDER}/config/gym_gen/launch.launch",
             observer: 'Observer' = None,
             rewarder: 'Rewarder' = None,
             scenario: Scenario = None,
             num_humans: Union[int, Tuple[int, int]] = (5, 25),
             num_agents: Union[int, Tuple[int, int]] = (3, 5),
+            **kwargs
     ):
         """
         ACTIONS: GoAlone, Halt, Follow, Pass
@@ -83,12 +88,14 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         EzPickle.__init__(
             self,
+            *args,
             launch_config,
             deepcopy(observer),
             deepcopy(rewarder),
             deepcopy(scenario),
             num_humans,
-            num_agents
+            num_agents,
+            **kwargs
         )
 
         if isinstance(num_agents, int):
@@ -140,10 +147,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
         self.launch.start()
 
-        rospy.wait_for_service('utmrsStepper')
-        rospy.wait_for_service('utmrsReset')
-        self._simStep = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
-        self.simReset = rospy.ServiceProxy('utmrsReset', utmrsReset)
+        self.utmrs_service = UTMRS()
+        self.env_response_type = UTMRSResponse
+
         self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
 
         self.new_scenario()
@@ -154,6 +160,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         self.last_obs_maps = []
         self.last_reward_maps = []
+        self.terminations_ = [False] * len(self.possible_agents)
 
     def close(self):
         pass
@@ -174,10 +181,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.scenario.generate_scenario(self.ros_num_humans, self.ros_num_agents)
 
     def default_action(self):
-        return [0]
+        actions = [[0] * len(self.agents), [0.] * len(self.agents),  [0.] * len(self.agents), [0.] * len(self.agents), [f'{i}' for i in range(len(self.agents))], [AgentColor() for i in range(len(self.agents))]]
+        return actions
 
-    def sim_step(self, actions):
-        return self._simStep(actions)
+    def sim_step(self, args):
+        return self.env_response_type.process(self.utmrs_service.step(*args))
 
     def seed(self, seed=None):
         pass
@@ -185,10 +193,19 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def reset(self, seed=None, return_info=False, options=None):
         self.agents = self.possible_agents[:]
         self.terminations = {agent: False for agent in self.agents}
+        self.terminations_ = [False for _ in self.agents]
 
-        response = self.simReset()
-        environment_responses = self.sim_step(self.default_action() * len(self.agents))
+        self.observer.reset()
+        self.rewarder.reset()
+
+        self.utmrs_service.reset()
+        environment_responses = self.sim_step(
+            self.default_action()
+        )
         observations, observation_maps = self.make_observation(environment_responses)
+
+        self.last_obs_maps = []
+        self.last_reward_maps = []
 
         if not return_info:
             return {agent: obs for agent, obs in zip(self.agents, observations)}
@@ -200,11 +217,28 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
     def step(self, action_dict):
         actions = np.zeros(self.max_num_agents, dtype=np.int32)
+        x_vels = np.zeros(self.max_num_agents, dtype=np.float)
+        y_vels = np.zeros(self.max_num_agents, dtype=np.float)
+        angle_vels = np.zeros(self.max_num_agents, dtype=np.float)
         for i, agent in enumerate(self.possible_agents):
             if agent in action_dict:
                 actions[i] = action_dict[agent]
+                # actions[i] = -1
+                x_vels[i] = 1.
+                y_vels[i] = 1.
+                angle_vels[i] = 1.
 
-        environment_responses = self.sim_step(actions)
+        total_rewards = [0. if len(self.last_reward_maps) == 0 else sum([v for v in self.last_reward_maps[i].values()]) for i in range(len(actions))]
+        messages = [f'{i}' for i in range(len(actions))]
+
+        if len(self.last_obs_maps) > 0:
+            for idx, m in enumerate(self.last_obs_maps):
+                if 'manual_zone_agent_zone_priority_order' in m and 'manual_zone_agent_zone_current_order' in m:
+                    messages[idx] = f"{m['manual_zone_agent_zone_current_order'][0]} | {m['manual_zone_agent_zone_priority_order'][0]}"
+                elif 'manual_zone_agent_zone_priority_order' in m:
+                    messages[idx] = f"{m['manual_zone_agent_zone_priority_order'][0]}"
+
+        environment_responses = self.sim_step([actions, x_vels, y_vels, angle_vels, messages, [AgentColor(reward=total_rewards[i]) for i in range(len(self.agents))]])
         observations, observation_maps = self.make_observation(environment_responses)
         rewards, reward_maps = self.calculate_reward(observation_maps)
 
@@ -215,10 +249,13 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         agent_terminations = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
         agent_rewards = {
-            agent: reward for agent, reward in zip(self.possible_agents, rewards) if agent in self.agents
+            agent: reward if self.terminations_[idx] is False else 0 for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
         }
         agent_infos = {agent: {} for agent in self.possible_agents if agent in self.agents}
+
+        # TODO - this should be supported, but supersuite doesn't like it.  Fix later
         # self.agents = [agent for agent in self.agents if not agent_terminations[agent]]
+        self.terminations_ = list(agent_terminations.values())
 
         return agent_observations, agent_rewards, agent_terminations, agent_infos
 
@@ -227,3 +264,23 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         Depends on RVIZ for visualization, no render method
         """
         pass
+
+
+class AgentColor:
+
+    def __init__(self, r=-1., g=-1., b=-1., reward=None):
+        self.r = r
+        self.g = g
+        self.b = b
+
+        epsilon = 5
+
+        if reward:
+            self.r = 0 if reward >= 0 else 100 + min(abs(reward) * 10, 155)
+            self.g = 0 if reward < 0 else 100 + min(abs(reward) * 10, 155)
+            self.b = 0
+
+        if reward is None or self.r + self.g + self.b < epsilon:
+            self.r = -1.
+            self.g = -1.
+            self.b = -1.

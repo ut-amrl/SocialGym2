@@ -2,7 +2,7 @@ import numpy as np
 
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import Observation
-from src.environment.utils import poses_to_np_array
+from src.environment.services import UTMRSResponse
 
 
 class OthersVelocities(Observation):
@@ -31,16 +31,16 @@ class OthersVelocities(Observation):
     def __len__(self):
         return self.num_others * 3
 
-    def __observations__(self, env: RosSocialEnv, env_response) -> np.array:
+    def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
         other_vels = np.zeros([len(self)])
         start_idx = 0
 
-        if self.allow_humans:
-            human_vels = poses_to_np_array(env_response.human_vels)
+        if self.allow_humans and len(env_response.human_vels) > 0:
+            human_vels = np.concatenate(env_response.human_vels)
             other_vels[start_idx:len(human_vels)] = human_vels
             start_idx = start_idx + len(human_vels)
-        if self.allow_other_robots:
-            other_robot_vels = poses_to_np_array(env_response.other_robot_vels)
+        if self.allow_other_robots and len(env_response.other_robot_vels) > 0:
+            other_robot_vels = np.concatenate(env_response.other_robot_vels)
             other_vels[start_idx:start_idx + len(other_robot_vels)] = other_robot_vels
             start_idx = start_idx + len(other_robot_vels)
 
