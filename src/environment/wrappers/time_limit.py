@@ -23,26 +23,20 @@ class TimeLimitWrapper(BaseParallelWraper):
 
     def reset(self, seed=None, return_info=False, options=None):
         self.episode_steps = 0
+        res = self.env.reset(seed=seed, options=options)
+        self.agents = self.unwrapped.agents
+        return res
 
-        if not return_info:
-            res = self.env.reset(seed=seed, options=options)
-            self.agents = self.env.agents
-            return res
-        else:
-            res, info = self.env.reset(
-                seed=seed, return_info=return_info, options=options
-            )
-            self.agents = self.env.agents
-            return res, info
-
-    def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, bool, Dict]:
+    def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
         obs, reward, done, infos = self.env.step(action)
+        self.agents = self.unwrapped.agents
+
         self.episode_steps += 1
-        self.agents = self.env.agents
 
         if self.episode_steps == self.max_steps:
             done = {k: True for k in done.keys()}
 
+        # return obs, reward, done, truncs, infos
         return obs, reward, done, infos
 
     def seed(self, seed=None):

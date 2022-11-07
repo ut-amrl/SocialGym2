@@ -25,18 +25,11 @@ class NewScenarioWrapper(BaseParallelWraper):
         self.episode_count += 1
 
         if self.episode_count % self.new_scenario_episode_frequency == 0:
-            self.env.new_scenario()
+            self.unwrapped.new_scenario()
 
-        if not return_info:
-            res = self.env.reset(seed=seed, options=options)
-            self.agents = self.env.agents
-            return res
-        else:
-            res, info = self.env.reset(
-                seed=seed, return_info=return_info, options=options
-            )
-            self.agents = self.env.agents
-            return res, info
+        res = self.env.reset(seed=seed, options=options)
+        self.agents = self.unwrapped.agents
+        return res
 
     def seed(self, seed=None):
         pass

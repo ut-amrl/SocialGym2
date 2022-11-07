@@ -23,6 +23,7 @@ class EnforcedOrder(Reward):
             continuous: bool = False,
             weak_out_of_zone: bool = True,
             allow_any_order: bool = False,
+            incorrect_penalty: bool = False,
             **kwargs
     ):
         super().__init__(weight)
@@ -32,6 +33,7 @@ class EnforcedOrder(Reward):
         self.continuous = continuous
         self.weak_out_of_zone = weak_out_of_zone
         self.allow_any_order = allow_any_order
+        self.incorrect_penalty = incorrect_penalty
 
         self.previous_zone_state = None
 
@@ -70,11 +72,9 @@ class EnforcedOrder(Reward):
             return 0.
 
         if (distance_to_correct_order == 0 or self.allow_any_order) and (entering or exiting):
-            if entering:
-                print("Enter correctly")
-            if exiting:
-                print("Exiting correctly")
             return 1. if entering else 0.
+        elif distance_to_correct_order != 0 and self.incorrect_penalty and not self.allow_any_order:
+            return -1. if entering else 0.
         else:
             return 0.
 

@@ -11,3 +11,5 @@ from src.environment.rewards.types.social_norm_cross import SocialNormCross
 from src.environment.rewards.types.existence_penalty import ExistencePenalty
 from src.environment.rewards.types.velocity_control import VelocityControl
 from src.environment.rewards.types.preferred_velocity import PreferredVelocity
+
+from src.environment.rewards.wrappers.linear_weight_scheduler import LinearWeightScheduler

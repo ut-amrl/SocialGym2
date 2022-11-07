@@ -2,7 +2,7 @@ import numpy as np
 
 from src.environment.ros_social_gym import RosSocialEnv
 from src.environment.observations import Observation
-from src.environment.utils import poses_to_np_array
+from src.environment.utils.utils import poses_to_np_array
 
 
 class OthersHeadingDirection(Observation):

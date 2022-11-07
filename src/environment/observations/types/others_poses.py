@@ -15,7 +15,8 @@ class OthersPoses(Observation):
     def __init__(
             self,
             allow_humans: bool = True,
-            allow_other_robots: bool = True
+            allow_other_robots: bool = True,
+            actuals: bool = False
     ):
         super().__init__()
 
@@ -23,6 +24,7 @@ class OthersPoses(Observation):
 
         self.allow_humans = allow_humans
         self.allow_other_robots = allow_other_robots
+        self.actuals = actuals
 
     @classmethod
     def name(cls):
@@ -41,6 +43,8 @@ class OthersPoses(Observation):
             start_idx = start_idx + len(human_poses)
         if self.allow_other_robots and len(env_response.other_robot_poses) > 0:
             robot_poses = np.concatenate(env_response.other_robot_poses)
+            if self.actuals:
+                robot_poses += np.concatenate([env_response.robot_poses] * (max(env.ros_num_agents) - 1))
             other_poses[start_idx:start_idx+len(robot_poses)] = robot_poses
             start_idx = start_idx + len(robot_poses)
 

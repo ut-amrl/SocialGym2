@@ -6,7 +6,7 @@ from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point
 
 from src.environment.ros_social_gym import RosSocialEnv
-from src.environment.utils import ROOT_FOLDER
+from src.environment.utils.utils import ROOT_FOLDER
 from src.environment.scenarios import Scenario
 from src.environment.services import UTMRSResponse
 

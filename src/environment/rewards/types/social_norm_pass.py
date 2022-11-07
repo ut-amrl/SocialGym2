@@ -5,7 +5,7 @@ from typing import Dict, Tuple
 
 from src.environment.rewards import Reward
 from src.environment.ros_social_gym import RosSocialEnv
-from src.environment.utils import poses_to_np_array
+from src.environment.utils.utils import poses_to_np_array
 from src.environment.observations import AgentsGoalDistance, OthersPoses, AgentsHeadingDirection, \
     OthersHeadingDirection, AgentsPose
 

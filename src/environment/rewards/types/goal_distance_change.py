@@ -4,7 +4,7 @@ from typing import Dict
 from src.environment.observations import AgentsGoalDistance
 from src.environment.rewards import Reward
 from src.environment.ros_social_gym import RosSocialEnv
-from src.environment.utils import poses_to_np_array
+from src.environment.utils.utils import poses_to_np_array
 
 
 class GoalDistanceChange(Reward):
@@ -18,10 +18,11 @@ class GoalDistanceChange(Reward):
     timestep 3 -> 4 units to the goal, will return 3 - 4 -> -1
     """
 
-    def __init__(self, weight: float = 1.0, *args, **kwargs):
+    def __init__(self, weight: float = 1.0, clip: bool = False, *args, **kwargs):
         super().__init__(weight)
 
         self.last_goal_distance = -1
+        self.clip = clip
 
     @classmethod
     def name(cls):
@@ -34,6 +35,10 @@ class GoalDistanceChange(Reward):
             'Goal Distance requires that the AgentGoalDistance has at least a history length of 2.'
 
         dists_to_goal = observation_map[AgentsGoalDistance.name()]
+
         score = dists_to_goal[-2] - dists_to_goal[-1]
+        if self.clip:
+            # Only allow positive rewards AND restrict it to a max of 1.
+            score = min(max(score, 0), 1)
 
         return score

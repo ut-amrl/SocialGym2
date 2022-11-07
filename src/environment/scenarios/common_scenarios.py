@@ -72,7 +72,7 @@ def elevator_loading() -> Scenario:
     return scenario
 
 
-def exp1_train_scenario(level: str = 'easy') -> Scenario:
+def exp1_train_scenario(level: str = 'easy', partially_observable: bool = False) -> Scenario:
     start_points = [1, 6, 18, 17, 0, 10, 3, 8, 15, 12]
     before_hallway = [7]
     after_hallway = [11]
@@ -83,7 +83,8 @@ def exp1_train_scenario(level: str = 'easy') -> Scenario:
     scenario = ManualScenario(
         f'exp1/train/{level}',
         agent_paths=all_paths,
-        human_paths=all_paths
+        human_paths=all_paths,
+        partially_observable=partially_observable
     )
 
     return scenario

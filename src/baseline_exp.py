@@ -8,7 +8,7 @@ from pathlib import Path
 import time
 
 from src.environment.ros_social_gym import RosSocialEnv
-from src.environment.utils import get_tboard_writer, filter_stdout, LogFilter
+from src.environment.utils.utils import get_tboard_writer, filter_stdout, LogFilter
 from src.environment.rewards import Rewarder, Success, GoalDistance, ExistencePenalty, SocialNormPass,\
   SocialNormOvertake, SocialNormCross, Collisions, VelocityControl, PreferredVelocity
 from src.environment.rewards.common_rewards import dsacadrl_rewards

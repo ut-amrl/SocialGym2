@@ -1,4 +1,4 @@
-from src.environment.utils import poses_to_np_array
+from src.environment.utils.utils import poses_to_np_array
 from ut_multirobot_sim.srv import utmrsStepper
 from ut_multirobot_sim.srv import utmrsReset
 

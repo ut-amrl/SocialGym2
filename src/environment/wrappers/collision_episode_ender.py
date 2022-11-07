@@ -18,15 +18,17 @@ class CollisionEpisodeEnder(BaseParallelWraper):
         # Call the parent constructor, so we can access self.env later
         super().__init__(env)
 
-    def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, bool, Dict]:
+    def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
         obs, reward, done, infos = self.env.step(action)
-        self.agents = self.env.agents
+        self.agents = self.unwrapped.agents
 
         collision = any([m['collisions'] == 1 for m in self.unwrapped.last_obs_maps])
 
         if collision:
+            # truncs = {k: True for k in done.keys()}
             done = {k: True for k in done.keys()}
 
+        # return obs, reward, done, truncs, infos
         return obs, reward, done, infos
 
     def seed(self, seed=None):

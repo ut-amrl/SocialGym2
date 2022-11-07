@@ -9,7 +9,7 @@ from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 
-from src.environment.utils import get_tboard_writer
+from src.environment.utils.utils import get_tboard_writer
 
 bridge = CvBridge()
 
@@ -66,7 +66,7 @@ class TensorboardWriter(BaseParallelWraper):
 
     def step(self, actions):
         res = self.env.step(actions)
-        self.agents = self.env.agents
+        self.agents = self.unwrapped.agents
 
         self.step_count += 1
         self.total_step_count += 1
@@ -79,8 +79,10 @@ class TensorboardWriter(BaseParallelWraper):
         last_obs = self.unwrapped.last_obs_maps
 
         if len(last_obs) and self.record_env_info:
-            self.number_of_collisions += sum([1 if x['collisions'] else 0 for x in last_obs])
-            self.velocity_changes += sum([abs(x['agents_velocity'][0:2] - x['agents_velocity'][3:5]).sum() for x in last_obs])
+            if 'collisions' in last_obs[0]:
+                self.number_of_collisions += sum([1 if x['collisions'] else 0 for x in last_obs])
+            if 'agents_velocity' in last_obs[0]:
+                self.velocity_changes += sum([abs(x['agents_velocity'][0:2] - x['agents_velocity'][3:5]).sum() for x in last_obs])
 
         return res
 
@@ -95,7 +97,7 @@ class TensorboardWriter(BaseParallelWraper):
         if len(self.video) > 0 and self.record_video:
             self.tbx_writer.add_video(self.video_name, np.stack([np.stack(self.video)]), self.episode_count, fps=self.fps)
 
-        if self.record_env_info:
+        if self.record_env_info and self.episode_count > 0:
             self.tbx_writer.add_scalars('env_info', {
                 'number_of_collisions': self.number_of_collisions,
                 'full_successes': all([x.get('success', 0) for x in self.unwrapped.last_reward_maps]),
@@ -109,16 +111,9 @@ class TensorboardWriter(BaseParallelWraper):
         self.episode_count += 1
         self.video = []
 
-        if not return_info:
-            res = self.env.reset(seed=seed, options=options)
-            self.agents = self.env.agents
-            return res
-        else:
-            res, info = self.env.reset(
-                seed=seed, return_info=return_info, options=options
-            )
-            self.agents = self.env.agents
-            return res, info
+        res = self.env.reset(seed=seed, options=options)
+        self.agents = self.unwrapped.agents
+        return res
 
     def seed(self, seed=None):
         pass

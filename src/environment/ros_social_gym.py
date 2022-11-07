@@ -15,6 +15,7 @@ import roslaunch
 import copy
 from copy import deepcopy
 import gym
+# from gymnasium import spaces
 from gym import spaces
 from gym.utils import EzPickle, seeding
 import json
@@ -31,7 +32,7 @@ from pettingzoo.utils import agent_selector, wrappers
 
 from src.environment.services import UTMRS, UTMRSResponse
 from src.environment.scenarios import Scenario, GraphNavScenario
-from src.environment.utils import ROOT_FOLDER
+from src.environment.utils.utils import ROOT_FOLDER
 
 # Package imports
 if TYPE_CHECKING:
@@ -246,17 +247,25 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.last_reward_maps = reward_maps
 
         # TODO - make a "done" observation
+        # TODO - Difference between truncs and terms?
         agent_terminations = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
+        # agent_rewards = {
+        #     agent: reward if self.terminations_[idx] is False else 0 for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
+        # }
         agent_rewards = {
-            agent: reward if self.terminations_[idx] is False else 0 for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
+            agent: reward for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
         }
+
         agent_infos = {agent: {} for agent in self.possible_agents if agent in self.agents}
 
         # TODO - this should be supported, but supersuite doesn't like it.  Fix later
         # self.agents = [agent for agent in self.agents if not agent_terminations[agent]]
         self.terminations_ = list(agent_terminations.values())
 
+        truncs = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
+
+        # return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
         return agent_observations, agent_rewards, agent_terminations, agent_infos
 
     def render(self, mode="human"):

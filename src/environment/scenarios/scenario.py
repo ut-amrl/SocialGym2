@@ -6,14 +6,19 @@ from shutil import copyfile
 
 from pathlib import Path
 
-from src.environment.utils import ROOT_FOLDER
+from src.environment.utils.utils import ROOT_FOLDER
 
 
 class Scenario:
 
-    def __init__(self, env_name: str = None):
+    def __init__(
+            self,
+            env_name: str = None,
+            partially_observable: bool = True,
+    ):
         self.nav_map = None
         self.robot_positions = None
+        self.partially_observable = partially_observable
 
         if env_name is not None:
             self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
@@ -39,6 +44,7 @@ class Scenario:
 
     def make_scenario(self, config):
         dir_name = f"{ROOT_FOLDER}/config/gym_gen/"
+        config['partially_observable'] = self.partially_observable
 
         with (self.config_scene_path / 'humans.lua').open('r') as f:
             human_lua_template = jinja2.Template(f.read())
