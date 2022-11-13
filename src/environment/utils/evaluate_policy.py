@@ -25,6 +25,9 @@ def evaluate_policy(
     and not an environment being done).  Stable baselines expects an array of dones (similar to how PettingZoo works)
     but, StableBaselines thinks that the array is for a list of environments not a list of agents.
 
+    NEW NOTE: although the above is true, other changes have come about that make this evaluate_policy fn a bit
+    different.
+
 
     Runs policy for ``n_eval_episodes`` episodes and returns average reward.
     If a vector env is passed in, this divides the episodes to evaluate onto the
@@ -88,6 +91,10 @@ def evaluate_policy(
     observations = env.reset()
     states = None
     episode_starts = np.ones((env.num_envs,), dtype=bool)
+
+    successes = 0
+    total = 0
+
     while (episode_counts < episode_count_targets).any():
         actions, states = model.predict(observations, state=states, episode_start=episode_starts, deterministic=deterministic)
         observations, rewards, dones, infos = env.step(actions)
@@ -105,6 +112,10 @@ def evaluate_policy(
                 callback(locals(), globals())
 
             if all([x for x in dones]):
+                if all([x.get('succeeded', False) for x in infos]):
+                    successes += 1
+                total += 1
+
                 if is_monitor_wrapped:
                     # Atari wrapper can send a "done" signal when
                     # the agent loses a life, but it does not correspond
@@ -127,10 +138,12 @@ def evaluate_policy(
         if render:
             env.render()
 
+    success_rate = successes / total
+
     mean_reward = np.mean(episode_rewards)
     std_reward = np.std(episode_rewards)
     if reward_threshold is not None:
         assert mean_reward > reward_threshold, "Mean reward below threshold: " f"{mean_reward:.2f} < {reward_threshold:.2f}"
     if return_episode_rewards:
-        return episode_rewards, episode_lengths
-    return mean_reward, std_reward
+        return episode_rewards, episode_lengths, success_rate
+    return mean_reward, std_reward, success_rate

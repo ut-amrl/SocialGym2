@@ -10,6 +10,6 @@ export ROS_PACKAGE_PATH=${DIR}/submodules/graph_navigation:$ROS_PACKAGE_PATH
 
 # export ROS_PACKAGE_PATH=/submodules/cobot/cobot_msgs:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=${DIR}/submodules/ut_multirobot_sim/src/state_switcher_rviz_plugin:$ROS_PACKAGE_PATH
-export ROS_PACKAGE_PATH=${DIR}/submodules/ut_multirobot_sim/pedestrian_simulation/:$ROS_PACKAGE_PATH
+export ROS_PACKAGE_PATH=${DIR}/submodules/ut_multirobot_sim/src/pedestrian_simulation/:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=${DIR}/submodules/ut_multirobot_sim/src/ros_social_gym:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=${DIR}/:$ROS_PACKAGE_PATH

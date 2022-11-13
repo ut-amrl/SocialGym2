@@ -4,3 +4,4 @@ docker/data
 **/data
 **/build
 **/devel
+venv

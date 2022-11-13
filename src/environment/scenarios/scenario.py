@@ -15,10 +15,14 @@ class Scenario:
             self,
             env_name: str = None,
             partially_observable: bool = True,
+            config_runner: bool = False
     ):
         self.nav_map = None
         self.robot_positions = None
         self.partially_observable = partially_observable
+
+        # If this is being ran by the config_runner script
+        self.config_runner = config_runner
 
         if env_name is not None:
             self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
@@ -52,7 +56,7 @@ class Scenario:
         with (self.config_scene_path / 'sim_config.lua').open('r') as f:
             sim_config_lua_template = jinja2.Template(f.read())
 
-        with (self.config_scene_path / 'launch.launch').open('r') as f:
+        with (self.config_scene_path / ('config_launch.launch' if self.config_runner else 'launch.launch')).open('r') as f:
             launch_template = jinja2.Template(f.read())
 
         with (self.config_scene_path / 'pedsim_launch.launch').open('r') as f:

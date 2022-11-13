@@ -56,6 +56,7 @@ class UTMRSResponse:
 class UTMRS:
     
     def __init__(self):
+        print("Waiting on UTMRS")
         rospy.wait_for_service('utmrsStepper')
         rospy.wait_for_service('utmrsReset')
 

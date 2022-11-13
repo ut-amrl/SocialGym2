@@ -28,7 +28,9 @@ class EntropyEpisodeEnder(BaseParallelWraper):
             timestep_threshold: int = 100,
             reward_multiplier: float = 100_000,
             negative_multiplier_only: bool = False,
-            constant_reward_on_end: float = None
+            constant_reward_on_end: float = None,
+            only_those_that_did_not_finish: bool = False,
+            update_rewards: bool = True
     ):
         # Call the parent constructor, so we can access self.env later
         super().__init__(env)
@@ -38,6 +40,8 @@ class EntropyEpisodeEnder(BaseParallelWraper):
         self.reward_multiplier = reward_multiplier
         self.negative_multiplier_only = negative_multiplier_only
         self.constant_reward_on_end = constant_reward_on_end
+        self.only_those_that_did_not_finish = only_those_that_did_not_finish
+        self.update_rewards = update_rewards
 
         # Every agent gets a circular queue of positions that we will use to calculate the total delta of movement
         self.agent_positions = []
@@ -54,16 +58,17 @@ class EntropyEpisodeEnder(BaseParallelWraper):
         if stuck:
             done = {k: True for k in done.keys()}
 
-            if self.constant_reward_on_end is not None:
-                reward = {k: self.constant_reward_on_end for k in reward.keys()}
-            elif self.reward_multiplier:
-                # Only multiple negative rewards? Maybe a hack?
-                if self.negative_multiplier_only:
-                    reward = {k: v * self.reward_multiplier if v < 0 else v for k, v in reward.items()}
-                else:
-                    reward = {k: v * self.reward_multiplier for k, v in reward.items()}
+            if self.update_rewards:
+                if self.constant_reward_on_end is not None:
+                    reward = {k: self.constant_reward_on_end if ((self.only_those_that_did_not_finish and not infos.get(k, {}).get('succeeded', False)) or not self.only_those_that_did_not_finish) else v for idx, (k, v)  in enumerate(reward.items())}
+                    print(reward)
+                elif self.reward_multiplier:
+                    # Only multiple negative rewards? Maybe a hack?
+                    if self.negative_multiplier_only:
+                        reward = {k: v * self.reward_multiplier if v < 0 and ((self.only_those_that_did_not_finish and not infos.get(k, {}).get('succeeded', False)) or not self.only_those_that_did_not_finish) else v for idx, (k, v) in enumerate(reward.items())}
+                    else:
+                        reward = {k: v * self.reward_multiplier if ((self.only_those_that_did_not_finish and not infos.get(k, {}).get('succeeded', False)) or not self.only_those_that_did_not_finish) else v for idx, (k, v) in enumerate(reward.items())}
 
-        # return obs, reward, done, truncs, infos
         return obs, reward, done, infos
 
     def reset(self, seed=None, return_info=False, options=None):

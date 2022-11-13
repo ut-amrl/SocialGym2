@@ -26,9 +26,10 @@ class ManualScenario(Scenario):
             env_name: str,
             agent_paths: List[List[int]],
             human_paths: List[List[int]],
-            partially_observable: bool = True
+            partially_observable: bool = True,
+            config_runner: bool = False,
     ):
-        super().__init__(env_name=env_name, partially_observable=partially_observable)
+        super().__init__(env_name=env_name, partially_observable=partially_observable, config_runner=config_runner)
 
         self.agent_paths = agent_paths
         self.human_paths = human_paths

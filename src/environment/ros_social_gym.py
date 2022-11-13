@@ -128,6 +128,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             scenario = GraphNavScenario('closed/door/t1')
 
         self.scenario = scenario
+        self.new_scenario()
 
         self.launch_config = launch_config
 
@@ -152,8 +153,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.env_response_type = UTMRSResponse
 
         self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
-
-        self.new_scenario()
 
         self.launch.shutdown()
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
@@ -257,7 +256,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             agent: reward for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
         }
 
-        agent_infos = {agent: {} for agent in self.possible_agents if agent in self.agents}
+        agent_infos = {agent: {'succeeded': obs_map.get('success_observation', 0) == 1} for agent, obs_map in zip(self.possible_agents, observation_maps) if agent in self.agents}
+
+        # if all([x.get('succeeded') for x in agent_infos.values()]):
+        #     print('major reward')
+        #     agent_rewards = {k: 100_000 for k in agent_rewards.keys()}
 
         # TODO - this should be supported, but supersuite doesn't like it.  Fix later
         # self.agents = [agent for agent in self.agents if not agent_terminations[agent]]

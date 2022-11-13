@@ -54,6 +54,8 @@ class EvalCallback(EventCallback):
         render: bool = False,
         verbose: int = 1,
         warn: bool = True,
+        use_mean_reward: bool = False,
+        use_success_rate: bool = True,
     ):
         super().__init__(callback_after_eval, verbose=verbose)
 
@@ -69,6 +71,10 @@ class EvalCallback(EventCallback):
         self.deterministic = deterministic
         self.render = render
         self.warn = warn
+        self.use_mean_reward = use_mean_reward
+        self.use_success_rate = use_success_rate
+
+        self.best_success_rate = 0.
 
         # Convert to VecEnv for consistency
         if not isinstance(eval_env, VecEnv):
@@ -140,7 +146,7 @@ class EvalCallback(EventCallback):
             # Reset success rate buffer
             self._is_success_buffer = []
 
-            episode_rewards, episode_lengths = evaluate_policy(
+            episode_rewards, episode_lengths, success_rate = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -173,6 +179,7 @@ class EvalCallback(EventCallback):
             mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
             mean_ep_length, std_ep_length = np.mean(episode_lengths), np.std(episode_lengths)
             self.last_mean_reward = mean_reward
+            self.last_success_rate = success_rate
             self.eval_number += 1
 
             if self.verbose > 0:
@@ -192,12 +199,19 @@ class EvalCallback(EventCallback):
             self.logger.record("time/total_timesteps", self.num_timesteps, exclude="tensorboard")
             self.logger.dump(self.num_timesteps)
 
-            if mean_reward > self.best_mean_reward:
+            # if (self.use_mean_reward and mean_reward > self.best_mean_reward) or (self.use_success_rate and success_rate > self.best_success_rate):
+            if success_rate >= self.best_success_rate:
                 if self.verbose > 0:
                     print("New best mean reward!")
                 if self.best_model_save_path is not None:
+                    print("SAVING")
                     self.model.save(os.path.join(self.best_model_save_path, "best_model"))
-                self.best_mean_reward = mean_reward
+
+                if mean_reward > self.best_mean_reward:
+                    self.best_mean_reward = mean_reward
+                # if success_rate > self.best_success_rate:
+                self.best_success_rate = success_rate
+
                 # Trigger callback on new best model, if needed
                 if self.callback_on_new_best is not None:
                     continue_training = self.callback_on_new_best.on_step()
@@ -240,9 +254,15 @@ class OptunaCallback(BaseCallback):
         eval_number = self.parent.eval_number
 
         if self.eval_num != eval_number:
-            s = self.parent.last_mean_reward
+            if self.parent.use_mean_reward:
+                s = self.parent.last_mean_reward
+            else:
+                s = self.parent.last_success_rate
+
             self.trial.report(s, self.eval_num)
             self.eval_num = eval_number
             self.trial.set_user_attr("score", s)
 
-        return self.trial.should_prune()
+        continue_training = not self.trial.should_prune()
+
+        return continue_training

@@ -13,9 +13,12 @@ class AgentsVelocity(Observation):
 
     history_length: int
     history: collections.deque
+    ignore_theta: bool
 
-    def __init__(self, history_length: int = 1):
+    def __init__(self, history_length: int = 1, ignore_theta: bool = False):
         super().__init__()
+
+        self.ignore_theta = ignore_theta
 
         self.history_length = history_length
         # Ring buffer of max len, will remove oldest entry once the size limit has been reached.
@@ -26,10 +29,13 @@ class AgentsVelocity(Observation):
         return "agents_velocity"
 
     def __len__(self):
-        return self.history_length * 3
+        return self.history_length * (2 if self.ignore_theta else 3)
 
     def __observations__(self, env: RosSocialEnv, env_response: UTMRSResponse) -> np.array:
         agent_pose = env_response.robot_vels
+
+        if self.ignore_theta:
+            agent_pose = agent_pose[0:2]
 
         # TODO - try extend here?
         [self.history.append(x) for x in agent_pose]

@@ -1,0 +1,12 @@
+
+        <launch>
+            <arg name="outfile" default="screen" />
+
+            <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
+                output="screen"
+                args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
+
+            <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map=exp1/train/easy"  /><include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
+
+            <param name="enable_statistics" value="true" />
+        </launch>
