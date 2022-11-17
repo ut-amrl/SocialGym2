@@ -95,7 +95,8 @@ class ManualZoneEnv(RosSocialEnv):
             rewarder: 'Rewarder' = None,
             scenario: Scenario = None,
             num_humans: Union[int, Tuple[int, int]] = (5, 25),
-            num_agents: Union[int, Tuple[int, int]] = (3, 5)
+            num_agents: Union[int, Tuple[int, int]] = (3, 5),
+            debug: bool = False
     ):
         super().__init__(
             start_point, end_point, width,
@@ -104,7 +105,8 @@ class ManualZoneEnv(RosSocialEnv):
             rewarder=rewarder,
             scenario=scenario,
             num_humans=num_humans,
-            num_agents=num_agents
+            num_agents=num_agents,
+            debug=debug
         )
 
         # Given two points on the navigation graph; create a box of the specified width where the two points are in the

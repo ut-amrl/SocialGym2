@@ -75,6 +75,8 @@ class TensorboardWriter(BaseParallelWraper):
 
             if len(self.unwrapped.last_reward_maps) > 0 and self.record_rewards:
                 self.tbx_writer.add_scalars('rewards/scalars', {k: sum([x[k] for x in self.unwrapped.last_reward_maps]) / max(self.unwrapped.num_agents, 1) for k in self.unwrapped.last_reward_maps[0].keys()}, self.total_step_count)
+                self.tbx_writer.add_scalars('rewards/scalars', {'actual': sum(res[1].values())}, self.total_step_count)
+
 
         last_obs = self.unwrapped.last_obs_maps
 

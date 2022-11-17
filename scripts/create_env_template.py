@@ -88,6 +88,7 @@ def create_new_env(name: str, template: str = None):
     # Build config files
     alf = all_launch_launch(name)
     lf = launch_launch()
+    clf = config_launch_launch()
     hl = humans_lua()
     pl = pedsim_launch()
     sc = sim_config(name, environment_path.name)
@@ -98,6 +99,7 @@ def create_new_env(name: str, template: str = None):
 
     all_launch_file = environment_path / 'all_launch.launch'
     launch_file = environment_path / 'launch.launch'
+    config_launch_file = environment_path / 'config_launch.launch'
     humans_file = environment_path / 'humans.lua'
     pedsim_file = environment_path / 'pedsim_launch.launch'
     sim_file = environment_path / 'sim_config.lua'
@@ -111,6 +113,9 @@ def create_new_env(name: str, template: str = None):
 
     with launch_file.open('w') as f:
         f.write(lf)
+
+    with config_launch_file.open('w') as f:
+        f.write(clf)
 
     with humans_file.open('w') as f:
         f.write(hl)
@@ -243,6 +248,23 @@ def launch_launch():
 </launch>
 """.lstrip()
 
+
+def config_launch_launch():
+    return \
+"""
+<launch>
+    <arg name="outfile" default="screen" />
+
+    <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
+        output="screen"
+        args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
+
+    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map=exp1/train/easy"  /><include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
+
+    <param name="enable_statistics" value="true" />
+</launch>
+
+""".lstrip()
 
 def humans_lua():
     return \

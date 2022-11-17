@@ -15,7 +15,8 @@ class Scenario:
             self,
             env_name: str = None,
             partially_observable: bool = True,
-            config_runner: bool = False
+            config_runner: bool = False,
+            all_config: bool = False
     ):
         self.nav_map = None
         self.robot_positions = None
@@ -23,18 +24,16 @@ class Scenario:
 
         # If this is being ran by the config_runner script
         self.config_runner = config_runner
+        self.all_config = all_config
 
-        if env_name is not None:
-            self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
-            self.config_nav_path = self.config_scene_path / f'{self.config_scene_path.name}.navigation.json'
+        self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
+        self.config_nav_path = self.config_scene_path / f'{self.config_scene_path.name}.navigation.json'
 
-            assert Path(self.config_nav_path).is_file(), \
-                f'The env_name ({env_name}) does not have a navigation file at {self.config_nav_path}.'
-            assert Path(self.config_scene_path).is_dir(), \
-                f'The env_name ({env_name}) does not have a folder at {self.config_scene_path}'
-        else:
-            self.config_nav_path = None
-            self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/gdc/')
+        assert Path(self.config_nav_path).is_file(), \
+            f'The env_name ({env_name}) does not have a navigation file at {self.config_nav_path}.'
+        assert Path(self.config_scene_path).is_dir(), \
+            f'The env_name ({env_name}) does not have a folder at {self.config_scene_path}'
+
 
 
     def load_nav_nodes(self, nav_path):
@@ -56,8 +55,14 @@ class Scenario:
         with (self.config_scene_path / 'sim_config.lua').open('r') as f:
             sim_config_lua_template = jinja2.Template(f.read())
 
-        with (self.config_scene_path / ('config_launch.launch' if self.config_runner else 'launch.launch')).open('r') as f:
-            launch_template = jinja2.Template(f.read())
+        if self.all_config:
+            with (self.config_scene_path / ('all_launch.launch')).open('r') as f:
+                launch_template = jinja2.Template(f.read())
+        else:
+            with (self.config_scene_path / ('config_launch.launch' if self.config_runner else 'launch.launch')).open('r') as f:
+                launch_template = jinja2.Template(f.read())
+
+        print(launch_template)
 
         with (self.config_scene_path / 'pedsim_launch.launch').open('r') as f:
             pedsim_launch_template = jinja2.Template(f.read())

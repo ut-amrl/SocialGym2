@@ -75,6 +75,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             scenario: Scenario = None,
             num_humans: Union[int, Tuple[int, int]] = (5, 25),
             num_agents: Union[int, Tuple[int, int]] = (3, 5),
+            debug: bool = False,
             **kwargs
     ):
         """
@@ -96,8 +97,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             deepcopy(scenario),
             num_humans,
             num_agents,
+            debug,
             **kwargs
         )
+
+        self.debug = debug
 
         if isinstance(num_agents, int):
             self.ros_num_agents = num_agents, num_agents
@@ -227,6 +231,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
                 x_vels[i] = 1.
                 y_vels[i] = 1.
                 angle_vels[i] = 1.
+
+            if self.debug:
+                actions[i] = 0
 
         total_rewards = [0. if len(self.last_reward_maps) == 0 else sum([v for v in self.last_reward_maps[i].values()]) for i in range(len(actions))]
         messages = [f'{i}' for i in range(len(actions))]

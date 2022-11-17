@@ -1,0 +1,15 @@
+{
+  "num_agents": 2,
+  "train_length": 200000,
+  "ending_eval_trials": 100,
+  "eval_frequency": 0,
+  "policy_algo_sb3_contrib": false,
+  "policy_algo_name": "PPO",
+  "policy_name": "MlpPolicy",
+  "experiment_name": "exp2",
+
+  "run_name": "11_12_22__repro_4/ppo",
+  "run_type": "SACADRL",
+  "device": "cuda:0"
+
+}

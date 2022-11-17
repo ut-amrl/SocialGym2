@@ -15,12 +15,15 @@ def run(
 ):
 
     container_names = []
+    names_to_config = {}
 
     for config in tqdm(configs, total=len(configs), desc='Starting containers'):
         container_name = str(uuid4()).replace('-', '')
         subprocess.run([str(ROOT_FOLDER / 'run_config.sh'), container_name, f'/home/rosdev/social_gym/config_runner/configs/{config}'], stdout=subprocess.PIPE)
 
         container_names.append(container_name)
+        names_to_config[container_name] = config
+        time.sleep(3)
 
     print('Started the following containers')
     for config, name in zip(configs, container_names):
@@ -42,7 +45,7 @@ def run(
         print('\n\n------ ------ ------ ------')
         print('Making sure processes are running')
 
-        time.sleep(30)
+        time.sleep(5)
 
         for k, v in status.items():
             if v:
@@ -59,8 +62,10 @@ def run(
                 subprocess.run(['docker', 'rm', k], stdout=subprocess.PIPE)
 
                 subprocess.run([str(ROOT_FOLDER / 'run_config.sh'), k,
-                                f'/home/rosdev/social_gym/config_runner/configs/{configs[container_names.index(k)]}'], stdout=subprocess.PIPE)
+                                f'/home/rosdev/social_gym/config_runner/configs/{names_to_config[k]}'], stdout=subprocess.PIPE)
 
+                print("Delaying for the container to load...")
+                time.sleep(3)
 
     print('All containers are running!')
 

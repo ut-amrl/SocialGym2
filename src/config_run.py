@@ -25,9 +25,11 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
   AgentsVelocity, OthersPoses, OthersVelocities,\
   CollisionObservation
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder
-from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder
+from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
+  RewardStripper, TimeLimitWrapper
 
-from src.environment.scenarios.common_scenarios import exp1_train_scenario
+from src.environment.scenarios.common_scenarios import exp1_train_scenario, exp2_train_scenario
+from src.environment.scenarios import CycleScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
@@ -50,6 +52,8 @@ def run(
         device: str = 'cuda:0',
         partially_observable: bool = False,
 
+        monitor: bool = False,
+
         existence_penalty: int = 1,
         success_reward: int = 100,
 
@@ -64,6 +68,14 @@ def run(
         goal_distance_reward: bool = True,
         goal_distance_reward_clip: bool = False,
 
+        collision_ender: bool = False,
+
+        reward_stripper: bool = False,
+
+        timelimit: bool = False,
+        timelimit_threshold: int = 2000,
+
+        entropy_ender: bool = True,
         entropy_max_distance: float = 0.25,
         entropy_max_timesteps: int = 100,
         entropy_reward: bool = True,
@@ -72,6 +84,7 @@ def run(
         entropy_reward_multiplier: float = 100_000.,
         entropy_multiply_negative_rewards_only: bool = False,
 
+        collision_obs: bool = True,
         agent_goal_distance_obs: bool = True,
         agent_pose_obs: bool = True,
         agent_pose_ignore_theta: bool = True,
@@ -87,6 +100,9 @@ def run(
         policy_algo_name: str = "PPO",
         policy_name: str = "MlpPolicy",
         policy_algo_kwargs=None,
+
+        debug: bool = False,
+        experiment_name: str = 'exp2',
 
 
         run_name: str = None,
@@ -111,10 +127,18 @@ def run(
 
   if policy_algo_kwargs is None:
     policy_algo_kwargs = {'verbose': 3, 'device': device, 'n_steps': 512 * num_agents, 'tensorboard_log': str(exp_tensorboard_folder)}
-  elif 'device' not in policy_algo_kwargs:
+  if 'device' not in policy_algo_kwargs:
     policy_algo_kwargs['device'] = device
+  if 'tensorboard_log' not in policy_algo_kwargs:
+    policy_algo_kwargs['tensorboard_log'] = exp_tensorboard_folder
+  if 'verbose' not in policy_algo_kwargs:
+    policy_algo_kwargs['verbose'] = 3
 
-  scenario = exp1_train_scenario(level='easy', partially_observable=partially_observable, config_runner=True)
+  if experiment_name == 'exp1':
+    scenario = exp1_train_scenario(level='easy', partially_observable=partially_observable, config_runner=True if not monitor else False, all_config=monitor)
+  elif experiment_name == 'exp2':
+    scenario = exp2_train_scenario(level='easy', partially_observable=partially_observable,
+                                 config_runner=True if not monitor else False, all_config=monitor)
 
   observations = []
 
@@ -128,10 +152,11 @@ def run(
     observations.append(OthersPoses(ignore_theta=other_poses_ignore_theta, actuals=other_poses_actual_positions))
   if other_velocities_obs:
     observations.append(OthersVelocities(ignore_theta=other_velocities_ignore_theta))
+  if collision_obs:
+    observations.append(CollisionObservation())
 
   observations.extend([
     SuccessObservation(),
-    CollisionObservation()
   ])
 
   if run_type != kinds.sacadrl:
@@ -157,10 +182,10 @@ def run(
   if enforced_order_reward > 0 and run_type != kinds.sacadrl:
     rewards.append(EnforcedOrder(
       weight=enforced_order_reward,
-      on_enter = True,
-      on_exit = enforced_order_track_exit,
-      allow_any_order = run_type == kinds.ao,
-      incorrect_penalty = enforced_order_penalty_for_incorrect_order and run_type == kinds.eo,
+      on_enter=True,
+      on_exit=enforced_order_track_exit,
+      allow_any_order=run_type == kinds.ao,
+      incorrect_penalty=enforced_order_penalty_for_incorrect_order and run_type == kinds.eo,
     ))
 
   observer = Observer(observations)
@@ -168,18 +193,26 @@ def run(
 
   ENV_CLASS = partial(ManualZoneEnv, 7, 11, 1.5)
 
-  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenario=scenario, num_humans=0, num_agents=num_agents)
+  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenario=scenario, num_humans=0, num_agents=num_agents, debug=debug)
 
-  env = EntropyEpisodeEnder(
-    env,
-    timestep_threshold=entropy_max_timesteps,
-    distance_delta=entropy_max_distance,
-    negative_multiplier_only=entropy_multiply_negative_rewards_only,
-    constant_reward_on_end=entropy_constant_penalty,
-    only_those_that_did_not_finish=entropy_constant_penalty_only_those_that_did_not_finish,
-    reward_multiplier=entropy_reward_multiplier,
-    update_rewards=entropy_reward
-  )
+  if entropy_ender:
+    env = EntropyEpisodeEnder(
+      env,
+      timestep_threshold=entropy_max_timesteps,
+      distance_delta=entropy_max_distance,
+      negative_multiplier_only=entropy_multiply_negative_rewards_only,
+      constant_reward_on_end=entropy_constant_penalty,
+      only_those_that_did_not_finish=entropy_constant_penalty_only_those_that_did_not_finish,
+      reward_multiplier=entropy_reward_multiplier,
+      update_rewards=entropy_reward
+    )
+  if collision_ender:
+    env = CollisionEpisodeEnder(env)
+  if timelimit:
+    env = TimeLimitWrapper(env, max_steps=timelimit_threshold)
+  if reward_stripper:
+    env = RewardStripper(env)
+
 
   env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
 
@@ -196,7 +229,7 @@ def run(
 
   env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='stable_baselines3')
 
-  env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
+  # env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)
 
   if policy_algo_sb3_contrib:
@@ -219,7 +252,10 @@ def run(
 
   model.save(exp_checkpoint_folder / 'last')
 
-  model = model.load(exp_checkpoint_folder / 'last', env=env, device=device)
+  if eval_frequency > 0:
+    model = model.load(exp_checkpoint_folder / 'best_model', env=env, device=device)
+  else:
+    model = model.load(exp_checkpoint_folder / 'last', env=env, device=device)
 
   episode_rewards, episode_lengths, success_rate = evaluate_policy(
     model,

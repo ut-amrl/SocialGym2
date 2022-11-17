@@ -95,6 +95,8 @@ SHELL ["/bin/bash", "-c"]
 #
 RUN apt-get install ros-noetic-roslint
 
+RUN pip install sb3_contrib optuna
+
 COPY ./submodules ${ROS_WS}/submodules
 
 
@@ -105,13 +107,13 @@ COPY ./config_runner/set_paths.sh ${ROS_WS}/config_runner/set_paths.sh
 RUN source ${ROS_WS}/config_runner/set_paths__pre_pedsim.sh && cd pedsim_ros && catkin_make
 
 
-#COPY ./submodules/amrl_msgs ./amrl_msgs
+COPY ./submodules/amrl_msgs ./amrl_msgs
 RUN source ${ROS_WS}/config_runner/set_paths.sh && cd amrl_msgs && make
 
-#COPY ./submodules/graph_navigation ./graph_navigation
+COPY ./submodules/graph_navigation ./graph_navigation
 RUN source ${ROS_WS}/config_runner/set_paths.sh && cd graph_navigation && make
 
-#COPY ./submodules/ut_multirobot_sim ./ut_multirobot_sim
+COPY ./submodules/ut_multirobot_sim ./ut_multirobot_sim
 RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
 
 RUN source ${ROS_WS}/config_runner/set_paths.sh && cd ut_multirobot_sim && make
@@ -119,7 +121,6 @@ RUN source ${ROS_WS}/config_runner/set_paths.sh && cd ut_multirobot_sim && make
 RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
 
 COPY ./scripts ${ROS_WS}/scripts
-RUN pip install sb3_contrib optuna
 
 COPY ./config ${ROS_WS}/config
 COPY ./manifest.xml ${ROS_WS}/manifest.xml

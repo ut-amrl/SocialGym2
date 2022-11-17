@@ -7,9 +7,9 @@ from pettingzoo.utils.wrappers import BaseParallelWraper
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class CollisionEpisodeEnder(BaseParallelWraper):
+class RewardStripper(BaseParallelWraper):
     """
-    You collide you die!
+    When an agent succeeds, remove the
 
     :param env: Gym environment that will be wrapped
     """
@@ -17,20 +17,27 @@ class CollisionEpisodeEnder(BaseParallelWraper):
     def __init__(self, env: gym.Env):
         # Call the parent constructor, so we can access self.env later
         super().__init__(env)
+
+        self.rws_successes = []
         self.agents = self.unwrapped.agents
 
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
-        obs, reward, done, infos = self.env.step(action)
+        obs, rewards, done, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
 
-        collision = any([m['collisions'] == 1 for m in self.unwrapped.last_obs_maps])
+        if len(self.rws_successes) == 0:
+            self.rws_successes = [False] * len(self.unwrapped.last_obs_maps)
 
-        if collision:
-            # truncs = {k: True for k in done.keys()}
-            done = {k: True for k in done.keys()}
+        agent_rewards = {
+            k: v if not self.rws_successes[idx] else 0. for idx, (k, v) in enumerate(rewards.items())
+        }
+
+        for idx, _obs in enumerate(self.unwrapped.last_obs_maps):
+            if _obs['success_observation'] == 1:
+                self.rws_successes[idx] = True
 
         # return obs, reward, done, truncs, infos
-        return obs, reward, done, infos
+        return obs, agent_rewards, done, infos
 
     def seed(self, seed=None):
         pass

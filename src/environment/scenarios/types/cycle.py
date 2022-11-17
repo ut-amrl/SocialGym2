@@ -16,8 +16,11 @@ class CycleScenario(Scenario):
     def __init__(
             self,
             env_name: str,
+            partially_observable: bool = True,
+            config_runner: bool = False,
+            all_config: bool = False
     ):
-        super().__init__(env_name=env_name)
+        super().__init__(env_name=env_name, partially_observable=partially_observable, config_runner=config_runner, all_config=all_config)
 
         self.iter = 0
 
