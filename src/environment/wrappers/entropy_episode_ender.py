@@ -78,11 +78,13 @@ class EntropyEpisodeEnder(BaseParallelWraper):
         return res
 
     def reset_positions(self):
-        self.agent_positions = [collections.deque(maxlen=self.timestep_threshold) for _ in self.env.agents]
+        self.agent_positions = [collections.deque(maxlen=self.timestep_threshold) for _ in range(self.unwrapped.curr_num_agents)]
 
     def calculate_deltas(self):
-        deltas = [-1] * len(self.agent_positions)
+        deltas = [-1] * self.unwrapped.curr_num_agents
         for idx, positions in enumerate(self.agent_positions):
+            if idx >= len(deltas):
+                break
             if len(positions) < self.timestep_threshold:
                 continue
 

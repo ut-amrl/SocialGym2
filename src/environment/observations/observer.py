@@ -52,6 +52,20 @@ class Observer:
 
         return agent_observations, agent_obs_maps
 
+    def arr_to_dict(self, observations):
+        if len(observations.shape) == 1:
+            observations = [observations]
+
+        all_obs = []
+        for (stack, obs) in zip([self.registered_observations[0]] * observations.shape[0], observations):
+            obs_dict = {}
+            start_idx = 0
+            for s in stack:
+                obs_dict[s.name()] = obs[start_idx:start_idx+len(s)]
+                start_idx += len(s)
+            all_obs.append(obs_dict)
+        return all_obs
+
     def setup(self, env: 'RosSocialEnv'):
         [obs.__setup__(env) for stack in self.registered_observations for obs in stack]
 

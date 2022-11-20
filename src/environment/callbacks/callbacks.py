@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+import json
 import warnings
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, Optional, Union
@@ -56,6 +58,8 @@ class EvalCallback(EventCallback):
         warn: bool = True,
         use_mean_reward: bool = False,
         use_success_rate: bool = True,
+        eval_report_file: Path = None,
+        number_of_agents: List[int] = None,
     ):
         super().__init__(callback_after_eval, verbose=verbose)
 
@@ -73,6 +77,8 @@ class EvalCallback(EventCallback):
         self.warn = warn
         self.use_mean_reward = use_mean_reward
         self.use_success_rate = use_success_rate
+        self.eval_report_file = eval_report_file
+        self.number_of_agents = number_of_agents
 
         self.best_success_rate = 0.
 
@@ -127,10 +133,13 @@ class EvalCallback(EventCallback):
                 self._is_success_buffer.append(maybe_is_success)
 
     def _on_step(self) -> bool:
+        assert len(self.eval_env.unwrapped.vec_envs) == 1, \
+            'Evaluation Callback cannot handle more than 1 vectorized env atm.'
 
         continue_training = True
 
         if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
+            prev_agent_number = self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents
 
             # Sync training and eval env if there is VecNormalize
             if self.model.get_vec_normalize_env() is not None:
@@ -146,16 +155,47 @@ class EvalCallback(EventCallback):
             # Reset success rate buffer
             self._is_success_buffer = []
 
-            episode_rewards, episode_lengths, success_rate = evaluate_policy(
-                self.model,
-                self.eval_env,
-                n_eval_episodes=self.n_eval_episodes,
-                render=self.render,
-                deterministic=self.deterministic,
-                return_episode_rewards=True,
-                warn=self.warn,
-                callback=self._log_success_callback,
-            )
+            self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.in_eval = True
+
+
+            _reset_number_of_agents = False
+            if self.number_of_agents is None:
+                _reset_number_of_agents = True
+                self.number_of_agents = [prev_agent_number]
+
+            episode_rewards = np.array([])
+            episode_lengths = np.array([])
+            success_rate = 0.
+
+            success_rate_per_agents = {}
+
+            for num_agents in self.number_of_agents:
+                self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = num_agents
+                self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=num_agents)
+                self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.reset()
+
+                print(f'EVAL: {num_agents}')
+
+                rwds, lens, scssrate = evaluate_policy(
+                    self.model,
+                    self.eval_env,
+                    n_eval_episodes=self.n_eval_episodes,
+                    render=self.render,
+                    deterministic=self.deterministic,
+                    return_episode_rewards=True,
+                    warn=self.warn,
+                    callback=self._log_success_callback,
+                )
+
+                episode_rewards = np.concatenate([episode_rewards, rwds])
+                episode_lengths = np.concatenate([episode_lengths, lens])
+                success_rate += scssrate
+                success_rate_per_agents[str(num_agents)] = scssrate
+
+            success_rate /= len(self.number_of_agents)
+
+            if _reset_number_of_agents:
+                self.number_of_agents = None
 
             if self.log_path is not None:
                 self.evaluations_timesteps.append(self.num_timesteps)
@@ -181,6 +221,13 @@ class EvalCallback(EventCallback):
             self.last_mean_reward = mean_reward
             self.last_success_rate = success_rate
             self.eval_number += 1
+
+            if self.eval_report_file is not None:
+                eval_report = {}
+                if self.eval_report_file.exists():
+                    eval_report = json.load(self.eval_report_file.open('r'))
+                eval_report[str(self.n_calls)] = {'total': success_rate, **success_rate_per_agents}
+                json.dump(eval_report, self.eval_report_file.open('w'))
 
             if self.verbose > 0:
                 print(f"Eval num_timesteps={self.num_timesteps}, " f"episode_reward={mean_reward:.2f} +/- {std_reward:.2f}")
@@ -219,6 +266,13 @@ class EvalCallback(EventCallback):
             # Trigger callback after every evaluation, if needed
             if self.callback is not None:
                 continue_training = continue_training and self._on_event()
+
+            print(f'EVAL FIN: {prev_agent_number}')
+            self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = prev_agent_number
+            self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=prev_agent_number)
+            self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.reset()
+
+        self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.in_eval = False
 
         return continue_training
 

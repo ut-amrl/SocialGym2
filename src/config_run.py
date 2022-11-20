@@ -6,6 +6,7 @@ import sb3_contrib as sb3c
 
 from stable_baselines3 import PPO
 from sb3_contrib import RecurrentPPO
+from pettingzoo.test import parallel_test, parallel_api_test
 from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback
 from stable_baselines3.common.vec_env import VecNormalize, VecMonitor
 from stable_baselines3.common.monitor import Monitor
@@ -22,11 +23,11 @@ from src.environment.rewards import Rewarder, Success, ExistencePenalty, \
   GoalDistanceChange
 from src.environment.rewards.types.manual_zone import EnforcedOrder
 from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation, \
-  AgentsVelocity, OthersPoses, OthersVelocities,\
-  CollisionObservation
+  AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
   RewardStripper, TimeLimitWrapper
+from src.environment.extractors import LSTMAgentObs
 
 from src.environment.scenarios.common_scenarios import exp1_train_scenario, exp2_train_scenario
 from src.environment.scenarios import CycleScenario
@@ -53,6 +54,7 @@ def run(
         partially_observable: bool = False,
 
         monitor: bool = False,
+        local: bool = False,
 
         existence_penalty: int = 1,
         success_reward: int = 100,
@@ -135,10 +137,10 @@ def run(
     policy_algo_kwargs['verbose'] = 3
 
   if experiment_name == 'exp1':
-    scenario = exp1_train_scenario(level='easy', partially_observable=partially_observable, config_runner=True if not monitor else False, all_config=monitor)
+    scenario = exp1_train_scenario(level='easy', partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
   elif experiment_name == 'exp2':
     scenario = exp2_train_scenario(level='easy', partially_observable=partially_observable,
-                                 config_runner=True if not monitor else False, all_config=monitor)
+                                 config_runner=True if not monitor and not local else False, all_config=monitor and not local)
 
   observations = []
 
@@ -148,16 +150,20 @@ def run(
     observations.append(AgentsPose(ignore_theta=agent_pose_ignore_theta))
   if agent_velocity_obs:
     observations.append(AgentsVelocity(ignore_theta=agent_velocity_ignore_theta, history_length=2))
-  if other_poses_obs:
-    observations.append(OthersPoses(ignore_theta=other_poses_ignore_theta, actuals=other_poses_actual_positions))
-  if other_velocities_obs:
-    observations.append(OthersVelocities(ignore_theta=other_velocities_ignore_theta))
   if collision_obs:
     observations.append(CollisionObservation())
+  observations.append(
+    SuccessObservation()
+  )
 
-  observations.extend([
-    SuccessObservation(),
-  ])
+  observations.append(OtherAgentObservables(
+    pos_x=other_poses_obs,
+    pos_y=other_poses_obs,
+    pos_theta=other_poses_obs and not other_poses_ignore_theta,
+    vel_x=other_velocities_obs,
+    vel_y=other_velocities_obs,
+    vel_theta=other_poses_obs and not other_velocities_ignore_theta
+  ))
 
   if run_type != kinds.sacadrl:
     observations.extend([
@@ -214,7 +220,7 @@ def run(
     env = RewardStripper(env)
 
 
-  env = NewScenarioWrapper(env, new_scenario_episode_frequency=1)
+  env = NewScenarioWrapper(env, new_scenario_episode_frequency=1, plans=[[0, 2], [1000, 3], [2000, 4]])
 
   env = TensorboardWriter(
     env,
@@ -225,12 +231,18 @@ def run(
     step_sample_rate=1
   )
 
+  env = ss.black_death_v3(env)
+  env = ss.pad_observations_v0(env)
+  env = ss.pad_action_space_v0(env)
   env = ss.pettingzoo_env_to_vec_env_v1(env)
+  env.black_death = True
 
   env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='stable_baselines3')
 
-  # env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
+  env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)
+
+  policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
 
   if policy_algo_sb3_contrib:
     model = getattr(sb3c, policy_algo_name)(policy_name, env, **policy_algo_kwargs)
@@ -242,6 +254,8 @@ def run(
     n_eval_episodes=intermediate_eval_trials,
     eval_freq=eval_frequency,
     best_model_save_path=str(exp_checkpoint_folder),
+    eval_report_file=exp_eval_report,
+    number_of_agents=list(range(7))[2:]
   )
 
   model.learn(

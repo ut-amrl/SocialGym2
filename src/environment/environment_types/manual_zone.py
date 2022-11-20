@@ -141,7 +141,7 @@ class ManualZoneEnv(RosSocialEnv):
         return env_response
 
     def reset(self, seed=None, return_info=False, options=None):
-        self.agents_priority_orders = random.sample(range(0, self.max_num_agents), self.max_num_agents)
+        self.agents_priority_orders = random.sample(range(0, self.curr_num_agents), self.curr_num_agents)
         res = super().reset(seed, return_info, options)
         return res
 

@@ -88,6 +88,8 @@ class RosSocialEnv(ParallelEnv, EzPickle):
           generated between x and y
         """
 
+        self.black_death = True
+
         EzPickle.__init__(
             self,
             *args,
@@ -102,6 +104,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         )
 
         self.debug = debug
+        self.in_eval = False
 
         if isinstance(num_agents, int):
             self.ros_num_agents = num_agents, num_agents
@@ -112,7 +115,12 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         else:
             self.ros_num_humans = num_humans
 
+        self.curr_num_agents = max(self.ros_num_agents)
+
+
         self.possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+        self.real_possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+
         self.agent_name_mapping = dict(
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
@@ -166,6 +174,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.last_reward_maps = []
         self.terminations_ = [False] * len(self.possible_agents)
 
+
     def close(self):
         pass
 
@@ -181,11 +190,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def calculate_reward(self, obs_map):
         return self.rewarder.reward(self, obs_map)
 
-    def new_scenario(self):
-        self.scenario.generate_scenario(self.ros_num_humans, self.ros_num_agents)
+    def new_scenario(self, num_humans=None, num_agents=None):
+        self.scenario.generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
 
     def default_action(self):
-        actions = [[0] * len(self.agents), [0.] * len(self.agents),  [0.] * len(self.agents), [0.] * len(self.agents), [f'{i}' for i in range(len(self.agents))], [AgentColor() for i in range(len(self.agents))]]
+        actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
         return actions
 
     def sim_step(self, args):
@@ -195,17 +204,57 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         pass
 
     def reset(self, seed=None, return_info=False, options=None):
-        self.agents = self.possible_agents[:]
-        self.terminations = {agent: False for agent in self.agents}
-        self.terminations_ = [False for _ in self.agents]
+        if self.debug:
+            print("RESET")
+
+        pause = self.agents is None or len(self.agents) != self.curr_num_agents
+
+        self.agents = self.real_possible_agents[:]
+        self.possible_agents = self.agents
+        self.terminations = {agent: True if self.curr_num_agents <= idx else False for idx, agent in enumerate(self.agents)}
+        self.terminations_ = [True if self.curr_num_agents <= idx else False for idx, _ in enumerate(self.agents)]
 
         self.observer.reset()
         self.rewarder.reset()
 
-        self.utmrs_service.reset()
-        environment_responses = self.sim_step(
-            self.default_action()
-        )
+        if self.debug:
+            print(f'Curr Num Agents: {self.curr_num_agents}')
+            print(f'Length of default action: {len(self.default_action()[0])}')
+
+        NUM_RETRIES = 100
+
+        retry = 0
+        while retry < NUM_RETRIES:
+            try:
+                self.utmrs_service.reset()
+                if pause:
+                    time.sleep(3)
+
+                environment_responses = self.sim_step(
+                    self.default_action()
+                )
+
+                if pause:
+                    self.utmrs_service.reset()
+
+                if self.debug:
+                    print(f'Env Resp Length: {len(environment_responses)}')
+
+                if len(environment_responses) == self.curr_num_agents:
+                    break
+
+                if self.debug:
+                    print('fail check, retrying')
+
+                retry += 1
+                time.sleep(1)
+            except Exception:
+                if self.debug:
+                    print('fail check, retrying')
+
+                retry += 1
+                time.sleep(1)
+
         observations, observation_maps = self.make_observation(environment_responses)
 
         self.last_obs_maps = []
@@ -220,11 +269,16 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             return {agent: obs for agent, obs in zip(self.agents, observations)}, infos
 
     def step(self, action_dict):
-        actions = np.zeros(self.max_num_agents, dtype=np.int32)
-        x_vels = np.zeros(self.max_num_agents, dtype=np.float)
-        y_vels = np.zeros(self.max_num_agents, dtype=np.float)
-        angle_vels = np.zeros(self.max_num_agents, dtype=np.float)
-        for i, agent in enumerate(self.possible_agents):
+        self.agents = [agent for agent in self.agents if not self.terminations[agent]]
+
+        if self.debug:
+            print(f'Agents: {len(self.agents)}')
+
+        actions = np.zeros(len(self.agents), dtype=np.int32)
+        x_vels = np.zeros(len(self.agents), dtype=np.float)
+        y_vels = np.zeros(len(self.agents), dtype=np.float)
+        angle_vels = np.zeros(len(self.agents), dtype=np.float)
+        for i, agent in enumerate(self.agents):
             if agent in action_dict:
                 actions[i] = action_dict[agent]
                 # actions[i] = -1
@@ -269,8 +323,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         #     print('major reward')
         #     agent_rewards = {k: 100_000 for k in agent_rewards.keys()}
 
-        # TODO - this should be supported, but supersuite doesn't like it.  Fix later
-        # self.agents = [agent for agent in self.agents if not agent_terminations[agent]]
         self.terminations_ = list(agent_terminations.values())
 
         truncs = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}

@@ -10,5 +10,6 @@ from src.environment.observations.types.others_heading_direction import OthersHe
 from src.environment.observations.types.agents_heading_direction import AgentsHeadingDirection
 from src.environment.observations.types.collision_observation import CollisionObservation
 from src.environment.observations.types.success_observation import SuccessObservation
+from src.environment.observations.types.other_agent_observables import OtherAgentObservables
 
 from src.environment.observations.observer import Observer

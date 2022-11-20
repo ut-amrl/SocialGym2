@@ -57,6 +57,6 @@ class OthersVelocities(Observation):
     def __setup__(self, env: RosSocialEnv):
         self.num_others = 0
         if self.allow_humans:
-            self.num_others += max(env.ros_num_agents)
+            self.num_others += max(env.ros_num_humans) - 1
         if self.allow_other_robots:
             self.num_others += max(env.ros_num_agents) - 1

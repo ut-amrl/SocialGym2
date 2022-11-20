@@ -50,6 +50,9 @@ class TensorboardWriter(BaseParallelWraper):
         self.step_count = 0
         self.total_step_count = 0
         self.episode_count = 0
+        self.eval_step_count = 0
+        self.eval_total_step_count = 0
+        self.eval_episode_count = 0
         self.number_of_collisions = 0
         self.velocity_changes = 0
 
@@ -59,7 +62,13 @@ class TensorboardWriter(BaseParallelWraper):
         self.record_env_info = record_env_info
 
     def image_callback(self, msg):
-        if self.last_image_ts != self.step_count and self.step_count % self.video_sample_rate == 0 and len(self.video) < self.max_vid_length:
+        if self.last_image_ts != self.step_count and \
+                len(self.video) < self.max_vid_length and \
+                (
+                        (self.step_count % self.video_sample_rate == 0 and not self.unwrapped.in_eval) or
+                        (self.unwrapped.in_eval and self.eval_step_count % self.video_sample_rate == 0)
+                ):
+
             cv2_img = bridge.imgmsg_to_cv2(msg, "rgb8")
             self.video.append(cv2_img.transpose(2, 0, 1))
             self.last_image_ts = self.step_count
@@ -68,14 +77,23 @@ class TensorboardWriter(BaseParallelWraper):
         res = self.env.step(actions)
         self.agents = self.unwrapped.agents
 
-        self.step_count += 1
-        self.total_step_count += 1
+        if self.unwrapped.in_eval:
+            self.eval_step_count += 1
+            self.total_eval_step_count += 1
+        else:
+            self.step_count += 1
+            self.total_step_count += 1
 
-        if self.total_step_count % self.step_sample_rate == 0:
+        if (not self.unwrapped.in_eval and self.total_step_count % self.step_sample_rate == 0) or\
+                (self.unwrapped.in_eval and self.eval_total_step_count % self.step_sample_rate == 0):
 
             if len(self.unwrapped.last_reward_maps) > 0 and self.record_rewards:
-                self.tbx_writer.add_scalars('rewards/scalars', {k: sum([x[k] for x in self.unwrapped.last_reward_maps]) / max(self.unwrapped.num_agents, 1) for k in self.unwrapped.last_reward_maps[0].keys()}, self.total_step_count)
-                self.tbx_writer.add_scalars('rewards/scalars', {'actual': sum(res[1].values())}, self.total_step_count)
+                if self.unwrapped.in_eval:
+                    title = 'eval_rewards/scalars'
+                else:
+                    title = 'reward/scalars'
+                self.tbx_writer.add_scalars(title, {k: sum([x[k] for x in self.unwrapped.last_reward_maps]) / max(self.unwrapped.num_agents, 1) for k in self.unwrapped.last_reward_maps[0].keys()}, self.total_step_count)
+                self.tbx_writer.add_scalars(title, {'actual': sum(res[1].values())}, self.total_step_count)
 
 
         last_obs = self.unwrapped.last_obs_maps
@@ -97,10 +115,16 @@ class TensorboardWriter(BaseParallelWraper):
                 rospy.Subscriber(image_topic, Image, self.image_callback)
 
         if len(self.video) > 0 and self.record_video:
-            self.tbx_writer.add_video(self.video_name, np.stack([np.stack(self.video)]), self.episode_count, fps=self.fps)
+            self.tbx_writer.add_video(f'eval_{self.video_name}' if self.unwrapped.in_eval else self.video_name, np.stack([np.stack(self.video)]), self.episode_count, fps=self.fps)
 
-        if self.record_env_info and self.episode_count > 0:
-            self.tbx_writer.add_scalars('env_info', {
+        if self.record_env_info and (self.episode_count > 0 and not self.unwrapped.in_eval) or (self.eval_episode_count > 0 and self.unwrapped.in_eval):
+
+            if self.unwrapped.in_eval:
+                title = 'eval_env_info'
+            else:
+                title = 'env_info'
+
+            self.tbx_writer.add_scalars(title, {
                 'number_of_collisions': self.number_of_collisions,
                 'full_successes': all([x.get('success', 0) for x in self.unwrapped.last_reward_maps]),
                 'successful_agents': sum([1 if x.get('success') else 0 for x in self.unwrapped.last_reward_maps]),
@@ -109,8 +133,14 @@ class TensorboardWriter(BaseParallelWraper):
 
         self.number_of_collisions = 0
         self.velocity_changes = 0
-        self.step_count = 0
-        self.episode_count += 1
+
+        if self.unwrapped.in_eval:
+            self.eval_episode_count += 1
+            self.eval_step_count = 0
+        else:
+            self.episode_count += 1
+            self.step_count = 0
+
         self.video = []
 
         res = self.env.reset(seed=seed, options=options)
