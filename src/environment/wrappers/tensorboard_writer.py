@@ -79,7 +79,7 @@ class TensorboardWriter(BaseParallelWraper):
 
         if self.unwrapped.in_eval:
             self.eval_step_count += 1
-            self.total_eval_step_count += 1
+            self.eval_total_step_count += 1
         else:
             self.step_count += 1
             self.total_step_count += 1
@@ -87,13 +87,15 @@ class TensorboardWriter(BaseParallelWraper):
         if (not self.unwrapped.in_eval and self.total_step_count % self.step_sample_rate == 0) or\
                 (self.unwrapped.in_eval and self.eval_total_step_count % self.step_sample_rate == 0):
 
+            step_count = self.eval_total_step_count if self.unwrapped.in_eval else self.total_step_count
+
             if len(self.unwrapped.last_reward_maps) > 0 and self.record_rewards:
                 if self.unwrapped.in_eval:
                     title = 'eval_rewards/scalars'
                 else:
                     title = 'reward/scalars'
-                self.tbx_writer.add_scalars(title, {k: sum([x[k] for x in self.unwrapped.last_reward_maps]) / max(self.unwrapped.num_agents, 1) for k in self.unwrapped.last_reward_maps[0].keys()}, self.total_step_count)
-                self.tbx_writer.add_scalars(title, {'actual': sum(res[1].values())}, self.total_step_count)
+                self.tbx_writer.add_scalars(title, {k: sum([x[k] for x in self.unwrapped.last_reward_maps]) / max(self.unwrapped.num_agents, 1) for k in self.unwrapped.last_reward_maps[0].keys()}, step_count)
+                self.tbx_writer.add_scalars(title, {'actual': sum(res[1].values())}, step_count)
 
 
         last_obs = self.unwrapped.last_obs_maps
@@ -121,15 +123,17 @@ class TensorboardWriter(BaseParallelWraper):
 
             if self.unwrapped.in_eval:
                 title = 'eval_env_info'
+                episode_count = self.eval_episode_count
             else:
                 title = 'env_info'
+                episode_count = self.episode_count
 
             self.tbx_writer.add_scalars(title, {
                 'number_of_collisions': self.number_of_collisions,
                 'full_successes': all([x.get('success', 0) for x in self.unwrapped.last_reward_maps]),
                 'successful_agents': sum([1 if x.get('success') else 0 for x in self.unwrapped.last_reward_maps]),
                 'velocity_changes': int(self.velocity_changes)
-            }, self.episode_count)
+            }, episode_count)
 
         self.number_of_collisions = 0
         self.velocity_changes = 0

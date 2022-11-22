@@ -50,8 +50,11 @@ def run(
         eval_frequency: int = 25_000,
         intermediate_eval_trials: int = 25,
         ending_eval_trials: int = 100,
+        ending_eval_with_best: bool = True,
         device: str = 'cuda:0',
         partially_observable: bool = False,
+        train: bool = True,
+        eval: bool = True,
 
         monitor: bool = False,
         local: bool = False,
@@ -108,6 +111,7 @@ def run(
 
 
         run_name: str = None,
+        continue_from: str = None,
 
         run_type: str = kinds.sacadrl
 ):
@@ -249,6 +253,9 @@ def run(
   else:
     model = getattr(sb3, policy_algo_name)(policy_name, env, **policy_algo_kwargs)
 
+  if continue_from:
+    model = model.load(DATA_FOLDER / continue_from, env)
+
   eval_callback = EvalCallback(
     eval_env=env,
     n_eval_episodes=intermediate_eval_trials,
@@ -258,31 +265,46 @@ def run(
     number_of_agents=list(range(7))[2:]
   )
 
-  model.learn(
-    train_length * num_agents,
-    callback=eval_callback if eval_frequency > 0 else None,
-    tb_log_name=str(exp_tensorboard_folder)
-  )
+  if train:
+    model.learn(
+      train_length * num_agents,
+      callback=eval_callback if eval_frequency > 0 else None,
+      tb_log_name=str(exp_tensorboard_folder)
+    )
 
-  model.save(exp_checkpoint_folder / 'last')
+    model.save(exp_checkpoint_folder / 'last')
 
-  if eval_frequency > 0:
-    model = model.load(exp_checkpoint_folder / 'best_model', env=env, device=device)
-  else:
-    model = model.load(exp_checkpoint_folder / 'last', env=env, device=device)
+    if eval_frequency > 0 and ending_eval_with_best:
+      model = model.load(exp_checkpoint_folder / 'best_model', env=env, device=device)
+    else:
+      model = model.load(exp_checkpoint_folder / 'last', env=env, device=device)
 
-  episode_rewards, episode_lengths, success_rate = evaluate_policy(
-    model,
-    model.get_env(),
-    n_eval_episodes=ending_eval_trials,
-    deterministic=True,
-    return_episode_rewards=True,
-  )
+  if eval:
+    eval_report = {}
 
-  with exp_eval_report.open('w') as f:
-    json.dump({
-      success_rate: success_rate,
-    }, f)
+    all_rates = []
+
+    for a in range(2, num_agents + 1):
+      env.unwrapped.vec_envs[0].par_env.unwrapped.in_eval = True
+      env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = a
+      env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=a)
+      env.unwrapped.vec_envs[0].par_env.unwrapped.reset()
+
+      episode_rewards, episode_lengths, success_rate = evaluate_policy(
+        model,
+        env,
+        n_eval_episodes=ending_eval_trials,
+        deterministic=True,
+        return_episode_rewards=True,
+      )
+
+
+      eval_report[str(a)] = success_rate
+      all_rates.append(success_rate)
+    eval_report['total'] = sum(all_rates) / len(all_rates)
+
+    with exp_eval_report.open('w') as f:
+      json.dump(eval_report, f)
 
 if __name__ == "__main__":
   import argparse

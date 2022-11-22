@@ -23,7 +23,7 @@ def run(
 
         container_names.append(container_name)
         names_to_config[container_name] = config
-        time.sleep(3)
+        time.sleep(10)
 
     print('Started the following containers')
     for config, name in zip(configs, container_names):
@@ -65,7 +65,7 @@ def run(
                                 f'/home/rosdev/social_gym/config_runner/configs/{names_to_config[k]}'], stdout=subprocess.PIPE)
 
                 print("Delaying for the container to load...")
-                time.sleep(3)
+                time.sleep(10)
 
     print('All containers are running!')
 

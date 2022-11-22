@@ -112,7 +112,7 @@ def evaluate_policy(
                 callback(locals(), globals())
 
             if all([x for x in dones]):
-                if all([x.get('succeeded', False) for x in infos]):
+                if all([x.get('succeeded', False) for x in infos[0:env.unwrapped.vec_envs[0].unwrapped.par_env.unwrapped.curr_num_agents]]):
                     successes += 1
                 total += 1
 
