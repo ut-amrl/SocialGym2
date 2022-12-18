@@ -100,7 +100,7 @@ def exp2_train_scenario(level: str = 'easy', partially_observable: bool = False,
     all_paths = [list(x) for x in product(start_points, before_hallway, after_hallway, end_points)]
 
     scenario = ManualScenario(
-        f'exp1/train/{level}',
+        f'exp2/train/{level}',
         agent_paths=all_paths,
         human_paths=all_paths,
         partially_observable=partially_observable,
