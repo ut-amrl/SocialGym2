@@ -155,6 +155,16 @@ def create_new_env(name: str, template: str = None):
     shutil.copyfile(navigation_file, amrl_folder / f'{environment_path.name}.navigation.txt')
     shutil.copyfile(navigation_json_file, amrl_folder / f'{environment_path.name}.navigation.json')
 
+    # TODO - fix this to work better, we are essentially trying to solve for when the user specified a subfolder path
+    #  in the name.
+    if '/' in name:
+        sub_amrl_folder = (amrl_folder / name).parent
+
+        shutil.copyfile(vectormap_file, sub_amrl_folder / f'{environment_path.name}.vectormap.txt')
+        shutil.copyfile(vectormap_json_file, sub_amrl_folder / f'{environment_path.name}.vectormap.json')
+        shutil.copyfile(navigation_file, sub_amrl_folder / f'{environment_path.name}.navigation.txt')
+        shutil.copyfile(navigation_json_file, sub_amrl_folder / f'{environment_path.name}.navigation.json')
+
     utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / name
     utmulti_folder.mkdir(exist_ok=True, parents=True)
     (utmulti_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
