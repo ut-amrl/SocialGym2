@@ -159,6 +159,7 @@ def create_new_env(name: str, template: str = None):
     #  in the name.
     if '/' in name:
         sub_amrl_folder = (amrl_folder / name).parent
+        sub_amrl_folder.mkdir(exist_ok=True, parents=True)
 
         shutil.copyfile(vectormap_file, sub_amrl_folder / f'{environment_path.name}.vectormap.txt')
         shutil.copyfile(vectormap_json_file, sub_amrl_folder / f'{environment_path.name}.vectormap.json')
