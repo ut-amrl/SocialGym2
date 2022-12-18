@@ -1,0 +1,18 @@
+Welcome to Social Gym's documentation!
+======================================
+.. automodule:: src.environment.ros_social_gym
+    :members:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

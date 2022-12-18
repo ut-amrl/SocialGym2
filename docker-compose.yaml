@@ -15,14 +15,14 @@ services:
     container_name: social_gym_image
     build:
       context: ./
-      dockerfile: docker2/social_gym_image.Dockerfile
+      dockerfile: docker/social_gym_image.Dockerfile
     depends_on:
       - rosmaster
 
   ut_multirobot_sim:
     build:
       context: ./
-      dockerfile: docker2/ut_multirobot_sim.Dockerfile
+      dockerfile: docker/ut_multirobot_sim.Dockerfile
     tty: true
     cap_add:
       - SYS_PTRACE  # For debugging purposes
@@ -39,7 +39,7 @@ services:
   social_gym:
     build:
       context: ./
-      dockerfile: docker2/social_gym.Dockerfile
+      dockerfile: docker/social_gym.Dockerfile
     mem_limit: 6G
     runtime: nvidia
     tty: true
@@ -53,7 +53,7 @@ services:
     volumes:
       - src:/home/rosdev/social_gym:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
+#      - /tmp/.docker.xauth:/tmp/.docker.xauth
     ports:
       - "2223:22"
     depends_on:
@@ -65,7 +65,7 @@ services:
     container_name: simulator
     build:
       context: ./
-      dockerfile: docker2/simulator.Dockerfile
+      dockerfile: docker/simulator.Dockerfile
     runtime: nvidia
     tty: true
     environment:
@@ -76,7 +76,7 @@ services:
     volumes:
       - src:/home/rosdev/social_gym:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
+#      - /tmp/.docker.xauth:/tmp/.docker.xauth
     ports:
       - "11345:11345"
     depends_on:

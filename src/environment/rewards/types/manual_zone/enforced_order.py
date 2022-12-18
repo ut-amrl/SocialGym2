@@ -63,20 +63,22 @@ class EnforcedOrder(Reward):
 
         entering = in_zone and not last_in_zone
         exiting = not in_zone and last_in_zone
-        if (entering and not self.on_enter) or (exiting and not self.on_exit):
-            if self.continuous:
-                if (distance_to_correct_order == 0 or self.allow_any_order) and in_zone:
-                    return 1.
-                elif self.weak_out_of_zone and (distance_to_correct_order == 0 or self.allow_any_order) and not in_zone:
-                    return 0.1
+        if self.continuous:
+            if (distance_to_correct_order == 0 or self.allow_any_order) and in_zone:
+                return 1.
+            elif distance_to_correct_order != 0 and not self.allow_any_order and in_zone and self.incorrect_penalty:
+                return -1.
+            elif self.weak_out_of_zone and (distance_to_correct_order == 0 or self.allow_any_order) and not in_zone:
+                return 0.1
+            elif self.weak_out_of_zone and distance_to_correct_order != 0 and not self.allow_any_order and not in_zone and self.incorrect_penalty:
+                return -0.1
             return 0.
 
         if (distance_to_correct_order == 0 or self.allow_any_order) and (entering or exiting):
             return 1. if entering else 0.
         elif distance_to_correct_order != 0 and self.incorrect_penalty and not self.allow_any_order:
             return -1. if entering else 0.
-        else:
-            return 0.
+        return 0.
 
     def __reset__(self):
         self.previous_zone_state = None

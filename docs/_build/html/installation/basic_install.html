@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Install &mdash; Social Gym  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Welcome to Social Gym’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Social Gym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-installation-guides-for-social-gym">Why are there two installation guides for Social Gym</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#let-s-install-config-runner">Let’s Install Config Runner!</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#checkout-the-right-branch-eventually-this-will-be-main">1.) Checkout the right branch! (Eventually this will be main)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-vector-display-this-creates-the-environments">2.) Build Vector Display (this creates the environments!)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-virtualenv-to-install-python-dependencies">3.) Create a virtualenv to install python dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-python-requirements">4.) Install python requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really">5.) Create the Environment for Social Gym (don’t worry, this is copying files really.)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-config-runner">6.) Run the Config Runner!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#have-fun">7.) Have fun!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Social Gym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Basic Install</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation/basic_install.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-install">
+<h1>Basic Install<a class="headerlink" href="#basic-install" title="Permalink to this headline"></a></h1>
+<p>In this doc we are going to setup Social Gym’s <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">runner</span></code> which allows you to run Social Gym using a configuration
+file.  If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installation
+step you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the more indepth
+installation guide which goes over setting up a debugger.</p>
+<section id="why-are-there-two-installation-guides-for-social-gym">
+<h2>Why are there two installation guides for Social Gym<a class="headerlink" href="#why-are-there-two-installation-guides-for-social-gym" title="Permalink to this headline"></a></h2>
+<p>Social Gym uses ROS (Robot Operating System) submodules written in C, to ensure they installed correctly and can run on
+your machine, we use Docker.  However, this poses challenges for debugging both the Python code and the C code because
+everything has to communicate with each other.  To ease the process of setting Social Gym up, we separated installing
+Social Gym for running and experimenting from installing Social Gym for developing.</p>
+</section>
+<section id="let-s-install-config-runner">
+<h2>Let’s Install Config Runner!<a class="headerlink" href="#let-s-install-config-runner" title="Permalink to this headline"></a></h2>
+<hr class="docutils" />
+<p><strong>Note</strong>: We require you have installed Docker and Python 3.8 (version 3.8 may not be necessary but it’s what we use)</p>
+<hr class="docutils" />
+<section id="checkout-the-right-branch-eventually-this-will-be-main">
+<h3>1.) Checkout the right branch! (Eventually this will be main)<a class="headerlink" href="#checkout-the-right-branch-eventually-this-will-be-main" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout feature/20221218_multi_agent_finishing_and_cleanup
+</pre></div>
+</div>
+<p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
+off the process written in python (so you still need to install stuff)</p>
+</section>
+<section id="build-vector-display-this-creates-the-environments">
+<h3>2.) Build Vector Display (this creates the environments!)<a class="headerlink" href="#build-vector-display-this-creates-the-environments" title="Permalink to this headline"></a></h3>
+<p>Assuming you are starting from the ROOT_DIRECTORY of the project:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docker/vectordisplay
+docker build -t  vector_display:custom .
+<span class="nb">cd</span> ../..
+</pre></div>
+</div>
+</section>
+<section id="create-a-virtualenv-to-install-python-dependencies">
+<h3>3.) Create a virtualenv to install python dependencies<a class="headerlink" href="#create-a-virtualenv-to-install-python-dependencies" title="Permalink to this headline"></a></h3>
+<p>Assuming linux/mac style, windows have their own special flavor for activating virtualenvs.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>virtualenv venv
+<span class="nb">source</span> venv/bin/activate
+</pre></div>
+</div>
+</section>
+<section id="install-python-requirements">
+<h3>4.) Install python requirements<a class="headerlink" href="#install-python-requirements" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really">
+<h3>5.) Create the Environment for Social Gym (don’t worry, this is copying files really.)<a class="headerlink" href="#create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python sripts/create_env_template.py -n exp2/train/easy
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--name</span></code> parameter is referencing a saved file checked in by a commit, you should expect to see two windows when
+running this command.  It is sufficient to just hit <code class="docutils literal notranslate"><span class="pre">[ESC]</span></code> when they appear.  However, they should show blue lines on
+the first window that look like two rooms separated by a narrow hallway.  The second window should show the same blue
+lines but now inside the two rooms are pink lines (these are navigation paths).</p>
+<hr class="docutils" />
+<p><strong>NOTE</strong>: If you do NOT see windows, there’s a problem with the docker file.</p>
+<p>First try running</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo xhost +
+</pre></div>
+</div>
+<p>and repeat the command.  If it still fails to show windows then try adding</p>
+<p><code class="docutils literal notranslate"><span class="pre">--network</span> <span class="pre">host</span></code>
+to the file <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/docker/vectordisplay/vd.sh</span></code> on lines where we are setting docker environment variables.
+Otherwise, look up stuff like “cannot display window from docker container” – this is critical for Social Gym to work.
+We will fill out more tips/tricks and common failures here as we experience them.</p>
+</section>
+<hr class="docutils" />
+<section id="run-the-config-runner">
+<h3>6.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 11_20_22/sacadrl.json
+</pre></div>
+</div>
+<p>This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY
+times.  This is because of a known bug where ROS hangs on some dependency unnecessarily (we are trying to fix this).</p>
+<p>The way our code gets around it is by restarting the docker container if it fails to start running after so many
+seconds.</p>
+<hr class="docutils" />
+<p><strong>NOTE</strong>: If you do not see a window appear, follow the same tips from step 5 but for the file
+<code class="docutils literal notranslate"><span class="pre">config_runner/run_config.sh</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="have-fun">
+<h3>7.) Have fun!<a class="headerlink" href="#have-fun" title="Permalink to this headline"></a></h3>
+<p>You can now specify your own configurations and run your own training or evaluation jobs.  More documentation on this
+later.</p>
+<p>If you need to develop or debug Social Gym – you’ll have to follow the full installation guide on the next
+page.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Social Gym’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

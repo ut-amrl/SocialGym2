@@ -6,7 +6,7 @@ import json
 
 SCRIPTS_FOLDER = Path(__file__).parent.absolute()
 ROOT_FOLDER = SCRIPTS_FOLDER.parent
-VECTOR_DISPLAY_FOLDER = ROOT_FOLDER / 'debugdocker/vectordisplay'
+VECTOR_DISPLAY_FOLDER = ROOT_FOLDER / 'docker/vectordisplay'
 MAPS_FOLDER = VECTOR_DISPLAY_FOLDER / 'maps'
 SRC_FOLDER = ROOT_FOLDER / 'src'
 TEMPLATES_FOLDER = SRC_FOLDER / 'templates'

@@ -69,6 +69,7 @@ def run(
         enforced_order_reward: int = 25,
         enforced_order_track_exit: bool = False,
         enforced_order_penalty_for_incorrect_order: bool = True,
+        enforced_order_weak_signal_out_of_zone: bool = False,
 
         goal_distance_reward: bool = True,
         goal_distance_reward_clip: bool = False,
@@ -196,6 +197,8 @@ def run(
       on_exit=enforced_order_track_exit,
       allow_any_order=run_type == kinds.ao,
       incorrect_penalty=enforced_order_penalty_for_incorrect_order and run_type == kinds.eo,
+      weak_out_of_zone=enforced_order_weak_signal_out_of_zone,
+      continuous=enforced_order_weak_signal_out_of_zone
     ))
 
   observer = Observer(observations)
