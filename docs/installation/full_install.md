@@ -1,4 +1,10 @@
-[# Full Install
+# Full Install
+
+---
+
+There's a FAQ at the bottom (maybe worth reading first).  Expect this process to take about 3-6 hours :/ 
+
+---
 
 Welcome to the Full Install doc!  Here, we will be setting up Social Gym so that each submodule runs on it's
 own, allowing you to set up debuggers and step through each C submodule and the python code!

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Requirements &mdash; Social Gym  documentation</title>
+  <title>Full Install &mdash; Social Gym  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -38,30 +38,33 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="basic_install.html">Basic Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#the-full-install-buckle-up">The Full Install (buckle up!)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers">Part 1: Setting up the basic Social Gym dependencies and containers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#from-the-basic-installation-guide-follow-steps-1-5">1.) From the basic installation guide follow steps 1-5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-and-up-the-docker-containers">2.) Build and “up” the docker containers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these">3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Full Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-full-install-buckle-up">The Full Install (buckle up!)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers">Part 1: Setting up the basic Social Gym dependencies and containers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#from-the-basic-installation-guide-follow-steps-1-5">1.) From the basic installation guide follow steps 1-5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-and-up-the-docker-containers">2.) Build and “up” the docker containers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these">3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#part-2-setting-up-the-submodules">Part 2: Setting up the submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ssh-into-the-ros-submodules-container">1.) SSH into the ROS submodules container</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-static-dependencies">2.) Build static dependencies.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-the-graph-navigation-submodule">3.) Build the Graph Navigation submodule</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#setup-graph-navigation-with-your-ide">4.) Setup Graph Navigation with your IDE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#setup-ut-multirobot-sim-with-your-ide">5.) Setup UT Multirobot Sim with your IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#part-2-setting-up-the-submodules">Part 2: Setting up the submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-into-the-ros-submodules-container">1.) SSH into the ROS submodules container</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-static-dependencies">2.) Build static dependencies.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-graph-navigation-submodule">3.) Build the Graph Navigation submodule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-graph-navigation-with-your-ide">4.) Setup Graph Navigation with your IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-ut-multirobot-sim-with-your-ide">5.) Setup UT Multirobot Sim with your IDE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#part-3-setting-up-python-and-running-everything">Part 3: Setting up Python and Running everything!</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#open-up-pycharm-to-the-root-folder-of-the-project">1.) Open up Pycharm to the root folder of the project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific">2.) Set up your IDE with the container via SSH (Pycharm Specific)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#part-3-setting-up-python-and-running-everything">Part 3: Setting up Python and Running everything!</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-up-pycharm-to-the-root-folder-of-the-project">1.) Open up Pycharm to the root folder of the project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific">2.) Set up your IDE with the container via SSH (Pycharm Specific)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#faq">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -78,7 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Requirements</li>
+      <li class="breadcrumb-item active">Full Install</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/installation/full_install.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -88,11 +91,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p>[# Full Install</p>
+  <section id="full-install">
+<h1>Full Install<a class="headerlink" href="#full-install" title="Permalink to this headline"></a></h1>
+<hr class="docutils" />
+<p>There’s a FAQ at the bottom (maybe worth reading first).  Expect this process to take about 3-6 hours :/</p>
+<hr class="docutils" />
 <p>Welcome to the Full Install doc!  Here, we will be setting up Social Gym so that each submodule runs on it’s
 own, allowing you to set up debuggers and step through each C submodule and the python code!</p>
 <section id="requirements">
-<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h1>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
 <p>We have only tested this full process on Pycharm and CLion Professional IDEs.  However, what’s really needed
 is the ability to have a remote source or remote server that you can plug your IDE into.  Specifically,
 we are going to plug our IDE (Pycharm/CLion) into a docker container via SSH.  Our IDE’s allow us to do this
@@ -100,17 +107,17 @@ somewhat trivially with run/debug configurations pretty much already set up.  If
 need to look more stuff up on how to get these to work :/</p>
 </section>
 <section id="the-full-install-buckle-up">
-<h1>The Full Install (buckle up!)<a class="headerlink" href="#the-full-install-buckle-up" title="Permalink to this headline"></a></h1>
+<h2>The Full Install (buckle up!)<a class="headerlink" href="#the-full-install-buckle-up" title="Permalink to this headline"></a></h2>
 <p>We’ve broken this tutorial into 3 parts, the first is the basic setup, the second will get the submodules
 running, and the final part will focus on the python code and running the actual simulator end to end.</p>
 <section id="part-1-setting-up-the-basic-social-gym-dependencies-and-containers">
-<h2>Part 1: Setting up the basic Social Gym dependencies and containers<a class="headerlink" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers" title="Permalink to this headline"></a></h2>
+<h3>Part 1: Setting up the basic Social Gym dependencies and containers<a class="headerlink" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers" title="Permalink to this headline"></a></h3>
 <section id="from-the-basic-installation-guide-follow-steps-1-5">
-<h3>1.) From the basic installation guide follow steps 1-5<a class="headerlink" href="#from-the-basic-installation-guide-follow-steps-1-5" title="Permalink to this headline"></a></h3>
+<h4>1.) From the basic installation guide follow steps 1-5<a class="headerlink" href="#from-the-basic-installation-guide-follow-steps-1-5" title="Permalink to this headline"></a></h4>
 <p>They are not repeated here in case they change at some time</p>
 </section>
 <section id="build-and-up-the-docker-containers">
-<h3>2.) Build and “up” the docker containers<a class="headerlink" href="#build-and-up-the-docker-containers" title="Permalink to this headline"></a></h3>
+<h4>2.) Build and “up” the docker containers<a class="headerlink" href="#build-and-up-the-docker-containers" title="Permalink to this headline"></a></h4>
 <p>From the root directory of the project</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker-compose build <span class="o">&amp;&amp;</span> docker-compose up
 </pre></div>
@@ -119,18 +126,18 @@ running, and the final part will focus on the python code and running the actual
 errors.</p>
 </section>
 <section id="open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these">
-<h3>3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)<a class="headerlink" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these" title="Permalink to this headline"></a></h3>
+<h4>3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)<a class="headerlink" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these" title="Permalink to this headline"></a></h4>
 <p>Make sure you are opening them from the directory <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules/ut_multirobot_sim</span></code> and
 <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules/graph_navigation</span></code> – we will be running the submodules from these windows (you could also
 run them from the ssh terminal in the subsequent steps)</p>
 </section>
 </section>
 <section id="part-2-setting-up-the-submodules">
-<h2>Part 2: Setting up the submodules<a class="headerlink" href="#part-2-setting-up-the-submodules" title="Permalink to this headline"></a></h2>
+<h3>Part 2: Setting up the submodules<a class="headerlink" href="#part-2-setting-up-the-submodules" title="Permalink to this headline"></a></h3>
 <p>This part of the setup was heavily inspired by https://github.com/nocoinman/ros-docker-clion – big shoutout to this
 project :)</p>
 <section id="ssh-into-the-ros-submodules-container">
-<h3>1.) SSH into the ROS submodules container<a class="headerlink" href="#ssh-into-the-ros-submodules-container" title="Permalink to this headline"></a></h3>
+<h4>1.) SSH into the ROS submodules container<a class="headerlink" href="#ssh-into-the-ros-submodules-container" title="Permalink to this headline"></a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh rosdev@localhost -p <span class="m">2222</span>
 yes
 <span class="m">12345</span>
@@ -142,7 +149,7 @@ yes
 so we can set some stuff up manually before we plug our IDE into it.</p>
 </section>
 <section id="build-static-dependencies">
-<h3>2.) Build static dependencies.<a class="headerlink" href="#build-static-dependencies" title="Permalink to this headline"></a></h3>
+<h4>2.) Build static dependencies.<a class="headerlink" href="#build-static-dependencies" title="Permalink to this headline"></a></h4>
 <p>There are a few submodules that really just contain libraries or code that does not need to be ran.  We still
 need to compile them so that we can reference them in the other sobumodules.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/set_paths.sh
@@ -157,7 +164,7 @@ catkin_make
 <p>Make sure <code class="docutils literal notranslate"><span class="pre">rosdep</span> <span class="pre">udpate</span></code> succeeds! If it fails, you won’t be able to build the submodules.</p>
 </section>
 <section id="build-the-graph-navigation-submodule">
-<h3>3.) Build the Graph Navigation submodule<a class="headerlink" href="#build-the-graph-navigation-submodule" title="Permalink to this headline"></a></h3>
+<h4>3.) Build the Graph Navigation submodule<a class="headerlink" href="#build-the-graph-navigation-submodule" title="Permalink to this headline"></a></h4>
 <p>This submodule handles low level navigation for the agents.</p>
 <p>Assuming you are starting from the <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules</span></code> directory</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> graph_navigation
@@ -171,7 +178,7 @@ make
 </section>
 <hr class="docutils" />
 <section id="setup-graph-navigation-with-your-ide">
-<h3>4.) Setup Graph Navigation with your IDE<a class="headerlink" href="#setup-graph-navigation-with-your-ide" title="Permalink to this headline"></a></h3>
+<h4>4.) Setup Graph Navigation with your IDE<a class="headerlink" href="#setup-graph-navigation-with-your-ide" title="Permalink to this headline"></a></h4>
 <p>If you have a different IDE other than CLION Commercial or Professional find out how to configure a remote host via
 ssh.  Some of this will be relevant (like setting global env variables) but most of it may be CLION specific.</p>
 <p>Before following the steps below, run</p>
@@ -231,7 +238,7 @@ make sure you have the right variables set!</p>
 <p>22.) Congratulations you now have a running Graph Navigation project that you can set breakpoints on using CLION :)</p>
 </section>
 <section id="setup-ut-multirobot-sim-with-your-ide">
-<h3>5.) Setup UT Multirobot Sim with your IDE<a class="headerlink" href="#setup-ut-multirobot-sim-with-your-ide" title="Permalink to this headline"></a></h3>
+<h4>5.) Setup UT Multirobot Sim with your IDE<a class="headerlink" href="#setup-ut-multirobot-sim-with-your-ide" title="Permalink to this headline"></a></h4>
 <p>For this next step I like creating a new terminal in a new IDE window, but that’s entirely up to you.</p>
 <p>Keep those environment parameters we copied from the Graph Navigation setup for this step as well!</p>
 <p>I am going to go a bit faster here since almost all the steps are repeating what we’ve already done for Graph Nav.</p>
@@ -315,12 +322,12 @@ work correctly.</p>
 </section>
 </section>
 <section id="part-3-setting-up-python-and-running-everything">
-<h2>Part 3: Setting up Python and Running everything!<a class="headerlink" href="#part-3-setting-up-python-and-running-everything" title="Permalink to this headline"></a></h2>
+<h3>Part 3: Setting up Python and Running everything!<a class="headerlink" href="#part-3-setting-up-python-and-running-everything" title="Permalink to this headline"></a></h3>
 <section id="open-up-pycharm-to-the-root-folder-of-the-project">
-<h3>1.) Open up Pycharm to the root folder of the project<a class="headerlink" href="#open-up-pycharm-to-the-root-folder-of-the-project" title="Permalink to this headline"></a></h3>
+<h4>1.) Open up Pycharm to the root folder of the project<a class="headerlink" href="#open-up-pycharm-to-the-root-folder-of-the-project" title="Permalink to this headline"></a></h4>
 </section>
 <section id="set-up-your-ide-with-the-container-via-ssh-pycharm-specific">
-<h3>2.) Set up your IDE with the container via SSH (Pycharm Specific)<a class="headerlink" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific" title="Permalink to this headline"></a></h3>
+<h4>2.) Set up your IDE with the container via SSH (Pycharm Specific)<a class="headerlink" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific" title="Permalink to this headline"></a></h4>
 <p>Similar to the UT Multirobot Sim and Graph Navigation guides, we assume your IDE has remote host available
 and if not, there’s some useful stuff here but you may have to translate the steps for your ide.</p>
 <p>1.) Open the settings window <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">&lt;</span> <span class="pre">settings</span></code></p>
@@ -373,7 +380,7 @@ moving around!</p>
 </section>
 </section>
 <section id="faq">
-<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline"></a></h1>
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline"></a></h2>
 <hr class="docutils" />
 <p><strong>All my files are missing!</strong>: If at any point your files are missing or empty check out your path mappings for your
 project and make sure they are valid.  Then, do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span></code> for every project that has missing or empty files</p>
@@ -393,6 +400,7 @@ are removing the cmake folders then rebuilding.</p>
 <p><strong>This is hard</strong>: Yep… it’s an art, and you should expect this to take at least 3-6hours if it’s your first time :(
 I would like to make this process easier, but it’s difficult to automate… maybe a video at some point?  Open to
 suggestions!! I promise it wasn’t made difficult intentionally lol :)</p>
+</section>
 </section>
 
 
