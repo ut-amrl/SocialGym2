@@ -18,7 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Full Install" href="full_install.html" />
+    <link rel="next" title="Requirements" href="full_install.html" />
     <link rel="prev" title="Welcome to Social Gym’s documentation!" href="../index.html" /> 
 </head>
 
@@ -52,7 +52,8 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="full_install.html">Full Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_install.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_install.html#the-full-install-buckle-up">The Full Install (buckle up!)</a></li>
 </ul>
 
         </div>
@@ -100,6 +101,7 @@ Social Gym for running and experimenting from installing Social Gym for developi
 <section id="checkout-the-right-branch-eventually-this-will-be-main">
 <h3>1.) Checkout the right branch! (Eventually this will be main)<a class="headerlink" href="#checkout-the-right-branch-eventually-this-will-be-main" title="Permalink to this headline"></a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout feature/20221218_multi_agent_finishing_and_cleanup
+git submodule update --init --recursive
 </pre></div>
 </div>
 <p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
@@ -113,6 +115,7 @@ docker build -t  vector_display:custom .
 <span class="nb">cd</span> ../..
 </pre></div>
 </div>
+<p>Expect this to take a while (15-30m depending on your machine).</p>
 </section>
 <section id="create-a-virtualenv-to-install-python-dependencies">
 <h3>3.) Create a virtualenv to install python dependencies<a class="headerlink" href="#create-a-virtualenv-to-install-python-dependencies" title="Permalink to this headline"></a></h3>
@@ -130,7 +133,7 @@ docker build -t  vector_display:custom .
 </section>
 <section id="create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really">
 <h3>5.) Create the Environment for Social Gym (don’t worry, this is copying files really.)<a class="headerlink" href="#create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really" title="Permalink to this headline"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python sripts/create_env_template.py -n exp2/train/easy
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python scripts/create_env_template.py -n exp1/train/easy
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">--name</span></code> parameter is referencing a saved file checked in by a commit, you should expect to see two windows when
@@ -179,7 +182,7 @@ page.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Social Gym’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="full_install.html" class="btn btn-neutral float-right" title="Full Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="full_install.html" class="btn btn-neutral float-right" title="Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

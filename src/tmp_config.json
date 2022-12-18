@@ -11,7 +11,6 @@
   "policy_algo_kwargs": {"n_steps":  4096},
   "local": true,
   "debug": true,
-  "continue_from": "11_20_22/ppo/checkpoints__SACADRL/last",
   "experiment_name": "exp2",
 
 

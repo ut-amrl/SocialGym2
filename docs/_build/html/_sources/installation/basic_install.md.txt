@@ -24,6 +24,7 @@ Social Gym for running and experimenting from installing Social Gym for developi
 
 ```shell
 git checkout feature/20221218_multi_agent_finishing_and_cleanup
+git submodule update --init --recursive
 ```
 
 Although we use Docker to run Social Gym's internals, we have scripts to set up Social Gym as well as scripts that kick
@@ -37,6 +38,8 @@ cd docker/vectordisplay
 docker build -t  vector_display:custom .
 cd ../..
 ```
+
+Expect this to take a while (15-30m depending on your machine).
 
 #### 3.) Create a virtualenv to install python dependencies
 
@@ -55,7 +58,7 @@ pip install -r requirements.txt
 #### 5.) Create the Environment for Social Gym (don't worry, this is copying files really.)
 
 ```shell
-python sripts/create_env_template.py -n exp2/train/easy
+python scripts/create_env_template.py -n exp1/train/easy
 ```
 
 The `--name` parameter is referencing a saved file checked in by a commit, you should expect to see two windows when 

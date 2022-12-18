@@ -31,7 +31,7 @@ goal_poses = {
 
   num_humans = {{ human_count }}
   human_config = "../../config/gym_gen/humans.lua"
-
+  
   partially_observable = {{ partially_observable }}
 
   door_config_list = {
