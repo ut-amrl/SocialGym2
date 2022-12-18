@@ -1,12 +1,11 @@
 Welcome to Social Gym's documentation!
 ======================================
-.. automodule:: src.environment.ros_social_gym
-    :members:
-
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   installation/basic_install
+   installation/full_install
+   :caption: Contents:
 
 
 Indices and tables
