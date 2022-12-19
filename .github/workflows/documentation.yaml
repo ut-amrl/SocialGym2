@@ -11,7 +11,7 @@ jobs:
           pip install sphinx sphinx_rtd_theme myst_parser
       - name: Sphinx build
         run: |
-          sphinx-build docs .
+          sphinx-build docs_src docs
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/20221218_multi_agent_finishing_and_cleanup' }}
