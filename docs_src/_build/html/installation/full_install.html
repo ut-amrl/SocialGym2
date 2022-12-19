@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Install &mdash; Social Gym  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Basic Install" href="basic_install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Social Gym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_install.html">Basic Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Full Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-full-install-buckle-up">The Full Install (buckle up!)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers">Part 1: Setting up the basic Social Gym dependencies and containers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#from-the-basic-installation-guide-follow-steps-1-5">1.) From the basic installation guide follow steps 1-5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-and-up-the-docker-containers">2.) Build and “up” the docker containers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these">3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-2-setting-up-the-submodules">Part 2: Setting up the submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-into-the-ros-submodules-container">1.) SSH into the ROS submodules container</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-static-dependencies">2.) Build static dependencies.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-graph-navigation-submodule">3.) Build the Graph Navigation submodule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-graph-navigation-with-your-ide">4.) Setup Graph Navigation with your IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-ut-multirobot-sim-with-your-ide">5.) Setup UT Multirobot Sim with your IDE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-3-setting-up-python-and-running-everything">Part 3: Setting up Python and Running everything!</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-up-pycharm-to-the-root-folder-of-the-project">1.) Open up Pycharm to the root folder of the project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific">2.) Set up your IDE with the container via SSH (Pycharm Specific)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Social Gym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Full Install</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation/full_install.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="full-install">
+<h1>Full Install<a class="headerlink" href="#full-install" title="Permalink to this headline"></a></h1>
+<hr class="docutils" />
+<p>There’s a FAQ at the bottom (maybe worth reading first).  Expect this process to take about 3-6 hours :/</p>
+<hr class="docutils" />
+<p>Welcome to the Full Install doc!  Here, we will be setting up Social Gym so that each submodule runs on it’s
+own, allowing you to set up debuggers and step through each C submodule and the python code!</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<p>We have only tested this full process on Pycharm and CLion Professional IDEs.  However, what’s really needed
+is the ability to have a remote source or remote server that you can plug your IDE into.  Specifically,
+we are going to plug our IDE (Pycharm/CLion) into a docker container via SSH.  Our IDE’s allow us to do this
+somewhat trivially with run/debug configurations pretty much already set up.  If you do not have this, you may
+need to look more stuff up on how to get these to work :/</p>
+</section>
+<section id="the-full-install-buckle-up">
+<h2>The Full Install (buckle up!)<a class="headerlink" href="#the-full-install-buckle-up" title="Permalink to this headline"></a></h2>
+<p>We’ve broken this tutorial into 3 parts, the first is the basic setup, the second will get the submodules
+running, and the final part will focus on the python code and running the actual simulator end to end.</p>
+<section id="part-1-setting-up-the-basic-social-gym-dependencies-and-containers">
+<h3>Part 1: Setting up the basic Social Gym dependencies and containers<a class="headerlink" href="#part-1-setting-up-the-basic-social-gym-dependencies-and-containers" title="Permalink to this headline"></a></h3>
+<section id="from-the-basic-installation-guide-follow-steps-1-5">
+<h4>1.) From the basic installation guide follow steps 1-5<a class="headerlink" href="#from-the-basic-installation-guide-follow-steps-1-5" title="Permalink to this headline"></a></h4>
+<p>They are not repeated here in case they change at some time</p>
+</section>
+<section id="build-and-up-the-docker-containers">
+<h4>2.) Build and “up” the docker containers<a class="headerlink" href="#build-and-up-the-docker-containers" title="Permalink to this headline"></a></h4>
+<p>From the root directory of the project</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker-compose build <span class="o">&amp;&amp;</span> docker-compose up
+</pre></div>
+</div>
+<p>Make sure you see an RVIS window after the <code class="docutils literal notranslate"><span class="pre">docker-up</span></code> command finishes.  If you don’t, check your logs for build
+errors.</p>
+</section>
+<section id="open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these">
+<h4>3.) Open the submodule projects <code class="docutils literal notranslate"><span class="pre">ut_multirobot_sim</span></code> and <code class="docutils literal notranslate"><span class="pre">graph_navigation</span></code> in a separate IDE window (I use CLion for these)<a class="headerlink" href="#open-the-submodule-projects-ut-multirobot-sim-and-graph-navigation-in-a-separate-ide-window-i-use-clion-for-these" title="Permalink to this headline"></a></h4>
+<p>Make sure you are opening them from the directory <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules/ut_multirobot_sim</span></code> and
+<code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules/graph_navigation</span></code> – we will be running the submodules from these windows (you could also
+run them from the ssh terminal in the subsequent steps)</p>
+</section>
+</section>
+<section id="part-2-setting-up-the-submodules">
+<h3>Part 2: Setting up the submodules<a class="headerlink" href="#part-2-setting-up-the-submodules" title="Permalink to this headline"></a></h3>
+<p>This part of the setup was heavily inspired by https://github.com/nocoinman/ros-docker-clion – big shoutout to this
+project :)</p>
+<section id="ssh-into-the-ros-submodules-container">
+<h4>1.) SSH into the ROS submodules container<a class="headerlink" href="#ssh-into-the-ros-submodules-container" title="Permalink to this headline"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh rosdev@localhost -p <span class="m">2222</span>
+yes
+<span class="m">12345</span>
+</pre></div>
+</div>
+<p>The password for the container is <code class="docutils literal notranslate"><span class="pre">12345</span></code> for all containers - it can be changed in the dockerfiles found in
+<code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/docker</span></code></p>
+<p>This is the container where all the C projects will be built and ran.  We are diving into their container now
+so we can set some stuff up manually before we plug our IDE into it.</p>
+</section>
+<section id="build-static-dependencies">
+<h4>2.) Build static dependencies.<a class="headerlink" href="#build-static-dependencies" title="Permalink to this headline"></a></h4>
+<p>There are a few submodules that really just contain libraries or code that does not need to be ran.  We still
+need to compile them so that we can reference them in the other sobumodules.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/set_paths.sh
+rosdep update
+<span class="nb">cd</span> social_gym/submodules/amrl_msgs
+make
+<span class="nb">cd</span> ../pedsim_ros
+catkin_make
+<span class="nb">cd</span> ../
+</pre></div>
+</div>
+<p>Make sure <code class="docutils literal notranslate"><span class="pre">rosdep</span> <span class="pre">udpate</span></code> succeeds! If it fails, you won’t be able to build the submodules.</p>
+</section>
+<section id="build-the-graph-navigation-submodule">
+<h4>3.) Build the Graph Navigation submodule<a class="headerlink" href="#build-the-graph-navigation-submodule" title="Permalink to this headline"></a></h4>
+<p>This submodule handles low level navigation for the agents.</p>
+<p>Assuming you are starting from the <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/submodules</span></code> directory</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> graph_navigation
+make
+</pre></div>
+</div>
+<p>Expect a small delay for this make, maybe 5-10m depending on your machine.</p>
+<hr class="docutils" />
+<p><strong>NOTE</strong>: If at any part you get an error, especially with a submodule, it’s usually a good idea to run
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> before re-running <code class="docutils literal notranslate"><span class="pre">make</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="setup-graph-navigation-with-your-ide">
+<h4>4.) Setup Graph Navigation with your IDE<a class="headerlink" href="#setup-graph-navigation-with-your-ide" title="Permalink to this headline"></a></h4>
+<p>If you have a different IDE other than CLION Commercial or Professional find out how to configure a remote host via
+ssh.  Some of this will be relevant (like setting global env variables) but most of it may be CLION specific.</p>
+<p>Before following the steps below, run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~/get_vars.sh
+</pre></div>
+</div>
+<p>In the SSH terminal and copy the output. It should look similar to
+<code class="docutils literal notranslate"><span class="pre">ROS_ROOT=/opt/ros/noetic/share/ros;ROS_MASTER_URI=...</span></code> and be very long.  This is important to have ready and we will
+use it to set environment variables for the IDE.</p>
+<p>1.) In CLION go to <code class="docutils literal notranslate"><span class="pre">Settings</span></code></p>
+<p>2.) Select <code class="docutils literal notranslate"><span class="pre">Build,Execution,Deployment</span> <span class="pre">&lt;</span> <span class="pre">Toolchains</span></code></p>
+<p>3.) Add a new Toolchain via the + symbol and make it a <code class="docutils literal notranslate"><span class="pre">remote</span> <span class="pre">host</span></code></p>
+<p>4.) Select the cog icon next to the <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> drop down.</p>
+<p>5.) SSH Configurations window should have opened and you can fill out the form, specifically set the Host to <code class="docutils literal notranslate"><span class="pre">localhost</span></code>
+the username to <code class="docutils literal notranslate"><span class="pre">rosdev</span></code>, the port to <code class="docutils literal notranslate"><span class="pre">2222</span></code>, and the password to <code class="docutils literal notranslate"><span class="pre">12345</span></code>.  Test your connection to make suer you filled
+it out correctly then hit Apply and OK.</p>
+<p>6 [Optional].) Name the remote host something memorable</p>
+<p>7.) Now navigate the settings window to <code class="docutils literal notranslate"><span class="pre">Build,Execution,Deployment</span> <span class="pre">&lt;</span> <span class="pre">CMake</span></code></p>
+<p>8.) Here, copy the <code class="docutils literal notranslate"><span class="pre">Debug</span></code> profile and name it something like <code class="docutils literal notranslate"><span class="pre">Remote</span> <span class="pre">Debugger</span></code></p>
+<p>9.) In the <code class="docutils literal notranslate"><span class="pre">Toolchain</span></code> dropdown, select your new remote host you just created. (This is why a unique name is useful)</p>
+<p>10.) Towards the bottom of the profile configuration for the new remote debugger, paste the environment variables we
+saved in our clipboard into the <code class="docutils literal notranslate"><span class="pre">Environment</span></code> text box.</p>
+<p>11.) Click apply and OK</p>
+<p>12.) Now in the settings window navigate to <code class="docutils literal notranslate"><span class="pre">Build,Execution,Deployment</span> <span class="pre">&lt;</span> <span class="pre">Deployment</span></code></p>
+<p>13.) You should see your new remote host in the <code class="docutils literal notranslate"><span class="pre">remote</span> <span class="pre">development</span></code> panel, select it and move to the <code class="docutils literal notranslate"><span class="pre">mappings</span></code> tab in
+the right most panel.</p>
+<p>14.) In the <code class="docutils literal notranslate"><span class="pre">Local</span> <span class="pre">path:</span></code> box place the full path to your graph navigation submodule i.e.
+<code class="docutils literal notranslate"><span class="pre">{YOUR</span> <span class="pre">PATH}/social_gym/submodules/graph_navigation</span></code></p>
+<p>15.) In the <code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">Path:</span></code> fill in <code class="docutils literal notranslate"><span class="pre">/home/rosdev/social_gym/submodules/graph_navigation</span></code> (you might have tmp
+something in there currently, make sure to delete that.)</p>
+<p>16.) Click OK in the settings window and go back to your terminal with the SSH connection.</p>
+<p>17.) Run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo rm -r cmake-build-debug/
+sudo rm -r cmake-build-remotedebugger/
+</pre></div>
+</div>
+<p>remember the password is <code class="docutils literal notranslate"><span class="pre">12345</span></code> if you have not changed it.</p>
+<p>18.) Move to the CMake tab in the CLION idea (usually by the terminal tab on the bottom of your IDE) and click the
+refresh button to rebuild your cmake project.  (It should produce two tabs, <code class="docutils literal notranslate"><span class="pre">Debug</span></code> and <code class="docutils literal notranslate"><span class="pre">RemoteDebugger</span></code>, <code class="docutils literal notranslate"><span class="pre">Debug</span></code> will
+FAIL but the <code class="docutils literal notranslate"><span class="pre">RemoteDebugger</span></code> tab should SUCCEED).</p>
+<p>19.) You should now have a list of run configurations found near the play button on the top of your IDE.  Click the drop
+down and select <code class="docutils literal notranslate"><span class="pre">social_nav</span></code>.</p>
+<p>20.) Now click the dropdown again and edit the currently selected config.  In the <code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Varaibles</span></code> text box paste
+the environment variables we copied before starting this process.</p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">directory</span></code> to <code class="docutils literal notranslate"><span class="pre">/home/rosdev/social_gym/submodules/graph_navigation</span></code></p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">Program</span> <span class="pre">arguments</span></code> to <code class="docutils literal notranslate"><span class="pre">-service_mode=true</span> <span class="pre">-map=exp2/train/easy</span></code></p>
+<hr class="docutils" />
+<p><em>NOTE</em>: If you are going to be using custom maps, this is one of the places you’ll have to update the name (<code class="docutils literal notranslate"><span class="pre">-map</span></code>)</p>
+<p>21.) Hit Apply and OK then hit Run.  You should see the IDE build the project and eventually produce</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/home/rosdev/social_gym/submodules/graph_navigation/cmake-build-remotedebugger/../bin/social_nav -service_mode<span class="o">=</span><span class="nb">true</span> -map<span class="o">=</span>exp2/train/easy
+Loading /home/rosdev/social_gym/submodules/amrl_maps/exp2/train/easy/exp2/train/easy.navigation.json...
+Loaded /home/rosdev/social_gym/submodules/amrl_maps/exp2/train/easy/exp2/train/easy.navigation.json with <span class="m">18</span> states, <span class="m">17</span> edges
+</pre></div>
+</div>
+<p>If you see anything other than what’s shown here (except for maybe vertices counts) double check your configuration and
+make sure you have the right variables set!</p>
+<p>22.) Congratulations you now have a running Graph Navigation project that you can set breakpoints on using CLION :)</p>
+</section>
+<section id="setup-ut-multirobot-sim-with-your-ide">
+<h4>5.) Setup UT Multirobot Sim with your IDE<a class="headerlink" href="#setup-ut-multirobot-sim-with-your-ide" title="Permalink to this headline"></a></h4>
+<p>For this next step I like creating a new terminal in a new IDE window, but that’s entirely up to you.</p>
+<p>Keep those environment parameters we copied from the Graph Navigation setup for this step as well!</p>
+<p>I am going to go a bit faster here since almost all the steps are repeating what we’ve already done for Graph Nav.</p>
+<p>1.) Navigate to your UT_Multirobot_sim IDE window and open a new terminal with a new ssh connection into the same
+container <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">rosdev&#64;localhost</span> <span class="pre">-p</span> <span class="pre">2222</span></code> (password is <code class="docutils literal notranslate"><span class="pre">12345</span></code> unless you changed it)</p>
+<p>2.) Set up the shell</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> social_gym/submodules/ut_multirobot_sim/
+</pre></div>
+</div>
+<p>3.) Edit the source file to include a new submodule</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vim ~/set_paths.sh
+</pre></div>
+</div>
+<p>Uncomment the second line
+write and quit</p>
+<p>4.) Source variables.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ./set_paths.sh
+</pre></div>
+</div>
+<p>5.) Update rosdep</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosdep update
+</pre></div>
+</div>
+<p>6.) Make the simulator</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>NOTE</strong>: The next steps assume you’ve followed the Graph Navigation setup meaning that your remote host toolchain is
+already created</p>
+<hr class="docutils" />
+<p>7.) Open the settings window <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">&lt;</span> <span class="pre">settings</span></code></p>
+<p>8.) Navigate to <code class="docutils literal notranslate"><span class="pre">Build,Execution,Deploy</span> <span class="pre">&lt;</span> <span class="pre">CMake</span></code> and copy your <code class="docutils literal notranslate"><span class="pre">Debug</span></code> profile and then rename the copied debug profile
+to something memorable (I use <code class="docutils literal notranslate"><span class="pre">RemoteDebugger</span></code>)</p>
+<p>9.) In the <code class="docutils literal notranslate"><span class="pre">Environment</span></code> text’ box paste your environment variables (remember you can get them by running <code class="docutils literal notranslate"><span class="pre">~/get_vars.sh</span></code>)</p>
+<p>10.) Change the toolchain dropdown to the remote host toolchain you created in the Graph Navigation setup.</p>
+<p>11.) Click apply then navigate to <code class="docutils literal notranslate"><span class="pre">Build,Execution,Deployment</span> <span class="pre">&lt;</span> <span class="pre">Deployment</span></code> and navigate to the <code class="docutils literal notranslate"><span class="pre">Mappings</span></code> tab for your
+remote host toolchain. Update the <code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">Path</span></code> textbox to the value
+<code class="docutils literal notranslate"><span class="pre">/home/rosdev/social_gym/submodules/ut_multirobot_sim</span></code></p>
+<p>12.) Click Apply and OK to close the settings window.</p>
+<p>13.) Clean the projects CMAKE configs</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo rm -r cmake-build-debug/
+sudo rm -r cmake-build-remotedebugger/
+</pre></div>
+</div>
+<p>14.) Go to the CMake tab on your IDE (by the terminal window tab)</p>
+<p>15.) Click the refresh button</p>
+<p>16.) You should now have Run Configurations you can select in the dropdown by the run button in your IDE.  Go to it and
+find the run config <code class="docutils literal notranslate"><span class="pre">simulator</span></code> (it may be defaulted to that value)</p>
+<p>17.) Click the dropdown again and edit your configuration</p>
+<p>18.) Update the configuration values</p>
+<p><code class="docutils literal notranslate"><span class="pre">Program</span> <span class="pre">arguments:</span></code> should have <code class="docutils literal notranslate"><span class="pre">-sim_config</span> <span class="pre">/home/rosdev/social_gym/config/gym_gen/sim_config.lua</span> <span class="pre">-scene_config</span> <span class="pre">/home/rosdev/social_gym/config/gym_gen/scene.xml</span> <span class="pre">-speedup_factor</span> <span class="pre">1.0</span> <span class="pre">--localize</span> <span class="pre">--use_pedsim</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Working</span> <span class="pre">Directory</span></code> should have <code class="docutils literal notranslate"><span class="pre">/home/rosdev/social_gym/submodules/ut_multirobot_sim</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Variables</span></code> should have the pasted environment variables from <code class="docutils literal notranslate"><span class="pre">~/get_vars.sh</span></code></p>
+<p>19.) Click the Run button</p>
+<p>20.) You should see the project rebuild and then an error message</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/home/rosdev/social_gym/submodules/ut_multirobot_sim/cmake-build-debug-docremotetest/../bin/simulator -sim_config /home/rosdev/social_gym/config/gym_gen/sim_config.lua -scene_config /home/rosdev/social_gym/config/gym_gen/scene.xml -speedup_factor <span class="m">1</span>.0 --localize --use_pedsim
+
+UT Multi-Robot Simulator
+
+Publish GoAlone message
+Publish GoAlone message
+ERROR: Unable to load map maps/closed/door/t1/closed/door/t1.vectormap.txt
+Run-time stats <span class="k">for</span> Pass : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> Follow : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> GoAlone : mean run <span class="nb">time</span> <span class="o">=</span> <span class="m">0</span>.017613 ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">2</span>
+Run-time stats <span class="k">for</span> Halt : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> Publishing Halt : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> Step : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> StepUTMRS : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+Run-time stats <span class="k">for</span> StepPedsim : mean run <span class="nb">time</span> <span class="o">=</span> -nan ms, <span class="nv">invocations</span> <span class="o">=</span> <span class="m">0</span>
+
+Process finished with <span class="nb">exit</span> code <span class="m">1</span>
+</pre></div>
+</div>
+<p>This is okay! This means the project was built correctly but the current configuration in the python project
+is incorrect, which is fine since we haven’t touched it yet.  We are close to the end now :)</p>
+<p>21.) Congratulations, you now have a UT Multirobot Sim project you can place breakpoints on and debug with.  Of course
+to actually use it, we have to update the python project a little bit and run it – then the ut multirobot sim will
+work correctly.</p>
+</section>
+</section>
+<section id="part-3-setting-up-python-and-running-everything">
+<h3>Part 3: Setting up Python and Running everything!<a class="headerlink" href="#part-3-setting-up-python-and-running-everything" title="Permalink to this headline"></a></h3>
+<section id="open-up-pycharm-to-the-root-folder-of-the-project">
+<h4>1.) Open up Pycharm to the root folder of the project<a class="headerlink" href="#open-up-pycharm-to-the-root-folder-of-the-project" title="Permalink to this headline"></a></h4>
+</section>
+<section id="set-up-your-ide-with-the-container-via-ssh-pycharm-specific">
+<h4>2.) Set up your IDE with the container via SSH (Pycharm Specific)<a class="headerlink" href="#set-up-your-ide-with-the-container-via-ssh-pycharm-specific" title="Permalink to this headline"></a></h4>
+<p>Similar to the UT Multirobot Sim and Graph Navigation guides, we assume your IDE has remote host available
+and if not, there’s some useful stuff here but you may have to translate the steps for your ide.</p>
+<p>1.) Open the settings window <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">&lt;</span> <span class="pre">settings</span></code></p>
+<p>2.) Navigate to <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">&lt;</span> <span class="pre">ssh</span> <span class="pre">configurations</span></code></p>
+<p>3.) Create a new ssh configuration exactly the same way we did for Graph Navigation EXCEPT make the port
+<code class="docutils literal notranslate"><span class="pre">2223</span></code> (this is important!)</p>
+<p>4.) Click Apply and navigate the settings window to <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">&lt;</span> <span class="pre">interpreter</span></code> create a new interpreter by clicking the cog
+icon and hitting <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">new</span></code> then in the types of interpreters you can select on the left most panel select the
+<code class="docutils literal notranslate"><span class="pre">SSH</span> <span class="pre">Terminal</span></code> option</p>
+<p>5.) Select existing ssh terminal and choose the configuration you just made in the previous steps</p>
+<p>6.) Finish the guide for setting up the interpreter and then double check that you see python packages installed in
+the interpreter window.</p>
+<p>7.) In the interpreter window select the <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">mappings</span></code> text box and edit it.  Make sure to set the local path to your
+project root and the mapped path to the location <code class="docutils literal notranslate"><span class="pre">/home/rosdev/social_gym</span></code> (you can find this through the folder
+explore to ensure there are no typos)</p>
+<p>8.) Open the file <code class="docutils literal notranslate"><span class="pre">config_run.py</span></code> and try to run it (so that it will create the run config, it should error for now)</p>
+<p>9.) Edit the run config that was just made</p>
+<p><code class="docutils literal notranslate"><span class="pre">Parameters</span></code> should have <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">./tmp_config.json</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">variables</span></code> should have the pasted env vars we keep getting in the previous steps.</p>
+<p>10.) Open a new ssh terminal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh rosdev@localhost -p <span class="m">2223</span>
+<span class="nb">cd</span> ./social_gym/submodules
+vim ~/set_paths.sh
+<span class="c1"># uncomment the second line then save the file</span>
+<span class="nb">source</span> ~/set_paths.sh
+rosdep update
+pip install sb3_contrib
+pip install <span class="nv">supersuit</span><span class="o">==</span><span class="m">3</span>.5.0
+pip install <span class="nv">gym</span><span class="o">==</span><span class="m">0</span>.26.2
+</pre></div>
+</div>
+<p>11.) Click run in your pycharm editor. It should hang around the input</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>...
+Waiting on UTMRS
+<span class="o">[</span>WARN<span class="o">]</span> <span class="o">[</span><span class="m">1671386774</span>.168961<span class="o">]</span>: wait_for_service<span class="o">(</span>/utmrsStepper<span class="o">)</span>: failed to contact, will keep trying
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to <span class="s1">&#39;/tmp/runtime-rosdev&#39;</span>
+<span class="o">[</span> INFO<span class="o">]</span> <span class="o">[</span><span class="m">1671386774</span>.188148416<span class="o">]</span>: Updated sim with live config: <span class="nv">Rate</span><span class="o">=</span><span class="m">40</span> incoming <span class="nv">rate</span><span class="o">=</span><span class="m">40</span>
+<span class="o">[</span> INFO<span class="o">]</span> <span class="o">[</span><span class="m">1671386774</span>.192522299<span class="o">]</span>: Using default queue size of <span class="m">10</span> <span class="k">for</span> publisher queues... 
+<span class="o">[</span> INFO<span class="o">]</span> <span class="o">[</span><span class="m">1671386774</span>.199740381<span class="o">]</span>: Loading scene <span class="o">[</span>/home/rosdev/social_gym/config/gym_gen/scene.xml<span class="o">]</span> <span class="k">for</span> simulation
+<span class="o">[</span> INFO<span class="o">]</span> <span class="o">[</span><span class="m">1671386774</span>.204534827<span class="o">]</span>: node initialized, now running 
+Service Mode
+</pre></div>
+</div>
+<p>This means we can fire up the UT Multirobot simulator now</p>
+<p>12.) Run your ut multirobot sim simulator run config.</p>
+<p>13.) If the python program crashed, rerun it.</p>
+<p>14.) You should now see cubes loaded into the RVIS window after awhile, and eventually they’ll start
+moving around!</p>
+</section>
+</section>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline"></a></h2>
+<hr class="docutils" />
+<p><strong>All my files are missing!</strong>: If at any point your files are missing or empty check out your path mappings for your
+project and make sure they are valid.  Then, do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span></code> for every project that has missing or empty files</p>
+<p>This includes SUB folders as well! i.e. <code class="docutils literal notranslate"><span class="pre">social_gym/ut_multirobot_sim/submodules/config_reader</span></code></p>
+<p>You will get tons of compile errors when you make a submodule saying “geometry” is undefined etc.  This means you have
+to do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span></code> anywhere a thirdparty source is being used.</p>
+<p><strong>ROSDEP errors</strong>: If you see anything during the install about ROSDEP not working correctly, make sure you are doing</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/set_paths.sh
+rosedep update
+</pre></div>
+</div>
+<p>often – once you have built pedsim via <code class="docutils literal notranslate"><span class="pre">catkin_make</span></code>, you should remove the comment on the 2nd line of <code class="docutils literal notranslate"><span class="pre">~/set_paths.sh</span></code>
+then rerun the commands above. This is also pretty important for when you run <code class="docutils literal notranslate"><span class="pre">get_vars.sh</span></code>, since that commented out
+line has env variables you want your IDE to know.</p>
+<p><strong>CMAKE errors</strong>: CMake is not fun.  If you see weird issues with cmake not building or not finding stuff make sure you
+are removing the cmake folders then rebuilding.</p>
+<p><strong>This is hard</strong>: Yep… it’s an art, and you should expect this to take at least 3-6hours if it’s your first time :(
+I would like to make this process easier, but it’s difficult to automate… maybe a video at some point?  Open to
+suggestions!! I promise it wasn’t made difficult intentionally lol :)</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic_install.html" class="btn btn-neutral float-left" title="Basic Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
