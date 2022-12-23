@@ -1,4 +1,4 @@
-# Full Install
+# Advanced Usage
 
 ---
 
@@ -6,7 +6,7 @@ There's a FAQ at the bottom (maybe worth reading first).  Expect this process to
 
 ---
 
-Welcome to the Full Install doc!  Here, we will be setting up Social Gym so that each submodule runs on it's
+Welcome to the Advanced Usage doc!  Here, we will be setting up Social Gym so that each submodule runs on it's
 own, allowing you to set up debuggers and step through each C submodule and the python code!
 
 ## Requirements
@@ -17,7 +17,7 @@ we are going to plug our IDE (Pycharm/CLion) into a docker container via SSH.  O
 somewhat trivially with run/debug configurations pretty much already set up.  If you do not have this, you may
 need to look more stuff up on how to get these to work :/ 
 
-## The Full Install (buckle up!)
+## Advanced Usage setup (buckle up!)
 
 We've broken this tutorial into 3 parts, the first is the basic setup, the second will get the submodules
 running, and the final part will focus on the python code and running the actual simulator end to end.

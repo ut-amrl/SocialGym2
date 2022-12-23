@@ -1,4 +1,4 @@
-# Basic Install
+# Installation
 
 In this doc we are going to setup Social Gym's `config runner` which allows you to run Social Gym using a configuration
 file.  If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installation
