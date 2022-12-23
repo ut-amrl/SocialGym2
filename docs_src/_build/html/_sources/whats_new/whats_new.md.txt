@@ -1,0 +1,9 @@
+# What's new in Social Gym 2.0 from the original release?
+
+Social Gym 2.0 focused on multiagent training, enhanced feature extraction and policy modeling, modular control over
+environments and training, as well as various quality of life improvements to make training, evaluating, experimenting,
+and developing easier!
+
+A permanent link to Social Gym 1.0 can be found here: https://github.com/ut-amrl/social_gym/tree/release/social_gym_1.0
+
+Although a lot has changed in Social Gym 2.0 
