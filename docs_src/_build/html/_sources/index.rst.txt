@@ -5,6 +5,8 @@ Welcome to Social Gym's documentation!
 
    installation/basic_install
    installation/full_install
+   intro/what_is_social_gym
+   intro/features
    :caption: Contents:
 
 
