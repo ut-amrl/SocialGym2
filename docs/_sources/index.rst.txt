@@ -8,6 +8,7 @@ Welcome to Social Gym's documentation!
    intro/what_is_social_gym
    intro/features
    intro/making_a_new_scene
+   contributing/making_docs
    :caption: Contents:
 
 
