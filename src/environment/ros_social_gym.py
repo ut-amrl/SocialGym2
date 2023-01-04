@@ -275,9 +275,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             print(f'Agents: {len(self.agents)}')
 
         actions = np.zeros(len(self.agents), dtype=np.int32)
-        x_vels = np.zeros(len(self.agents), dtype=np.float)
-        y_vels = np.zeros(len(self.agents), dtype=np.float)
-        angle_vels = np.zeros(len(self.agents), dtype=np.float)
+        x_vels = np.zeros(len(self.agents), dtype=float)
+        y_vels = np.zeros(len(self.agents), dtype=float)
+        angle_vels = np.zeros(len(self.agents), dtype=float)
         for i, agent in enumerate(self.agents):
             if agent in action_dict:
                 actions[i] = action_dict[agent]
