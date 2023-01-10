@@ -17,9 +17,7 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Advanced Usage" href="advanced_usage.html" />
-    <link rel="prev" title="Welcome to Social Gym’s documentation!" href="../index.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,18 +35,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-installation-guides-for-social-gym">Why are there two installation guides for Social Gym</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#let-s-install-config-runner">Let’s Install Config Runner!</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#checkout-the-right-branch-eventually-this-will-be-main">1.) Checkout the right branch! (Eventually this will be main)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#install-requirements-and-run-the-install-script">2.) Install requirements and run the install script!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#run-the-config-runner">3.) Run the Config Runner!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#have-fun">4.) Have fun!</a></li>
-</ul>
-</li>
-</ul>
-</li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/what_is_social_gym.html">What is Social Gym</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
@@ -73,7 +61,7 @@
       <li><a href="../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/installation/installation.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/installation/installation__deprecated.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,28 +90,45 @@ Social Gym for running and experimenting from installing Social Gym for developi
 <section id="checkout-the-right-branch-eventually-this-will-be-main">
 <h3>1.) Checkout the right branch! (Eventually this will be main)<a class="headerlink" href="#checkout-the-right-branch-eventually-this-will-be-main" title="Permalink to this headline"></a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout feature/20221218_multi_agent_finishing_and_cleanup
+git submodule update --init --recursive
 </pre></div>
 </div>
 <p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)</p>
 </section>
-<section id="install-requirements-and-run-the-install-script">
-<h3>2.) Install requirements and run the install script!<a class="headerlink" href="#install-requirements-and-run-the-install-script" title="Permalink to this headline"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
-python ./scripts/install_config_runner.py
+<section id="build-vector-display-this-creates-the-environments">
+<h3>2.) Build Vector Display (this creates the environments!)<a class="headerlink" href="#build-vector-display-this-creates-the-environments" title="Permalink to this headline"></a></h3>
+<p>Assuming you are starting from the ROOT_DIRECTORY of the project:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docker/vectordisplay
+docker build -t  vector_display:custom .
+<span class="nb">cd</span> ../..
 </pre></div>
 </div>
-<p>Expect this to take a while (20-40m depending on your machine, mostly for the last step.).</p>
+<p>Expect this to take a while (15-30m depending on your machine).</p>
 </section>
-<section id="run-the-config-runner">
-<h3>3.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 11_20_22/sacadrl.json
+<section id="create-a-virtualenv-to-install-python-dependencies">
+<h3>3.) Create a virtualenv to install python dependencies<a class="headerlink" href="#create-a-virtualenv-to-install-python-dependencies" title="Permalink to this headline"></a></h3>
+<p>Assuming linux/mac style, windows have their own special flavor for activating virtualenvs.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>virtualenv venv
+<span class="nb">source</span> venv/bin/activate
 </pre></div>
 </div>
-<p>This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY
-times.  This is because of a known bug where ROS hangs on some dependency unnecessarily (we are trying to fix this).</p>
-<p>The way our code gets around it is by restarting the docker container if it fails to start running after so many
-seconds.</p>
+</section>
+<section id="install-python-requirements">
+<h3>4.) Install python requirements<a class="headerlink" href="#install-python-requirements" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really">
+<h3>5.) Create the Environment for Social Gym (don’t worry, this is copying files really.)<a class="headerlink" href="#create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python scripts/create_env_template.py -n exp1/train/easy
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--name</span></code> parameter is referencing a saved file checked in by a commit, you should expect to see two windows when
+running this command.  It is sufficient to just hit <code class="docutils literal notranslate"><span class="pre">[ESC]</span></code> when they appear.  However, they should show blue lines on
+the first window that look like two rooms separated by a narrow hallway.  The second window should show the same blue
+lines but now inside the two rooms are pink lines (these are navigation paths).</p>
 <hr class="docutils" />
 <p><strong>NOTE</strong>: If you do NOT see windows, there’s a problem with the docker file.</p>
 <p>First try running</p>
@@ -132,13 +137,36 @@ seconds.</p>
 </div>
 <p>and repeat the command.  If it still fails to show windows then try adding</p>
 <p><code class="docutils literal notranslate"><span class="pre">--network</span> <span class="pre">host</span></code>
-to the file <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/config_runner/run.sh</span></code> on lines where we are setting docker environment variables.
+to the file <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/docker/vectordisplay/vd.sh</span></code> on lines where we are setting docker environment variables.
 Otherwise, look up stuff like “cannot display window from docker container” – this is critical for Social Gym to work.
 We will fill out more tips/tricks and common failures here as we experience them.</p>
 </section>
 <hr class="docutils" />
+<section id="build-config-runner">
+<h3>6.) Build Config Runner<a class="headerlink" href="#build-config-runner" title="Permalink to this headline"></a></h3>
+<p>In order to run the docker container with Config Runner, you have to build the image.  This can be done via</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo chmod +x ./config_runner/build.sh
+./config_runner/build.sh
+</pre></div>
+</div>
+<p>This may take 15-30minutes depending on your machine.</p>
+</section>
+<section id="run-the-config-runner">
+<h3>7.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 11_20_22/sacadrl.json
+</pre></div>
+</div>
+<p>This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY
+times.  This is because of a known bug where ROS hangs on some dependency unnecessarily (we are trying to fix this).</p>
+<p>The way our code gets around it is by restarting the docker container if it fails to start running after so many
+seconds.</p>
+<hr class="docutils" />
+<p><strong>NOTE</strong>: If you do not see a window appear, follow the same tips from step 5 but for the file
+<code class="docutils literal notranslate"><span class="pre">config_runner/run_config.sh</span></code>.</p>
+</section>
+<hr class="docutils" />
 <section id="have-fun">
-<h3>4.) Have fun!<a class="headerlink" href="#have-fun" title="Permalink to this headline"></a></h3>
+<h3>7.) Have fun!<a class="headerlink" href="#have-fun" title="Permalink to this headline"></a></h3>
 <p>You can now specify your own configurations and run your own training or evaluation jobs.  More documentation on this
 later.</p>
 <p>If you need to develop or debug Social Gym – you’ll have to follow the full installation guide on the next
@@ -150,10 +178,7 @@ page.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Social Gym’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="advanced_usage.html" class="btn btn-neutral float-right" title="Advanced Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

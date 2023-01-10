@@ -24,77 +24,21 @@ Social Gym for running and experimenting from installing Social Gym for developi
 
 ```shell
 git checkout feature/20221218_multi_agent_finishing_and_cleanup
-git submodule update --init --recursive
 ```
 
 Although we use Docker to run Social Gym's internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)
 
-#### 2.) Build Vector Display (this creates the environments!)
-
-Assuming you are starting from the ROOT_DIRECTORY of the project:
-```shell
-cd docker/vectordisplay
-docker build -t  vector_display:custom .
-cd ../..
-```
-
-Expect this to take a while (15-30m depending on your machine).
-
-#### 3.) Create a virtualenv to install python dependencies
-
-Assuming linux/mac style, windows have their own special flavor for activating virtualenvs.
-```shell
-virtualenv venv
-source venv/bin/activate
-```
-
-#### 4.) Install python requirements
+#### 2.) Install requirements and run the install script!
 
 ```shell
 pip install -r requirements.txt
+python ./scripts/install_config_runner.py
 ```
 
-#### 5.) Create the Environment for Social Gym (don't worry, this is copying files really.)
+Expect this to take a while (20-40m depending on your machine, mostly for the last step.). 
 
-```shell
-python scripts/create_env_template.py -n exp1/train/easy
-```
-
-The `--name` parameter is referencing a saved file checked in by a commit, you should expect to see two windows when 
-running this command.  It is sufficient to just hit `[ESC]` when they appear.  However, they should show blue lines on 
-the first window that look like two rooms separated by a narrow hallway.  The second window should show the same blue 
-lines but now inside the two rooms are pink lines (these are navigation paths).
-
----
-
-**NOTE**: If you do NOT see windows, there's a problem with the docker file.
-
-First try running
-```shell
-sudo xhost +
-```
-and repeat the command.  If it still fails to show windows then try adding 
-
-`--network host`
-to the file `{PROJECT_ROOT}/docker/vectordisplay/vd.sh` on lines where we are setting docker environment variables. 
-Otherwise, look up stuff like "cannot display window from docker container" -- this is critical for Social Gym to work.
-We will fill out more tips/tricks and common failures here as we experience them.
-
----
-
-#### 6.) Build Config Runner
-
-In order to run the docker container with Config Runner, you have to build the image.  This can be done via
-
-```shell
-sudo chmod +x ./config_runner/build.sh
-./config_runner/build.sh
-```
-
-This may take 15-30minutes depending on your machine.
-
-#### 7.) Run the Config Runner!
+#### 3.) Run the Config Runner!
 
 ```shell
 python config_runner/run.py -c 11_20_22/sacadrl.json
@@ -108,12 +52,21 @@ seconds.
 
 ---
 
-**NOTE**: If you do not see a window appear, follow the same tips from step 5 but for the file 
-`config_runner/run_config.sh`.
+**NOTE**: If you do NOT see windows, there's a problem with the docker file.
+
+First try running
+```shell
+sudo xhost +
+```
+and repeat the command.  If it still fails to show windows then try adding 
+
+`--network host`
+to the file `{PROJECT_ROOT}/config_runner/run.sh` on lines where we are setting docker environment variables. 
+Otherwise, look up stuff like "cannot display window from docker container" -- this is critical for Social Gym to work.
+We will fill out more tips/tricks and common failures here as we experience them.
 
 ---
-
-#### 7.) Have fun!
+#### 4.) Have fun!
 
 You can now specify your own configurations and run your own training or evaluation jobs.  More documentation on this
 later.
