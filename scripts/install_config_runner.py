@@ -21,6 +21,9 @@ def step_1_setup_git_branch():
     out = subprocess.Popen('git submodule update --init --recursive'.split(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out.wait()
 
+    out = subprocess.Popen('pip install -r requirements.txt'.split(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out.wait()
+
 
 def step_2_move_map_files():
     print("STEP 2: moving files around...")

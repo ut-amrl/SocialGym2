@@ -32,7 +32,6 @@ off the process written in python (so you still need to install stuff)
 #### 2.) Install requirements and run the install script!
 
 ```shell
-pip install -r requirements.txt
 python ./scripts/install_config_runner.py
 ```
 
