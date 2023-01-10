@@ -18,6 +18,10 @@ Social Gym for running and experimenting from installing Social Gym for developi
 
 **Note**: We require you have installed Docker and Python 3.8 (version 3.8 may not be necessary but it's what we use)
 
+**WARNING**: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We
+recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via
+`apt`.
+
 ---
 
 #### 1.) Checkout the right branch! (Eventually this will be main)
