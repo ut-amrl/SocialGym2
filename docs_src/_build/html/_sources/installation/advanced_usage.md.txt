@@ -414,6 +414,14 @@ line has env variables you want your IDE to know.
 **CMAKE errors**: CMake is not fun.  If you see weird issues with cmake not building or not finding stuff make sure you
 are removing the cmake folders then rebuilding.
 
+**Permission Issues**: The easiest way to resolve weird permission issues when setting up the advanced usage is to run
+```shell
+sudo chmod -R 777 . 
+```
+from the project root.  This effectively gives all users access to the folder (**warning**: this may be too open if you are working
+on a shared machine).  Usually permissions misconfiguration happens when files are generated from the SSH terminal connection / remote 
+debugger and not by the local user.  
+
 **This is hard**: Yep... it's an art, and you should expect this to take at least 3-6hours if it's your first time :( 
 I would like to make this process easier, but it's difficult to automate... maybe a video at some point?  Open to
 suggestions!! I promise it wasn't made difficult intentionally lol :)

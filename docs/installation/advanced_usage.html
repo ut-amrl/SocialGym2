@@ -406,6 +406,13 @@ then rerun the commands above. This is also pretty important for when you run <c
 line has env variables you want your IDE to know.</p>
 <p><strong>CMAKE errors</strong>: CMake is not fun.  If you see weird issues with cmake not building or not finding stuff make sure you
 are removing the cmake folders then rebuilding.</p>
+<p><strong>Permission Issues</strong>: The easiest way to resolve weird permission issues when setting up the advanced usage is to run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo chmod -R <span class="m">777</span> . 
+</pre></div>
+</div>
+<p>from the project root.  This effectively gives all users access to the folder (<strong>warning</strong>: this may be too open if you are working
+on a shared machine).  Usually permissions misconfiguration happens when files are generated from the SSH terminal connection / remote
+debugger and not by the local user.</p>
 <p><strong>This is hard</strong>: Yep… it’s an art, and you should expect this to take at least 3-6hours if it’s your first time :(
 I would like to make this process easier, but it’s difficult to automate… maybe a video at some point?  Open to
 suggestions!! I promise it wasn’t made difficult intentionally lol :)</p>
