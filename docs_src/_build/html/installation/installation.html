@@ -17,7 +17,9 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Usage" href="advanced_usage.html" />
+    <link rel="prev" title="Welcome to Social Gym’s documentation!" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,11 +37,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-are-there-two-installation-guides-for-social-gym">Why are there two installation guides for Social Gym</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#let-s-install-config-runner">Let’s Install Config Runner!</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#checkout-the-right-branch-eventually-this-will-be-main">1.) Checkout the right branch! (Eventually this will be main)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-vector-display-this-creates-the-environments">2.) Build Vector Display (this creates the environments!)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-virtualenv-to-install-python-dependencies">3.) Create a virtualenv to install python dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-python-requirements">4.) Install python requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-environment-for-social-gym-don-t-worry-this-is-copying-files-really">5.) Create the Environment for Social Gym (don’t worry, this is copying files really.)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-config-runner">6.) Build Config Runner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-config-runner">7.) Run the Config Runner!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#have-fun">7.) Have fun!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/what_is_social_gym.html">What is Social Gym</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html#social-gym-features">Social Gym Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
 </ul>
 
         </div>
@@ -139,8 +158,17 @@ Otherwise, look up stuff like “cannot display window from docker container” 
 We will fill out more tips/tricks and common failures here as we experience them.</p>
 </section>
 <hr class="docutils" />
+<section id="build-config-runner">
+<h3>6.) Build Config Runner<a class="headerlink" href="#build-config-runner" title="Permalink to this headline"></a></h3>
+<p>In order to run the docker container with Config Runner, you have to build the image.  This can be done via</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo chmod +x ./config_runner/build.sh
+./config_runner/build.sh
+</pre></div>
+</div>
+<p>This may take 15-30minutes depending on your machine.</p>
+</section>
 <section id="run-the-config-runner">
-<h3>6.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
+<h3>7.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 11_20_22/sacadrl.json
 </pre></div>
 </div>
@@ -166,7 +194,10 @@ page.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Social Gym’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced_usage.html" class="btn btn-neutral float-right" title="Advanced Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

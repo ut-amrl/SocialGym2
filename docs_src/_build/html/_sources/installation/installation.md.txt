@@ -83,7 +83,18 @@ We will fill out more tips/tricks and common failures here as we experience them
 
 ---
 
-#### 6.) Run the Config Runner!
+#### 6.) Build Config Runner
+
+In order to run the docker container with Config Runner, you have to build the image.  This can be done via
+
+```shell
+sudo chmod +x ./config_runner/build.sh
+./config_runner/build.sh
+```
+
+This may take 15-30minutes depending on your machine.
+
+#### 7.) Run the Config Runner!
 
 ```shell
 python config_runner/run.py -c 11_20_22/sacadrl.json
