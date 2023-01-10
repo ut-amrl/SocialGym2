@@ -20,6 +20,11 @@ class ManualZoneUTMRSResponse(UTMRSResponse):
     agents_priority_order: int
     agents_current_order: int
     in_zone: bool
+    entering: bool
+    exiting: bool
+
+    number_agents_entering: bool
+    number_agents_exiting: bool
 
     @classmethod
     def process(cls, env_response, env: 'ManualZoneEnv', *args, **kwargs) -> List['UTMRSResponse']:
@@ -38,13 +43,34 @@ class ManualZoneUTMRSResponse(UTMRSResponse):
         # In zone
         z_ur = zone['upper_right']
         z_lr = zone['lower_right']
+        z_ul = zone['upper_left']
+        z_ll = zone['lower_left']
+
+        radius = 0.5
 
         idx_to_distances = [(idx, np.linalg.norm(x.robot_poses - ((z_lr + z_ur) / 2))) for idx, x in enumerate(observations) if env.agents_priority_orders[idx] != -1]
         distances = np.array([x[1] for x in idx_to_distances]).argsort().tolist()
         indices = [x[0] for x in idx_to_distances]
 
+        entering_agents = [
+            p.robot_poses[1] + radius >= z_ll[1] and p.robot_poses[1] - radius <= z_ul[1] and \
+            p.robot_poses[0] + radius >= z_ul[0] and p.robot_poses[0] - radius <= z_ul[0] for p in observations
+        ]
+
+        exiting_agents = [
+            p.robot_poses[1] + radius >= z_lr[1] and p.robot_poses[1] - radius <= z_ur[1] and \
+            p.robot_poses[0] + radius >= z_ur[0] and p.robot_poses[0] - radius <= z_ur[0] for p in observations
+        ]
+
+        agents_intersecting_entrance = sum(entering_agents)
+        agents_intersecting_exit = sum(exiting_agents)
+
         for robot_idx, resp in enumerate(observations):
             resp.agents_priority_order = env.agents_priority_orders[robot_idx]
+            resp.entering = entering_agents[robot_idx]
+            resp.exiting = exiting_agents[robot_idx]
+            resp.number_agents_entering = agents_intersecting_entrance
+            resp.number_agents_exiting = agents_intersecting_exit
 
             if robot_idx in indices:
                 resp.agents_current_order = distances.index(indices.index(robot_idx))

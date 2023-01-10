@@ -24,7 +24,8 @@ from src.environment.rewards import Rewarder, Success, ExistencePenalty, \
 from src.environment.rewards.types.manual_zone import EnforcedOrder
 from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation, \
   AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables
-from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder
+from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
+  EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
   RewardStripper, TimeLimitWrapper
 from src.environment.extractors import LSTMAgentObs
@@ -34,6 +35,7 @@ from src.environment.scenarios import CycleScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
+from src.environment.utils.utils import get_tboard_writer
 
 seed(1)
 
@@ -70,6 +72,7 @@ def run(
         enforced_order_track_exit: bool = False,
         enforced_order_penalty_for_incorrect_order: bool = True,
         enforced_order_weak_signal_out_of_zone: bool = False,
+        penalty_for_multiple_agents_entering: bool = True,
 
         goal_distance_reward: bool = True,
         goal_distance_reward_clip: bool = False,
@@ -174,7 +177,11 @@ def run(
     observations.extend([
       AgentZonePriorityOrder(),
       AgentZoneCurrentOrder(),
-      AgentInZone()
+      AgentInZone(),
+      EnteringZone(),
+      ExitingZone(),
+      NumberOfAgentsExitingZone(),
+      NumberOfAgentsEnteringZone()
     ])
 
   rewards = []
@@ -198,7 +205,8 @@ def run(
       allow_any_order=run_type == kinds.ao,
       incorrect_penalty=enforced_order_penalty_for_incorrect_order and run_type == kinds.eo,
       weak_out_of_zone=enforced_order_weak_signal_out_of_zone,
-      continuous=enforced_order_weak_signal_out_of_zone
+      continuous=enforced_order_weak_signal_out_of_zone,
+      penalty_for_multiple_agents_entering=penalty_for_multiple_agents_entering
     ))
 
   observer = Observer(observations)
@@ -265,7 +273,8 @@ def run(
     eval_freq=eval_frequency,
     best_model_save_path=str(exp_checkpoint_folder),
     eval_report_file=exp_eval_report,
-    number_of_agents=list(range(7))[2:]
+    number_of_agents=list(range(7))[2:],
+    tbx_writer=get_tboard_writer(f'{run_name}/tensorboard__{run_type}')
   )
 
   if train:
@@ -293,7 +302,7 @@ def run(
       env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=a)
       env.unwrapped.vec_envs[0].par_env.unwrapped.reset()
 
-      episode_rewards, episode_lengths, success_rate = evaluate_policy(
+      episode_rewards, episode_lengths, success_rate, eval_metrics = evaluate_policy(
         model,
         env,
         n_eval_episodes=ending_eval_trials,
@@ -301,9 +310,8 @@ def run(
         return_episode_rewards=True,
       )
 
-
-      eval_report[str(a)] = success_rate
-      all_rates.append(success_rate)
+      eval_report[str(a)] = eval_metrics
+      all_rates.append(eval_metrics.get('success_rate'))
     eval_report['total'] = sum(all_rates) / len(all_rates)
 
     with exp_eval_report.open('w') as f:

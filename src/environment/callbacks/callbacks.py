@@ -60,6 +60,7 @@ class EvalCallback(EventCallback):
         use_success_rate: bool = True,
         eval_report_file: Path = None,
         number_of_agents: List[int] = None,
+        tbx_writer = None
     ):
         super().__init__(callback_after_eval, verbose=verbose)
 
@@ -81,6 +82,7 @@ class EvalCallback(EventCallback):
         self.number_of_agents = number_of_agents
 
         self.best_success_rate = 0.
+        self.tbx_writer = tbx_writer
 
         # Convert to VecEnv for consistency
         if not isinstance(eval_env, VecEnv):
@@ -168,15 +170,14 @@ class EvalCallback(EventCallback):
             success_rate = 0.
 
             success_rate_per_agents = {}
+            all_metrics = {}
 
             for num_agents in self.number_of_agents:
                 self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = num_agents
                 self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=num_agents)
                 self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.reset()
 
-                print(f'EVAL: {num_agents}')
-
-                rwds, lens, scssrate = evaluate_policy(
+                rwds, lens, scssrate, metrics = evaluate_policy(
                     self.model,
                     self.eval_env,
                     n_eval_episodes=self.n_eval_episodes,
@@ -186,6 +187,10 @@ class EvalCallback(EventCallback):
                     warn=self.warn,
                     callback=self._log_success_callback,
                 )
+
+                all_metrics[f'{num_agents}_agents'] = metrics
+                if self.tbx_writer:
+                    self.tbx_writer.add_scalars(f'eval_{num_agents}_agents', metrics, self.eval_number)
 
                 episode_rewards = np.concatenate([episode_rewards, rwds])
                 episode_lengths = np.concatenate([episode_lengths, lens])
@@ -226,7 +231,7 @@ class EvalCallback(EventCallback):
                 eval_report = {}
                 if self.eval_report_file.exists():
                     eval_report = json.load(self.eval_report_file.open('r'))
-                eval_report[str(self.n_calls)] = {'total': success_rate, **success_rate_per_agents}
+                eval_report[str(self.n_calls)] = {'total': success_rate, **success_rate_per_agents, **all_metrics}
                 json.dump(eval_report, self.eval_report_file.open('w'))
 
             if self.verbose > 0:
@@ -267,7 +272,7 @@ class EvalCallback(EventCallback):
             if self.callback is not None:
                 continue_training = continue_training and self._on_event()
 
-            print(f'EVAL FIN: {prev_agent_number}')
+            # print(f'EVAL FIN: {prev_agent_number}')
             self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = prev_agent_number
             self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=prev_agent_number)
             self.eval_env.unwrapped.vec_envs[0].par_env.unwrapped.reset()

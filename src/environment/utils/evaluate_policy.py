@@ -93,13 +93,48 @@ def evaluate_policy(
     episode_starts = np.ones((env.num_envs,), dtype=bool)
 
     successes = 0
+    collisions = 0
     total = 0
+    lengths = 0
+    velocity_delta = 0
+    time_still = 0
+    incorrect_enter_order = 0
+    incorrect_exit_order = 0
+
+    metrics = {}
+
+    prev_collisions = None
+    prev_vels = None
+    incorrect_enter = None
+    incorrect_exit = None
+
+    max_num = 0
 
     while (episode_counts < episode_count_targets).any():
         actions, states = model.predict(observations, state=states, episode_start=episode_starts, deterministic=deterministic)
         observations, rewards, dones, infos = env.step(actions)
+        max_num = sum([1 if 'succeeded' in list(x.keys()) else 0 for x in infos])
         current_rewards += sum(rewards)
         current_lengths += 1
+        lengths += 1
+
+        curr_collisions = [x.get('collision', False) for x in infos]
+        collisions += sum([curr_collisions[idx] > (prev_collisions[idx] if prev_collisions else 0) for idx in range(max_num)])
+        prev_collisions = curr_collisions
+
+        curr_vels = [x.get('velocity', 0) for x in infos]
+        velocity_delta += sum([abs(curr_vels[idx] - (prev_vels[idx] if prev_vels else 0)) for idx in range(max_num)])
+        prev_vels = curr_vels
+        time_still += sum([1 if abs(curr_vels[idx]) < 1e-5 and not dones[idx] else 0 for idx in range(max_num)])
+
+        curr_incorrect_enters = [x.get('incorrect_enter_order', False) for x in infos]
+        incorrect_enter_order += sum([curr_incorrect_enters[idx] and not (incorrect_enter[idx] if incorrect_enter else False) for idx in range(max_num)])
+        incorrect_enter = [curr_incorrect_enters[idx] or (incorrect_enter[idx] if incorrect_enter else False) for idx in range(max_num)]
+
+        curr_incorrect_exits = [x.get('incorrect_exit_order', False) for x in infos]
+        incorrect_exit_order += sum([curr_incorrect_exits[idx] and not (incorrect_exit[idx] if incorrect_exit else False) for idx in range(max_num)])
+        incorrect_exit = [curr_incorrect_exits[idx] or (incorrect_exit[idx] if incorrect_exit else False) for idx in range(max_num)]
+
         if episode_counts[0] < episode_count_targets[0]:
 
             # unpack values so that the callback can access the local variables
@@ -115,6 +150,11 @@ def evaluate_policy(
                 if all([x.get('succeeded', False) for x in infos[0:env.unwrapped.vec_envs[0].unwrapped.par_env.unwrapped.curr_num_agents]]):
                     successes += 1
                 total += 1
+
+                prev_collisions = None
+                prev_vels = None
+                incorrect_enter = None
+                incorrect_exit = None
 
                 if is_monitor_wrapped:
                     # Atari wrapper can send a "done" signal when
@@ -139,11 +179,25 @@ def evaluate_policy(
             env.render()
 
     success_rate = successes / total
+    collision_rate = collisions / total
+    avg_length = lengths / total
+    avg_velocity_delta = velocity_delta / total
+    avg_time_still = (time_still / total) / max_num
+    incorrect_enter_rate = incorrect_enter_order / total
+    incorrect_exit_rate = incorrect_exit_order / total
+
+    metrics['success_rate'] = success_rate
+    metrics['collisions'] = collision_rate
+    metrics['avg_length'] = avg_length
+    metrics['avg_velocity_delta'] = avg_velocity_delta
+    metrics['time_still'] = avg_time_still
+    metrics['incorrect_enter_rate'] = incorrect_enter_rate
+    metrics['incorrect_exit_rate'] = incorrect_exit_rate
 
     mean_reward = np.mean(episode_rewards)
     std_reward = np.std(episode_rewards)
     if reward_threshold is not None:
         assert mean_reward > reward_threshold, "Mean reward below threshold: " f"{mean_reward:.2f} < {reward_threshold:.2f}"
     if return_episode_rewards:
-        return episode_rewards, episode_lengths, success_rate
-    return mean_reward, std_reward, success_rate
+        return episode_rewards, episode_lengths, success_rate, metrics
+    return mean_reward, std_reward, success_rate, metrics

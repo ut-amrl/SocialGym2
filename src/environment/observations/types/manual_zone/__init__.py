@@ -1,3 +1,7 @@
 from src.environment.observations.types.manual_zone.agent_in_zone import AgentInZone
 from src.environment.observations.types.manual_zone.agent_zone_current_order import AgentZoneCurrentOrder
 from src.environment.observations.types.manual_zone.agent_zone_priority_order import AgentZonePriorityOrder
+from src.environment.observations.types.manual_zone.entering_zone import EnteringZone
+from src.environment.observations.types.manual_zone.exiting_zone import ExitingZone
+from src.environment.observations.types.manual_zone.number_of_agents_entering_zone import NumberOfAgentsEnteringZone
+from src.environment.observations.types.manual_zone.number_of_agents_exiting_zone import NumberOfAgentsExitingZone

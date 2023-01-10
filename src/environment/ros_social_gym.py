@@ -271,8 +271,8 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def step(self, action_dict):
         self.agents = [agent for agent in self.agents if not self.terminations[agent]]
 
-        if self.debug:
-            print(f'Agents: {len(self.agents)}')
+        # if self.debug:
+        #     print(f'Agents: {len(self.agents)}')
 
         actions = np.zeros(len(self.agents), dtype=np.int32)
         x_vels = np.zeros(len(self.agents), dtype=np.float)
@@ -317,7 +317,16 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             agent: reward for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
         }
 
-        agent_infos = {agent: {'succeeded': obs_map.get('success_observation', 0) == 1} for agent, obs_map in zip(self.possible_agents, observation_maps) if agent in self.agents}
+        agent_infos = {
+            agent: {
+                'succeeded': obs_map.get('success_observation', 0) == 1,
+                'collision': obs_map.get('collisions', [0])[0],
+                'velocity': obs_map.get('agents_velocity', np.array([0, 0])).mean(),
+                'incorrect_enter_order': obs_map.get('entering_zone', [False])[0] and obs_map.get('manual_zone_agent_zone_current_order', [-1])[0] != obs_map.get('manual_zone_agent_zone_priority_order', [-1])[0],
+                'incorrect_exit_order': obs_map.get('exiting_zone', [False])[0] and obs_map.get('manual_zone_agent_zone_current_order', [-1])[0] != obs_map.get('manual_zone_agent_zone_priority_order', [-1])[0],
+
+            } for agent, obs_map in zip(self.possible_agents, observation_maps) if agent in self.agents
+        }
 
         # if all([x.get('succeeded') for x in agent_infos.values()]):
         #     print('major reward')
