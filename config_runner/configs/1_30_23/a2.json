@@ -1,0 +1,32 @@
+{
+  "num_agents": [[0, 3], [1000, 4], [2000, 5], [3000, 6], [4000, 7], [5000, 8]],
+  "train_length": 1500000,
+  "ending_eval_trials": 100,
+  "eval_frequency": 0,
+  "intermediate_eval_trials": 25,
+  "policy_algo_sb3_contrib": false,
+  "policy_algo_name": "PPO",
+  "policy_name": "MlpPolicy",
+  "policy_algo_kwargs": {"n_steps":  4096},
+  "monitor": true,
+
+  "experiment_names": ["envs_open", "envs_intersection", "envs_door", "envs_hallway", "envs_round_about"],
+
+  "run_name": "1_30_23/a2",
+  "run_type": "AO",
+  "device": "cuda:0",
+
+  "other_velocities_obs": true,
+  "agent_velocity_obs": true,
+
+  "agent_velocity_ignore_theta": false,
+  "other_velocities_ignore_theta": false,
+  "other_poses_ignore_theta": false,
+  "agent_pose_ignore_theta": false,
+
+  "entropy_constant_penalty": -100000,
+  "entropy_constant_penalty_only_those_that_did_not_finish": true,
+
+  "timelimit": true,
+  "timelimit_threshold": 3000
+}
