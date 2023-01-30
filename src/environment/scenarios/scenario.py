@@ -19,6 +19,7 @@ class Scenario:
             all_config: bool = False
     ):
         self.nav_map = None
+        self.nav_lines = []
         self.robot_positions = None
         self.partially_observable = partially_observable
 
@@ -34,16 +35,16 @@ class Scenario:
         assert Path(self.config_scene_path).is_dir(), \
             f'The env_name ({env_name}) does not have a folder at {self.config_scene_path}'
 
-
-
     def load_nav_nodes(self, nav_path):
         temp_nav = []
         with open(nav_path, 'r') as input:
             json_list = json.load(input)
+            temp_nav = [0]*len(json_list['nodes'])
             for entry in json_list['nodes']:
                 point = (float(entry['loc']['x']), float(entry['loc']['y']), 0.0)
-                temp_nav.append(point)
-        return list(set(temp_nav))
+                temp_nav[entry['id']] = point
+            lines = json_list['edges']
+        return temp_nav, lines
 
     def make_scenario(self, config):
         dir_name = f"{ROOT_FOLDER}/config/gym_gen/"
@@ -97,6 +98,8 @@ class Scenario:
         copyfile(str(self.config_scene_path / 'ref_launch.launch'), dir_name + 'ref_launch.launch')
         copyfile(str(self.config_scene_path / 'greedy_launch.launch'), dir_name + 'greedy_launch.launch')
         copyfile(str(self.config_scene_path / 'pips_launch.launch'), dir_name + 'pips_launch.launch')
+
+        return 0
 
     def generate_scenario(self):
         raise NotImplemented()

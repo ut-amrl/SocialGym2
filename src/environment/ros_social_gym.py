@@ -23,7 +23,7 @@ import numpy as np
 import time
 import math
 from random import seed
-from typing import Tuple, Union, ClassVar, TYPE_CHECKING
+from typing import Tuple, Union, ClassVar, List, TYPE_CHECKING
 from pathlib import Path
 import shutil
 from tensorboardX import SummaryWriter
@@ -33,6 +33,7 @@ from pettingzoo.utils import agent_selector, wrappers
 from src.environment.services import UTMRS, UTMRSResponse
 from src.environment.scenarios import Scenario, GraphNavScenario
 from src.environment.utils.utils import ROOT_FOLDER
+from src.environment.visuals.nav_map_viz import NavMapViz
 
 # Package imports
 if TYPE_CHECKING:
@@ -72,10 +73,11 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             launch_config: str = f"{ROOT_FOLDER}/config/gym_gen/launch.launch",
             observer: 'Observer' = None,
             rewarder: 'Rewarder' = None,
-            scenario: Scenario = None,
+            scenarios: List[Scenario] = (),
             num_humans: Union[int, Tuple[int, int]] = (5, 25),
             num_agents: Union[int, Tuple[int, int]] = (3, 5),
             debug: bool = False,
+            visuals=None,
             **kwargs
     ):
         """
@@ -96,7 +98,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             launch_config,
             deepcopy(observer),
             deepcopy(rewarder),
-            deepcopy(scenario),
+            deepcopy(scenarios),
             num_humans,
             num_agents,
             debug,
@@ -105,6 +107,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         self.debug = debug
         self.in_eval = False
+        self.visuals = visuals
+        self.scenarios = scenarios
+        self.scenario_idx = 0
 
         if isinstance(num_agents, int):
             self.ros_num_agents = num_agents, num_agents
@@ -135,11 +140,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             agent: spaces.Box(low=-9999, high=9999, shape=(len(self.observer),)) for agent in self.possible_agents
         }
 
-        if scenario is None:
-            # TODO - fix; make a better default.
-            scenario = GraphNavScenario('closed/door/t1')
-
-        self.scenario = scenario
         self.new_scenario()
 
         self.launch_config = launch_config
@@ -191,7 +191,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         return self.rewarder.reward(self, obs_map)
 
     def new_scenario(self, num_humans=None, num_agents=None):
-        self.scenario.generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
+        self.scenario_idx = (self.scenario_idx + 1) % len(self.scenarios)
+        self.scenarios[self.scenario_idx].generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
+        # Loop through scenarios
 
     def default_action(self):
         actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
@@ -204,8 +206,10 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         pass
 
     def reset(self, seed=None, return_info=False, options=None):
-        if self.debug:
-            print("RESET")
+        # if self.debug:
+        #     print("RESET")
+        scenario = self.scenarios[self.scenario_idx]
+        self.visuals = [NavMapViz(scenario.nav_map, scenario.nav_lines)]
 
         pause = self.agents is None or len(self.agents) != self.curr_num_agents
 
@@ -217,11 +221,13 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.observer.reset()
         self.rewarder.reset()
 
-        if self.debug:
-            print(f'Curr Num Agents: {self.curr_num_agents}')
-            print(f'Length of default action: {len(self.default_action()[0])}')
+        # if self.debug:
+        #     print(f'Curr Num Agents: {self.curr_num_agents}')
+        #     print(f'Length of default action: {len(self.default_action()[0])}')
 
         NUM_RETRIES = 100
+
+        time.sleep(1)
 
         retry = 0
         while retry < NUM_RETRIES:
@@ -237,20 +243,20 @@ class RosSocialEnv(ParallelEnv, EzPickle):
                 if pause:
                     self.utmrs_service.reset()
 
-                if self.debug:
-                    print(f'Env Resp Length: {len(environment_responses)}')
+                # if self.debug:
+                #     print(f'Env Resp Length: {len(environment_responses)}')
 
                 if len(environment_responses) == self.curr_num_agents:
                     break
 
-                if self.debug:
-                    print('fail check, retrying')
+                # if self.debug:
+                #     print('fail check, retrying')
 
                 retry += 1
                 time.sleep(1)
             except Exception:
-                if self.debug:
-                    print('fail check, retrying')
+                # if self.debug:
+                #     print('fail check, retrying')
 
                 retry += 1
                 time.sleep(1)
@@ -270,6 +276,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
     def step(self, action_dict):
         self.agents = [agent for agent in self.agents if not self.terminations[agent]]
+
+        for vis in self.visuals:
+            vis.publish()
 
         # if self.debug:
         #     print(f'Agents: {len(self.agents)}')

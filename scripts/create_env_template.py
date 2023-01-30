@@ -1,3 +1,4 @@
+import os
 import shutil
 from argparse import ArgumentParser
 from pathlib import Path
@@ -76,6 +77,8 @@ def create_new_env(name: str, template: str = None):
     # Build navigation paths (Navigation Graph)
     cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(environment_map_path.parent), environment_map_path.name, "--edit_navigation"]
 
+
+
     out = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out.wait()
 
@@ -88,7 +91,7 @@ def create_new_env(name: str, template: str = None):
     # Build config files
     alf = all_launch_launch(name)
     lf = launch_launch()
-    clf = config_launch_launch()
+    clf = config_launch_launch(f'{name}/{navigation_file.name}')
     hl = humans_lua()
     pl = pedsim_launch()
     sc = sim_config(name, environment_path.name)
@@ -141,19 +144,19 @@ def create_new_env(name: str, template: str = None):
     (environment_path / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     # Copy over maps
-    shutil.copyfile(vectormap_file, environment_path / f'{environment_path.name}.vectormap.txt')
-    shutil.copyfile(navigation_file, environment_path / f'{environment_path.name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, environment_path / f'{environment_path.name}.navigation.json')
+    rm_and_copy(vectormap_file, environment_path / f'{environment_path.name}.vectormap.txt')
+    rm_and_copy(navigation_file, environment_path / f'{environment_path.name}.navigation.txt')
+    rm_and_copy(navigation_json_file, environment_path / f'{environment_path.name}.navigation.json')
 
     amrl_folder = AMRL_MAPS_FOLDER / name
     amrl_folder.mkdir(exist_ok=True, parents=True)
 
     (amrl_folder / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
-    shutil.copyfile(vectormap_file, amrl_folder / f'{environment_path.name}.vectormap.txt')
-    shutil.copyfile(vectormap_json_file, amrl_folder / f'{environment_path.name}.vectormap.json')
-    shutil.copyfile(navigation_file, amrl_folder / f'{environment_path.name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, amrl_folder / f'{environment_path.name}.navigation.json')
+    rm_and_copy(vectormap_file, amrl_folder / f'{environment_path.name}.vectormap.txt')
+    rm_and_copy(vectormap_json_file, amrl_folder / f'{environment_path.name}.vectormap.json')
+    rm_and_copy(navigation_file, amrl_folder / f'{environment_path.name}.navigation.txt')
+    rm_and_copy(navigation_json_file, amrl_folder / f'{environment_path.name}.navigation.json')
 
     # TODO - fix this to work better, we are essentially trying to solve for when the user specified a subfolder path
     #  in the name.
@@ -161,20 +164,24 @@ def create_new_env(name: str, template: str = None):
         sub_amrl_folder = (amrl_folder / name).parent
         sub_amrl_folder.mkdir(exist_ok=True, parents=True)
 
-        shutil.copyfile(vectormap_file, sub_amrl_folder / f'{environment_path.name}.vectormap.txt')
-        shutil.copyfile(vectormap_json_file, sub_amrl_folder / f'{environment_path.name}.vectormap.json')
-        shutil.copyfile(navigation_file, sub_amrl_folder / f'{environment_path.name}.navigation.txt')
-        shutil.copyfile(navigation_json_file, sub_amrl_folder / f'{environment_path.name}.navigation.json')
+        rm_and_copy(vectormap_file, sub_amrl_folder / f'{environment_path.name}.vectormap.txt')
+        rm_and_copy(vectormap_json_file, sub_amrl_folder / f'{environment_path.name}.vectormap.json')
+        rm_and_copy(navigation_file, sub_amrl_folder / f'{environment_path.name}.navigation.txt')
+        rm_and_copy(navigation_json_file, sub_amrl_folder / f'{environment_path.name}.navigation.json')
 
     utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / name
     utmulti_folder.mkdir(exist_ok=True, parents=True)
     (utmulti_folder / f'{name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
-    shutil.copyfile(vectormap_file, utmulti_folder / f'{environment_path.name}.vectormap.txt')
-    shutil.copyfile(vectormap_json_file, utmulti_folder / f'{environment_path.name}.vectormap.json')
-    shutil.copyfile(navigation_file, utmulti_folder / f'{environment_path.name}.navigation.txt')
-    shutil.copyfile(navigation_json_file, utmulti_folder / f'{environment_path.name}.navigation.json')
+    rm_and_copy(vectormap_file, utmulti_folder / f'{environment_path.name}.vectormap.txt')
+    rm_and_copy(vectormap_json_file, utmulti_folder / f'{environment_path.name}.vectormap.json')
+    rm_and_copy(navigation_file, utmulti_folder / f'{environment_path.name}.navigation.txt')
+    rm_and_copy(navigation_json_file, utmulti_folder / f'{environment_path.name}.navigation.json')
 
+def rm_and_copy(f1: Path, f2: Path):
+    if f2.exists():
+        os.remove(str(f2))
+    shutil.copyfile(f1, f2)
 
 def all_launch_launch(name: str):
     return \
@@ -260,9 +267,9 @@ def launch_launch():
 """.lstrip()
 
 
-def config_launch_launch():
+def config_launch_launch(map):
     return \
-"""
+f"""
 <launch>
     <arg name="outfile" default="screen" />
 
@@ -270,7 +277,7 @@ def config_launch_launch():
         output="screen"
         args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
 
-    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map=exp1/train/easy"  /><include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
+    <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map={map}"  /><include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
 
     <param name="enable_statistics" value="true" />
 </launch>
@@ -365,7 +372,8 @@ function Vector2(x, y)
     return math.pi * d / 180
   end
 """ + \
-f"map_name =  \"maps/{path}/{name}.vectormap.txt\"" + \
+f"map_name =  \"maps/{path}/{name}.vectormap.txt\"\n" + \
+f"nav_map_name =  \"{path}\"\n" + \
 """
   -- Simulator starting location.
 start_poses = {

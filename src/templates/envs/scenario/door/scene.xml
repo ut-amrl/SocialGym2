@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+    <!--Obstacles-->
+	<obstacle x1="-0.505418" y1="0.505418" x2="0.517172" y2="0.499541"/>
+	<obstacle x1="-0.511295" y1="-0.499541" x2="0.481910" y2="-0.505418"/>
+	<obstacle x1="-0.496897" y1="-0.505178" x2="-0.480334" y2="-5.987613"/>
+	<obstacle x1="0.476665" y1="-0.502861" x2="0.505767" y2="-0.504393"/>
+	<obstacle x1="0.499698" y1="-0.501478" x2="0.506372" y2="-5.997713"/>
+	<obstacle x1="0.503035" y1="0.509669" x2="0.496361" y2="6.002567"/>
+	<obstacle x1="-0.501438" y1="0.499658" x2="-0.511449" y2="6.009241"/>
+	<obstacle x1="-0.505607" y1="5.996546" x2="-6.004400" y2="5.974580"/>
+	<obstacle x1="-6.011722" y1="-6.011469" x2="-0.468998" y2="-6.004147"/>
+	<obstacle x1="-0.481652" y1="-5.984671" x2="-0.478823" y2="-6.011540"/>
+	<obstacle x1="0.515714" y1="6.006639" x2="5.981012" y2="6.013320"/>
+	<obstacle x1="6.021100" y1="-6.019690" x2="6.021100" y2="-6.019690"/>
+	<obstacle x1="6.021100" y1="-6.019690" x2="0.482307" y2="-6.026371"/>
+	<obstacle x1="0.512218" y1="-5.994488" x2="0.507424" y2="-6.025649"/>
+	<obstacle x1="-5.996983" y1="-6.009581" x2="-9.990771" y2="-6.003282"/>
+	<obstacle x1="-9.940376" y1="-5.990683" x2="-9.940376" y2="-5.990683"/>
+	<obstacle x1="-10.009669" y1="-5.996983" x2="-9.990771" y2="6.015881"/>
+	<obstacle x1="-9.990771" y1="6.015881" x2="-5.990683" y2="5.984384"/>
+	<obstacle x1="5.981843" y1="6.013595" x2="9.982440" y2="6.000894"/>
+	<obstacle x1="9.982440" y1="6.000894" x2="10.014191" y2="-6.019945"/>
+	<obstacle x1="10.014191" y1="-6.019945" x2="5.969143" y2="-6.013595"/>
+    <!--Way Points-->
+{% for i in range(position_count) %}
+    <waypoint id="{{ i }}" x="{{ positions[i][0] }}" y = "{{ positions[i][1] }}" r="1" b="0.1"/>
+{% endfor %}
+
+{% for i in range(nav_count) %}
+    <waypoint id="n{{ i }}" x="{{ nav_map[i][0] }}" y = "{{ nav_map[i][1] }}" r="1" b="0.1"/>
+{% endfor %}
+
+    <!-- This Robot Goal Doesn't Matter, but is Required -->
+  <waypoint id="robot_goal" x="{{ robot_end[0] }}" y="{{ robot_end[1] }}" r="2"/>
+  <waypoint id="robot_start" x="{{ robot_start[0] }}" y="{{ robot_start[1] }}" r="2"/>
+
+  <agent x="{{ robot_start[0] }}" y="{{ robot_start[1] }}" n="1" dx="0" dy="0" type="2">
+    <addwaypoint id="robot_start"/>
+    <addwaypoint id="robot_goal"/>
+  </agent>
+
+  {% for human_position in human_positions %}
+  <agent x="{{ human_position[0] }}" y="{{ human_position[1] }}" n="1" dx="{{ dev }}" dy="{{ dev }}" type="0">
+    {% for i in range(3, human_position|length) %}
+    <addwaypoint id="n{{human_position[i]}}" />
+    {% endfor %}
+  </agent>
+  {% endfor %}
+
+</scenario>

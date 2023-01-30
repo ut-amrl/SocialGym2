@@ -113,23 +113,23 @@ class ManualZoneEnv(RosSocialEnv):
 
     def __init__(
             self,
-            start_point: int,
-            end_point: int,
-            width: float,
+            zones: Tuple[int, int, float],
             launch_config: str = f"{ROOT_FOLDER}/config/gym_gen/launch.launch",
             observer: 'Observer' = None,
             rewarder: 'Rewarder' = None,
-            scenario: Scenario = None,
+            scenarios: List[Scenario] = (),
             num_humans: Union[int, Tuple[int, int]] = (5, 25),
             num_agents: Union[int, Tuple[int, int]] = (3, 5),
             debug: bool = False
     ):
+        self.zones = zones
+
         super().__init__(
-            start_point, end_point, width,
+            zones,
             launch_config=launch_config,
             observer=observer,
             rewarder=rewarder,
-            scenario=scenario,
+            scenarios=scenarios,
             num_humans=num_humans,
             num_agents=num_agents,
             debug=debug
@@ -138,8 +138,20 @@ class ManualZoneEnv(RosSocialEnv):
         # Given two points on the navigation graph; create a box of the specified width where the two points are in the
         # middle of either side of the rectangle.
 
-        start = np.array(self.scenario.robot_positions[start_point])
-        end = np.array(self.scenario.robot_positions[end_point])
+
+    def new_scenario(self, num_humans=None, num_agents=None):
+        super().new_scenario(num_humans, num_agents)
+        self.build_zone()
+
+    def build_zone(self):
+        zone = self.zones[self.scenario_idx]
+        scenario = self.scenarios[self.scenario_idx]
+        start_point = zone[0]
+        end_point = zone[1]
+        width = zone[2]
+
+        start = np.array(scenario.robot_positions[start_point])
+        end = np.array(scenario.robot_positions[end_point])
 
         line = end - start
         length = np.linalg.norm(line)
@@ -187,7 +199,12 @@ class RvisZoneVisualization:
     def point(self, points):
         p = Marker()
         p.header.frame_id = "map"
-        p.header.stamp = rospy.Time.now()
+        try:
+            p.header.stamp = rospy.Time.now()
+        except Exception:
+            print('Skipping rvis for manual zone until rospy initialized...')
+            # TODO: Fix this to make it more robust.
+            return
 
         # set shape, Arrow: 0; Cube: 1 ; Sphere: 2 ; Cylinder: 3
         p.type = 8
@@ -227,7 +244,12 @@ class RvisZoneVisualization:
 
     def rect(self, zone):
         self.marker.header.frame_id = "map"
-        self.marker.header.stamp = rospy.Time.now()
+        try:
+            self.marker.header.stamp = rospy.Time.now()
+        except Exception:
+            print('Skipping rvis for manual zone until rospy initialized...')
+            # TODO: Fix this to make it more robust.
+            return
 
         # set shape, Arrow: 0; Cube: 1 ; Sphere: 2 ; Cylinder: 3
         self. marker.type = 1

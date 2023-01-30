@@ -38,6 +38,7 @@ WORKDIR /root
 RUN git clone https://github.com/ut-amrl/vector_display.git
 
 WORKDIR /root/vector_display
+RUN cd /root/vector_display && git checkout feature/better_map_creation
 
 RUN ls
 RUN rm -r maps

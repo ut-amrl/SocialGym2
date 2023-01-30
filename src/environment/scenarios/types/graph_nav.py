@@ -161,7 +161,7 @@ class GraphNavScenario(Scenario):
         self.robot_positions = robot_positions
 
         if self.config_nav_path is not None:
-            self.nav_map = self.load_nav_nodes(self.config_nav_path)
+            self.nav_map, self.nav_lines = self.load_nav_nodes(self.config_nav_path)
             self.robot_positions = nav_map
 
         if isinstance(num_humans, tuple):

@@ -12,12 +12,13 @@ from stable_baselines3.common.vec_env import VecNormalize, VecMonitor
 from stable_baselines3.common.monitor import Monitor
 from src.environment.callbacks.callbacks import EvalCallback, OptunaCallback
 import numpy as np
-from typing import Dict
+from typing import Dict, List, Union
 
 import supersuit as ss
 from functools import partial
 
 from src.environment import ManualZoneEnv
+from src.environment import RosSocialEnv
 from src.environment.rewards import Rewarder, Success, ExistencePenalty, \
   Collisions, LinearWeightScheduler, \
   GoalDistanceChange
@@ -29,13 +30,15 @@ from src.environment.observations.types.manual_zone import AgentInZone, AgentZon
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
   RewardStripper, TimeLimitWrapper
 from src.environment.extractors import LSTMAgentObs
+from src.environment.visuals.nav_map_viz import NavMapViz
 
-from src.environment.scenarios.common_scenarios import exp1_train_scenario, exp2_train_scenario
+from src.environment.scenarios.common_scenarios import envs_door, envs_hallway, envs_intersection, envs_round_about, \
+  envs_open
 from src.environment.scenarios import CycleScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
-from src.environment.utils.utils import get_tboard_writer
+from src.environment.utils.utils import get_tboard_writer, ROOT_FOLDER
 
 seed(1)
 
@@ -47,7 +50,7 @@ class kinds:
 
 
 def run(
-        num_agents: int = 2,
+        num_agents: Union[List[int], int] = 2,
         train_length: int = 100_000,
         eval_frequency: int = 25_000,
         intermediate_eval_trials: int = 25,
@@ -111,7 +114,7 @@ def run(
         policy_algo_kwargs=None,
 
         debug: bool = False,
-        experiment_name: str = 'exp2',
+        experiment_names: List[str] = 'envs_open',
 
 
         run_name: str = None,
@@ -119,6 +122,7 @@ def run(
 
         run_type: str = kinds.sacadrl
 ):
+
   if run_name is None:
     utc_datetime = datetime.datetime.utcnow()
     formated_string = utc_datetime.strftime("%Y-%m-%d-%H%MZ")
@@ -136,7 +140,7 @@ def run(
   exp_tensorboard_folder.mkdir(exist_ok=True, parents=True)
 
   if policy_algo_kwargs is None:
-    policy_algo_kwargs = {'verbose': 3, 'device': device, 'n_steps': 512 * num_agents, 'tensorboard_log': str(exp_tensorboard_folder)}
+    policy_algo_kwargs = {'verbose': 3, 'device': device, 'n_steps': 512 * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]), 'tensorboard_log': str(exp_tensorboard_folder)}
   if 'device' not in policy_algo_kwargs:
     policy_algo_kwargs['device'] = device
   if 'tensorboard_log' not in policy_algo_kwargs:
@@ -144,11 +148,35 @@ def run(
   if 'verbose' not in policy_algo_kwargs:
     policy_algo_kwargs['verbose'] = 3
 
-  if experiment_name == 'exp1':
-    scenario = exp1_train_scenario(level='easy', partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
-  elif experiment_name == 'exp2':
-    scenario = exp2_train_scenario(level='easy', partially_observable=partially_observable,
-                                 config_runner=True if not monitor and not local else False, all_config=monitor and not local)
+  conflict_zone = None
+  scenarios = []
+  zones = []
+  if 'envs_door' in experiment_names:
+    scenario, conflict_zone = envs_door(partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
+    scenarios.append(scenario)
+    zones.append(conflict_zone)
+  if 'envs_hallway' in experiment_names:
+    scenario, conflict_zone = envs_hallway(partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
+    scenarios.append(scenario)
+    zones.append(conflict_zone)
+  if 'envs_intersection' in experiment_names:
+    scenario, conflict_zone = envs_intersection(partially_observable=partially_observable,
+                                           config_runner=True if not monitor and not local else False,
+                                           all_config=monitor and not local)
+    scenarios.append(scenario)
+    zones.append(conflict_zone)
+  if 'envs_round_about' in experiment_names:
+    scenario, conflict_zone = envs_round_about(partially_observable=partially_observable,
+                                                config_runner=True if not monitor and not local else False,
+                                                all_config=monitor and not local)
+    scenarios.append(scenario)
+    zones.append(conflict_zone)
+  if 'envs_open' in experiment_names:
+    scenario, conflict_zone = envs_open(partially_observable=partially_observable,
+                                               config_runner=True if not monitor and not local else False,
+                                               all_config=monitor and not local)
+    scenarios.append(scenario)
+    zones.append(conflict_zone)
 
   observations = []
 
@@ -212,9 +240,14 @@ def run(
   observer = Observer(observations)
   rewarder = Rewarder(rewards)
 
-  ENV_CLASS = partial(ManualZoneEnv, 7, 11, 1.5)
+  # ENV_CLASS = partial(ManualZoneEnv, 7, 11, 1.5)
+  if conflict_zone:
+    ENV_CLASS = partial(ManualZoneEnv, zones)
+  else:
+    ENV_CLASS = partial(RosSocialEnv)
 
-  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenario=scenario, num_humans=0, num_agents=num_agents, debug=debug)
+  # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
+  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else num_agents[-1][1], debug=debug)
 
   if entropy_ender:
     env = EntropyEpisodeEnder(
@@ -235,7 +268,7 @@ def run(
     env = RewardStripper(env)
 
 
-  env = NewScenarioWrapper(env, new_scenario_episode_frequency=1, plans=[[0, 2], [1000, 3], [2000, 4]])
+  env = NewScenarioWrapper(env, new_scenario_episode_frequency=1, plans=num_agents if isinstance(num_agents, list) else [0, num_agents])
 
   env = TensorboardWriter(
     env,
@@ -254,9 +287,10 @@ def run(
 
   env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='stable_baselines3')
 
-  env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
-  env = VecMonitor(env)
+  # env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
+  # env = VecMonitor(env)
 
+  #TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
 
   if policy_algo_sb3_contrib:
@@ -273,13 +307,13 @@ def run(
     eval_freq=eval_frequency,
     best_model_save_path=str(exp_checkpoint_folder),
     eval_report_file=exp_eval_report,
-    number_of_agents=list(range(7))[2:],
+    number_of_agents=num_agents if isinstance(num_agents, int) else [x[1] for x in num_agents],
     tbx_writer=get_tboard_writer(f'{run_name}/tensorboard__{run_type}')
   )
 
   if train:
     model.learn(
-      train_length * num_agents,
+      train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]),
       callback=eval_callback if eval_frequency > 0 else None,
       tb_log_name=str(exp_tensorboard_folder)
     )
@@ -296,7 +330,7 @@ def run(
 
     all_rates = []
 
-    for a in range(2, num_agents + 1):
+    for a in range(1, (num_agents if isinstance(num_agents, int) else num_agents[-1][1])):
       env.unwrapped.vec_envs[0].par_env.unwrapped.in_eval = True
       env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = a
       env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=a)

@@ -41,7 +41,7 @@ class ManualScenario(Scenario):
             num_agents: Union[int, Tuple[int, int]] = 1
     ):
         if self.config_nav_path is not None:
-            self.nav_map = self.load_nav_nodes(self.config_nav_path)
+            self.nav_map, self.nav_lines = self.load_nav_nodes(self.config_nav_path)
             self.robot_positions = self.nav_map
         else:
             raise Exception("Manual scenarios need a custom map")
@@ -51,6 +51,10 @@ class ManualScenario(Scenario):
 
         if isinstance(num_agents, tuple):
             num_agents = randint(num_agents[0], num_agents[1])
+
+        # Only allow the maximum number of paths favoring filling all the spots with robots over humans.
+        num_agents = min(num_agents, len(self.agent_paths))
+        num_humans = max(0, min(num_humans, len(self.agent_paths) - num_agents))
 
         allowed_robot_paths = deepcopy(self.agent_paths)
         robot_paths = []

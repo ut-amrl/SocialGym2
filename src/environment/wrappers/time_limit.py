@@ -33,7 +33,7 @@ class TimeLimitWrapper(BaseParallelWraper):
 
         self.episode_steps += 1
 
-        if self.episode_steps == self.max_steps:
+        if self.episode_steps >= self.max_steps:
             done = {k: True for k in done.keys()}
 
         # return obs, reward, done, truncs, infos
