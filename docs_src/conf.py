@@ -49,7 +49,11 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
+html_logo = "SG2_LOGO.png"
+html_theme_options = {
+    'logo_only': False,
+    'display_version': False,
+}
 
 autodoc_mock_imports = ['roslib', 'amrl_msgs', 'rospy', 'roslaunch', 'gym', 'numpy', 'tensorboardX', 'pettingzoo',
                         'ut_multirobot_sim', 'graph_navigation', 'visualization_msgs', 'geometry_msgs', 'torch',
