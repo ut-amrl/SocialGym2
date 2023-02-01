@@ -23,15 +23,16 @@ def run(
 
     for config in tqdm(configs, total=len(configs), desc='Starting containers'):
         if gpu or prefix_name:
+            c_file = CONFIG_FOLDER / config
             c = {}
-            with config.open('r') as f:
+            with c_file.open('r') as f:
                 c = json.load(f)
             if gpu:
                 c['device'] = gpu
             if prefix_name:
                 c['run_name'] = f"{prefix_name}/{c['run_name'].split('/')[-1]}"
 
-            with config.open('w') as f:
+            with c_file.open('w') as f:
                 json.dump(c, f)
 
         container_name = str(uuid4()).replace('-', '')
@@ -66,7 +67,7 @@ def run(
         print('\n\n------ ------ ------ ------')
         print('Making sure processes are running')
 
-        time.sleep(5)
+        time.sleep(20)
 
         for k, v in status.items():
             if v:
@@ -114,7 +115,7 @@ if __name__ == "__main__":
     if folder is not None:
         configs.extend([f'{folder}/{x.name}' for x in list((CONFIG_FOLDER / folder).glob("*.json"))])
 
-    run(configs, pid_file_tracker=pid_file, gpu=gpu, name=name)
+    run(configs, pid_file_tracker=pid_file, gpu=gpu, prefix_name=name)
 
 
 
