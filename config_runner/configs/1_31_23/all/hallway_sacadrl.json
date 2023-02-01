@@ -1,6 +1,6 @@
 {
   "num_agents": [[0, 3], [35, 4], [70, 5]],
-  "eval_num_agents": [3, 4, 5, 7, 10, 20],
+  "eval_num_agents": [3, 4, 5, 7, 10],
   "train_length": 250000,
   "ending_eval_trials": 25,
   "eval_frequency": 0,
@@ -11,9 +11,9 @@
   "policy_algo_kwargs": {"n_steps":  4096},
   "monitor": false,
 
-  "experiment_names": ["envs_door"],
+  "experiment_names": ["envs_hallway"],
 
-  "run_name": "1_31_23/door/sacadrl_1",
+  "run_name": "1_31_23/all2/hallway_sacadrl",
   "run_type": "SACADRL",
   "device": "cuda:1",
 

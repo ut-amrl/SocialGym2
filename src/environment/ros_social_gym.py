@@ -191,6 +191,25 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         return self.rewarder.reward(self, obs_map)
 
     def new_scenario(self, num_humans=None, num_agents=None):
+        # print("NEW SCENARIO")
+        # if num_agents:
+        #     self.ros_num_agents = [num_agents, num_agents]
+        #     print(f"UPDATING AGENTS: {num_agents}")
+        #     self.possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+        #     self.real_possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+        #
+        #     self.agent_name_mapping = dict(
+        #         zip(self.possible_agents, list(range(len(self.possible_agents))))
+        #     )
+        #
+        #     self.action_spaces = {agent: spaces.Discrete(2) for agent in self.possible_agents}
+        #     self.observer.setup(self)
+        #     self.rewarder.setup(self)
+        #     self.observation_spaces = {
+        #         agent: spaces.Box(low=-9999, high=9999, shape=(len(self.observer),)) for agent in self.possible_agents
+        #     }
+
+
         self.scenario_idx = (self.scenario_idx + 1) % len(self.scenarios)
         self.scenarios[self.scenario_idx].generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
         # Loop through scenarios
@@ -208,6 +227,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def reset(self, seed=None, return_info=False, options=None):
         # if self.debug:
         #     print("RESET")
+        # print("RESET")
         scenario = self.scenarios[self.scenario_idx]
         self.visuals = [NavMapViz(scenario.nav_map, scenario.nav_lines)]
 
@@ -225,11 +245,12 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         #     print(f'Curr Num Agents: {self.curr_num_agents}')
         #     print(f'Length of default action: {len(self.default_action()[0])}')
 
-        NUM_RETRIES = 100
+        NUM_RETRIES = 1_000
 
         time.sleep(1)
 
         retry = 0
+        environment_responses = None
         while retry < NUM_RETRIES:
             try:
                 self.utmrs_service.reset()
@@ -254,12 +275,16 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
                 retry += 1
                 time.sleep(1)
-            except Exception:
+            except Exception as e:
                 # if self.debug:
                 #     print('fail check, retrying')
 
+                print('FAILED RETRY')
+                print(e)
                 retry += 1
                 time.sleep(1)
+
+        assert environment_responses is not None, 'ERROR IN RETRY!'
 
         observations, observation_maps = self.make_observation(environment_responses)
 
@@ -298,7 +323,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             if self.debug:
                 actions[i] = 0
 
-        total_rewards = [0. if len(self.last_reward_maps) == 0 else sum([v for v in self.last_reward_maps[i].values()]) for i in range(len(actions))]
+        total_rewards = [0. if len(self.last_reward_maps) == 0 else sum([v for v in (self.last_reward_maps[i].values() if len(self.last_reward_maps) > i else [0])]) for i in range(len(actions))]
         messages = [f'{i}' for i in range(len(actions))]
 
         if len(self.last_obs_maps) > 0:

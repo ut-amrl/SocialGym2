@@ -1,6 +1,7 @@
 {
-  "num_agents": [[0, 3], [30, 5], [60, 10]],
-  "train_length": 100000,
+  "num_agents": [[0, 3], [1, 4], [10, 5]],
+  "eval_num_agents": [3, 4, 5, 7, 10, 20],
+  "train_length": 250,
   "train": true,
   "ending_eval_trials": 3,
   "intermediate_eval_trials": -1,
@@ -11,10 +12,10 @@
   "policy_algo_kwargs": {"n_steps":  4096},
   "local": true,
   "debug": true,
-  "experiment_names": ["envs_open", "envs_intersection", "envs_door", "envs_hallway", "envs_round_about"],
+  "experiment_names": ["envs_intersection"],
 
 
-  "run_name": "tmp",
+  "run_name": "tmp2",
   "run_type": "SACADRL",
   "device": "cuda:1",
 

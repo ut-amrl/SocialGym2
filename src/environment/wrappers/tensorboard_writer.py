@@ -135,6 +135,12 @@ class TensorboardWriter(BaseParallelWraper):
                 'velocity_changes': int(self.velocity_changes)
             }, episode_count)
 
+        print({
+                'number_of_collisions': self.number_of_collisions,
+                'full_successes': all([x.get('success', 0) for x in self.unwrapped.last_reward_maps]),
+                'successful_agents': sum([1 if x.get('success') else 0 for x in self.unwrapped.last_reward_maps]),
+                'velocity_changes': int(self.velocity_changes)
+            })
         self.number_of_collisions = 0
         self.velocity_changes = 0
 

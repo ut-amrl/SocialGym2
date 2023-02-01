@@ -91,7 +91,7 @@ def create_new_env(name: str, template: str = None):
     # Build config files
     alf = all_launch_launch(name)
     lf = launch_launch()
-    clf = config_launch_launch(f'{name}/{navigation_file.name}')
+    clf = config_launch_launch(name)
     hl = humans_lua()
     pl = pedsim_launch()
     sc = sim_config(name, environment_path.name)

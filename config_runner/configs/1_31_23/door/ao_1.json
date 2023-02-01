@@ -13,9 +13,9 @@
 
   "experiment_names": ["envs_door"],
 
-  "run_name": "1_31_23/door/sacadrl_1",
-  "run_type": "SACADRL",
-  "device": "cuda:1",
+  "run_name": "1_31_23/door/ao_2",
+  "run_type": "AO",
+  "device": "cuda:0",
 
   "other_velocities_obs": true,
   "agent_velocity_obs": true,

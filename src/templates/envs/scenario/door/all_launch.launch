@@ -34,7 +34,8 @@
               </rosparam>
             </group>
         
-            <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map=envs/scenario/door"  /><include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
+            <node pkg="graph_navigation" type="social_nav" name="graph_navigation" output="screen" args="-service_mode=true -map=envs/scenario/door"  />
+            <include file="$(find social_gym)/config/gym_gen/pedsim_launch.launch" />
         
             <param name="enable_statistics" value="true" />
         </launch>

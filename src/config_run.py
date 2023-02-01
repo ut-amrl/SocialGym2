@@ -28,7 +28,7 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
   EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
-  RewardStripper, TimeLimitWrapper
+  RewardStripper, TimeLimitWrapper, ProgressBarWrapper
 from src.environment.extractors import LSTMAgentObs
 from src.environment.visuals.nav_map_viz import NavMapViz
 
@@ -39,6 +39,7 @@ from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
 from src.environment.utils.utils import get_tboard_writer, ROOT_FOLDER
+from tqdm import tqdm
 
 seed(1)
 
@@ -51,6 +52,7 @@ class kinds:
 
 def run(
         num_agents: Union[List[int], int] = 2,
+        eval_num_agents: Union[List[int], int] = None,
         train_length: int = 100_000,
         eval_frequency: int = 25_000,
         intermediate_eval_trials: int = 25,
@@ -122,6 +124,9 @@ def run(
 
         run_type: str = kinds.sacadrl
 ):
+
+  if eval_num_agents is None:
+    eval_num_agents = [num_agents] if isinstance(num_agents, int) else [x[1] for x in num_agents]
 
   if run_name is None:
     utc_datetime = datetime.datetime.utcnow()
@@ -247,7 +252,7 @@ def run(
     ENV_CLASS = partial(RosSocialEnv)
 
   # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
-  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else num_agents[-1][1], debug=debug)
+  env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else max(num_agents[-1][1], eval_num_agents[-1]), debug=debug)
 
   if entropy_ender:
     env = EntropyEpisodeEnder(
@@ -266,6 +271,8 @@ def run(
     env = TimeLimitWrapper(env, max_steps=timelimit_threshold)
   if reward_stripper:
     env = RewardStripper(env)
+
+  # env = ProgressBarWrapper(env, train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]))
 
 
   env = NewScenarioWrapper(env, new_scenario_episode_frequency=1, plans=num_agents if isinstance(num_agents, list) else [0, num_agents])
@@ -287,8 +294,8 @@ def run(
 
   env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='stable_baselines3')
 
-  # env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
-  # env = VecMonitor(env)
+  env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
+  env = VecMonitor(env)
 
   #TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
@@ -307,15 +314,16 @@ def run(
     eval_freq=eval_frequency,
     best_model_save_path=str(exp_checkpoint_folder),
     eval_report_file=exp_eval_report,
-    number_of_agents=num_agents if isinstance(num_agents, int) else [x[1] for x in num_agents],
+    number_of_agents=eval_num_agents,
     tbx_writer=get_tboard_writer(f'{run_name}/tensorboard__{run_type}')
   )
 
   if train:
     model.learn(
-      train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]),
+      total_timesteps=train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]),
       callback=eval_callback if eval_frequency > 0 else None,
-      tb_log_name=str(exp_tensorboard_folder)
+      tb_log_name=str(exp_tensorboard_folder),
+      progress_bar=False
     )
 
     model.save(exp_checkpoint_folder / 'last')
@@ -330,7 +338,7 @@ def run(
 
     all_rates = []
 
-    for a in range(1, (num_agents if isinstance(num_agents, int) else num_agents[-1][1])):
+    for a in tqdm(eval_num_agents, desc='Final Evaluatation....', total=len(eval_num_agents)):
       env.unwrapped.vec_envs[0].par_env.unwrapped.in_eval = True
       env.unwrapped.vec_envs[0].par_env.unwrapped.curr_num_agents = a
       env.unwrapped.vec_envs[0].par_env.unwrapped.new_scenario(num_agents=a)
@@ -347,6 +355,9 @@ def run(
       eval_report[str(a)] = eval_metrics
       all_rates.append(eval_metrics.get('success_rate'))
     eval_report['total'] = sum(all_rates) / len(all_rates)
+
+    print("EVAL REPORT")
+    print(eval_report)
 
     with exp_eval_report.open('w') as f:
       json.dump(eval_report, f)

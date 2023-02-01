@@ -64,6 +64,12 @@ class ManualScenario(Scenario):
             allowed_robot_paths = [x for x in allowed_robot_paths if x[0] != picked_path[0]]
             allowed_robot_paths = [x for x in allowed_robot_paths if x[-1] != picked_path[-1]]
 
+            if len(allowed_robot_paths) == 0:
+                num_agents = i
+                num_humans = 0
+                break
+
+
         robot_starts = [x[0] for x in robot_paths]
         robot_ends = [x[-1] for x in robot_paths]
 

@@ -57,8 +57,8 @@ class UTMRS:
     
     def __init__(self):
         print("Waiting on UTMRS")
-        rospy.wait_for_service('utmrsStepper')
-        rospy.wait_for_service('utmrsReset')
+        rospy.wait_for_service('utmrsStepper', 60*10)
+        rospy.wait_for_service('utmrsReset', 60*10)
 
         self.sim_step = rospy.ServiceProxy('utmrsStepper', utmrsStepper)
         self.sim_reset = rospy.ServiceProxy('utmrsReset', utmrsReset)
