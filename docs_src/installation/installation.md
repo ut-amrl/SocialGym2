@@ -24,9 +24,10 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 
 ---
 
-#### 1.) Checkout the right branch! (Eventually this will be main)
+#### 1.) Clone the repo and checkout the right branch! (Eventually this will be main)
 
 ```shell
+git clone git@github.com:ut-amrl/social_gym.git
 git checkout feature/20221218_multi_agent_finishing_and_cleanup
 ```
 

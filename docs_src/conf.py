@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Social Gym'
+project = 'Social Gym 2.0'
 copyright = '2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas'
 author = 'Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas'
 
