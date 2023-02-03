@@ -1,4 +1,4 @@
-Welcome to Social Gym's documentation!
+Welcome to the Social Gym 2.0 documentation!
 ======================================
 .. toctree::
    :maxdepth: 2

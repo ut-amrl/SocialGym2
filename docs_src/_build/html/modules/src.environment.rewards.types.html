@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.environment.rewards.types package &mdash; Social Gym  documentation</title>
+  <title>src.environment.rewards.types package &mdash; Social Gym 2.0  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -25,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Social Gym
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
             <img src="../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -52,7 +54,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Social Gym</a>
+          <a href="../index.html">Social Gym 2.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -71,14 +73,23 @@
            <div itemprop="articleBody">
              
   <section id="src-environment-rewards-types-package">
-<h1>src.environment.rewards.types package<a class="headerlink" href="#src-environment-rewards-types-package" title="Permalink to this headline"></a></h1>
+<h1>src.environment.rewards.types package<a class="headerlink" href="#src-environment-rewards-types-package" title="Permalink to this heading"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html">src.environment.rewards.types.manual_zone package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#module-src.environment.rewards.types.manual_zone.enforced_order">src.environment.rewards.types.manual_zone.enforced_order module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#module-src.environment.rewards.types.manual_zone.enforced_order">src.environment.rewards.types.manual_zone.enforced_order module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#src.environment.rewards.types.manual_zone.enforced_order.EnforcedOrder"><code class="docutils literal notranslate"><span class="pre">EnforcedOrder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#src.environment.rewards.types.manual_zone.enforced_order.EnforcedOrder.name"><code class="docutils literal notranslate"><span class="pre">EnforcedOrder.name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#src.environment.rewards.types.manual_zone.enforced_order.EnforcedOrder.on_enter"><code class="docutils literal notranslate"><span class="pre">EnforcedOrder.on_enter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#src.environment.rewards.types.manual_zone.enforced_order.EnforcedOrder.on_exit"><code class="docutils literal notranslate"><span class="pre">EnforcedOrder.on_exit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#src.environment.rewards.types.manual_zone.enforced_order.EnforcedOrder.previous_zone_state"><code class="docutils literal notranslate"><span class="pre">EnforcedOrder.previous_zone_state</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.rewards.types.manual_zone.html#module-src.environment.rewards.types.manual_zone">Module contents</a></li>
 </ul>
 </li>
@@ -86,14 +97,14 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-src.environment.rewards.types.collisions">
-<span id="src-environment-rewards-types-collisions-module"></span><h2>src.environment.rewards.types.collisions module<a class="headerlink" href="#module-src.environment.rewards.types.collisions" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-collisions-module"></span><h2>src.environment.rewards.types.collisions module<a class="headerlink" href="#module-src.environment.rewards.types.collisions" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.collisions.Collisions">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.collisions.</span></span><span class="sig-name descname"><span class="pre">Collisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.collisions.Collisions" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Penalty for when the agent collides with something in the environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.collisions.Collisions.name">
@@ -101,15 +112,20 @@
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.collisions.Collisions.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.collisions.Collisions.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.existence_penalty">
-<span id="src-environment-rewards-types-existence-penalty-module"></span><h2>src.environment.rewards.types.existence_penalty module<a class="headerlink" href="#module-src.environment.rewards.types.existence_penalty" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-existence-penalty-module"></span><h2>src.environment.rewards.types.existence_penalty module<a class="headerlink" href="#module-src.environment.rewards.types.existence_penalty" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.existence_penalty.ExistencePenalty">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.existence_penalty.</span></span><span class="sig-name descname"><span class="pre">ExistencePenalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.existence_penalty.ExistencePenalty" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Penalty for every timestep that has not led to success.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.existence_penalty.ExistencePenalty.name">
@@ -117,30 +133,40 @@
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.existence_penalty.ExistencePenalty.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.existence_penalty.ExistencePenalty.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.goal_distance">
-<span id="src-environment-rewards-types-goal-distance-module"></span><h2>src.environment.rewards.types.goal_distance module<a class="headerlink" href="#module-src.environment.rewards.types.goal_distance" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-goal-distance-module"></span><h2>src.environment.rewards.types.goal_distance module<a class="headerlink" href="#module-src.environment.rewards.types.goal_distance" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.goal_distance.GoalDistance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.goal_distance.</span></span><span class="sig-name descname"><span class="pre">GoalDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.goal_distance.GoalDistance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.goal_distance.GoalDistance.name">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.goal_distance.GoalDistance.name" title="Permalink to this definition"></a></dt>
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.goal_distance.GoalDistance.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.goal_distance.GoalDistance.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.goal_distance_change">
-<span id="src-environment-rewards-types-goal-distance-change-module"></span><h2>src.environment.rewards.types.goal_distance_change module<a class="headerlink" href="#module-src.environment.rewards.types.goal_distance_change" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-goal-distance-change-module"></span><h2>src.environment.rewards.types.goal_distance_change module<a class="headerlink" href="#module-src.environment.rewards.types.goal_distance_change" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.goal_distance_change.GoalDistanceChange">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.goal_distance_change.</span></span><span class="sig-name descname"><span class="pre">GoalDistanceChange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.goal_distance_change.GoalDistanceChange" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Simple reward that returns the change in distance to the goal per timestep as a reward.</p>
 <p>I.E.</p>
 <p>timestep 1 -&gt; 5 units to the goal, will return 0
@@ -152,30 +178,40 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.goal_distance_change.GoalDistanceChange.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.goal_distance_change.GoalDistanceChange.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.preferred_velocity">
-<span id="src-environment-rewards-types-preferred-velocity-module"></span><h2>src.environment.rewards.types.preferred_velocity module<a class="headerlink" href="#module-src.environment.rewards.types.preferred_velocity" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-preferred-velocity-module"></span><h2>src.environment.rewards.types.preferred_velocity module<a class="headerlink" href="#module-src.environment.rewards.types.preferred_velocity" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.preferred_velocity.PreferredVelocity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.preferred_velocity.</span></span><span class="sig-name descname"><span class="pre">PreferredVelocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.preferred_velocity.PreferredVelocity" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.preferred_velocity.PreferredVelocity.name">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.preferred_velocity.PreferredVelocity.name" title="Permalink to this definition"></a></dt>
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.preferred_velocity.PreferredVelocity.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.preferred_velocity.PreferredVelocity.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.social_norm_cross">
-<span id="src-environment-rewards-types-social-norm-cross-module"></span><h2>src.environment.rewards.types.social_norm_cross module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_cross" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-social-norm-cross-module"></span><h2>src.environment.rewards.types.social_norm_cross module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_cross" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_cross.SocialNormCross">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_cross.</span></span><span class="sig-name descname"><span class="pre">SocialNormCross</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_to_other_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_agent_to_other_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(-</span> <span class="pre">2.356194490192345,</span> <span class="pre">-</span> <span class="pre">0.7853981633974483)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_cross.SocialNormCross" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_cross.</span></span><span class="sig-name descname"><span class="pre">SocialNormCross</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_to_other_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_agent_to_other_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(-2.356194490192345,</span> <span class="pre">-0.7853981633974483)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_cross.SocialNormCross" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Social Norm Crossing Penalty as defined in <a class="reference external" href="https://arxiv.org/pdf/1703.08862.pdf">https://arxiv.org/pdf/1703.08862.pdf</a> on page 4 eq 12</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_cross.SocialNormCross.dist_to_other_threshold">
@@ -207,11 +243,11 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 
 </section>
 <section id="module-src.environment.rewards.types.social_norm_overtake">
-<span id="src-environment-rewards-types-social-norm-overtake-module"></span><h2>src.environment.rewards.types.social_norm_overtake module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_overtake" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-social-norm-overtake-module"></span><h2>src.environment.rewards.types.social_norm_overtake module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_overtake" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_overtake.SocialNormOvertake">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_overtake.</span></span><span class="sig-name descname"><span class="pre">SocialNormOvertake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.7853981633974483</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_overtake.SocialNormOvertake" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_overtake.</span></span><span class="sig-name descname"><span class="pre">SocialNormOvertake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.7853981633974483</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_overtake.SocialNormOvertake" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Social Norm Overtake Penalty as defined in <a class="reference external" href="https://arxiv.org/pdf/1703.08862.pdf">https://arxiv.org/pdf/1703.08862.pdf</a> on page 4 eq 11</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_overtake.SocialNormOvertake.goal_dist_threshold">
@@ -243,11 +279,11 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 
 </section>
 <section id="module-src.environment.rewards.types.social_norm_pass">
-<span id="src-environment-rewards-types-social-norm-pass-module"></span><h2>src.environment.rewards.types.social_norm_pass module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_pass" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-social-norm-pass-module"></span><h2>src.environment.rewards.types.social_norm_pass module<a class="headerlink" href="#module-src.environment.rewards.types.social_norm_pass" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_pass.SocialNormPass">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_pass.</span></span><span class="sig-name descname"><span class="pre">SocialNormPass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(-</span> <span class="pre">2,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.356194490192345</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_pass.SocialNormPass" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.social_norm_pass.</span></span><span class="sig-name descname"><span class="pre">SocialNormPass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_dist_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(-2,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading_angle_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.356194490192345</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.social_norm_pass.SocialNormPass" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Social Norm Pass Penalty as defined in <a class="reference external" href="https://arxiv.org/pdf/1703.08862.pdf">https://arxiv.org/pdf/1703.08862.pdf</a> on page 4 eq 10</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.rewards.types.social_norm_pass.SocialNormPass.goal_dist_threshold">
@@ -279,11 +315,11 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 
 </section>
 <section id="module-src.environment.rewards.types.success">
-<span id="src-environment-rewards-types-success-module"></span><h2>src.environment.rewards.types.success module<a class="headerlink" href="#module-src.environment.rewards.types.success" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-success-module"></span><h2>src.environment.rewards.types.success module<a class="headerlink" href="#module-src.environment.rewards.types.success" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.success.Success">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.success.</span></span><span class="sig-name descname"><span class="pre">Success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.success.Success" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Reward for when the agent has successfully completed the goal in the env.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.success.Success.name">
@@ -291,15 +327,20 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.success.Success.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.success.Success.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types.velocity_control">
-<span id="src-environment-rewards-types-velocity-control-module"></span><h2>src.environment.rewards.types.velocity_control module<a class="headerlink" href="#module-src.environment.rewards.types.velocity_control" title="Permalink to this headline"></a></h2>
+<span id="src-environment-rewards-types-velocity-control-module"></span><h2>src.environment.rewards.types.velocity_control module<a class="headerlink" href="#module-src.environment.rewards.types.velocity_control" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.types.velocity_control.VelocityControl">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.types.velocity_control.</span></span><span class="sig-name descname"><span class="pre">VelocityControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.types.velocity_control.VelocityControl" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.rewards.reward.Reward</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a></p>
 <p>Penalty for punishing abrupt changes in velocity</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.rewards.types.velocity_control.VelocityControl.name">
@@ -307,11 +348,16 @@ timestep 3 -&gt; 4 units to the goal, will return 3 - 4 -&gt; -1</p>
 <dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.rewards.types.velocity_control.VelocityControl.weight">
+<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#src.environment.rewards.types.velocity_control.VelocityControl.weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-src.environment.rewards.types">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.rewards.types" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.rewards.types" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

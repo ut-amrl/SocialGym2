@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Making docs &mdash; Social Gym  documentation</title>
+  <title>Making docs &mdash; Social Gym 2.0  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -26,7 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Social Gym
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
             <img src="../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -61,7 +63,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Social Gym</a>
+          <a href="../index.html">Social Gym 2.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -80,7 +82,7 @@
            <div itemprop="articleBody">
              
   <section id="making-docs">
-<h1>Making docs<a class="headerlink" href="#making-docs" title="Permalink to this headline"></a></h1>
+<h1>Making docs<a class="headerlink" href="#making-docs" title="Permalink to this heading"></a></h1>
 <p>The source code for all the documentation can be found in <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/docs_src</span></code></p>
 <p>We use <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> to create our documentation and host it in Github Pages.</p>
 <p>Check out <code class="docutils literal notranslate"><span class="pre">docs_src/index.rst</span></code> for the layout of the pages (starting on line 6).  That file will point to the source doc
@@ -92,17 +94,17 @@ previous docs).</p>
 as you save files.) The service is usually hosted on http://127.0.0.1:8000 but it will also tell you where the local
 version of the site is.</p>
 <section id="uploading-changes">
-<h2>Uploading changes<a class="headerlink" href="#uploading-changes" title="Permalink to this headline"></a></h2>
+<h2>Uploading changes<a class="headerlink" href="#uploading-changes" title="Permalink to this heading"></a></h2>
 <section id="run-build-sh">
-<h3>1.) Run <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code><a class="headerlink" href="#run-build-sh" title="Permalink to this headline"></a></h3>
+<h3>1.) Run <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code><a class="headerlink" href="#run-build-sh" title="Permalink to this heading"></a></h3>
 </section>
 <section id="run-git-add-sh">
-<h3>2.) Run <code class="docutils literal notranslate"><span class="pre">./git_add.sh</span></code><a class="headerlink" href="#run-git-add-sh" title="Permalink to this headline"></a></h3>
+<h3>2.) Run <code class="docutils literal notranslate"><span class="pre">./git_add.sh</span></code><a class="headerlink" href="#run-git-add-sh" title="Permalink to this heading"></a></h3>
 </section>
 <section id="the-files-are-now-staged-in-git-you-can-do">
-<h3>3.) The files are now staged in git, you can do<a class="headerlink" href="#the-files-are-now-staged-in-git-you-can-do" title="Permalink to this headline"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -m <span class="s2">&quot;Doc changes&quot;</span>
-git push
+<h3>3.) The files are now staged in git, you can do<a class="headerlink" href="#the-files-are-now-staged-in-git-you-can-do" title="Permalink to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Doc changes&quot;</span>
+git<span class="w"> </span>push
 </pre></div>
 </div>
 <p>and the website should update within the next 5-10minutes.</p>
