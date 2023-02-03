@@ -59,7 +59,7 @@ class EntropyEpisodeEnder(BaseParallelWraper):
             done = {k: True for k in done.keys()}
 
             if self.update_rewards:
-                if self.constant_reward_on_end is not None:
+                if self.constant_reward_on_end:
                     reward = {k: self.constant_reward_on_end if ((self.only_those_that_did_not_finish and not infos.get(k, {}).get('succeeded', False)) or not self.only_those_that_did_not_finish) else v for idx, (k, v)  in enumerate(reward.items())}
                     print(reward)
                 elif self.reward_multiplier:
