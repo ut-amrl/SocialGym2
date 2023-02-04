@@ -24,7 +24,7 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 
 ---
 
-#### 1.) Clone the repo and checkout the right branch! (Eventually this will be main)
+#### 1.) Clone the repo and checkout main
 
 ```shell
 git clone git@github.com:ut-amrl/social_gym.git
