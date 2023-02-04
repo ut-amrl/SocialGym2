@@ -28,7 +28,7 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 
 ```shell
 git clone git@github.com:ut-amrl/social_gym.git
-git checkout feature/20221218_multi_agent_finishing_and_cleanup
+git checkout main
 ```
 
 Although we use Docker to run Social Gym's internals, we have scripts to set up Social Gym as well as scripts that kick
