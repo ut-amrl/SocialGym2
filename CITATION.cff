@@ -11,4 +11,5 @@ authors:
   given-names: "Joydeep"
 title: "SocialGym2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces"
 version: 2.0
+doi: 10.1109/IROS47612.2022.9982021
 url: "https://github.com/ut-amrl/social_gym"
