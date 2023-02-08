@@ -24,6 +24,8 @@ We present SocialGym 2.0, a multi-agent navigation simulator for social robot re
    intro/what_is_social_gym
    intro/features
    intro/making_a_new_scene
+   intro/training_and_eval
+   intro/advanced_training_and_eval
    contributing/making_docs
    :caption: Contents:
 

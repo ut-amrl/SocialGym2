@@ -66,14 +66,14 @@ def run(
         monitor: bool = False,
         local: bool = False,
 
-        existence_penalty: int = 1,
-        success_reward: int = 100,
+        existence_penalty: float = 1,
+        success_reward: float = 100,
 
-        collision_penalty: int = 10,
-        starting_collision_penalty: int = 0,
-        collision_penalty_scale_duration: int = 0,
+        collision_penalty: float = 10,
+        starting_collision_penalty: float = 0,
+        collision_penalty_scale_duration: float = 0,
 
-        enforced_order_reward: int = 25,
+        enforced_order_reward: float = 25,
         enforced_order_track_exit: bool = False,
         enforced_order_penalty_for_incorrect_order: bool = True,
         enforced_order_weak_signal_out_of_zone: bool = False,
@@ -124,6 +124,142 @@ def run(
 
         run_type: str = kinds.sacadrl
 ):
+  """
+  :param num_agents: Int or List[Int] - Either the exact number of agents to use, or an array of the format [[episode #,
+    num of agents], ...] which will alter the number of agents once that episode limit has been reached.  I.E. [[0, 3],
+    [10, 4], [20, 5]] will initially train with 3 agents until episode 10 which will then change to 4 agents and then
+    change to 5 once episode 20 is reached.
+
+  :param eval_num_agents: Int or List[Int] - Either the number of agents to evaluate on or a list of a number of agents
+    to evaluate on (if list, [1, 2], evaluations will run for the number of specified episodes for 1 agent and then
+    agian using 2 agents).
+
+  :param train_length: Int - Number of steps to train for.  (remember each agent requires a step, therefore 500 steps
+    for training 5 agents means each agent will get 100 steps each.
+
+  :param eval_frequency: Int - Interval for running intermediate evaluation (in steps).   0>= will effectively disable
+    evaluation during training.
+
+  :param intermediate_eval_trials: Int - How many episodes to evaluate on during intermediate evaluation.
+
+  :param ending_eval_trials: Int - Number of episodes to evaluate for after training has completed.
+
+  :param ending_eval_with_best: Bool - After training, load up the best model seen during intermediate eval (if False,
+    the most recent checkpoint will be loaded).
+
+  :param device: Str - The torch device to use (cpu/cuda:N/etc.) GPU is highly recommended.
+
+  :param partially_observable: Bool - whether or not LIDAR scans (and thus observations of the ego-agent) can be blocked
+    by objects (walls/other agents/humans etc.)  If False then everything will be observable.
+
+  :param train: Bool - Run training
+
+  :param eval: Bool - Run evaluation
+
+  :param monitor: Bool - Show an RVIS window so you can watch the sim.
+
+  :param local: Bool - If you have graphnav and UTMRS running locally, this will tap the config_runner into those
+    ROSModules.  Has some special requirements and isn't recommended.
+
+  :param existence_penalty: Float - Existence Penalty amount (1 will be a reward of -1 per step).  Disabled if 0.
+
+  :param success_reward: Float - Reward amount for reaching the goal. Disabled if 0.
+
+  :param collision_penalty: Float - Penalty amount for colliding with a wall or agent (1 will be a reward of -1 per step).  Disabled if 0.
+
+  :param starting_collision_penalty: Float - Starting weight of the collision penalty if you want to scale it as training continues.
+
+  :param collision_penalty_scale_duration: Float - Number of steps to linearly scale the collision penalty from the
+    starting_collision_penalty to the ending collision_penalty value over the specified number of STEPs. Disabled when 0
+
+  :param enforced_order_reward: Float - Penalty and Reward amount for entering/exiting the collision zone under specific
+    conditions (controlled via other flags).
+
+  :param enforced_order_track_exit: Bool - Reward/Penalty for agents when they exit the conflict zone
+
+  :param enforced_order_penalty_for_incorrect_order: Bool - Penalty for out of order agents
+
+  :param enforced_order_weak_signal_out_of_zone: Bool - scaled (0.1 * enforced_order_reward) for agents at every
+    timestep regardless of if they are in the conflict zone or not (scales to 1 once agents are in a collision zone).
+
+  :param penalty_for_multiple_agents_entering: Bool - Experimental flag that not only gives a penalty for agents out of
+    order but also a penalty for when agents try to enter the conflict zone at the same time (agents are overlapping
+    with the same edge of a conflict zone at the same time)
+
+  :param goal_distance_reward: Bool - include the goal distance reward.
+
+  :param goal_distance_reward_clip: Bool - clip the goal distance reward to [0, 1]
+
+  :param collision_ender: Bool - End episodes on collisions.
+
+  :param reward_stripper: Bool - When an agent succeeds and remains at the goal state, only give the at goal reward once
+    and then 0 from then on (an attempt to make truncation work, truncation is not supported until https://github.com/DLR-RM/stable-baselines3/pull/780
+    is resolved.
+
+  :param timelimit: Bool - end episodes on a step timelimit.
+
+  :param timelimit_threshold: Int - the number of steps an episode is allowed to have (if the timelimit bool is set to True)
+
+  :param entropy_ender: Bool - End the episode if agents have not moved a sufficient amount over a length of time.
+
+  :param entropy_max_distance: Float - Distance threshold, if below during the duration of the timelimit the episode
+    will end.  1 = one square in RVis (roughly 2meters)
+
+  :param entropy_max_timesteps: Int - number of timesteps that a sufficient distance must be traversed before ending the
+    episode
+
+  :param entropy_reward: Bool - If an episode ends during the entropy wrapper, give a reward/penalty to agents determined
+    by their final state and configuration flags.
+
+  :param entropy_constant_penalty: Int - If EntropyEnder ends an episode all agents recieve this penalty (1 is equal to -1 reward at the end of the episode).
+
+  :param entropy_constant_penalty_only_those_that_did_not_finish: Bool - Constant penalty only applies if the agents didn't finish (reach their goal)
+
+  :param entropy_reward_multiplier: Int - instead of a constant reward, multiply the current reward (step before the episode ended)
+
+  :param entropy_multiply_negative_rewards_only: Bool - Only multiply rewards that are negative (indicating an agent was "stuck forever")
+
+  :param collision_obs: Bool - Include the collision observation (must be true for the collision penalty)
+
+  :param agent_goal_distance_obs: Bool - Include the distance to the goal as an observation (must be true for the goal distance reward)
+
+  :param agent_pose_obs: Bool - Include the agents pose as an observation (x, y, and theta)
+
+  :param agent_pose_ignore_theta: Bool - Ignore the theta value in the pose observation (orientation)
+
+  :param agent_velocity_obs: Bool - Include the agents velocity as an observation (vx, vy, vtheta)
+
+  :param agent_velocity_ignore_theta: Bool - Ignore the theta value in the velocity observation
+
+  :param other_poses_obs: Bool - Include other agents/humans pose information (x, y, theta) as an observation
+
+  :param other_poses_ignore_theta: Bool - Ignore other agents/humans pose thetas
+
+  :param other_velocities_obs: Include other agents/humans velocities in the observation (vx, vy, vtheta)
+
+  :param other_velocities_ignore_theta: Bool - Ignore the velocity thetas of other agents
+
+  :param policy_algo_sb3_contrib: Bool - True if the policy you want to train has it's base code in the SB3-Contrib library
+    i.e. RecurrentPPO
+
+  :param policy_algo_name: Str - Name of the policy class you want to train as it appears in SB3 or SB3-Contrib
+
+  :param policy_name: Str - SB3 Policy structure (MlpPolicy for example)
+
+  :param policy_algo_kwargs: Dict - Any kwargs for the SB3 Policy.
+
+  :param debug: Bool - print statments and ALWAYS GO baseline (gives the action 0 to UTMRS for all agents all the time)
+
+  :param experiment_names: List[str] - List of scenarios currently supported by ConfigRunner (envs_door, envs_hallway,
+    envs_intersection, envs_round_about, envs_open)
+
+  :param run_name: Str - Name of the run that will also be used to store tensorbaord info and checkpoints of the model
+    as well as evaluation data in `{PROJECT ROOT}/data/{run_name}` (can be a nested folder)
+
+  :param continue_from: Str - Policy checkpoint to load from (relative path from `{PROJECT ROOT}/data`)
+
+  :param run_type: Str - Helper for using SACADRL or AO/EO variants. (allowed values are SACADRL, AO, EO)
+  """
 
   if eval_num_agents is None:
     eval_num_agents = [num_agents] if isinstance(num_agents, int) else [x[1] for x in num_agents]

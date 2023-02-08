@@ -14,9 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -45,6 +43,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html#social-gym-features">Social Gym Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
 </ul>
 
@@ -73,9 +74,9 @@
            <div itemprop="articleBody">
              
   <section id="src-package">
-<h1>src package<a class="headerlink" href="#src-package" title="Permalink to this heading"></a></h1>
+<h1>src package<a class="headerlink" href="#src-package" title="Permalink to this headline"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.environment.html">src.environment package</a><ul>
@@ -151,33 +152,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-src.environment.ros_social_gym">src.environment.ros_social_gym module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.AgentColor"><code class="docutils literal notranslate"><span class="pre">AgentColor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.action_space"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.action_space()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.calculate_reward"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.calculate_reward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.close"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.default_action"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.default_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.env_response_type"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.env_response_type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.launch_config"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.launch_config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.make_observation"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.make_observation()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.metadata"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.metadata</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.new_scenario"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.new_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.num_agents"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.num_agents</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.num_humans"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.num_humans</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.observation_space()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.observer"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.observer</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.render"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.render()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.reset"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.rewarder"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.rewarder</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.seed"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.seed()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.sim_step"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.sim_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.state"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.state()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.step"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-src.environment.ros_social_gym">src.environment.ros_social_gym module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-src.environment">Module contents</a></li>
 </ul>
 </li>
@@ -185,16 +160,16 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
 <section id="src-config-run-module">
-<h2>src.config_run module<a class="headerlink" href="#src-config-run-module" title="Permalink to this heading"></a></h2>
+<h2>src.config_run module<a class="headerlink" href="#src-config-run-module" title="Permalink to this headline"></a></h2>
 </section>
 <section id="src-multi-agent-optuna-module">
-<h2>src.multi_agent_optuna module<a class="headerlink" href="#src-multi-agent-optuna-module" title="Permalink to this heading"></a></h2>
+<h2>src.multi_agent_optuna module<a class="headerlink" href="#src-multi-agent-optuna-module" title="Permalink to this headline"></a></h2>
 </section>
 <section id="module-src">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 

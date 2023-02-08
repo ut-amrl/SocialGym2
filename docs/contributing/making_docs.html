@@ -14,13 +14,11 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="How to make a new Scene" href="../intro/making_a_new_scene.html" /> 
+    <link rel="prev" title="Advanced Training and Evaluation" href="../intro/advanced_training_and_eval.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,6 +44,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html#social-gym-features">Social Gym Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Making docs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#uploading-changes">Uploading changes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#run-build-sh">1.) Run <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code></a></li>
@@ -82,7 +83,7 @@
            <div itemprop="articleBody">
              
   <section id="making-docs">
-<h1>Making docs<a class="headerlink" href="#making-docs" title="Permalink to this heading"></a></h1>
+<h1>Making docs<a class="headerlink" href="#making-docs" title="Permalink to this headline"></a></h1>
 <p>The source code for all the documentation can be found in <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/docs_src</span></code></p>
 <p>We use <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> to create our documentation and host it in Github Pages.</p>
 <p>Check out <code class="docutils literal notranslate"><span class="pre">docs_src/index.rst</span></code> for the layout of the pages (starting on line 6).  That file will point to the source doc
@@ -94,17 +95,17 @@ previous docs).</p>
 as you save files.) The service is usually hosted on http://127.0.0.1:8000 but it will also tell you where the local
 version of the site is.</p>
 <section id="uploading-changes">
-<h2>Uploading changes<a class="headerlink" href="#uploading-changes" title="Permalink to this heading"></a></h2>
+<h2>Uploading changes<a class="headerlink" href="#uploading-changes" title="Permalink to this headline"></a></h2>
 <section id="run-build-sh">
-<h3>1.) Run <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code><a class="headerlink" href="#run-build-sh" title="Permalink to this heading"></a></h3>
+<h3>1.) Run <code class="docutils literal notranslate"><span class="pre">./build.sh</span></code><a class="headerlink" href="#run-build-sh" title="Permalink to this headline"></a></h3>
 </section>
 <section id="run-git-add-sh">
-<h3>2.) Run <code class="docutils literal notranslate"><span class="pre">./git_add.sh</span></code><a class="headerlink" href="#run-git-add-sh" title="Permalink to this heading"></a></h3>
+<h3>2.) Run <code class="docutils literal notranslate"><span class="pre">./git_add.sh</span></code><a class="headerlink" href="#run-git-add-sh" title="Permalink to this headline"></a></h3>
 </section>
 <section id="the-files-are-now-staged-in-git-you-can-do">
-<h3>3.) The files are now staged in git, you can do<a class="headerlink" href="#the-files-are-now-staged-in-git-you-can-do" title="Permalink to this heading"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Doc changes&quot;</span>
-git<span class="w"> </span>push
+<h3>3.) The files are now staged in git, you can do<a class="headerlink" href="#the-files-are-now-staged-in-git-you-can-do" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -m <span class="s2">&quot;Doc changes&quot;</span>
+git push
 </pre></div>
 </div>
 <p>and the website should update within the next 5-10minutes.</p>
@@ -116,7 +117,7 @@ git<span class="w"> </span>push
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../intro/making_a_new_scene.html" class="btn btn-neutral float-left" title="How to make a new Scene" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../intro/advanced_training_and_eval.html" class="btn btn-neutral float-left" title="Advanced Training and Evaluation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
