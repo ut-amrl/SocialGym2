@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Training and Evaluation &mdash; Social Gym 2.0  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Making docs" href="../contributing/making_docs.html" />
+    <link rel="prev" title="Training and Evaluation with ConfigRunner" href="training_and_eval.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_social_gym.html">What is Social Gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Social Gym 2.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Advanced Training and Evaluation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/intro/advanced_training_and_eval.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced-training-and-evaluation">
+<h1>Advanced Training and Evaluation<a class="headerlink" href="#advanced-training-and-evaluation" title="Permalink to this headline"></a></h1>
+<p>Social Gym 2.0 uses a familiar Gym-like training loop with some important deviations, an example of training a new
+policy is shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1.) Create the Scenario</span>
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">GraphNavscenario</span><span class="p">(</span><span class="s1">&#39;envs/scenario/hallway&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2.) Creating the Observer through modular Observations that are customizable</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="n">AgentsPose</span><span class="p">(</span><span class="n">ignore_theta</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> 
+  <span class="n">OtherAgentObservables</span><span class="p">(</span><span class="n">ignore_theta</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+  <span class="n">CollisionObservation</span><span class="p">(),</span>
+  <span class="n">SuccessObservation</span><span class="p">()</span>
+<span class="p">]</span>
+<span class="n">observer</span> <span class="o">=</span> <span class="n">Observer</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
+
+<span class="c1"># 3.) Creating the Rewarder with a sparse goal reward and a penalty term that scales over the course of training.</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="n">Success</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+  <span class="n">LinearWeightScheduler</span><span class="p">(</span><span class="n">Collisions</span><span class="p">(),</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">rewarder</span> <span class="o">=</span> <span class="n">Rewarder</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span>
+
+<span class="c1"># 4.) Create the base class</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">RosSocialEnv</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">rewarder</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">num_agents</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># 5.) Custom wrappers</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">EntropyEpisodeEnder</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">NewScenarioWrapper</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">new_scenario_episode_frequency</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">plans</span><span class="o">=</span><span class="n">num_agents</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_agents</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_agents</span><span class="p">])</span>
+
+<span class="c1"># 6.) Wrappers that convert PettingZoo into a Stable Baselines v3 environment</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">black_death_v3</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">pad_observations_v0</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">pad_action_space_v0</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">pettingzoo_env_to_vec_env_v1</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">black_death</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">concat_vec_envs_v1</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_cpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">base_class</span><span class="o">=</span><span class="s1">&#39;stable_baselines3&#39;</span><span class="p">)</span>
+
+<span class="c1"># 7.) Stable Baselines v3 normalization and monitoring wrappers.</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">VecNormalize</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">norm_reward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_obs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">clip_obs</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">VecMonitor</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+  
+<span class="c1"># 8.) Standard Gym Interfacing for Training and Stepping </span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">PPO</span><span class="p">(</span><span class="s2">&quot;MlpPolicy&quot;</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">total_timesteps</span><span class="o">=</span><span class="mi">10_000</span><span class="p">)</span>
+
+<span class="c1"># 9.) Stepping through the environment with a trained policy.</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">env</span><span class="o">.</span><span class="n">agents</span><span class="p">:</span>
+    <span class="n">action</span><span class="p">,</span> <span class="n">_states</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+    <span class="n">obs</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">terminations</span><span class="p">,</span> <span class="n">infos</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="training_and_eval.html" class="btn btn-neutral float-left" title="Training and Evaluation with ConfigRunner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../contributing/making_docs.html" class="btn btn-neutral float-right" title="Making docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
