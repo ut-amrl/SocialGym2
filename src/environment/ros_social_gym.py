@@ -215,7 +215,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         # Loop through scenarios
 
     def default_action(self):
-        actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
+        actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [-1.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
         return actions
 
     def sim_step(self, args):
@@ -333,7 +333,21 @@ class RosSocialEnv(ParallelEnv, EzPickle):
                 elif 'manual_zone_agent_zone_priority_order' in m:
                     messages[idx] = f"{m['manual_zone_agent_zone_priority_order'][0]}"
 
-        environment_responses = self.sim_step([actions, x_vels, y_vels, angle_vels, messages, [AgentColor(reward=total_rewards[i]) for i in range(len(self.agents))]])
+
+        # max_speeds = [min(max(1 / (x.get('manual_zone_agent_zone_priority_order', [-2.])[0] + 1), -1.), 1.) for x in self.last_obs_maps]
+        # max_speeds = [min(max(2 - (x.get('manual_zone_agent_zone_priority_order', [0.])[0] * 0.5), -1.), 2.) for x in self.last_obs_maps]
+        max_speeds = []
+        if len(max_speeds) == 0:
+            max_speeds = [-1.] * self.curr_num_agents
+        environment_responses = self.sim_step([
+            actions,
+            x_vels,
+            y_vels,
+            angle_vels,
+            max_speeds,
+            messages,
+            [AgentColor(reward=total_rewards[i]) for i in range(len(self.agents))]
+        ])
         observations, observation_maps = self.make_observation(environment_responses)
         rewards, reward_maps = self.calculate_reward(observation_maps)
 
