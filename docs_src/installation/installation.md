@@ -45,7 +45,7 @@ Expect this to take a while (20-40m depending on your machine, mostly for the la
 #### 3.) Run the Config Runner!
 
 ```shell
-python config_runner/run.py -c 11_20_22/sacadrl.json
+python config_runner/run.py -c 1_31_23/door/sacadrl.json
 ```
 
 This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY 

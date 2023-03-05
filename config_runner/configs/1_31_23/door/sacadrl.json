@@ -9,7 +9,7 @@
   "policy_algo_name": "PPO",
   "policy_name": "MlpPolicy",
   "policy_algo_kwargs": {"n_steps":  4096},
-  "monitor": false,
+  "monitor": true,
 
   "experiment_names": ["envs_door"],
 

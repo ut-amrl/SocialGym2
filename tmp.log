@@ -1,0 +1,306 @@
+Sending build context to Docker daemon  495.4MB
+Step 1/70 : FROM ros:noetic
+ ---> 4431c3220c78
+Step 2/70 : RUN apt-get update   && apt-get install -y ssh       build-essential       gcc       g++       gdb       clang       cmake       rsync       tar       python       wget   && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 24eddd09159e
+Step 3/70 : RUN apt-get update && apt-get install -y git openssh-server ros-noetic-tf     ros-noetic-geometry* libgflags-dev libgoogle-glog-dev lua5.1-dev     ros-noetic-gazebo-ros ros-noetic-rviz libncurses5-dev python3-pip     python2.7 python-is-python3 neovim curl
+ ---> Using cache
+ ---> 8449f7cc90eb
+Step 4/70 : RUN pip3 install click
+ ---> Using cache
+ ---> d44c3e7319c2
+Step 5/70 : RUN pip3 install jinja2
+ ---> Using cache
+ ---> dfc6038e368a
+Step 6/70 : RUN pip3 install pandas
+ ---> Using cache
+ ---> a30daf854177
+Step 7/70 : RUN pip3 install supersuit==3.5.0
+ ---> Using cache
+ ---> 850582464314
+Step 8/70 : RUN pip3 install stable-baselines3[extra]
+ ---> Using cache
+ ---> d37e2bee59cf
+Step 9/70 : RUN pip3 install pettingzoo==1.19.0
+ ---> Using cache
+ ---> 19145735e4dd
+Step 10/70 : RUN pip3 install gym==0.21.0
+ ---> Using cache
+ ---> 6b9f01608fa4
+Step 11/70 : RUN pip3 install imitation
+ ---> Using cache
+ ---> 8762cbf1e9ec
+Step 12/70 : WORKDIR /tmp
+ ---> Using cache
+ ---> a2a1d47dee9a
+Step 13/70 : RUN apt-get install -y unzip wget
+ ---> Using cache
+ ---> 9f7f52e38220
+Step 14/70 : RUN wget https://github.com/Z3Prover/z3/releases/download/z3-4.8.9/z3-4.8.9-x64-ubuntu-16.04.zip
+ ---> Using cache
+ ---> 598864d234bf
+Step 15/70 : RUN unzip z3-4.8.9-x64-ubuntu-16.04
+ ---> Using cache
+ ---> ca8a41e0818d
+Step 16/70 : RUN cp z3-4.8.9-x64-ubuntu-16.04/bin/libz3.* /usr/bin
+ ---> Using cache
+ ---> 6b7464ebd81b
+Step 17/70 : RUN cp z3-4.8.9-x64-ubuntu-16.04/include/* /usr/include
+ ---> Using cache
+ ---> d7d84d94ce27
+Step 18/70 : RUN yes | pip3 uninstall opencv-python opencv_contrib_python
+ ---> Using cache
+ ---> 16c41d39f912
+Step 19/70 : RUN pip3 install opencv_contrib_python==3.4.14.51
+ ---> Using cache
+ ---> 80b082e69bf1
+Step 20/70 : RUN pip3 install opencv_python==4.5.5.64
+ ---> Using cache
+ ---> cc666ac98b83
+Step 21/70 : ENV NVIDIA_VISIBLE_DEVICES     ${NVIDIA_VISIBLE_DEVICES:-all}
+ ---> Using cache
+ ---> fdfe7fa92bf6
+Step 22/70 : ENV NVIDIA_DRIVER_CAPABILITIES     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+ ---> Using cache
+ ---> 5f9e20d2d64f
+Step 23/70 : ENV QT_QUICK_BACKEND=software
+ ---> Using cache
+ ---> 0611c41f07f2
+Step 24/70 : ENV QT_GRAPHICSSYSTEM="native"
+ ---> Using cache
+ ---> cfe840d71bcb
+Step 25/70 : ENV QT_QPA_PLATFORM=xcb
+ ---> Using cache
+ ---> bd5dc8f63a8e
+Step 26/70 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 31aa2a757651
+Step 27/70 : ENV TERM=xterm
+ ---> Using cache
+ ---> 684d5a6e52e1
+Step 28/70 : ENV QT_X11_NO_MITSHM=1
+ ---> Using cache
+ ---> 483d40561fd7
+Step 29/70 : ENV NVIDIA_VISIBLE_DEVICES=all
+ ---> Using cache
+ ---> 51b8318e9455
+Step 30/70 : ENV NVIDIA_DRIVER_CAPABILITIES=all
+ ---> Using cache
+ ---> df33db4c2ec6
+Step 31/70 : ENV DISPLAY=:0
+ ---> Using cache
+ ---> f563c73a9485
+Step 32/70 : ENV QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
+ ---> Using cache
+ ---> 090cb9607f8f
+Step 33/70 : RUN pip3 install tensorboardX
+ ---> Using cache
+ ---> d4f271d63c51
+Step 34/70 : RUN apt-get update --fix-missing
+ ---> Using cache
+ ---> 965258ff6529
+Step 35/70 : RUN apt-get install -y ros-noetic-cv-bridge
+ ---> Using cache
+ ---> 42fffe346723
+Step 36/70 : RUN pip3 install opencv-python-headless==4.5.2.52
+ ---> Using cache
+ ---> f518d54e524c
+Step 37/70 : RUN pip3 install moviepy
+ ---> Using cache
+ ---> 02fb29a30c0f
+Step 38/70 : RUN apt-get -y install gdb
+ ---> Using cache
+ ---> dd8ac7bd167b
+Step 39/70 : ENV ROS_ROOT=/opt/ros/noetic/share/ros
+ ---> Using cache
+ ---> 0996c4af3837
+Step 40/70 : RUN (     echo 'LogLevel DEBUG2';     echo 'PermitRootLogin yes';     echo 'PasswordAuthentication yes';     echo 'Subsystem sftp /usr/lib/openssh/sftp-server';   ) > /etc/ssh/sshd_config_test_clion   && mkdir /run/sshd
+ ---> Using cache
+ ---> 1f9c80372fa8
+Step 41/70 : RUN apt-get install -y libtf2-ros-dev
+ ---> Using cache
+ ---> ac1750011c23
+Step 42/70 : RUN apt install libgoogle-glog-dev libgflags-dev liblua5.1-0-dev
+ ---> Using cache
+ ---> fef6929694de
+Step 43/70 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 8cd59547ae42
+Step 44/70 : ARG ROS_WS=/home/rosdev/social_gym
+ ---> Using cache
+ ---> cf64e8802882
+Step 45/70 : WORKDIR ${ROS_WS}
+ ---> Using cache
+ ---> 854fe3e8883d
+Step 46/70 : SHELL ["/bin/bash", "-c"]
+ ---> Using cache
+ ---> 89b978e39bc3
+Step 47/70 : RUN apt-get install ros-noetic-roslint
+ ---> Using cache
+ ---> 68589b04a27b
+Step 48/70 : RUN pip install sb3_contrib optuna
+ ---> Using cache
+ ---> d1105861090d
+Step 49/70 : COPY ./submodules ${ROS_WS}/submodules
+ ---> Using cache
+ ---> 83a436e8ea52
+Step 50/70 : WORKDIR ${ROS_WS}/submodules
+ ---> Using cache
+ ---> f701fd3c95ae
+Step 51/70 : COPY ./config_runner/set_paths__pre_pedsim.sh ${ROS_WS}/config_runner/set_paths__pre_pedsim.sh
+ ---> Using cache
+ ---> 20ed6b478c1c
+Step 52/70 : COPY ./config_runner/set_paths.sh ${ROS_WS}/config_runner/set_paths.sh
+ ---> Using cache
+ ---> 7f21b49e0f93
+Step 53/70 : RUN source ${ROS_WS}/config_runner/set_paths__pre_pedsim.sh && cd pedsim_ros && catkin_make
+ ---> Using cache
+ ---> 011ddc8b934a
+Step 54/70 : COPY ./submodules/amrl_msgs ./amrl_msgs
+ ---> Using cache
+ ---> dbb61e087973
+Step 55/70 : RUN source ${ROS_WS}/config_runner/set_paths.sh && cd amrl_msgs && make
+ ---> Using cache
+ ---> b2b5de043cb8
+Step 56/70 : COPY ./submodules/graph_navigation ./graph_navigation
+ ---> Using cache
+ ---> 34685d8ebda4
+Step 57/70 : RUN source ${ROS_WS}/config_runner/set_paths.sh && cd graph_navigation && make
+ ---> Using cache
+ ---> d075372e1b1f
+Step 58/70 : COPY ./submodules/ut_multirobot_sim ./ut_multirobot_sim
+ ---> Using cache
+ ---> f92148a6bd13
+Step 59/70 : RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
+ ---> Using cache
+ ---> e712db929530
+Step 60/70 : RUN source ${ROS_WS}/config_runner/set_paths.sh && cd ut_multirobot_sim && make
+ ---> Using cache
+ ---> f90b28ce6893
+Step 61/70 : RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
+ ---> Using cache
+ ---> 2b7a13decef7
+Step 62/70 : COPY ./scripts ${ROS_WS}/scripts
+ ---> Using cache
+ ---> 12459761722b
+Step 63/70 : COPY ./config ${ROS_WS}/config
+ ---> Using cache
+ ---> f7760fcdbefc
+Step 64/70 : COPY ./manifest.xml ${ROS_WS}/manifest.xml
+ ---> Using cache
+ ---> 58f19a46fd0e
+Step 65/70 : COPY ./config_runner ${ROS_WS}/config_runner
+ ---> 0d132c6ab361
+Step 66/70 : COPY ./src ${ROS_WS}/src
+ ---> e7f0b283cfd1
+Step 67/70 : WORKDIR ${ROS_WS}
+ ---> Running in 43fcb78fa770
+Removing intermediate container 43fcb78fa770
+ ---> 7c61470ab349
+Step 68/70 : RUN pip3 install stable-baselines3[extra]==1.6.2
+ ---> Running in f80205b12936
+Collecting stable-baselines3[extra]==1.6.2
+  Downloading stable_baselines3-1.6.2-py3-none-any.whl (170 kB)
+Requirement already satisfied: importlib-metadata~=4.13 in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (4.13.0)
+Requirement already satisfied: gym==0.21 in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (0.21.0)
+Requirement already satisfied: cloudpickle in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (2.2.1)
+Requirement already satisfied: numpy in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (1.24.1)
+Requirement already satisfied: matplotlib in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (3.6.3)
+Requirement already satisfied: pandas in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (1.5.2)
+Requirement already satisfied: torch>=1.11 in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (1.13.1)
+Requirement already satisfied: rich; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (13.2.0)
+Requirement already satisfied: pillow; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (9.4.0)
+Requirement already satisfied: tqdm; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (4.64.1)
+Requirement already satisfied: opencv-python; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (4.5.5.64)
+Requirement already satisfied: autorom[accept-rom-license]~=0.4.2; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (0.4.2)
+Requirement already satisfied: ale-py==0.7.4; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (0.7.4)
+Requirement already satisfied: psutil; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (5.9.4)
+Requirement already satisfied: tensorboard>=2.9.1; extra == "extra" in /usr/local/lib/python3.8/dist-packages (from stable-baselines3[extra]==1.6.2) (2.11.2)
+Requirement already satisfied: zipp>=0.5 in /usr/local/lib/python3.8/dist-packages (from importlib-metadata~=4.13->stable-baselines3[extra]==1.6.2) (3.11.0)
+Requirement already satisfied: pyparsing>=2.2.1 in /usr/lib/python3/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (2.4.6)
+Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (0.11.0)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (23.0)
+Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (4.38.0)
+Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (1.0.7)
+Requirement already satisfied: python-dateutil>=2.7 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (2.8.2)
+Requirement already satisfied: kiwisolver>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from matplotlib->stable-baselines3[extra]==1.6.2) (1.4.4)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.8/dist-packages (from pandas->stable-baselines3[extra]==1.6.2) (2022.7)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu11==11.7.99; platform_system == "Linux" in /usr/local/lib/python3.8/dist-packages (from torch>=1.11->stable-baselines3[extra]==1.6.2) (11.7.99)
+Requirement already satisfied: nvidia-cudnn-cu11==8.5.0.96; platform_system == "Linux" in /usr/local/lib/python3.8/dist-packages (from torch>=1.11->stable-baselines3[extra]==1.6.2) (8.5.0.96)
+Requirement already satisfied: nvidia-cublas-cu11==11.10.3.66; platform_system == "Linux" in /usr/local/lib/python3.8/dist-packages (from torch>=1.11->stable-baselines3[extra]==1.6.2) (11.10.3.66)
+Requirement already satisfied: nvidia-cuda-runtime-cu11==11.7.99; platform_system == "Linux" in /usr/local/lib/python3.8/dist-packages (from torch>=1.11->stable-baselines3[extra]==1.6.2) (11.7.99)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.8/dist-packages (from torch>=1.11->stable-baselines3[extra]==1.6.2) (4.4.0)
+Requirement already satisfied: markdown-it-py<3.0.0,>=2.1.0 in /usr/local/lib/python3.8/dist-packages (from rich; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.1.0)
+Requirement already satisfied: pygments<3.0.0,>=2.6.0 in /usr/local/lib/python3.8/dist-packages (from rich; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.14.0)
+Requirement already satisfied: importlib-resources; python_version < "3.9" in /usr/local/lib/python3.8/dist-packages (from autorom[accept-rom-license]~=0.4.2; extra == "extra"->stable-baselines3[extra]==1.6.2) (5.10.2)
+Requirement already satisfied: requests in /usr/lib/python3/dist-packages (from autorom[accept-rom-license]~=0.4.2; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.22.0)
+Requirement already satisfied: click in /usr/local/lib/python3.8/dist-packages (from autorom[accept-rom-license]~=0.4.2; extra == "extra"->stable-baselines3[extra]==1.6.2) (8.1.3)
+Requirement already satisfied: AutoROM.accept-rom-license; extra == "accept-rom-license" in /usr/local/lib/python3.8/dist-packages (from autorom[accept-rom-license]~=0.4.2; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.5.4)
+Requirement already satisfied: google-auth<3,>=1.6.3 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.16.0)
+Requirement already satisfied: google-auth-oauthlib<0.5,>=0.4.1 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.4.6)
+Requirement already satisfied: protobuf<4,>=3.9.2 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (3.20.1)
+Requirement already satisfied: setuptools>=41.0.0 in /usr/lib/python3/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (45.2.0)
+Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.6.1)
+Requirement already satisfied: werkzeug>=1.0.1 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.2.2)
+Requirement already satisfied: grpcio>=1.24.3 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (1.51.1)
+Requirement already satisfied: wheel>=0.26 in /usr/lib/python3/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.34.2)
+Requirement already satisfied: markdown>=2.6.8 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (3.4.1)
+Requirement already satisfied: absl-py>=0.4 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (1.4.0)
+Requirement already satisfied: tensorboard-plugin-wit>=1.6.0 in /usr/local/lib/python3.8/dist-packages (from tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (1.8.1)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3/dist-packages (from python-dateutil>=2.7->matplotlib->stable-baselines3[extra]==1.6.2) (1.14.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.8/dist-packages (from markdown-it-py<3.0.0,>=2.1.0->rich; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.1.2)
+Requirement already satisfied: libtorrent in /usr/local/lib/python3.8/dist-packages (from AutoROM.accept-rom-license; extra == "accept-rom-license"->autorom[accept-rom-license]~=0.4.2; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.0.7)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in /usr/local/lib/python3.8/dist-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (5.3.0)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in /usr/local/lib/python3.8/dist-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.2.8)
+Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3.6" in /usr/local/lib/python3.8/dist-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (4.9)
+Requirement already satisfied: requests-oauthlib>=0.7.0 in /usr/local/lib/python3.8/dist-packages (from google-auth-oauthlib<0.5,>=0.4.1->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (1.3.1)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /usr/local/lib/python3.8/dist-packages (from werkzeug>=1.0.1->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (2.1.1)
+Requirement already satisfied: pyasn1<0.5.0,>=0.4.6 in /usr/local/lib/python3.8/dist-packages (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (0.4.8)
+Requirement already satisfied: oauthlib>=3.0.0 in /usr/local/lib/python3.8/dist-packages (from requests-oauthlib>=0.7.0->google-auth-oauthlib<0.5,>=0.4.1->tensorboard>=2.9.1; extra == "extra"->stable-baselines3[extra]==1.6.2) (3.2.2)
+[91mERROR: sb3-contrib 1.7.0 has requirement stable-baselines3>=1.7.0, but you'll have stable-baselines3 1.6.2 which is incompatible.
+[0mInstalling collected packages: stable-baselines3
+  Attempting uninstall: stable-baselines3
+    Found existing installation: stable-baselines3 1.7.0
+    Uninstalling stable-baselines3-1.7.0:
+      Successfully uninstalled stable-baselines3-1.7.0
+Successfully installed stable-baselines3-1.6.2
+Removing intermediate container f80205b12936
+ ---> 161fb4782fb8
+Step 69/70 : RUN pip3 install gym==0.26.2
+ ---> Running in 80ff80e7fcc9
+Processing /root/.cache/pip/wheels/17/79/65/7afedc162d858b02708a3b8f7a6dd5b1000dcd5b0f894f7cc1/gym-0.26.2-py3-none-any.whl
+Requirement already satisfied: numpy>=1.18.0 in /usr/local/lib/python3.8/dist-packages (from gym==0.26.2) (1.24.1)
+Requirement already satisfied: importlib-metadata>=4.8.0; python_version < "3.10" in /usr/local/lib/python3.8/dist-packages (from gym==0.26.2) (4.13.0)
+Requirement already satisfied: cloudpickle>=1.2.0 in /usr/local/lib/python3.8/dist-packages (from gym==0.26.2) (2.2.1)
+Requirement already satisfied: gym-notices>=0.0.4 in /usr/local/lib/python3.8/dist-packages (from gym==0.26.2) (0.0.8)
+Requirement already satisfied: zipp>=0.5 in /usr/local/lib/python3.8/dist-packages (from importlib-metadata>=4.8.0; python_version < "3.10"->gym==0.26.2) (3.11.0)
+[91mERROR: stable-baselines3 1.6.2 has requirement gym==0.21, but you'll have gym 0.26.2 which is incompatible.
+ERROR: sb3-contrib 1.7.0 has requirement stable-baselines3>=1.7.0, but you'll have stable-baselines3 1.6.2 which is incompatible.
+ERROR: imitation 0.3.2 has requirement gym[classic_control]==0.21.0, but you'll have gym 0.26.2 which is incompatible.
+[0mInstalling collected packages: gym
+  Attempting uninstall: gym
+    Found existing installation: gym 0.21.0
+    Uninstalling gym-0.21.0:
+      Successfully uninstalled gym-0.21.0
+Successfully installed gym-0.26.2
+Removing intermediate container 80ff80e7fcc9
+ ---> 7848fe9c9276
+Step 70/70 : RUN pip3 install torch==1.12.1
+ ---> Running in 7ded98fa61cd
+Collecting torch==1.12.1
+  Downloading torch-1.12.1-cp38-cp38-manylinux1_x86_64.whl (776.3 MB)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.8/dist-packages (from torch==1.12.1) (4.4.0)
+[91mERROR: stable-baselines3 1.6.2 has requirement gym==0.21, but you'll have gym 0.26.2 which is incompatible.
+ERROR: sb3-contrib 1.7.0 has requirement stable-baselines3>=1.7.0, but you'll have stable-baselines3 1.6.2 which is incompatible.
+[0m[91mERROR: imitation 0.3.2 has requirement gym[classic_control]==0.21.0, but you'll have gym 0.26.2 which is incompatible.
+[0mInstalling collected packages: torch
+  Attempting uninstall: torch
+    Found existing installation: torch 1.13.1
+    Uninstalling torch-1.13.1:
+      Successfully uninstalled torch-1.13.1
+Successfully installed torch-1.12.1
+Removing intermediate container 7ded98fa61cd
+ ---> 96a7ae9d17b2
+Successfully built 96a7ae9d17b2
+Successfully tagged social_gym_config_runner:1.0

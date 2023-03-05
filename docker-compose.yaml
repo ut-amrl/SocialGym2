@@ -53,12 +53,18 @@ services:
     volumes:
       - src:/home/rosdev/social_gym:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
 #      - /tmp/.docker.xauth:/tmp/.docker.xauth
     ports:
       - "2223:22"
     depends_on:
       - social_gym_image
       - rosmaster
+
+    # Using the host system's IPC namespace fixes UI glitches in rviz.
+    #
+    # https://stackoverflow.com/a/68490352
+    ipc: host
 
 
   simulation:
