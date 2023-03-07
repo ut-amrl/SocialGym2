@@ -3,6 +3,9 @@ from ut_multirobot_sim.srv import utmrsStepper
 from ut_multirobot_sim.srv import utmrsReset
 
 import rospy
+import traceback
+import inspect
+
 import roslib
 from typing import List, Tuple, ClassVar
 import numpy as np
@@ -56,8 +59,14 @@ class UTMRSResponse:
 class UTMRS:
     
     def __init__(self):
-        print("Waiting on UTMRS")
+        print('+++', flush=True)
+        print(traceback.print_stack(), flush=True)
+        print('====', flush=True)
+        print(inspect.stack(), flush=True)
+        print('------', flush=True)
+        print("Waiting on UTMRS", flush=True)
         rospy.wait_for_service('utmrsStepper', 60*10)
+        print("Found UTMRS", flush=True)
         rospy.wait_for_service('utmrsReset', 60*10)
 
         self.sim_step = rospy.ServiceProxy('utmrsStepper', utmrsStepper)

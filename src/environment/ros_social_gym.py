@@ -67,6 +67,30 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
     env_response_type: ClassVar[UTMRSResponse]
 
+    def __new__(
+            cls,
+            *args,
+            launch_config: str = f"{ROOT_FOLDER}/config/gym_gen/launch.launch",
+            observer: 'Observer' = None,
+            rewarder: 'Rewarder' = None,
+            scenarios: List[Scenario] = (),
+            num_humans: Union[int, Tuple[int, int]] = (5, 25),
+            num_agents: Union[int, Tuple[int, int]] = (3, 5),
+            debug: bool = False,
+            visuals=None,
+            **kwargs
+    ):
+        """ creates a singleton object, if it is not created,
+        or else returns the previous singleton object"""
+
+        instance_name = f'instance'
+        if False:
+            return super(RosSocialEnv, cls).__new__(cls)
+
+        if not hasattr(cls, instance_name):
+            setattr(cls, instance_name, super(RosSocialEnv, cls).__new__(cls))
+        return getattr(cls, instance_name)
+
     def __init__(
             self,
             *args,
@@ -90,8 +114,10 @@ class RosSocialEnv(ParallelEnv, EzPickle):
           generated between x and y
         """
 
-        self.black_death = True
-
+        if hasattr(self, 'instantiated'):
+            print("We've already instantiated yo!", flush=True)
+            return
+        
         EzPickle.__init__(
             self,
             *args,
@@ -105,12 +131,16 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             **kwargs
         )
 
+
+        self.black_death = True
+
         self.debug = debug
         self.in_eval = False
         self.visuals = visuals
         self.scenarios = scenarios
         self.scenario_idx = 0
 
+        print(f"NUMBER OF AGENTS: {num_agents}")
         if isinstance(num_agents, int):
             self.ros_num_agents = num_agents, num_agents
         else:
@@ -124,6 +154,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
 
         self.possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+        print(f"POSSILBE AGENT LENGHT: {len(self.possible_agents)}", flush=True)
         self.real_possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
 
         self.agent_name_mapping = dict(
@@ -142,6 +173,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         self.new_scenario()
 
+
         self.launch_config = launch_config
 
         self.num_humans = num_humans
@@ -152,6 +184,13 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.agents = None
         self.terminations = None
 
+
+        self.last_obs_maps = []
+        self.last_reward_maps = []
+        self.terminations_ = [False] * len(self.possible_agents)
+
+
+
         # Initialize as necessary here
         rospy.init_node('RosSocialEnv', anonymous=True)
 
@@ -161,19 +200,24 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
         self.launch.start()
 
+        # time.sleep(5)
+
         self.utmrs_service = UTMRS()
         self.env_response_type = UTMRSResponse
 
         self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
 
-        self.launch.shutdown()
-        self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
-        self.launch.start()
+        print("THIS HAS CHANGED", flush=True)
 
-        self.last_obs_maps = []
-        self.last_reward_maps = []
-        self.terminations_ = [False] * len(self.possible_agents)
+        # self.launch.shutdown()
 
+        # time.sleep(5)
+
+        # self.launch = roslaunch.parent.ROSLaunchParent(uuid, [self.launch_config])
+        # self.launch.start()
+
+        self.instantiated = True
+   
 
     def close(self):
         pass
@@ -191,17 +235,18 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         return self.rewarder.reward(self, obs_map)
 
     def new_scenario(self, num_humans=None, num_agents=None):
-        # print("NEW SCENARIO")
+        # print("NEW SCENARIO", flush=True)
         # if num_agents:
         #     self.ros_num_agents = [num_agents, num_agents]
         #     print(f"UPDATING AGENTS: {num_agents}")
         #     self.possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
+        #     print(f"UPDATING LENGTH OF POSSIBLE AGENTS: {len(self.possible_agents)}", flush=True)
         #     self.real_possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
-        #
+        
         #     self.agent_name_mapping = dict(
         #         zip(self.possible_agents, list(range(len(self.possible_agents))))
         #     )
-        #
+        
         #     self.action_spaces = {agent: spaces.Discrete(2) for agent in self.possible_agents}
         #     self.observer.setup(self)
         #     self.rewarder.setup(self)
@@ -211,11 +256,15 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
 
         self.scenario_idx = (self.scenario_idx + 1) % len(self.scenarios)
+        print("BEFORE PYLANCE ISSUE", flush=True)
         self.scenarios[self.scenario_idx].generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
+        print("AFTER PYLANCE ISSUE",)
         # Loop through scenarios
+        return None
 
     def default_action(self):
         actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [-1.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
+        # actions = [[0] * self.curr_num_agents, [0.] * self.curr_num_agents,  [0.] * self.curr_num_agents, [0.] * self.curr_num_agents, [f'{i}' for i in range(self.curr_num_agents)], [AgentColor() for i in range(self.curr_num_agents)]]
         return actions
 
     def sim_step(self, args):
@@ -279,7 +328,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
                 # if self.debug:
                 #     print('fail check, retrying')
 
-                print('FAILED RETRY')
+                print('FAILED RETRY', flush=True)
                 print(e)
                 retry += 1
                 time.sleep(1)

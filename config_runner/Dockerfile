@@ -119,7 +119,9 @@ RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
 RUN source ${ROS_WS}/config_runner/set_paths.sh && cd ut_multirobot_sim && make
 
 RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
-
+RUN pip3 install stable-baselines3[extra]==1.6.2
+RUN pip3 install sb3_contrib
+RUN pip3 install torch==1.12.1
 COPY ./scripts ${ROS_WS}/scripts
 
 COPY ./config ${ROS_WS}/config
@@ -129,8 +131,9 @@ COPY ./config_runner ${ROS_WS}/config_runner
 COPY ./src ${ROS_WS}/src
 
 WORKDIR ${ROS_WS}
-RUN pip3 install stable-baselines3[extra]==1.6.2
+
+RUN pip3 install supersuit==3.5.0
 RUN pip3 install gym==0.26.2
-RUN pip3 install torch==1.12.1
+
 
 #RUN source scripts/set_paths.sh && make

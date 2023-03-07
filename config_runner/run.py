@@ -22,6 +22,7 @@ def run(
     names_to_config = {}
 
     for config in tqdm(configs, total=len(configs), desc='Starting containers'):
+        print("AAAAAAAAAAAAAAAA" + config)
         if gpu or prefix_name:
             c_file = CONFIG_FOLDER / config
             c = {}
@@ -63,31 +64,31 @@ def run(
 
     status = {k: False for k in container_names}
 
-    while any([not x for x in status.values()]):
-        print('\n\n------ ------ ------ ------')
-        print('Making sure processes are running')
+    # while any([not x for x in status.values()]):
+    #     print('\n\n------ ------ ------ ------')
+    #     print('Making sure processes are running')
 
-        time.sleep(20)
+    #     time.sleep(20)
 
-        for k, v in status.items():
-            if v:
-                continue
+    #     for k, v in status.items():
+    #         if v:
+    #             continue
 
-            out = subprocess.check_output(['docker', 'logs', k], stderr=subprocess.PIPE)
+    #         out = subprocess.check_output(['docker', 'logs', k], stderr=subprocess.PIPE)
 
-            if 'started roslaunch server' in str(out):
-                print(f'{k} started correctly!')
-                status[k] = True
-            else:
-                print(f'{k} is being restarted!')
-                subprocess.run(['docker', 'kill', k], stdout=subprocess.PIPE)
-                subprocess.run(['docker', 'rm', k], stdout=subprocess.PIPE)
+    #         if 'started roslaunch server' in str(out):
+    #             print(f'{k} started correctly!')
+    #             status[k] = True
+    #         else:
+    #             print(f'{k} is being restarted!')
+    #             subprocess.run(['docker', 'kill', k], stdout=subprocess.PIPE)
+    #             subprocess.run(['docker', 'rm', k], stdout=subprocess.PIPE)
 
-                subprocess.run([str(ROOT_FOLDER / 'run_config.sh'), k,
-                                f'/home/rosdev/social_gym/config_runner/configs/{names_to_config[k]}'], stdout=subprocess.PIPE)
+    #             subprocess.run([str(ROOT_FOLDER / 'run_config.sh'), k,
+    #                             f'/home/rosdev/social_gym/config_runner/configs/{names_to_config[k]}'], stdout=subprocess.PIPE)
 
-                print("Delaying for the container to load...")
-                time.sleep(10)
+    #             print("Delaying for the container to load...")
+    #             time.sleep(20)
 
     print('All containers are running!')
 
