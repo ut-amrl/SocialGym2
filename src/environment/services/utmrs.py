@@ -59,14 +59,7 @@ class UTMRSResponse:
 class UTMRS:
     
     def __init__(self):
-        print('+++', flush=True)
-        print(traceback.print_stack(), flush=True)
-        print('====', flush=True)
-        print(inspect.stack(), flush=True)
-        print('------', flush=True)
-        print("Waiting on UTMRS", flush=True)
         rospy.wait_for_service('utmrsStepper', 60*10)
-        print("Found UTMRS", flush=True)
         rospy.wait_for_service('utmrsReset', 60*10)
 
         self.sim_step = rospy.ServiceProxy('utmrsStepper', utmrsStepper)

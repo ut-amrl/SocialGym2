@@ -1,8 +1,7 @@
 
         <launch>
             <arg name="outfile" default="screen" />
-        
-            <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator" cwd="node"
+            <node pkg="ut_multirobot_sim" type="simulator_link" name="simulator11" cwd="node"
                 output="screen"
                 args="-sim_config $(find social_gym)/config/gym_gen/sim_config.lua -scene_config $(find social_gym)/config/gym_gen/scene.xml -speedup_factor 1.0 --localize --use_pedsim" />
         
