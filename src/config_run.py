@@ -261,7 +261,6 @@ def run(
   :param run_type: Str - Helper for using SACADRL or AO/EO variants. (allowed values are SACADRL, AO, EO)
   """
 
-  print("HERE", flush=True)
 
   if eval_num_agents is None:
     eval_num_agents = [num_agents] if isinstance(num_agents, int) else [x[1] for x in num_agents]
@@ -385,12 +384,10 @@ def run(
 
   # ENV_CLASS = partial(ManualZoneEnv, 7, 11, 1.5)
   if conflict_zone:
-    print("PARTIAL", flush=True)
     ENV_CLASS = partial(ManualZoneEnv, zones)
   else:
     ENV_CLASS = partial(RosSocialEnv)
 
-  print("INIT ENV", flush=True)
   # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
   env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else max(num_agents[-1][1], eval_num_agents[-1]), debug=debug)
 
@@ -496,7 +493,6 @@ def run(
       all_rates.append(eval_metrics.get('success_rate'))
     eval_report['total'] = sum(all_rates) / len(all_rates)
 
-    print("EVAL REPORT")
     print(eval_report)
 
     with exp_eval_report.open('w') as f:

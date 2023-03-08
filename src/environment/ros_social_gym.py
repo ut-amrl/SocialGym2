@@ -115,7 +115,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         """
 
         if hasattr(self, 'instantiated'):
-            print("We've already instantiated yo!", flush=True)
             return
         
         EzPickle.__init__(
@@ -140,7 +139,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.scenarios = scenarios
         self.scenario_idx = 0
 
-        print(f"NUMBER OF AGENTS: {num_agents}")
         if isinstance(num_agents, int):
             self.ros_num_agents = num_agents, num_agents
         else:
@@ -154,7 +152,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
 
         self.possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
-        print(f"POSSILBE AGENT LENGHT: {len(self.possible_agents)}", flush=True)
         self.real_possible_agents = [f"player_{r}" for r in range(max(self.ros_num_agents))]
 
         self.agent_name_mapping = dict(
@@ -207,7 +204,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         self.pipsSrv = rospy.ServiceProxy('SocialPipsSrv', SocialPipsSrv)
 
-        print("THIS HAS CHANGED", flush=True)
 
         # self.launch.shutdown()
 
@@ -256,9 +252,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
 
         self.scenario_idx = (self.scenario_idx + 1) % len(self.scenarios)
-        print("BEFORE PYLANCE ISSUE", flush=True)
         self.scenarios[self.scenario_idx].generate_scenario(num_humans if num_humans else self.ros_num_humans, num_agents if num_agents else self.curr_num_agents)
-        print("AFTER PYLANCE ISSUE",)
         # Loop through scenarios
         return None
 
@@ -327,8 +321,6 @@ class RosSocialEnv(ParallelEnv, EzPickle):
             except Exception as e:
                 # if self.debug:
                 #     print('fail check, retrying')
-
-                print('FAILED RETRY', flush=True)
                 print(e)
                 retry += 1
                 time.sleep(1)

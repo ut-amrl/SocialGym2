@@ -22,7 +22,6 @@ def run(
     names_to_config = {}
 
     for config in tqdm(configs, total=len(configs), desc='Starting containers'):
-        print("AAAAAAAAAAAAAAAA" + config)
         if gpu or prefix_name:
             c_file = CONFIG_FOLDER / config
             c = {}
