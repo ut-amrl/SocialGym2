@@ -1,4 +1,4 @@
- <h1 style="text-align: center;"> SocialGym 2 </h1>
+ <!-- <h1 style="text-align: center;"> SocialGym 2 </h1> -->
 
 <p align="center">
   <img src="https://drive.google.com/uc?id=1E0DkXdHRfS9gjSX33-NaKLS9duwHwK68" width="400" />
