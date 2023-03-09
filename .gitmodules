@@ -1,18 +1,24 @@
 [submodule "submodules/ut_multirobot_sim"]
 	path = submodules/ut_multirobot_sim
 	url = https://github.com/ut-amrl/ut_multirobot_sim.git
+	ignore = dirty
 [submodule "submodules/graph_navigation"]
 	path = submodules/graph_navigation
 	url = https://github.com/ut-amrl/graph_navigation.git
+	ignore = dirty
 [submodule "submodules/amrl_msgs"]
 	path = submodules/amrl_msgs
 	url = https://github.com/ut-amrl/amrl_msgs.git
+	ignore = dirty
 [submodule "submodules/amrl_maps"]
 	path = submodules/amrl_maps
 	url = https://github.com/ut-amrl/amrl_maps.git
+	ignore = dirty
 [submodule "submodules/pips"]
 	path = submodules/pips
 	url = https://github.com/ut-amrl/pips.git
+	ignore = dirty
 [submodule "submodules/pedsim_ros/src/pedsim_ros"]
 	path = submodules/pedsim_ros/src/pedsim_ros
 	url = https://github.com/simon-andrews/pedsim_ros.git
+	ignore = dirty
