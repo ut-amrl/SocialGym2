@@ -1,11 +1,10 @@
  <!-- <h1 style="text-align: center;"> SocialGym 2 </h1> -->
 
 <p align="center">
-  <img src="https://drive.google.com/uc?id=1E0DkXdHRfS9gjSX33-NaKLS9duwHwK68" width="400" />
+  <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" width="400" />
 </p>
 
-
-This is the codebase for our multi-agent simulator for real world social navigation. Find the documentation (currently under active development) at https://amrl.cs.utexas.edu/social_gym/index.html.
+This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided at https://amrl.cs.utexas.edu/social_gym/index.html (currently under active development).
 
 <!-- 
 <p align="center">
