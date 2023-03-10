@@ -43,6 +43,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html#social-gym-features">Social Gym Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
 </ul>
 
@@ -79,7 +82,7 @@
 <span id="src-environment-environment-types-manual-zone-module"></span><h2>src.environment.environment_types.manual_zone module<a class="headerlink" href="#module-src.environment.environment_types.manual_zone" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.environment_types.manual_zone.</span></span><span class="sig-name descname"><span class="pre">ManualZoneEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.environment_types.manual_zone.</span></span><span class="sig-name descname"><span class="pre">ManualZoneEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/home/rosdev/social_gym/config/gym_gen/launch.launch'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Observer</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rewarder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Rewarder</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenarios</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="src.environment.scenarios.html#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">src.environment.scenarios.scenario.Scenario</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_humans</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(5,</span> <span class="pre">25)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(3,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visuals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv" title="src.environment.ros_social_gym.RosSocialEnv"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.ros_social_gym.RosSocialEnv</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.agents_priority_orders">
@@ -91,14 +94,44 @@
 <span class="sig-name descname"><span class="pre">build_zone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.build_zone" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.env_response_type">
+<span class="sig-name descname"><span class="pre">env_response_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">UTMRSResponse</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.env_response_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.launch_config">
+<span class="sig-name descname"><span class="pre">launch_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.launch_config" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.new_scenario">
 <span class="sig-name descname"><span class="pre">new_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_humans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_agents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.new_scenario" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.num_agents">
+<span class="sig-name descname"><span class="pre">num_agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.num_agents" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.num_humans">
+<span class="sig-name descname"><span class="pre">num_humans</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.num_humans" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.observer">
+<span class="sig-name descname"><span class="pre">observer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Observer</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.observer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.reset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneEnv.rewarder">
+<span class="sig-name descname"><span class="pre">rewarder</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Rewarder</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneEnv.rewarder" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -123,6 +156,26 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.collision">
+<span class="sig-name descname"><span class="pre">collision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.collision" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.done">
+<span class="sig-name descname"><span class="pre">done</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.done" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.door_pose">
+<span class="sig-name descname"><span class="pre">door_pose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.array</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.door_pose" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.door_state">
+<span class="sig-name descname"><span class="pre">door_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.door_state" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.entering">
 <span class="sig-name descname"><span class="pre">entering</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.entering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -133,8 +186,33 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.follow_target">
+<span class="sig-name descname"><span class="pre">follow_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.follow_target" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.goal_pose">
+<span class="sig-name descname"><span class="pre">goal_pose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.array</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.goal_pose" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.human_poses">
+<span class="sig-name descname"><span class="pre">human_poses</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.human_poses" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.human_vels">
+<span class="sig-name descname"><span class="pre">human_vels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.human_vels" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.in_zone">
 <span class="sig-name descname"><span class="pre">in_zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.in_zone" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.local_target">
+<span class="sig-name descname"><span class="pre">local_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.array</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.local_target" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -147,14 +225,44 @@
 <span class="sig-name descname"><span class="pre">number_agents_exiting</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.number_agents_exiting" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.other_robot_poses">
+<span class="sig-name descname"><span class="pre">other_robot_poses</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.other_robot_poses" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.other_robot_vels">
+<span class="sig-name descname"><span class="pre">other_robot_vels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.other_robot_vels" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.process">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.environment.environment_types.manual_zone.ManualZoneEnv" title="src.environment.environment_types.manual_zone.ManualZoneEnv"><span class="pre">src.environment.environment_types.manual_zone.ManualZoneEnv</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="src.environment.services.html#src.environment.services.utmrs.UTMRSResponse" title="src.environment.services.utmrs.UTMRSResponse"><span class="pre">src.environment.services.utmrs.UTMRSResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.process" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_poses">
+<span class="sig-name descname"><span class="pre">robot_poses</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.array</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_poses" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_state">
+<span class="sig-name descname"><span class="pre">robot_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_state" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_vels">
+<span class="sig-name descname"><span class="pre">robot_vels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.array</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.robot_vels" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.set_zone_vars">
 <span class="sig-name descname"><span class="pre">set_zone_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">robot_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.environment.environment_types.manual_zone.ManualZoneEnv" title="src.environment.environment_types.manual_zone.ManualZoneEnv"><span class="pre">src.environment.environment_types.manual_zone.ManualZoneEnv</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">others</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse" title="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse"><span class="pre">src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.set_zone_vars" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.success">
+<span class="sig-name descname"><span class="pre">success</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#src.environment.environment_types.manual_zone.ManualZoneUTMRSResponse.success" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

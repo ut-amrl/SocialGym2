@@ -13,7 +13,9 @@ Welcome to the Social Gym 2.0 documentation!
 (This documentation is currently under active development.)
 
 
-We present SocialGym 2.0, a multi-agent navigation simulator for social robot research. Our simulator models multiple autonomous agents, replicating real-world dynamics in complex environments, including doorways, hallways, intersections, and roundabouts. Unlike traditional simulators that concentrate on single robots with basic kinematic constraints in open spaces, SocialGym 2.0 employs multi-agent reinforcement learning (MARL) to develop optimal navigation policies for multiple robots with diverse, dynamic constraints in complex environments. Built on the PettingZoo MARL library and Stable Baselines3 API, SocialGym 2.0 offers an accessible python interface that integrates with a navigation stack through ROS messaging. SocialGym 2.0 can be easily installed and is packaged in a docker container, and it provides the capability to swap and evaluate different MARL algorithms, as well as customize observation and reward functions. We also provide scripts to allow users to create their own environments and have conducted benchmarks using various social navigation algorithms, reporting a broad range of social navigation metrics.
+SocialGym 2.0 is a lightweight 2D simulation environment for robot social navigation.  It allows for multi-agent and single-agent scenarios as well as dynamic obstacles for testing complex social navigation.  Social Gym's foundation is in ROS (Robot Operating System) which we surface via a python API.  This allows for all the training, evaluation, and experimentation to be done in Python similar to Stable Baselines or PettingZoo.  However, because it's built on top of ROS, it's also easy to extend with ROS submodules to experiment with more complex simulations like lidar maps etc. 
+
+It's important to note that you do not need to know ROS or C++ to develop and work with Social Gym.  We worked hard to make the implementation abstracted from each other!
 
 
 .. toctree::
@@ -21,7 +23,6 @@ We present SocialGym 2.0, a multi-agent navigation simulator for social robot re
 
    installation/installation
    installation/advanced_usage
-   intro/what_is_social_gym
    intro/features
    intro/making_a_new_scene
    intro/training_and_eval

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Social Gym 2.0 documentation! &mdash; Social Gym 2.0  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Social Gym 2.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Welcome to the Social Gym 2.0 documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_site/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-the-social-gym-2-0-documentation">
+<h1>Welcome to the Social Gym 2.0 documentation!<a class="headerlink" href="#welcome-to-the-social-gym-2-0-documentation" title="Permalink to this headline"></a></h1>
+<p>(Find the GitHub link at <a class="reference external" href="https://github.com/ut-amrl/social_gym">https://github.com/ut-amrl/social_gym</a>)</p>
+<a class="reference internal image-reference" href="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif"><img alt="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" class="align-center" src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>(This documentation is currently under active development.)</p>
+<p>We present SocialGym 2.0, a multi-agent navigation simulator for social robot research. Our simulator models multiple autonomous agents, replicating real-world dynamics in complex environments, including doorways, hallways, intersections, and roundabouts. Unlike traditional simulators that concentrate on single robots with basic kinematic constraints in open spaces, SocialGym 2.0 employs multi-agent reinforcement learning (MARL) to develop optimal navigation policies for multiple robots with diverse, dynamic constraints in complex environments. Built on the PettingZoo MARL library and Stable Baselines3 API, SocialGym 2.0 offers an accessible python interface that integrates with a navigation stack through ROS messaging. SocialGym 2.0 can be easily installed and is packaged in a docker container, and it provides the capability to swap and evaluate different MARL algorithms, as well as customize observation and reward functions. We also provide scripts to allow users to create their own environments and have conducted benchmarks using various social navigation algorithms, reporting a broad range of social navigation metrics.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#why-are-there-two-installation-guides-for-social-gym">Why are there two installation guides for Social Gym</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#let-s-install-config-runner">Let’s Install Config Runner!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation/advanced_usage.html">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/advanced_usage.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/advanced_usage.html#advanced-usage-setup-buckle-up">Advanced Usage setup (buckle up!)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/advanced_usage.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intro/what_is_social_gym.html">What is Social Gym</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro/what_is_social_gym.html#social-gym-s-stack">Social Gym’s Stack</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/making_a_new_scene.html">How to make a new Scene</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro/making_a_new_scene.html#creating-a-new-environment">Creating a new environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/making_docs.html">Making docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/making_docs.html#uploading-changes">Uploading changes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="../search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

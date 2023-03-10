@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.environment.observations.types.manual_zone package &mdash; Social Gym 2.0  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="../../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/what_is_social_gym.html">What is Social Gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/making_docs.html">Making docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Social Gym 2.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">src.environment.observations.types.manual_zone package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/_site/modules/src.environment.observations.types.manual_zone.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-environment-observations-types-manual-zone-package">
+<h1>src.environment.observations.types.manual_zone package<a class="headerlink" href="#src-environment-observations-types-manual-zone-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-src.environment.observations.types.manual_zone.agent_in_zone">
+<span id="src-environment-observations-types-manual-zone-agent-in-zone-module"></span><h2>src.environment.observations.types.manual_zone.agent_in_zone module<a class="headerlink" href="#module-src.environment.observations.types.manual_zone.agent_in_zone" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_in_zone.AgentInZone">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.observations.types.manual_zone.agent_in_zone.</span></span><span class="sig-name descname"><span class="pre">AgentInZone</span></span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_in_zone.AgentInZone" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../modules/src.environment.observations.html#src.environment.observations.observation.Observation" title="src.environment.observations.observation.Observation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.observations.observation.Observation</span></code></a></p>
+<p>Tracks if the agent is in the zone</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_in_zone.AgentInZone.name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_in_zone.AgentInZone.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.environment.observations.types.manual_zone.agent_zone_current_order">
+<span id="src-environment-observations-types-manual-zone-agent-zone-current-order-module"></span><h2>src.environment.observations.types.manual_zone.agent_zone_current_order module<a class="headerlink" href="#module-src.environment.observations.types.manual_zone.agent_zone_current_order" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_zone_current_order.AgentZoneCurrentOrder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.observations.types.manual_zone.agent_zone_current_order.</span></span><span class="sig-name descname"><span class="pre">AgentZoneCurrentOrder</span></span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_zone_current_order.AgentZoneCurrentOrder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../modules/src.environment.observations.html#src.environment.observations.observation.Observation" title="src.environment.observations.observation.Observation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.observations.observation.Observation</span></code></a></p>
+<p>Tracks the current order of the agent in the zone</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_zone_current_order.AgentZoneCurrentOrder.name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_zone_current_order.AgentZoneCurrentOrder.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.environment.observations.types.manual_zone.agent_zone_priority_order">
+<span id="src-environment-observations-types-manual-zone-agent-zone-priority-order-module"></span><h2>src.environment.observations.types.manual_zone.agent_zone_priority_order module<a class="headerlink" href="#module-src.environment.observations.types.manual_zone.agent_zone_priority_order" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_zone_priority_order.AgentZonePriorityOrder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.observations.types.manual_zone.agent_zone_priority_order.</span></span><span class="sig-name descname"><span class="pre">AgentZonePriorityOrder</span></span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_zone_priority_order.AgentZonePriorityOrder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../modules/src.environment.observations.html#src.environment.observations.observation.Observation" title="src.environment.observations.observation.Observation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.environment.observations.observation.Observation</span></code></a></p>
+<p>Tracks the current order of the agent in the zone</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.observations.types.manual_zone.agent_zone_priority_order.AgentZonePriorityOrder.name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.observations.types.manual_zone.agent_zone_priority_order.AgentZonePriorityOrder.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.environment.observations.types.manual_zone">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.observations.types.manual_zone" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

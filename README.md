@@ -4,14 +4,16 @@
   <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" width="400" />
 </p>
 
-This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided at https://amrl.cs.utexas.edu/social_gym/index.html (currently under active development).
+This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided in the [**documentation**](https://amrl.cs.utexas.edu/social_gym/index.html) (currently under active development).
 
 <!-- 
 <p align="center">
   <img src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" width="400" />
 </p> -->
+# Read the paper 
+ [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**]()
 
-
+<br>
 
 # Installation
 
@@ -28,7 +30,7 @@ git clone git@github.com:ut-amrl/social_gym.git
 git checkout main
 ```
 
-### 2.) Install requirements and run the install script!
+### 2.) Install requirements and run the install script
 
 ```shell
 python3 ./scripts/install_config_runner.py

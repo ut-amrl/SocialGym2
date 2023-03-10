@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to make a new Scene &mdash; Social Gym 2.0  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="../../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/making_docs.html">Making docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Social Gym 2.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">How to make a new Scene</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/_site/intro/making_a_new_scene.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-make-a-new-scene">
+<h1>How to make a new Scene<a class="headerlink" href="#how-to-make-a-new-scene" title="Permalink to this headline"></a></h1>
+<p>Scene (or environments) are what the agents are trained on.  They consist of two important objects, the first are walls
+(denoted by blue lines).  The next are navigation paths (denoted by pink/purple lines).  These are explained a bit
+below.</p>
+<hr class="docutils" />
+<p>Walls are pretty straight forward, an agent cannot move through them and they are static.</p>
+<p>Navigation graphs act as a local plan for agents to follow.  This is why we are able to reduce our actions to just 0 and
+1 (0 for stop and 1 for go), where go implies “follow the navigation graph”. A navigation graph is a collection of nodes
+connected by straight line edges.  An agent is then given a set of nodes to reach, where the first in the list is the
+starting position and each node after should lead the agent to the last defining a trajectory.</p>
+<p>So, for example, an agent may have the set of nodes [0, 1, 2, 3] which would mean the agent will initialize at the
+node 0, then traverse the edge connecting nodes 0 and 1, then 1 and 2, then 2 and 3, once the agent has reached node 3
+a success observation will be triggered from the simulation.</p>
+<p>You can manually set paths for agents using the ManualScenario class or you can allow the GraphNav ROS Submodule to
+randomly assign valid trajectories to each agent.</p>
+<p>When creating a scene, it’s important to keep the navigation graph in mind so you can create complex environments
+effectively!</p>
+<hr class="docutils" />
+<section id="creating-a-new-environment">
+<h2>Creating a new environment<a class="headerlink" href="#creating-a-new-environment" title="Permalink to this headline"></a></h2>
+<p>We have an easy script for creating brand new scenes!  It also allows editing scenes, or using an existing scene as a
+template for a new one.  We’ll give a brief intro into how to make a new scene below.</p>
+<section id="using-your-local-python-interpreter-of-choice-run">
+<h3>1.) Using your local python interpreter of choice, run<a class="headerlink" href="#using-your-local-python-interpreter-of-choice-run" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python scripts/create_env_template --name <span class="o">{</span>NAME YOUR NEW ENV HERE<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="if-you-have-followed-the-installation-guide-you-should-see-a-window-pop-up-if-not-double-check-that-social-gym-was-installed-correctly">
+<h3>2.) If you have followed the Installation guide you should see a window pop up (if not double check that Social Gym was installed correctly).<a class="headerlink" href="#if-you-have-followed-the-installation-guide-you-should-see-a-window-pop-up-if-not-double-check-that-social-gym-was-installed-correctly" title="Permalink to this headline"></a></h3>
+<p>This window is the Walls editor!  It’s most likely blank on your screen, but you can add new walls by using
+<code class="docutils literal notranslate"><span class="pre">[Shift]</span> <span class="pre">+</span> <span class="pre">[Click]</span> <span class="pre">+</span> <span class="pre">Mouse</span> <span class="pre">Drag</span></code></p>
+<p>Remove walls by <code class="docutils literal notranslate"><span class="pre">[Control]</span> <span class="pre">+</span> <span class="pre">[Click]</span></code></p>
+<p>When you are satisfied with your walls, hit <code class="docutils literal notranslate"><span class="pre">[Escape]</span></code></p>
+</section>
+<section id="a-new-window-should-have-popped-up-that-looks-exactly-like-the-last-but-now-we-are-in-the-graph-navigation-editor">
+<h3>3.) A new window should have popped up that looks exactly like the last, but now we are in the Graph Navigation editor!<a class="headerlink" href="#a-new-window-should-have-popped-up-that-looks-exactly-like-the-last-but-now-we-are-in-the-graph-navigation-editor" title="Permalink to this headline"></a></h3>
+<p>The controls are the same except for one crucial difference.  In the Graph Navigation editor, you create “Nodes” that
+can connect to each other through “Edges”.  You must place “Nodes” first before you can draw an “Edge”.</p>
+<p>Create a node by hitting <code class="docutils literal notranslate"><span class="pre">[Shift]</span> <span class="pre">+</span> <span class="pre">[Click]</span></code>, Be advised - the nodes are literally the size of a pixel so they may be hard
+to see.</p>
+<p>Once two nodes are placed, draw a line between them via <code class="docutils literal notranslate"><span class="pre">[Shift]</span> <span class="pre">+</span> <span class="pre">[Click]</span> <span class="pre">+</span> <span class="pre">Mouse</span> <span class="pre">Drag</span></code>.  If you did it right, a
+dialogue box will open.  However, it does require that the starting point of the edge and the ending point of the edge
+are sufficiently close to the nodes you want to connect for the dialogue box to show.  So if you don’t see one, try to
+draw the edge closer to the nodes.</p>
+<p>Once the dialogue box has opened, you can simply accept all the default values (Social Gym makes no distinctions on
+these values).</p>
+<p>To remove nodes or edges use <code class="docutils literal notranslate"><span class="pre">[Control]</span> <span class="pre">+</span> <span class="pre">[Click]</span></code></p>
+<p>Hit <code class="docutils literal notranslate"><span class="pre">[Escape]</span></code> when done.</p>
+</section>
+<section id="your-scene-has-been-created-and-the-files-are-in-the-right-spot-but-now-you-have-to-update-the-social-gym-code-to">
+<h3>4.) Your Scene has been created and the files are in the right spot, but now you have to update the Social Gym code to<a class="headerlink" href="#your-scene-has-been-created-and-the-files-are-in-the-right-spot-but-now-you-have-to-update-the-social-gym-code-to" title="Permalink to this headline"></a></h3>
+<p>reference your new scene.  The easiest way to do this is to define a new <code class="docutils literal notranslate"><span class="pre">GraphNavScenario</span></code> scenario like so</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   <span class="c1">#...</span>
+   <span class="n">scenario</span> <span class="o">=</span> <span class="n">GraphNavScenario</span><span class="p">(</span>
+       <span class="s2">&quot;NAME OF YOUR ENVIRONMENT HERE, same as the --name param you passed in before&quot;</span><span class="p">,</span>
+   <span class="p">)</span>
+  <span class="c1">#...</span>
+  <span class="n">env</span> <span class="o">=</span> <span class="n">ENV_CLASS</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">observer</span><span class="p">,</span> <span class="n">rewarder</span><span class="o">=</span><span class="n">rewarder</span><span class="p">,</span> <span class="n">scenario</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span> <span class="n">num_humans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_agents</span><span class="o">=</span><span class="n">num_agents</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">config_run.py</span></code> file.  A better way of choosing scenes is in progress, but for now you can specify your scenes
+in the config_run file directly.</p>
+<p>That’s it!</p>
+<hr class="docutils" />
+<p>NOTE:  If you use the <code class="docutils literal notranslate"><span class="pre">ManualScenario</span></code> class or the <code class="docutils literal notranslate"><span class="pre">ManualZoneEnv</span></code> you will have to distinguish your nodes.  Meaning
+that you need to know which node is which (what is node 0, 1, 2, etc.)</p>
+<p>This is because, <code class="docutils literal notranslate"><span class="pre">ManualScenario</span></code> requires that you give it valid paths for your agents to traverse in the navigation
+graph.  And the <code class="docutils literal notranslate"><span class="pre">ManualZoneEnv</span></code> requires you to pick two points that define a conflict zone (like two opposite points
+on either side of a hallway).  In order to know these, you need to know the values of the nodes on the graph and it’s
+not guaranteed to be the order that you placed them.</p>
+<p>We have a way to tell which node is which via the <code class="docutils literal notranslate"><span class="pre">CycleScenario</span></code> class.  This will effectively place an agent at each
+node starting from node 0 to N and it will print which node it is currently on.  We recommend using this scenario to
+build out a map and label your navigation graph (though a better way is being developed).  In order to get <code class="docutils literal notranslate"><span class="pre">CycleScenario</span></code>
+to work properly you should use a timeout wrapper and avoid the entropyender wrapper.</p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
