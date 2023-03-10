@@ -15,7 +15,7 @@ The paper for Social Gym 1.0 can also be found [here](https://arxiv.org/abs/2109
 Although a lot has changed in Social Gym 2.0, most of the functionality from Social Gym 1.0 remained with small tweaks
 required. An itemized list of features are below with indicators (*) for new features!
 
-# Social Gym Features
+### Social Gym Features
 
 - Multi Agent training! *
   - Single Agent training is as easy as setting the max number of agents to 1.

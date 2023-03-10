@@ -1,4 +1,4 @@
-#### Training and Evaluation with ConfigRunner
+# Training and Evaluation with ConfigRunner
 
 To ease batch training jobs we created a wrapper class around the training and evaluation code that can be configured 
 via a configuration file (.yaml file)

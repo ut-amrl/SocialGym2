@@ -35,8 +35,7 @@ template for a new one.  We'll give a brief intro into how to make a new scene b
 python scripts/create_env_template --name {NAME YOUR NEW ENV HERE}
 ```
 
-#### 2.) If you have followed the Installation guide you should see a window pop up (if not double check that Social Gym was
-installed correctly).
+#### 2.) If you have followed the Installation guide you should see a window pop up (if not double check that Social Gym was installed correctly).
 
 This window is the Walls editor!  It's most likely blank on your screen, but you can add new walls by using 
 `[Shift] + [Click] + Mouse Drag`

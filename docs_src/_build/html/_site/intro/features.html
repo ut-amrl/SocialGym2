@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What’s new in Social Gym 2.0 from the original release? &mdash; Social Gym 2.0  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="../../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/what_is_social_gym.html">What is Social Gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/making_a_new_scene.html">How to make a new Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/making_docs.html">Making docs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Social Gym 2.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">What’s new in Social Gym 2.0 from the original release?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/_site/intro/features.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="what-s-new-in-social-gym-2-0-from-the-original-release">
+<h1>What’s new in Social Gym 2.0 from the original release?<a class="headerlink" href="#what-s-new-in-social-gym-2-0-from-the-original-release" title="Permalink to this headline"></a></h1>
+<p>Social Gym 2.0 focused on multiagent training, enhanced feature extraction and policy modeling, modular control over
+environments and training, as well as various quality of life improvements to make training, evaluating, experimenting,
+and developing easier!</p>
+<hr class="docutils" />
+<p>A permanent link to Social Gym 1.0 can be found <a class="reference external" href="https://github.com/ut-amrl/social_gym/tree/release/social_gym_1.0">here</a></p>
+<p>The paper for Social Gym 1.0 can also be found <a class="reference external" href="https://arxiv.org/abs/2109.11011">here</a></p>
+<hr class="docutils" />
+<p>Although a lot has changed in Social Gym 2.0, most of the functionality from Social Gym 1.0 remained with small tweaks
+required. An itemized list of features are below with indicators (*) for new features!</p>
+</section>
+<section id="social-gym-features">
+<h1>Social Gym Features<a class="headerlink" href="#social-gym-features" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Multi Agent training! *</p>
+<ul>
+<li><p>Single Agent training is as easy as setting the max number of agents to 1.</p></li>
+<li><p>You can control the observations and rewards of each agent in a modular way. *</p></li>
+<li><p>Vary the number of agents during training and evaluation. *</p></li>
+</ul>
+</li>
+<li><p>Control over the environment and simulator! *</p>
+<ul>
+<li><p>Use or create your own Stable Baselines / Pettingzoo environment wrappers to control the environment.</p></li>
+<li><p>Agents can be colored or labeled for visualization needs. *</p></li>
+<li><p>Change scenes/environments as needed throughout training and evaluation. *</p></li>
+<li><p>Toggle partial or full observability. *</p></li>
+</ul>
+</li>
+<li><p>Helper classes to create your own observations and rewards. *</p></li>
+<li><p>Easy docker container for creating your own Environment and Navigation Graphs. *</p></li>
+<li><p>Tensorboard implementation to help visualize the training process including tracking of important values and recordings of the simulator. *</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zayne Sprague, Jarrett Holtz, Rohan Chandra, Joydeep Biswas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

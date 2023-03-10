@@ -2,16 +2,13 @@
 
 ---
 
-There's a FAQ at the bottom (maybe worth reading first).  Expect this process to take about 3-6 hours :/ 
+Welcome to the Advanced Usage doc!  Here, we will be setting up Social Gym so that each submodule runs on it's
+own, allowing you to set up debuggers and step through each C submodule and the python code! There's a FAQ at the bottom about common errors you might encounter.
 
-**WARNING**: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We
-recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via
+**WARNING**: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via
 `apt`.
 
 ---
-
-Welcome to the Advanced Usage doc!  Here, we will be setting up Social Gym so that each submodule runs on it's
-own, allowing you to set up debuggers and step through each C submodule and the python code!
 
 ## Requirements
 
