@@ -11,7 +11,7 @@ This is the codebase for our multi-agent simulator for real world social navigat
   <img src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" width="400" />
 </p> -->
 # Read the paper 
- [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**]()
+ [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9982021)
 
 <br>
 
