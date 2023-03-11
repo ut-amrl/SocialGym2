@@ -1,7 +1,6 @@
 # Advanced Training and Evaluation
 
-Social Gym 2.0 uses a familiar Gym-like training loop with some important deviations, an example of training a new 
-policy is shown below.
+Social Gym 2.0 uses a familiar Gym-like training loop with some important deviations, an example of training a new policy is shown below.
 
 ```python
 # 1.) Create the Scenario

@@ -1,4 +1,4 @@
-#  Making docs
+#  Updating docs
 
 The source code for all the documentation can be found in `{PROJECT_ROOT}/docs_src`
 

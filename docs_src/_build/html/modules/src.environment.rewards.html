@@ -7,6 +7,7 @@
   <title>src.environment.rewards package &mdash; Social Gym 2.0  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -39,14 +40,11 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/advanced_usage.html">Advanced Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/what_is_social_gym.html">What is Social Gym</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/features.html">How does SocialGym 2 work ?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html#configrunner-configurations">ConfigRunner Configurations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Updating docs</a></li>
 </ul>
 
         </div>
@@ -168,12 +166,12 @@ data_map object, calculate a float scalar as a reward.</p>
 <span id="src-environment-rewards-rewarder-module"></span><h2>src.environment.rewards.rewarder module<a class="headerlink" href="#module-src.environment.rewards.rewarder" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.environment.rewards.rewarder.Rewarder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.rewarder.</span></span><span class="sig-name descname"><span class="pre">Rewarder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registered_rewards</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><span class="pre">src.environment.rewards.reward.Reward</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.rewarder.Rewarder" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.rewarder.</span></span><span class="sig-name descname"><span class="pre">Rewarder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registered_rewards</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../_site/modules/src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><span class="pre">src.environment.rewards.reward.Reward</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.rewarder.Rewarder" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that handles storing reward classes, calling them to sum their reward, and logging if a logger is given.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.environment.rewards.rewarder.Rewarder.registered_rewards">
-<span class="sig-name descname"><span class="pre">registered_rewards</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><span class="pre">src.environment.rewards.reward.Reward</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.rewards.rewarder.Rewarder.registered_rewards" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">registered_rewards</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../_site/modules/src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><span class="pre">src.environment.rewards.reward.Reward</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.environment.rewards.rewarder.Rewarder.registered_rewards" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

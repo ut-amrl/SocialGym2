@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What’s new in Social Gym 2.0 from the original release? &mdash; Social Gym 2.0  documentation</title>
+  <title>How does SocialGym 2 work ? &mdash; Social Gym 2.0  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -19,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="How to make a new Scene" href="making_a_new_scene.html" />
-    <link rel="prev" title="What is Social Gym" href="what_is_social_gym.html" /> 
+    <link rel="prev" title="Advanced Usage" href="../installation/advanced_usage.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,15 +42,15 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/advanced_usage.html">Advanced Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="what_is_social_gym.html">What is Social Gym</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new in Social Gym 2.0 from the original release?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How does SocialGym 2 work ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#read-the-paper">Read the paper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improvements-from-socialgym-1-0">Improvements from SocialGym 1.0</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="making_a_new_scene.html">How to make a new Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Making docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Updating docs</a></li>
 </ul>
 
         </div>
@@ -66,7 +67,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">What’s new in Social Gym 2.0 from the original release?</li>
+      <li class="breadcrumb-item active">How does SocialGym 2 work ?</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/intro/features.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -76,39 +77,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="what-s-new-in-social-gym-2-0-from-the-original-release">
-<h1>What’s new in Social Gym 2.0 from the original release?<a class="headerlink" href="#what-s-new-in-social-gym-2-0-from-the-original-release" title="Permalink to this headline"></a></h1>
-<p>Social Gym 2.0 focused on multiagent training, enhanced feature extraction and policy modeling, modular control over
-environments and training, as well as various quality of life improvements to make training, evaluating, experimenting,
-and developing easier!</p>
-<hr class="docutils" />
+  <section id="how-does-socialgym-2-work">
+<h1>How does SocialGym 2 work ?<a class="headerlink" href="#how-does-socialgym-2-work" title="Permalink to this headline"></a></h1>
+<p><img alt="Overview" src="https://drive.google.com/uc?id=14i8T7WMkZhJ1pm3GWhBjlV9LPDPtdWA4" /></p>
+<p>At the top of the stack is the <a class="reference external" href="https://github.com/Farama-Foundation/PettingZoo"><strong>PettingZoo</strong></a> and <a class="reference external" href="https://stable-baselines3.readthedocs.io/en/master/"><strong>Stable Baselines3</strong></a> interface. This interface uses ROS to send actions from a policy to <a class="reference external" href="https://github.com/ut-amrl/ut_multirobot_sim"><strong>UTMRS</strong></a>, a lightweight simulation engine that acts as an intermediate between the interface and the local navigation and the human crowd simulation modules. The local navigation planner is responsible converting high-level actions from the PettingZoo interface into continuous motion commands that satisfy the underlying robot dynamics and sends back the next state to the simulation engine. Each layer of the stack has a modular API that allows researchers and developers to focus on a single part of the stack at a time without having to refactor or access other parts of the stack.</p>
+<section id="read-the-paper">
+<h2>Read the paper<a class="headerlink" href="#read-the-paper" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9982021"><strong>SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces</strong></a></p>
+</section>
+<section id="improvements-from-socialgym-1-0">
+<h2>Improvements from SocialGym 1.0<a class="headerlink" href="#improvements-from-socialgym-1-0" title="Permalink to this headline"></a></h2>
+<p>Although a lot has changed in Social Gym 2.0, most of the functionality from Social Gym 1.0 remained with small tweaks required.</p>
+<ul class="simple">
+<li><p>Multi Agent training!</p>
+<ul>
+<li><p>Single Agent training is as easy as setting the max number of agents to 1.</p></li>
+<li><p>You can control the observations and rewards of each agent in a modular way.</p></li>
+<li><p>Vary the number of agents during training and evaluation.</p></li>
+</ul>
+</li>
+<li><p>Control over the environment and simulator!</p>
+<ul>
+<li><p>Use or create your own Stable Baselines / Pettingzoo environment wrappers to control the environment.</p></li>
+<li><p>Agents can be colored or labeled for visualization needs.</p></li>
+<li><p>Change scenes/environments as needed throughout training and evaluation.</p></li>
+<li><p>Toggle partial or full observability.</p></li>
+</ul>
+</li>
+<li><p>Helper classes to create your own observations and rewards.</p></li>
+<li><p>Easy docker container for creating your own Environment and Navigation Graphs.</p></li>
+<li><p>Tensorboard implementation to help visualize the training process including tracking of important values and recordings of the simulator.</p></li>
+</ul>
 <p>A permanent link to Social Gym 1.0 can be found <a class="reference external" href="https://github.com/ut-amrl/social_gym/tree/release/social_gym_1.0">here</a></p>
 <p>The paper for Social Gym 1.0 can also be found <a class="reference external" href="https://arxiv.org/abs/2109.11011">here</a></p>
 <hr class="docutils" />
-<p>Although a lot has changed in Social Gym 2.0, most of the functionality from Social Gym 1.0 remained with small tweaks
-required. An itemized list of features are below with indicators (*) for new features!</p>
-<section id="social-gym-features">
-<h2>Social Gym Features<a class="headerlink" href="#social-gym-features" title="Permalink to this headline"></a></h2>
-<ul class="simple">
-<li><p>Multi Agent training! *</p>
-<ul>
-<li><p>Single Agent training is as easy as setting the max number of agents to 1.</p></li>
-<li><p>You can control the observations and rewards of each agent in a modular way. *</p></li>
-<li><p>Vary the number of agents during training and evaluation. *</p></li>
-</ul>
-</li>
-<li><p>Control over the environment and simulator! *</p>
-<ul>
-<li><p>Use or create your own Stable Baselines / Pettingzoo environment wrappers to control the environment.</p></li>
-<li><p>Agents can be colored or labeled for visualization needs. *</p></li>
-<li><p>Change scenes/environments as needed throughout training and evaluation. *</p></li>
-<li><p>Toggle partial or full observability. *</p></li>
-</ul>
-</li>
-<li><p>Helper classes to create your own observations and rewards. *</p></li>
-<li><p>Easy docker container for creating your own Environment and Navigation Graphs. *</p></li>
-<li><p>Tensorboard implementation to help visualize the training process including tracking of important values and recordings of the simulator. *</p></li>
-</ul>
 </section>
 </section>
 
@@ -116,7 +118,7 @@ required. An itemized list of features are below with indicators (*) for new fea
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="what_is_social_gym.html" class="btn btn-neutral float-left" title="What is Social Gym" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../installation/advanced_usage.html" class="btn btn-neutral float-left" title="Advanced Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="making_a_new_scene.html" class="btn btn-neutral float-right" title="How to make a new Scene" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,18 +1,15 @@
 # Installation
 
-In this doc we are going to setup Social Gym's `config runner` which allows you to run Social Gym using a configuration
-file.  If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installation
-step you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the more indepth
-installation guide which goes over setting up a debugger.
+In this doc we are going to setup Social Gym's `config runner` which allows you to run [**Social Gym**](https://github.com/ut-amrl/social_gym) using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.
 
-### Why are there two installation guides for Social Gym 
+<!-- ### Why are there two installation guides for Social Gym 
 
 Social Gym uses ROS (Robot Operating System) submodules written in C, to ensure they installed correctly and can run on
 your machine, we use Docker.  However, this poses challenges for debugging both the Python code and the C code because
 everything has to communicate with each other.  To ease the process of setting Social Gym up, we separated installing 
-Social Gym for running and experimenting from installing Social Gym for developing.
+Social Gym for running and experimenting from installing Social Gym for developing. -->
 
-### Let's Install Config Runner!
+<!-- ### Let's Install Config Runner! -->
 
 ---
 
@@ -70,10 +67,10 @@ Otherwise, look up stuff like "cannot display window from docker container" -- t
 We will fill out more tips/tricks and common failures here as we experience them.
 
 ---
-#### 4.) Have fun!
+<!-- #### 4.) Have fun!
 
 You can now specify your own configurations and run your own training or evaluation jobs.  More documentation on this
 later.
 
 If you need to develop or debug Social Gym -- you'll have to follow the full installation guide on the next
-page.
+page. -->

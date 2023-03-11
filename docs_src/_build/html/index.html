@@ -7,6 +7,7 @@
   <title>Welcome to the Social Gym 2.0 documentation! &mdash; Social Gym 2.0  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -40,11 +41,11 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation/advanced_usage.html">Advanced Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro/features.html">What’s new in Social Gym 2.0 from the original release?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/features.html">How does SocialGym 2 work ?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/making_a_new_scene.html">How to make a new Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing/making_docs.html">Making docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/making_docs.html">Updating docs</a></li>
 </ul>
 
         </div>
@@ -73,19 +74,19 @@
              
   <section id="welcome-to-the-social-gym-2-0-documentation">
 <h1>Welcome to the Social Gym 2.0 documentation!<a class="headerlink" href="#welcome-to-the-social-gym-2-0-documentation" title="Permalink to this headline"></a></h1>
-<p>(Find the GitHub link at <a class="reference external" href="https://github.com/ut-amrl/social_gym">https://github.com/ut-amrl/social_gym</a>)</p>
 <a class="reference internal image-reference" href="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif"><img alt="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" class="align-center" src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" style="width: 400px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>(This documentation is currently under active development.)</p>
 <p>SocialGym 2.0 is a lightweight 2D simulation environment for robot social navigation.  It allows for multi-agent and single-agent scenarios as well as dynamic obstacles for testing complex social navigation.  Social Gym’s foundation is in ROS (Robot Operating System) which we surface via a python API.  This allows for all the training, evaluation, and experimentation to be done in Python similar to Stable Baselines or PettingZoo.  However, because it’s built on top of ROS, it’s also easy to extend with ROS submodules to experiment with more complex simulations like lidar maps etc.</p>
 <p>It’s important to note that you do not need to know ROS or C++ to develop and work with Social Gym.  We worked hard to make the implementation abstracted from each other!</p>
+<p>—</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation/installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#why-are-there-two-installation-guides-for-social-gym">Why are there two installation guides for Social Gym</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#let-s-install-config-runner">Let’s Install Config Runner!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#clone-the-repo-and-checkout-main">1.) Clone the repo and checkout main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#install-requirements-and-run-the-install-script">2.) Install requirements and run the install script!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installation.html#run-the-config-runner">3.) Run the Config Runner!</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation/advanced_usage.html">Advanced Usage</a><ul>
@@ -94,8 +95,9 @@
 <li class="toctree-l2"><a class="reference internal" href="installation/advanced_usage.html#faq">FAQ</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="intro/features.html">What’s new in Social Gym 2.0 from the original release?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intro/features.html#social-gym-features">Social Gym Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/features.html">How does SocialGym 2 work ?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro/features.html#read-the-paper">Read the paper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/features.html#improvements-from-socialgym-1-0">Improvements from SocialGym 1.0</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="intro/making_a_new_scene.html">How to make a new Scene</a><ul>
@@ -107,7 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing/making_docs.html">Making docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/making_docs.html">Updating docs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contributing/making_docs.html#uploading-changes">Uploading changes</a></li>
 </ul>
 </li>
