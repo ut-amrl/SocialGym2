@@ -1,7 +1,7 @@
  <!-- <h1 style="text-align: center;"> SocialGym 2 </h1> -->
 
 <p align="center">
-  <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" width="400" />
+  <img src="data/images/SG2_LOGO.png" width="400" />
 </p>
 
 This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided in the [**documentation**](https://amrl.cs.utexas.edu/social_gym/index.html) (currently under active development).
@@ -12,8 +12,6 @@ This is the codebase for our multi-agent simulator for real world social navigat
 </p> -->
 # Read the paper 
  [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9982021)
-
-<br>
 
 # Installation
 
@@ -48,6 +46,11 @@ sudo xhost +
 ```
 and repeat the command.  If it still fails to show windows then try adding `--network host`
 to the file `{PROJECT_ROOT}/config_runner/run.sh` on lines where we are setting docker environment variables. Otherwise, look up stuff like "cannot display window from docker container" -- this is critical for Social Gym to work.
+
+### 3.) Have fun!
+<p align="center">
+  <img src="data/images/sim_demo.gif" />
+</p>
 
 ## If you use this code, please cite the following
 ---

@@ -1,10 +1,10 @@
 Welcome to the Social Gym 2.0 documentation!
 ======================================
 
-.. (Find the GitHub link at https://github.com/ut-amrl/social_gym)
+.. (Find the GitHub link at https://github.com/ut-amrl/social_gym https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif)
 
 
-.. image:: https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif
+.. image:: ../data/images/sim_demo.gif
   :width: 400
   :align: center
 
@@ -17,9 +17,6 @@ SocialGym 2.0 is a lightweight 2D simulation environment for robot social naviga
 
 It's important to note that you do not need to know ROS or C++ to develop and work with Social Gym.  We worked hard to make the implementation abstracted from each other! 
 
-
----
-
 .. toctree::
    :maxdepth: 2
 
@@ -28,7 +25,6 @@ It's important to note that you do not need to know ROS or C++ to develop and wo
    intro/features
    intro/making_a_new_scene
    intro/training_and_eval
-   intro/advanced_training_and_eval
    contributing/making_docs
    :caption: Contents:
 

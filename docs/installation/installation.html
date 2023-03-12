@@ -41,16 +41,15 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#clone-the-repo-and-checkout-main">1.) Clone the repo and checkout main</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-requirements-and-run-the-install-script">2.) Install requirements and run the install script!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-the-config-runner">3.) Run the Config Runner!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-clone-the-repo-and-checkout-main">Step 1: Clone the repo and checkout main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-install-requirements-and-run-the-install-script">Step 2: Install requirements and run the install script!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-run-the-config-runner">Step 3: Run the Config Runner!</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../intro/features.html">How does SocialGym 2 work ?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">How to make a new Scene</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and Evaluation with ConfigRunner</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro/advanced_training_and_eval.html">Advanced Training and Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/making_a_new_scene.html">Social mini-games</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/training_and_eval.html">Training and evaluation a policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/making_docs.html">Updating docs</a></li>
 </ul>
 
@@ -94,8 +93,8 @@ Social Gym for running and experimenting from installing Social Gym for developi
 recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via
 <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
 <hr class="docutils" />
-<section id="clone-the-repo-and-checkout-main">
-<h2>1.) Clone the repo and checkout main<a class="headerlink" href="#clone-the-repo-and-checkout-main" title="Permalink to this headline"></a></h2>
+<section id="step-1-clone-the-repo-and-checkout-main">
+<h2>Step 1: Clone the repo and checkout main<a class="headerlink" href="#step-1-clone-the-repo-and-checkout-main" title="Permalink to this headline"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:ut-amrl/social_gym.git
 git checkout main
 </pre></div>
@@ -103,15 +102,15 @@ git checkout main
 <p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)</p>
 </section>
-<section id="install-requirements-and-run-the-install-script">
-<h2>2.) Install requirements and run the install script!<a class="headerlink" href="#install-requirements-and-run-the-install-script" title="Permalink to this headline"></a></h2>
+<section id="step-2-install-requirements-and-run-the-install-script">
+<h2>Step 2: Install requirements and run the install script!<a class="headerlink" href="#step-2-install-requirements-and-run-the-install-script" title="Permalink to this headline"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python ./scripts/install_config_runner.py
 </pre></div>
 </div>
 <p>Expect this to take a while (20-40m depending on your machine, mostly for the last step.).</p>
 </section>
-<section id="run-the-config-runner">
-<h2>3.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h2>
+<section id="step-3-run-the-config-runner">
+<h2>Step 3: Run the Config Runner!<a class="headerlink" href="#step-3-run-the-config-runner" title="Permalink to this headline"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 1_31_23/door/sacadrl.json
 </pre></div>
 </div>

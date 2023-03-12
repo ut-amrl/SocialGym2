@@ -21,7 +21,7 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 
 ---
 
-#### 1.) Clone the repo and checkout main
+#### Step 1: Clone the repo and checkout main
 
 ```shell
 git clone git@github.com:ut-amrl/social_gym.git
@@ -31,7 +31,7 @@ git checkout main
 Although we use Docker to run Social Gym's internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)
 
-#### 2.) Install requirements and run the install script!
+#### Step 2: Install requirements and run the install script!
 
 ```shell
 python ./scripts/install_config_runner.py
@@ -39,7 +39,7 @@ python ./scripts/install_config_runner.py
 
 Expect this to take a while (20-40m depending on your machine, mostly for the last step.). 
 
-#### 3.) Run the Config Runner!
+#### Step 3: Run the Config Runner!
 
 ```shell
 python config_runner/run.py -c 1_31_23/door/sacadrl.json

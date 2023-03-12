@@ -1,4 +1,29 @@
-# How to make a new Scene
+# Social mini-games
+
+SocialGym 2 contains the following mini-games:
+
+<!-- | <center>Intersection</center> | <center>Roundabout</center> | <center>Doorway</center> | <center>Hallway</center> |
+| :--------------------: | :--------------------: | :--------------------: | :--------------------: |
+| ![image1](../../data/images/intersection.JPG) | ![image1](../../data/images/roundabout.png) | ![image1](../../data/images/doorway.png) | ![image1](../../data/images/hallway.png) |
+ -->
+
+| <center>Intersection</center> | 
+| :--------------------: | 
+| ![image1](../../data/images/intersection.JPG) | 
+
+|<center>Roundabout</center> |
+| :--------------------: | 
+| ![image2](../../data/images/roundabout.png) | 
+
+|<center>Doorway</center> |
+| :--------------------: | 
+| ![image2](../../data/images/doorway.png) | 
+
+|<center>Hallway</center> |
+| :--------------------: | 
+| ![image2](../../data/images/hallway.png) | 
+
+## How to make a new Scene
 
 Scene (or environments) are what the agents are trained on.  They consist of two important objects, the first are walls
 (denoted by blue lines).  The next are navigation paths (denoted by pink/purple lines).  These are explained a bit 
