@@ -1,7 +1,7 @@
  <!-- <h1 style="text-align: center;"> SocialGym 2 </h1> -->
 
 <p align="center">
-  <img src="data/images/SG2_LOGO.png" width="400" />
+  <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" width="400" />
 </p>
 
 This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided in the [**documentation**](https://amrl.cs.utexas.edu/social_gym/index.html) (currently under active development).
@@ -49,7 +49,7 @@ to the file `{PROJECT_ROOT}/config_runner/run.sh` on lines where we are setting 
 
 ### 3.) Have fun!
 <p align="center">
-  <img src="data/images/sim_demo.gif" />
+  <img src="https://drive.google.com/uc?id=1-mdW21SIJiF4LUlxGxQClDlZhd5iHUDP" />
 </p>
 
 ## If you use this code, please cite the following
