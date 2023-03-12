@@ -1,6 +1,6 @@
 # Installation
 
-In this doc we are going to setup Social Gym's `config runner` which allows you to run [**Social Gym**](https://github.com/ut-amrl/social_gym) using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.
+In this doc we are going to setup Social Gym's `config runner` which allows you to run [**Social Gym**](https://github.com/ut-amrl/SocialGym2) using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.
 
 <!-- ### Why are there two installation guides for Social Gym 
 
@@ -24,7 +24,7 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 #### Step 1: Clone the repo and checkout main
 
 ```shell
-git clone git@github.com:ut-amrl/social_gym.git
+git clone git@github.com:ut-amrl/SocialGym2.git
 git checkout main
 ```
 

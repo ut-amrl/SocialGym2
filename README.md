@@ -4,7 +4,7 @@
   <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" width="400" />
 </p>
 
-This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided in the [**documentation**](https://amrl.cs.utexas.edu/social_gym/index.html) (currently under active development).
+This is the codebase for our multi-agent simulator for real world social navigation. Installation instructions ca be found below. Tutorials are provided in the [**documentation**](https://amrl.cs.utexas.edu/SocialGym2/index.html) (currently under active development).
 
 <!-- 
 <p align="center">
@@ -24,7 +24,7 @@ This is the codebase for our multi-agent simulator for real world social navigat
 ### 1.) Clone the repo and checkout main
 
 ```shell
-git clone git@github.com:ut-amrl/social_gym.git
+git clone git@github.com:ut-amrl/SocialGym2.git
 git checkout main
 ```
 
@@ -67,4 +67,4 @@ doi = {10.1109/IROS47612.2022.9982021}
 
 ## License
 ---
-This project is released under the MIT License. Please review the [License file](LICENSE) for more details.
+This project is released under the MIT License. Please review the [**License file**](LICENSE) for more details.
