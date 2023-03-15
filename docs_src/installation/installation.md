@@ -33,7 +33,7 @@ off the process written in python (so you still need to install stuff)
 #### Step 2: Install requirements and run the install script!
 
 ```shell
-python ./scripts/install_config_runner.py
+python3 ./scripts/install_config_runner.py
 ```
 
 Expect this to take a while (20-40m depending on your machine, mostly for the last step.). 
@@ -41,7 +41,7 @@ Expect this to take a while (20-40m depending on your machine, mostly for the la
 #### Step 3: Run the Config Runner!
 
 ```shell
-python config_runner/run.py -c 1_31_23/door/sacadrl.json
+python3 config_runner/run.py -c 1_31_23/door/sacadrl.json
 ```
 
 This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY 
