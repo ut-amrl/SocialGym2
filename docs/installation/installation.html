@@ -29,7 +29,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="../index.html" class="icon icon-home"> Social Gym 2.0
-            <img src="../_static/SG2_LOGO.png" class="logo" alt="Logo"/>
+            <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -41,6 +41,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-1-clone-the-repo-and-checkout-main">Step 1: Clone the repo and checkout main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-2-install-requirements-and-run-the-install-script">Step 2: Install requirements and run the install script!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-3-run-the-config-runner">Step 3: Run the Config Runner!</a></li>
@@ -79,7 +80,7 @@
              
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
-<p>In this doc we are going to setup Social Gym’s <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">runner</span></code> which allows you to run <a class="reference external" href="https://github.com/ut-amrl/social_gym"><strong>Social Gym</strong></a> using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.</p>
+<p>In this doc we are going to setup Social Gym’s <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">runner</span></code> which allows you to run <a class="reference external" href="https://github.com/ut-amrl/SocialGym2"><strong>Social Gym</strong></a> using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.</p>
 <!-- ### Why are there two installation guides for Social Gym 
 
 Social Gym uses ROS (Robot Operating System) submodules written in C, to ensure they installed correctly and can run on
@@ -88,14 +89,15 @@ everything has to communicate with each other.  To ease the process of setting S
 Social Gym for running and experimenting from installing Social Gym for developing. -->
 <!-- ### Let's Install Config Runner! -->
 <hr class="docutils" />
-<p><strong>Note</strong>: We require you have installed Docker and Python 3.8 (version 3.8 may not be necessary but it’s what we use)</p>
-<p><strong>WARNING</strong>: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We
-recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via
-<code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<p>You need to have installed Docker, have an NVIDIA GPU, and have installed the <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker"><strong>NVIDIA-container runtime</strong></a>.</p>
+<p><strong>WARNING</strong>: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
 <hr class="docutils" />
+</section>
 <section id="step-1-clone-the-repo-and-checkout-main">
 <h2>Step 1: Clone the repo and checkout main<a class="headerlink" href="#step-1-clone-the-repo-and-checkout-main" title="Permalink to this headline"></a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:ut-amrl/social_gym.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:ut-amrl/SocialGym2.git
 git checkout main
 </pre></div>
 </div>

@@ -6,7 +6,7 @@ At the top of the stack is the [**PettingZoo**](https://github.com/Farama-Founda
 
 ### Read the paper
 
-[**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9982021) 
+[**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://arxiv.org/pdf/2303.05584.pdf) 
 
 
 ### Improvements from SocialGym 1.0
