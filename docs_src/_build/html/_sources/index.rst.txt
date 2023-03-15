@@ -4,7 +4,7 @@ Welcome to the Social Gym 2.0 documentation!
 .. (Find the GitHub link at https://github.com/ut-amrl/social_gym https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif)
 
 
-.. image:: ../data/images/sim_demo.gif
+.. image:: https://drive.google.com/uc?id=1-mdW21SIJiF4LUlxGxQClDlZhd5iHUDP
   :width: 400
   :align: center
 
@@ -28,6 +28,28 @@ It's important to note that you do not need to know ROS or C++ to develop and wo
    contributing/making_docs
    :caption: Contents:
 
+
+If you use this code, please cite the following
+==================
+
+.. code-block:: latex
+
+  @article{sprague2023socialgym,
+  title={SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces},
+  author={Sprague, Zayne and Chandra, Rohan and Holtz, Jarrett and Biswas, Joydeep},
+  journal={arXiv preprint arXiv:2303.05584},
+  year={2023}}
+
+.. code-block:: latex
+
+  @inproceedings{holtz2022socialgym,
+    title={Socialgym: A framework for benchmarking social robot navigation},
+    author={Holtz, Jarrett and Biswas, Joydeep},
+    booktitle={2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+    pages={11246--11252},
+    year={2022},
+    organization={IEEE}
+  }
 
 Indices and tables
 ==================

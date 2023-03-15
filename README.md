@@ -11,11 +11,13 @@ This is the codebase for our multi-agent simulator for real world social navigat
   <img src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" width="400" />
 </p> -->
 # Read the paper 
- [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9982021)
+ [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://arxiv.org/pdf/2303.05584.pdf)
 
 # Installation
 
-**Note**: We require you have installed Docker and Python 3.8 (version 3.8 may not be necessary but it's what we use)
+### Prerequisites
+
+You need to have installed Docker, have an NVIDIA GPU, and have installed the [**NVIDIA-container runtime**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
 
 **WARNING**: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via `apt`.
 
@@ -56,6 +58,26 @@ to the file `{PROJECT_ROOT}/config_runner/run.sh` on lines where we are setting 
 ---
 
 ```
+@article{sprague2023socialgym,
+  title={SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces},
+  author={Sprague, Zayne and Chandra, Rohan and Holtz, Jarrett and Biswas, Joydeep},
+  journal={arXiv preprint arXiv:2303.05584},
+  year={2023}
+}
+```
+
+```
+@inproceedings{holtz2022socialgym,
+  title={Socialgym: A framework for benchmarking social robot navigation},
+  author={Holtz, Jarrett and Biswas, Joydeep},
+  booktitle={2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11246--11252},
+  year={2022},
+  organization={IEEE}
+}
+```
+
+<!-- ```
 @software{SocialGym2,
 author = {Sprague, Zayne and Chandra, Rohan and Holtz, Jarrett and Biswas, Joydeep},
 title = {{SocialGym2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces}},
@@ -63,7 +85,7 @@ url = {https://github.com/ut-amrl/social_gym},
 version = {2.0},
 doi = {10.1109/IROS47612.2022.9982021}
 }
-```
+``` -->
 
 ## License
 ---
