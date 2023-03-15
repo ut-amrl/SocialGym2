@@ -5,6 +5,7 @@ submodules/pedsim_ros/src/CMakeLists.txt
 */srv_gen/*
 data/
 gail_training/
+tmp.log     
 
 .idea
 __pycache__/

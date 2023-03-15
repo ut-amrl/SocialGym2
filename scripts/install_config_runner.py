@@ -27,25 +27,25 @@ def step_1_setup_git_branch():
 
 def step_2_move_map_files():
     print("STEP 2: moving files around...")
-    environment_path = TEMPLATES_FOLDER / 'exp1/train/easy'
-    environment_map_path = MAPS_FOLDER / 'exp1/train/easy'
+    environment_path = TEMPLATES_FOLDER / 'envs/scenario/door' #/src/templates/exp1/train/easy -> /src/templates/envs/scenario/door
+    environment_map_path = MAPS_FOLDER / 'envs/scenario/door'  #docker/vectordisplay/maps/exp1/train/easy -> docker/vectordisplay/maps/envs/scenario/door
 
-    vectormap_file = environment_map_path / f'{environment_path.name}.vectormap.txt'
+    vectormap_file = environment_map_path / f'{environment_path.name}.vectormap.txt' #docker/vectordisplay/maps/exp1/train/easy/easy.vectormap.txt
     vectormap_json_file = environment_path / f'{environment_path.name}.vectormap.json'
     navigation_file = environment_map_path / f'{environment_path.name}.navigation.txt'
     navigation_json_file = environment_map_path / f'{environment_path.name}.navigation.json'
 
-    amrl_folder = AMRL_MAPS_FOLDER / 'exp1/train/easy'
+    amrl_folder = AMRL_MAPS_FOLDER / 'envs/scenario/door/'
     amrl_folder.mkdir(exist_ok=True, parents=True)
 
-    (amrl_folder / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
+    # (amrl_folder / f'{environment_path.name}.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     shutil.copyfile(vectormap_file, amrl_folder / f'{environment_path.name}.vectormap.txt')
     shutil.copyfile(vectormap_json_file, amrl_folder / f'{environment_path.name}.vectormap.json')
     shutil.copyfile(navigation_file, amrl_folder / f'{environment_path.name}.navigation.txt')
     shutil.copyfile(navigation_json_file, amrl_folder / f'{environment_path.name}.navigation.json')
 
-    sub_amrl_folder = (amrl_folder / 'exp1/train/easy').parent
+    sub_amrl_folder = (amrl_folder / 'envs/scenario/door/').parent
     sub_amrl_folder.mkdir(exist_ok=True, parents=True)
 
     shutil.copyfile(vectormap_file, sub_amrl_folder / f'{environment_path.name}.vectormap.txt')
@@ -53,9 +53,9 @@ def step_2_move_map_files():
     shutil.copyfile(navigation_file, sub_amrl_folder / f'{environment_path.name}.navigation.txt')
     shutil.copyfile(navigation_json_file, sub_amrl_folder / f'{environment_path.name}.navigation.json')
 
-    utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / 'exp1/train/easy'
+    utmulti_folder = UT_MULTI_ROBOT_SIM_MAPS_FOLDER / 'envs/scenario/door/'
     utmulti_folder.mkdir(exist_ok=True, parents=True)
-    (utmulti_folder / f'exp1/train/easy.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
+    # (utmulti_folder / f'envs/scenario/door.vectormap.txt').parent.mkdir(exist_ok=True, parents=True)
 
     shutil.copyfile(vectormap_file, utmulti_folder / f'{environment_path.name}.vectormap.txt')
     shutil.copyfile(vectormap_json_file, utmulti_folder / f'{environment_path.name}.vectormap.json')
