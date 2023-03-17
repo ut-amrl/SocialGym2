@@ -9,19 +9,21 @@ SocialGym 2 contains the following mini-games:
 
 | <center>Intersection</center> | 
 | :--------------------: | 
-| ![image1](../../data/images/intersection.JPG) | 
+| ![image1](https://drive.google.com/uc?id=1hpGkHcf9jQpeD_ZPTOV0Kjymws0-JSfT) | 
 
 |<center>Roundabout</center> |
 | :--------------------: | 
-| ![image2](../../data/images/roundabout.png) | 
+| ![image2](https://drive.google.com/uc?id=1Ozo40gGkL3QK98ufVbW3-9DcE6lNAb5H) | 
 
 |<center>Doorway</center> |
 | :--------------------: | 
-| ![image2](../../data/images/doorway.png) | 
+| ![image2](https://drive.google.com/uc?id=1Jl1GyZXPz4wXmXS8GaES4JSQzEKaGGB5) | 
 
 |<center>Hallway</center> |
 | :--------------------: | 
-| ![image2](../../data/images/hallway.png) | 
+| ![image2](https://drive.google.com/uc?id=1qEK04dGtQVfjSyK__qEunxgHoXUdzbYm) | 
+
+
 
 ## How to make a new Scene
 

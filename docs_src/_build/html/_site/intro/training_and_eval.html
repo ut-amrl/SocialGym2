@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Training and Evaluation with ConfigRunner &mdash; Social Gym 2.0  documentation</title>
@@ -13,9 +13,8 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -26,12 +25,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
-            <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Social Gym 2.0
+              <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -59,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Training and Evaluation with ConfigRunner</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/_site/intro/training_and_eval.md.txt" rel="nofollow"> View page source</a>
@@ -71,56 +74,56 @@
            <div itemprop="articleBody">
              
   <section id="training-and-evaluation-with-configrunner">
-<h1>Training and Evaluation with ConfigRunner<a class="headerlink" href="#training-and-evaluation-with-configrunner" title="Permalink to this headline"></a></h1>
+<h1>Training and Evaluation with ConfigRunner<a class="headerlink" href="#training-and-evaluation-with-configrunner" title="Permalink to this heading"></a></h1>
 <p>To ease batch training jobs we created a wrapper class around the training and evaluation code that can be configured
 via a configuration file (.yaml file)</p>
 <p>These configuration files are stored in <code class="docutils literal notranslate"><span class="pre">{PROJECT</span> <span class="pre">ROOT}/config_runner/configs</span></code></p>
 <p>ConfigRunner allows you train and evaluate a policy using one of these files via</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c <span class="o">{</span>path_to_config<span class="o">}</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>config_runner/run.py<span class="w"> </span>-c<span class="w"> </span><span class="o">{</span>path_to_config<span class="o">}</span>
 </pre></div>
 </div>
 <p>where the <code class="docutils literal notranslate"><span class="pre">{path_to_config}</span></code> is the relative path from <code class="docutils literal notranslate"><span class="pre">{PROJECT</span> <span class="pre">ROOT}/config_runner/configs</span></code> to a specific config file.</p>
 <p>You can run batch training jobs by either separating each unique configuration file with a white space and the <code class="docutils literal notranslate"><span class="pre">-c</span></code> flag, or you can
 use the <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag (meaning <code class="docutils literal notranslate"><span class="pre">folder</span></code>) and point it at a folder in the <code class="docutils literal notranslate"><span class="pre">{PROJECT</span> <span class="pre">ROOT}/config_runner/configs</span></code> directory.</p>
 <p>An example of a config is shown below:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;num_agents&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">35</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">70</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]],</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;eval_num_agents&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">],</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;train_length&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">250000</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;ending_eval_trials&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">25</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;eval_frequency&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;intermediate_eval_trials&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">25</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;policy_algo_sb3_contrib&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;policy_algo_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;PPO&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;policy_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;MlpPolicy&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;policy_algo_kwargs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;n_steps&quot;</span><span class="p p-Indicator">:</span><span class="w">  </span><span class="nv">4096</span><span class="p p-Indicator">},</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;monitor&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
+<span class="w">  </span><span class="s">&quot;num_agents&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">35</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">70</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]],</span>
+<span class="w">  </span><span class="s">&quot;eval_num_agents&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">],</span>
+<span class="w">  </span><span class="s">&quot;train_length&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">250000</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;ending_eval_trials&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">25</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;eval_frequency&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;intermediate_eval_trials&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">25</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;policy_algo_sb3_contrib&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;policy_algo_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;PPO&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;policy_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;MlpPolicy&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;policy_algo_kwargs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;n_steps&quot;</span><span class="p p-Indicator">:</span><span class="w">  </span><span class="nv">4096</span><span class="p p-Indicator">},</span>
+<span class="w">  </span><span class="s">&quot;monitor&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
 
-<span class="w">  </span><span class="s">&quot;experiment_names&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;envs_door&quot;</span><span class="p p-Indicator">],</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;experiment_names&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;envs_door&quot;</span><span class="p p-Indicator">],</span>
 
-<span class="w">  </span><span class="s">&quot;run_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;door_ao&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;run_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;AO&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;device&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;cuda:0&quot;</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;run_name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;door_ao&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;run_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;AO&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;device&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;cuda:0&quot;</span><span class="p p-Indicator">,</span>
 
-<span class="w">  </span><span class="s">&quot;other_velocities_obs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;agent_velocity_obs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;other_velocities_obs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;agent_velocity_obs&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span>
 
-<span class="w">  </span><span class="s">&quot;agent_velocity_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;other_velocities_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;other_poses_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;agent_pose_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;agent_velocity_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;other_velocities_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;other_poses_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;agent_pose_ignore_theta&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
 
-<span class="w">  </span><span class="s">&quot;entropy_constant_penalty&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">-100000</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;entropy_constant_penalty_only_those_that_did_not_finish&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;entropy_constant_penalty&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">-100000</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;entropy_constant_penalty_only_those_that_did_not_finish&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span>
 
-<span class="w">  </span><span class="s">&quot;timelimit&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w"></span>
-<span class="w">  </span><span class="s">&quot;timelimit_threshold&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">3000</span><span class="w"></span>
-<span class="p p-Indicator">}</span><span class="w"></span>
+<span class="w">  </span><span class="s">&quot;timelimit&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span>
+<span class="w">  </span><span class="s">&quot;timelimit_threshold&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">3000</span>
+<span class="p p-Indicator">}</span>
 </pre></div>
 </div>
 </section>
 <section id="configrunner-configurations">
-<h1>ConfigRunner Configurations<a class="headerlink" href="#configrunner-configurations" title="Permalink to this headline"></a></h1>
+<h1>ConfigRunner Configurations<a class="headerlink" href="#configrunner-configurations" title="Permalink to this heading"></a></h1>
 <p>Each attribute in the yaml configuration matches an argument passed into the <code class="docutils literal notranslate"><span class="pre">run</span></code> function in <code class="docutils literal notranslate"><span class="pre">{PROJECT_ROOT}/src/config_run.py</span></code></p>
 <p>They are described in details in the file <code class="docutils literal notranslate"><span class="pre">{PROJECT</span> <span class="pre">ROOT}/src/config_run.py</span></code></p>
 </section>

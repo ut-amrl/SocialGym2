@@ -14,7 +14,7 @@ Social Gym for running and experimenting from installing Social Gym for developi
 ---
 #### Prerequisites
 
-You need to have installed Docker, have an NVIDIA GPU, and have installed the [**NVIDIA-container runtime**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
+<!-- You need to have installed Docker, have an NVIDIA GPU, and have installed the [**NVIDIA-container runtime**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker). -->
 
 **WARNING**: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via `apt`.
 
