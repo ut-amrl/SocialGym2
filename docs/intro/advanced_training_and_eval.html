@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Advanced Training and Evaluation &mdash; Social Gym 2.0  documentation</title>
@@ -13,9 +13,8 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -26,12 +25,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
-            <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Social Gym 2.0
+              <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -59,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Advanced Training and Evaluation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/intro/advanced_training_and_eval.md.txt" rel="nofollow"> View page source</a>
@@ -71,7 +74,7 @@
            <div itemprop="articleBody">
              
   <section id="advanced-training-and-evaluation">
-<h1>Advanced Training and Evaluation<a class="headerlink" href="#advanced-training-and-evaluation" title="Permalink to this headline"></a></h1>
+<h1>Advanced Training and Evaluation<a class="headerlink" href="#advanced-training-and-evaluation" title="Permalink to this heading"></a></h1>
 <p>Social Gym 2.0 uses a familiar Gym-like training loop with some important deviations, an example of training a new policy is shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1.) Create the Scenario</span>
 <span class="n">scenario</span> <span class="o">=</span> <span class="n">GraphNavscenario</span><span class="p">(</span><span class="s1">&#39;envs/scenario/hallway&#39;</span><span class="p">)</span>

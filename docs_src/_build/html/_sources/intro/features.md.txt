@@ -1,6 +1,6 @@
 # How does SocialGym 2 work ? 
 
-![Overview](../../data/images/overview.png)
+![Overview](https://drive.google.com/uc?id=1TYFzAPYmlWLIgG1PnnJHpauWWh6Npdnn)
 
 At the top of the stack is the [**PettingZoo**](https://github.com/Farama-Foundation/PettingZoo) and [**Stable Baselines3**](https://stable-baselines3.readthedocs.io/en/master/) interface. This interface uses ROS to send actions from a policy to [**UTMRS**](https://github.com/ut-amrl/ut_multirobot_sim), a lightweight simulation engine that acts as an intermediate between the interface and the local navigation and the human crowd simulation modules. The local navigation planner is responsible converting high-level actions from the PettingZoo interface into continuous motion commands that satisfy the underlying robot dynamics and sends back the next state to the simulation engine. Each layer of the stack has a modular API that allows researchers and developers to focus on a single part of the stack at a time without having to refactor or access other parts of the stack.
 
