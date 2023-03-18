@@ -82,6 +82,8 @@ services:
     volumes:
       - src:/home/rosdev/social_gym:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+            # X session
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
 #      - /tmp/.docker.xauth:/tmp/.docker.xauth
     ports:
       - "11345:11345"

@@ -18,7 +18,7 @@ RUN apt-get update \
 RUN apt-get update && apt-get install -y git openssh-server ros-noetic-tf \
     ros-noetic-geometry* libgflags-dev libgoogle-glog-dev lua5.1-dev \
     ros-noetic-gazebo-ros ros-noetic-rviz libncurses5-dev python3-pip \
-    python2.7 python-is-python3 neovim curl
+    python2.7 python-is-python3 neovim curl mesa-utils
 
 RUN pip3 install click
 RUN pip3 install jinja2
@@ -60,6 +60,7 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 ENV DISPLAY=:0
 ENV QT_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
+ENV QT_DEBUG_PLUGINS=1
 
 RUN pip3 install tensorboardX
 

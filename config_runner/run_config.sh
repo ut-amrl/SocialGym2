@@ -6,8 +6,9 @@ DIR=$(pwd)
 
 #sudo docker rm $1
 
-docker run -d --name $1 -w /home/rosdev/social_gym/ --gpus all \
--v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY  \
+docker run -d --name $1 -w /home/rosdev/social_gym/ --gpus all --privileged \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-e DISPLAY=unix$DISPLAY \
 -v ${DIR}/data:/home/rosdev/social_gym/data \
 -v ${DIR}/config_runner/configs:/home/rosdev/social_gym/config_runner/configs \
 -v ${DIR}/submodules/amrl_maps/envs:/home/rosdev/social_gym/submodules/amrl_maps/envs \
