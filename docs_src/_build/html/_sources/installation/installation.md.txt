@@ -44,12 +44,6 @@ Expect this to take a while (20-40m depending on your machine, mostly for the la
 python3 config_runner/run.py -c 1_31_23/door/sacadrl.json
 ```
 
-This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY 
-times.  This is because of a known bug where ROS hangs on some dependency unnecessarily (we are trying to fix this).  
-
-The way our code gets around it is by restarting the docker container if it fails to start running after so many 
-seconds.
-
 ---
 
 **NOTE**: If you do NOT see windows, there's a problem with the docker file.

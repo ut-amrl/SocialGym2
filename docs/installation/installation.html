@@ -119,10 +119,6 @@ off the process written in python (so you still need to install stuff)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>config_runner/run.py<span class="w"> </span>-c<span class="w"> </span>1_31_23/door/sacadrl.json
 </pre></div>
 </div>
-<p>This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY
-times.  This is because of a known bug where ROS hangs on some dependency unnecessarily (we are trying to fix this).</p>
-<p>The way our code gets around it is by restarting the docker container if it fails to start running after so many
-seconds.</p>
 <hr class="docutils" />
 <p><strong>NOTE</strong>: If you do NOT see windows, there’s a problem with the docker file.</p>
 <p>First try running</p>
