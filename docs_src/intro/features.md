@@ -8,6 +8,9 @@ At the top of the stack is the [**PettingZoo**](https://github.com/Farama-Founda
 
 [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://arxiv.org/pdf/2303.05584.pdf) 
 
+### Local Navigation
+The local navigation algorithm in SocialGym 2.0 consists of a way-point follower and a dynamic window-based controller: We first compute a local target using the pure pursuit algorithm. We then use a dynamic window-like approach to generate a set of circular arcs from the current pose of the robot with different curvatures. We determine the optimal arc by minimizing a cost function that is a weighted linear sum of different features such as distance to goal, clearance from obstacles etc. followed by computing the optimal linear and angular velocities that steer the robot along that optimal trajectory. The linear velocity controller chooses between cruising, accelerating, and braking based on the current speed, kinodynamic parameters, and distance to the goal to achieve the optimal velocities for the robot.
+
 
 ### Improvements from SocialGym 1.0
 Although a lot has changed in Social Gym 2.0, most of the functionality from Social Gym 1.0 remained with small tweaks required.

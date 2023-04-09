@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/advanced_usage.html">Advanced Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How does SocialGym 2 work ?</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#read-the-paper">Read the paper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-navigation">Local Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#improvements-from-socialgym-1-0">Improvements from SocialGym 1.0</a></li>
 </ul>
 </li>
@@ -86,6 +87,10 @@
 <section id="read-the-paper">
 <h2>Read the paper<a class="headerlink" href="#read-the-paper" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="https://arxiv.org/pdf/2303.05584.pdf"><strong>SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces</strong></a></p>
+</section>
+<section id="local-navigation">
+<h2>Local Navigation<a class="headerlink" href="#local-navigation" title="Permalink to this heading"></a></h2>
+<p>The local navigation algorithm in SocialGym 2.0 consists of a way-point follower and a dynamic window-based controller: We first compute a local target using the pure pursuit algorithm. We then use a dynamic window-like approach to generate a set of circular arcs from the current pose of the robot with different curvatures. We determine the optimal arc by minimizing a cost function that is a weighted linear sum of different features such as distance to goal, clearance from obstacles etc. followed by computing the optimal linear and angular velocities that steer the robot along that optimal trajectory. The linear velocity controller chooses between cruising, accelerating, and braking based on the current speed, kinodynamic parameters, and distance to the goal to achieve the optimal velocities for the robot.</p>
 </section>
 <section id="improvements-from-socialgym-1-0">
 <h2>Improvements from SocialGym 1.0<a class="headerlink" href="#improvements-from-socialgym-1-0" title="Permalink to this heading"></a></h2>
