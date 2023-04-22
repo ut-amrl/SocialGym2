@@ -4,19 +4,20 @@
   "train_length": 20000,
   "train": false,
   "eval": true,
-  "ending_eval_trials": 1,
+  "ending_eval_trials": 50,
   "intermediate_eval_trials": -1,
   "eval_frequency": 0,
   "policy_algo_sb3_contrib": false,
   "policy_algo_name": "PPO",
   "policy_name": "MlpPolicy",
   "policy_algo_kwargs": {"n_steps":  4096},
-  "local": true,
+  "local": false,
   "debug": true,
+  "monitor": true,
   "experiment_names": ["envs_door"],
 
 
-  "run_name": "perf_test2/",
+  "run_name": "perf_test_2",
   "run_type": "EO",
   "device": "cuda:1",
 

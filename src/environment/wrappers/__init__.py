@@ -5,3 +5,4 @@ from src.environment.wrappers.collision_episode_ender import CollisionEpisodeEnd
 from src.environment.wrappers.entropy_episode_ender import EntropyEpisodeEnder
 from src.environment.wrappers.reward_stripper import RewardStripper
 from src.environment.wrappers.progress_bar import ProgressBarWrapper
+from src.environment.wrappers.performance_metrics import PerformanceMetricWrapper

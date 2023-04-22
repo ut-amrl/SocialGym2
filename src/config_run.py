@@ -3,6 +3,7 @@ import json
 from random import seed
 import stable_baselines3 as sb3
 import sb3_contrib as sb3c
+import sys
 
 from stable_baselines3 import PPO
 from sb3_contrib import RecurrentPPO
@@ -28,7 +29,7 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
   EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
-  RewardStripper, TimeLimitWrapper, ProgressBarWrapper
+  RewardStripper, TimeLimitWrapper, ProgressBarWrapper, PerformanceMetricWrapper
 from src.environment.extractors import LSTMAgentObs
 from src.environment.visuals.nav_map_viz import NavMapViz
 
@@ -387,7 +388,7 @@ def run(
     ENV_CLASS = partial(ManualZoneEnv, zones)
   else:
     ENV_CLASS = partial(RosSocialEnv)
-
+  # "eval_num_agents": [2, 3, 4, 5, 7, 10],
   # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
   env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else max(num_agents[-1][1], eval_num_agents[-1]), debug=debug)
 
@@ -414,6 +415,11 @@ def run(
 
   env = NewScenarioWrapper(env, new_scenario_episode_frequency=1, plans=num_agents if isinstance(num_agents, list) else [0, num_agents])
 
+  env = PerformanceMetricWrapper(
+    env,
+    tbx_log=f'{run_name}/tensorboard__{run_type}_perf',
+  )
+
   env = TensorboardWriter(
     env,
     tbx_log=f'{run_name}/tensorboard__{run_type}',
@@ -422,6 +428,8 @@ def run(
     video_sample_rate=1,
     step_sample_rate=1
   )
+
+
 
   env = ss.black_death_v3(env)
   env = ss.pad_observations_v0(env)
@@ -517,3 +525,6 @@ if __name__ == "__main__":
   run(
     **run_arguments
   )
+
+  import os
+  # print(os.system("perf report -g -i perf.data"))
