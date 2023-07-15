@@ -2,12 +2,12 @@ import gym
 import numpy as np
 import collections
 from typing import Union, Tuple, Dict, List
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class EntropyEpisodeEnder(BaseParallelWraper):
+class EntropyEpisodeEnder(BaseParallelWrapper):
     """
     You stop moving you die! (if all agents in an environment are no longer moving within some absolute delta over a
     set of timesteps, end the episode)

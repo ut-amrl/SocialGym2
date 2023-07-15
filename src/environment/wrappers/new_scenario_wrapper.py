@@ -1,6 +1,6 @@
 import gym
 from gym import Wrapper, Env
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 import numpy as np
 from typing import Union, Tuple, Dict, List
 
@@ -10,7 +10,7 @@ from src.environment.ros_social_gym import RosSocialEnv
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class NewScenarioWrapper(BaseParallelWraper):
+class NewScenarioWrapper(BaseParallelWrapper):
 
     new_scenario_episode_frequency: int
     episode_count: int

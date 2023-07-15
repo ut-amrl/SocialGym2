@@ -23,10 +23,9 @@ RUN apt-get update && apt-get install -y git openssh-server ros-noetic-tf \
 RUN pip3 install click
 RUN pip3 install jinja2
 RUN pip3 install pandas
-RUN pip3 install supersuit==3.5.0
-RUN pip3 install stable-baselines3[extra]
-RUN pip3 install pettingzoo==1.19.0
-RUN pip3 install gym==0.21.0
+# RUN pip3 install supersuit==3.5.0
+# RUN pip3 install stable-baselines3[extra]
+# RUN pip3 install gym==0.21.0
 RUN pip3 install imitation
 
 # Download and install Z3
@@ -96,7 +95,7 @@ SHELL ["/bin/bash", "-c"]
 #
 RUN apt-get install ros-noetic-roslint
 
-RUN pip install sb3_contrib optuna
+RUN pip install optuna
 
 COPY ./submodules ${ROS_WS}/submodules
 
@@ -120,8 +119,6 @@ RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
 RUN source ${ROS_WS}/config_runner/set_paths.sh && cd ut_multirobot_sim && make
 
 RUN source ${ROS_WS}/config_runner/set_paths.sh && rosdep update
-RUN pip3 install stable-baselines3[extra]==1.6.2
-RUN pip3 install sb3_contrib
 RUN pip3 install torch==1.12.1
 COPY ./scripts ${ROS_WS}/scripts
 
@@ -133,8 +130,15 @@ COPY ./src ${ROS_WS}/src
 
 WORKDIR ${ROS_WS}
 
-RUN pip3 install supersuit==3.5.0
-RUN pip3 install gym==0.26.2
-
+# RUN pip3 install stable-baselines3[extra]==1.6.2
+RUN pip3 install stable-baselines3[extra]
+RUN pip3 install sb3_contrib
+RUN pip3 install pettingzoo
+# RUN pip3 install pettingzoo==1.19.0
+# RUN pip3 install supersuit==3.5.0
+RUN pip3 install "git+https://github.com/elliottower/SuperSuit.git@sb3-pettingzoo-compatibility"
+# RUN pip3 install gym==0.26.2
+# RUN pip3 install gym
+RUN pip3 install gymnasium
 
 #RUN source scripts/set_paths.sh && make

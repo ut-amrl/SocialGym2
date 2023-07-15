@@ -3,12 +3,12 @@ from gym import Wrapper, Env
 import numpy as np
 from typing import Union, Tuple, Dict
 from tqdm import tqdm
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class ProgressBarWrapper(BaseParallelWraper):
+class ProgressBarWrapper(BaseParallelWrapper):
     """
     Limit the maximum number of steps per episode.
 

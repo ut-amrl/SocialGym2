@@ -63,7 +63,7 @@ def run(
         train: bool = True,
         eval: bool = True,
 
-        monitor: bool = False,
+        monitor: bool = True,
         local: bool = False,
 
         existence_penalty: float = 1,

@@ -2,12 +2,12 @@ import gym
 from gym import Wrapper, Env
 import numpy as np
 from typing import Union, Tuple, Dict
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class TimeLimitWrapper(BaseParallelWraper):
+class TimeLimitWrapper(BaseParallelWrapper):
     """
     Limit the maximum number of steps per episode.
 
