@@ -3,6 +3,7 @@ from gym import Wrapper, Env
 import numpy as np
 from typing import Union, Tuple, Dict
 from pettingzoo.utils.wrappers import BaseParallelWrapper
+import pprint
 
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
@@ -34,8 +35,10 @@ class TimeLimitWrapper(BaseParallelWrapper):
         self.episode_steps += 1
 
         if self.episode_steps >= self.max_steps:
+            truncs = {k: True for k in truncs.keys()}
             done = {k: True for k in done.keys()}
 
+        print(pprint.pformat(truncs), flush=True)
         # return obs, reward, done, truncs, infos
         return obs, reward, done, truncs, infos
 

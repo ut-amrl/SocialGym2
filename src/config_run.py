@@ -424,8 +424,8 @@ def run(
   )
 
   env = ss.black_death_v3(env)
-  env = ss.pad_observations_v0(env)
-  env = ss.pad_action_space_v0(env)
+  # env = ss.pad_observations_v0(env)
+  # env = ss.pad_action_space_v0(env)
   env = ss.pettingzoo_env_to_vec_env_v1(env)
   env.black_death = True
 

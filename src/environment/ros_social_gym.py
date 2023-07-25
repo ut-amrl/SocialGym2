@@ -27,6 +27,7 @@ from random import seed
 from typing import Tuple, Union, ClassVar, List, TYPE_CHECKING
 from pathlib import Path
 import shutil
+import pprint
 from tensorboardX import SummaryWriter
 from pettingzoo import ParallelEnv
 from pettingzoo.utils import agent_selector, wrappers
@@ -399,6 +400,8 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         # TODO - make a "done" observation
         # TODO - Difference between truncs and terms?
         agent_terminations = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
+
+        # print(pprint.pformat(agent_terminations), flush=True)
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
         # agent_rewards = {
         #     agent: reward if self.terminations_[idx] is False else 0 for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents

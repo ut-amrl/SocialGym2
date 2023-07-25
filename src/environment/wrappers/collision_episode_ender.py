@@ -28,6 +28,7 @@ class CollisionEpisodeEnder(BaseParallelWrapper):
         if collision:
             # truncs = {k: True for k in done.keys()}
             done = {k: True for k in done.keys()}
+            truncs = {k: True for k in truncs.keys()}
 
         # return obs, reward, done, truncs, infos
         return obs, reward, done, truncs, infos

@@ -57,6 +57,7 @@ class EntropyEpisodeEnder(BaseParallelWrapper):
 
         if stuck:
             done = {k: True for k in done.keys()}
+            truncs = {k: True for k in truncs.keys()}
 
             if self.update_rewards:
                 if self.constant_reward_on_end:
