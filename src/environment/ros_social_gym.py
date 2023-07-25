@@ -15,9 +15,9 @@ import roslaunch
 import copy
 import gymnasium as gym
 from copy import deepcopy
-import gym
-# from gymnasium import spaces
-from gym import spaces
+# import gym
+from gymnasium import spaces
+# from gym import spaces
 from gym.utils import EzPickle, seeding
 import json
 import numpy as np
@@ -268,7 +268,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def seed(self, seed=None):
         pass
 
-    def reset(self, seed=None, return_info=False, options=None):
+    def reset(self, seed=None, return_info=True, options=None):
         # if self.debug:
         #     print("RESET")
         # print("RESET")
@@ -427,7 +427,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         truncs = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
 
         # return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
-        return agent_observations, agent_rewards, agent_terminations, agent_infos
+        return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
 
     def render(self, mode="human"):
         """

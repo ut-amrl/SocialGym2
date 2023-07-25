@@ -22,7 +22,7 @@ class RewardStripper(BaseParallelWrapper):
         self.agents = self.unwrapped.agents
 
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
-        obs, rewards, done, infos = self.env.step(action)
+        obs, rewards, done, truncs, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
 
         if len(self.rws_successes) == 0:
@@ -37,7 +37,7 @@ class RewardStripper(BaseParallelWrapper):
                 self.rws_successes[idx] = True
 
         # return obs, reward, done, truncs, infos
-        return obs, agent_rewards, done, infos
+        return obs, agent_rewards, done, truncs, infos
 
     def seed(self, seed=None):
         pass

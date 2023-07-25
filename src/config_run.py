@@ -3,7 +3,7 @@ import json
 from random import seed
 import stable_baselines3 as sb3
 import sb3_contrib as sb3c
-
+from gymnasium.wrappers import normalize
 from stable_baselines3 import PPO
 from sb3_contrib import RecurrentPPO
 from pettingzoo.test import parallel_test, parallel_api_test
@@ -430,6 +430,7 @@ def run(
   env.black_death = True
 
   env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='stable_baselines3')
+  # env = ss.concat_vec_envs_v1(env, 1, num_cpus=1, base_class='pettingzoo')
 
   env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)

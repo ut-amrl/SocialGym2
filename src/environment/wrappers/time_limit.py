@@ -28,7 +28,7 @@ class TimeLimitWrapper(BaseParallelWrapper):
         return res
 
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
-        obs, reward, done, infos = self.env.step(action)
+        obs, reward, done, truncs, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
 
         self.episode_steps += 1
@@ -37,7 +37,7 @@ class TimeLimitWrapper(BaseParallelWrapper):
             done = {k: True for k in done.keys()}
 
         # return obs, reward, done, truncs, infos
-        return obs, reward, done, infos
+        return obs, reward, done, truncs, infos
 
     def seed(self, seed=None):
         pass

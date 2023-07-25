@@ -178,10 +178,16 @@ class ManualZoneEnv(RosSocialEnv):
         self.vis.publish()
         return env_response
 
-    def reset(self, seed=None, return_info=False, options=None):
+    def reset(self, seed=None, return_info=True, options=None):
         self.agents_priority_orders = random.sample(range(0, self.curr_num_agents), self.curr_num_agents)
-        res = super().reset(seed, return_info, options)
-        return res
+        if return_info:
+            res, info = super().reset(seed, return_info, options)
+            print("HERE 1", flush=True)
+            return res, info
+        else:
+            res, info = super().reset(seed, True, options)
+            print("HERE 2", flush=True)
+            return res, info
 
 
 class RvisZoneVisualization:

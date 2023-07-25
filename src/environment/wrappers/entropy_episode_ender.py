@@ -47,7 +47,7 @@ class EntropyEpisodeEnder(BaseParallelWrapper):
         self.agent_positions = []
 
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
-        obs, reward, done, infos = self.env.step(action)
+        obs, reward, done, truncs, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
 
         [self.agent_positions[idx].append(m['agents_pose']) for idx, m in enumerate(self.unwrapped.last_obs_maps)]
@@ -69,7 +69,7 @@ class EntropyEpisodeEnder(BaseParallelWrapper):
                     else:
                         reward = {k: v * self.reward_multiplier if ((self.only_those_that_did_not_finish and not infos.get(k, {}).get('succeeded', False)) or not self.only_those_that_did_not_finish) else v for idx, (k, v) in enumerate(reward.items())}
 
-        return obs, reward, done, infos
+        return obs, reward, done, truncs, infos
 
     def reset(self, seed=None, return_info=False, options=None):
         res = self.env.reset(seed=seed, options=options)
