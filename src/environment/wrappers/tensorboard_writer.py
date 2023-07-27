@@ -2,7 +2,7 @@ import gym
 from gym import Wrapper, Env
 import numpy as np
 from typing import Union, Tuple, Dict, Callable
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 import rospy
 
 from sensor_msgs.msg import Image
@@ -14,7 +14,7 @@ from src.environment.utils.utils import get_tboard_writer
 bridge = CvBridge()
 
 
-class TensorboardWriter(BaseParallelWraper):
+class TensorboardWriter(BaseParallelWrapper):
     """
     Handles tensorboard recording of the environments
 

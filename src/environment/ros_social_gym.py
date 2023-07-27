@@ -13,10 +13,11 @@ import roslaunch
 
 # Other Imports
 import copy
+import gymnasium as gym
 from copy import deepcopy
-import gym
-# from gymnasium import spaces
-from gym import spaces
+# import gym
+from gymnasium import spaces
+# from gym import spaces
 from gym.utils import EzPickle, seeding
 import json
 import numpy as np
@@ -26,6 +27,7 @@ from random import seed
 from typing import Tuple, Union, ClassVar, List, TYPE_CHECKING
 from pathlib import Path
 import shutil
+import pprint
 from tensorboardX import SummaryWriter
 from pettingzoo import ParallelEnv
 from pettingzoo.utils import agent_selector, wrappers
@@ -267,7 +269,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
     def seed(self, seed=None):
         pass
 
-    def reset(self, seed=None, return_info=False, options=None):
+    def reset(self, seed=None, return_info=True, options=None):
         # if self.debug:
         #     print("RESET")
         # print("RESET")
@@ -398,6 +400,8 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         # TODO - make a "done" observation
         # TODO - Difference between truncs and terms?
         agent_terminations = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
+
+        # print(pprint.pformat(agent_terminations), flush=True)
         agent_observations = {agent: obs for (agent, obs) in zip(self.agents, observations)}
         # agent_rewards = {
         #     agent: reward if self.terminations_[idx] is False else 0 for idx, (agent, reward) in enumerate(zip(self.possible_agents, rewards)) if agent in self.agents
@@ -426,7 +430,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         truncs = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
 
         # return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
-        return agent_observations, agent_rewards, agent_terminations, agent_infos
+        return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
 
     def render(self, mode="human"):
         """

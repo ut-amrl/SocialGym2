@@ -2,12 +2,12 @@ import gym
 from gym import Wrapper, Env
 import numpy as np
 from typing import Union, Tuple, Dict
-from pettingzoo.utils.wrappers import BaseParallelWraper
+from pettingzoo.utils.wrappers import BaseParallelWrapper
 
 GymObs = Union[Tuple, Dict, np.ndarray, int]
 
 
-class CollisionEpisodeEnder(BaseParallelWraper):
+class CollisionEpisodeEnder(BaseParallelWrapper):
     """
     You collide you die!
 
@@ -20,7 +20,7 @@ class CollisionEpisodeEnder(BaseParallelWraper):
         self.agents = self.unwrapped.agents
 
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
-        obs, reward, done, infos = self.env.step(action)
+        obs, reward, done, truncs, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
 
         collision = any([m['collisions'] == 1 for m in self.unwrapped.last_obs_maps])
@@ -28,9 +28,10 @@ class CollisionEpisodeEnder(BaseParallelWraper):
         if collision:
             # truncs = {k: True for k in done.keys()}
             done = {k: True for k in done.keys()}
+            truncs = {k: True for k in truncs.keys()}
 
         # return obs, reward, done, truncs, infos
-        return obs, reward, done, infos
+        return obs, reward, done, truncs, infos
 
     def seed(self, seed=None):
         pass
