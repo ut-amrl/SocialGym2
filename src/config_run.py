@@ -435,8 +435,7 @@ def run(
   env = VecMonitor(env)
 
   # SocialNavWrapper
-  # env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)
-  env = SocialNavWrapper(env, metrics=None)
+  env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)
 
   # TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
