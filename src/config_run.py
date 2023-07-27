@@ -28,7 +28,7 @@ from src.environment.observations import Observer, AgentsGoalDistance, AgentsPos
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
   EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
-  RewardStripper, TimeLimitWrapper, ProgressBarWrapper
+  RewardStripper, TimeLimitWrapper, ProgressBarWrapper, SocialNavWrapper, social_nav_API
 from src.environment.extractors import LSTMAgentObs
 from src.environment.visuals.nav_map_viz import NavMapViz
 
@@ -42,7 +42,6 @@ from src.environment.utils.utils import get_tboard_writer, ROOT_FOLDER
 from tqdm import tqdm
 
 seed(1)
-
 
 class kinds:
   sacadrl = 'SACADRL'
@@ -86,7 +85,7 @@ def run(
 
         reward_stripper: bool = False,
 
-        timelimit: bool = False,
+        timelimit: bool = True,
         timelimit_threshold: int = 2000,
 
         entropy_ender: bool = True,
@@ -435,7 +434,11 @@ def run(
   env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)
 
-  #TODO - allow this to work for 1 and 2 agents.
+  # SocialNavWrapper
+  # env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)
+  env = SocialNavWrapper(env, metrics=None)
+
+  # TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
 
   if policy_algo_sb3_contrib:
