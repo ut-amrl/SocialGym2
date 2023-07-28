@@ -24,7 +24,7 @@ from src.environment.rewards import Rewarder, Success, ExistencePenalty, \
   GoalDistanceChange
 from src.environment.rewards.types.manual_zone import EnforcedOrder
 from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation, \
-  AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables
+  AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables, AgentsGoal
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
   EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
@@ -85,7 +85,8 @@ def run(
 
         reward_stripper: bool = False,
 
-        timelimit: bool = True,
+        socialnavAPI: bool = True,
+        timelimit: bool = False,
         timelimit_threshold: int = 2000,
 
         entropy_ender: bool = True,
@@ -329,9 +330,9 @@ def run(
     observations.append(AgentsVelocity(ignore_theta=agent_velocity_ignore_theta, history_length=2))
   if collision_obs:
     observations.append(CollisionObservation())
-  observations.append(
-    SuccessObservation()
-  )
+  observations.append(SuccessObservation())
+  if socialnavAPI:
+    observations.append(AgentsGoal())
 
   observations.append(OtherAgentObservables(
     pos_x=other_poses_obs,
@@ -407,6 +408,8 @@ def run(
     env = TimeLimitWrapper(env, max_steps=timelimit_threshold)
   if reward_stripper:
     env = RewardStripper(env)
+  if socialnavAPI:
+    env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)    # SocialNavWrapper
 
   # env = ProgressBarWrapper(env, train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]))
 
@@ -433,9 +436,6 @@ def run(
 
   env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)
-
-  # SocialNavWrapper
-  env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)
 
   # TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}

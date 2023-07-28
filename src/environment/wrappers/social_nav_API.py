@@ -31,7 +31,8 @@ class SocialNavWrapper(BaseParallelWrapper):
     def step(self, action: Union[int, np.ndarray]) -> Tuple[GymObs, float, Dict[str, bool], Dict[str, bool], Dict]:
         obs, reward, done, truncs, infos = self.env.step(action)
         self.agents = self.unwrapped.agents
-        self.parse_info(info)
+        print(pprint.pformat(infos), flush=True)
+        self.parse_info(infos)
         return obs, reward, done, truncs, infos
 
     def parse_info(self, info):
@@ -53,13 +54,13 @@ class State:
   def __init__(self,
                robot,
                pedestrians,
-               obstacles,
+              #  obstacles,
                collisions,
                success,
                timestep):
     self.robot = robot
     self.pedestrians = pedestrians
-    self.obstacles = obstacles
+    # self.obstacles = obstacles
     self.collisions = collisions
     self.success = success
     self.timestep = timestep
@@ -76,14 +77,14 @@ class State:
   def create_from_info(cls, info):
     robot = parse_robot(info)
     pedestrians = parse_pedestrians(info)
-    obstacles = parse_obstacles(info)
+    # obstacles = parse_obstacles(info)
     collisions = parse_collisions(info)
     success = parse_success(info)
     timestep = parse_timestep(info)
     return cls(
         robot=robot,
         pedestrians=pedestrians,
-        obstacles=obstacles,
+        # obstacles=obstacles,
         collisions=collisions,
         success=success,
         timestep=timestep)
@@ -237,43 +238,43 @@ STANDARD_METRICS = [
 #-----------------------------------------------------
 # Support Library
 #-----------------------------------------------------
-# def min_distance_to_other_agents(history):
-#   return min([state.min_distance_to_other_agents for state in history])
+def min_distance_to_other_agents(history):
+  return min([state.min_distance_to_other_agents for state in history])
 
-# def get_robot_positions(history):
-#   return np.array([state.robot.position for state in history])
+def get_robot_positions(history):
+  return np.array([state.robot.position for state in history])
 
-# def traversed_distance(history):
-#   robot_positions = get_robot_positions(history)
-#   delta_positions = np.diff(robot_positions, axis=0)
-#   delta_distance = np.linalg.norm(delta_positions, axis=1)
-#   return sum(delta_distance)
+def traversed_distance(history):
+  robot_positions = get_robot_positions(history)
+  delta_positions = np.diff(robot_positions, axis=0)
+  delta_distance = np.linalg.norm(delta_positions, axis=1)
+  return sum(delta_distance)
 
-# def get_time_deltas(history):
-#   return np.array([state.timestep for state in history])
+def get_time_deltas(history):
+  return np.array([state.timestep for state in history])
 
-# def get_robot_velocities(history):
-#   return np.array([state.robot.velocity for state in history])
+def get_robot_velocities(history):
+  return np.array([state.robot.velocity for state in history])
 
-# def get_robot_jerk_history(history):
-#   velocities = get_robot_velocities(history)
-#   velocity_deltas = np.diff(velocities, axis=0)
+def get_robot_jerk_history(history):
+  velocities = get_robot_velocities(history)
+  velocity_deltas = np.diff(velocities, axis=0)
 
-#   time_deltas = get_time_deltas(history)
-#   time_broadcast = np.broadcast_to(
-#       np.expand_dims(time_deltas[:-1], 1),
-#       velocity_deltas.shape)
+  time_deltas = get_time_deltas(history)
+  time_broadcast = np.broadcast_to(
+      np.expand_dims(time_deltas[:-1], 1),
+      velocity_deltas.shape)
 
-#   accelerations = velocity_deltas / time_broadcast
-#   acceleration_deltas = np.diff(accelerations, axis=0)
+  accelerations = velocity_deltas / time_broadcast
+  acceleration_deltas = np.diff(accelerations, axis=0)
 
-#   jerk_history = acceleration_deltas / time_broadcast[:-1]
-#   jerk_magnitudes = np.linalg.norm(jerk_history, axis=1)
+  jerk_history = acceleration_deltas / time_broadcast[:-1]
+  jerk_magnitudes = np.linalg.norm(jerk_history, axis=1)
 
-#   return jerk_magnitudes, time_deltas[:-2]
+  return jerk_magnitudes, time_deltas[:-2]
 
-# def get_robot_jerk_stats(history):
-#   jerks, deltas = get_robot_jerk_history(history)
-#   if len(jerks) == 0:
-#     return 0, 0, 0, 0
-#   return jerks.min(), jerks.max(), jerks.mean(), sum(jerks * deltas)
+def get_robot_jerk_stats(history):
+  jerks, deltas = get_robot_jerk_history(history)
+  if len(jerks) == 0:
+    return 0, 0, 0, 0
+  return jerks.min(), jerks.max(), jerks.mean(), sum(jerks * deltas)

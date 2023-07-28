@@ -412,6 +412,9 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
         agent_infos = {
             agent: {
+                'goal': obs_map.get('agents_goal'),
+                'shortest_path': obs_map.get('agents_goal_distance'),
+                'position': obs_map.get('agents_pose'),
                 'succeeded': obs_map.get('success_observation', 0) == 1,
                 'collision': obs_map.get('collisions', [0])[0],
                 'velocity': obs_map.get('agents_velocity', np.array([0, 0])).mean(),
@@ -420,6 +423,12 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
             } for agent, obs_map in zip(self.possible_agents, observation_maps) if agent in self.agents
         }
+        agent_infos["robot_data"] = agent_infos.pop(self.agents[0])
+        agent_infos["pedestrian_data"] = agent_infos.pop(self.agents[1])
+        agent_infos["pedestrian_data"] = [agent_infos["pedestrian_data"]] 
+        agent_infos["collisions"] = 0
+        agent_infos["success"] = False
+        agent_infos["timestep"] = int(time.time())
 
         # if all([x.get('succeeded') for x in agent_infos.values()]):
         #     print('major reward')

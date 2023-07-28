@@ -1,5 +1,6 @@
 from src.environment.observations.observation import Observation
 from src.environment.observations.types.agents_goal_distance import AgentsGoalDistance
+from src.environment.observations.types.agents_goal_pose import AgentsGoal
 from src.environment.observations.types.agents_pose import AgentsPose
 from src.environment.observations.types.agents_velocity import AgentsVelocity
 from src.environment.observations.types.agents_preferred_velocity import AgentsPreferredVelocity

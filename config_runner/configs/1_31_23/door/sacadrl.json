@@ -27,6 +27,7 @@
 
   "entropy_constant_penalty": -100000,
   "entropy_constant_penalty_only_those_that_did_not_finish": true,
+  "socialnavAPI": true,
 
   "timelimit": true,
   "timelimit_threshold": 3000
