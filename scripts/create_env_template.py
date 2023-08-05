@@ -67,6 +67,8 @@ def create_new_env(name: str, template: str = None):
         open(str(vectormap_file), 'w').close()
     if not navigation_file.exists():
         open(str(navigation_file), 'w').close()
+    if not navigation_json_file.exists():
+        open(str(navigation_json_file), 'w').close()
 
     # Build vectormap (geometry of the env)
     cmd = [str(VECTOR_DISPLAY_FOLDER / 'vd.sh'), str(environment_map_path.parent), environment_map_path.name, "--edit_localization"]
