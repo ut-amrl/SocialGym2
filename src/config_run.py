@@ -34,7 +34,7 @@ from src.environment.visuals.nav_map_viz import NavMapViz
 
 from src.environment.scenarios.common_scenarios import envs_door, envs_hallway, envs_intersection, envs_round_about, \
   envs_open
-from src.environment.scenarios import CycleScenario
+from src.environment.scenarios import CycleScenario, GraphNavScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
@@ -319,6 +319,10 @@ def run(
                                                all_config=monitor and not local)
     scenarios.append(scenario)
     zones.append(conflict_zone)
+  if 'envs_multi' in experiment_names:
+    scenario = GraphNavScenario("tmp/multi-scenario")
+    scenarios.append(scenario)
+
 
   observations = []
 
@@ -387,7 +391,7 @@ def run(
     ENV_CLASS = partial(ManualZoneEnv, zones)
   else:
     ENV_CLASS = partial(RosSocialEnv)
-
+  
   # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
   env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else max(num_agents[-1][1], eval_num_agents[-1]), debug=debug)
 

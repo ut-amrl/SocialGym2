@@ -29,7 +29,6 @@ class Scenario:
 
         self.config_scene_path = Path(f'{ROOT_FOLDER}/src/templates/{env_name}/')
         self.config_nav_path = self.config_scene_path / f'{self.config_scene_path.name}.navigation.json'
-
         assert Path(self.config_nav_path).is_file(), \
             f'The env_name ({env_name}) does not have a navigation file at {self.config_nav_path}.'
         assert Path(self.config_scene_path).is_dir(), \
