@@ -153,6 +153,10 @@ class ManualZoneEnv(RosSocialEnv):
         start = np.array(scenario.robot_positions[start_point])
         end = np.array(scenario.robot_positions[end_point])
 
+        if start.shape[0] > 1:
+            start = start[0]
+            end = end[0]
+
         line = end - start
         length = np.linalg.norm(line)
         line /= length

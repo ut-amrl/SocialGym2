@@ -1,0 +1,38 @@
+/home/rosdev/social_gym
+/home/rosdev/social_gym
+Name: SuperSuit
+Version: 3.9.0
+Summary: Wrappers for Gymnasium and PettingZoo
+Home-page: None
+Author: None
+Author-email: Farama Foundation <contact@farama.org>
+License: MIT License
+Location: /usr/local/lib/python3.8/dist-packages
+Requires: tinyscaler, gymnasium, numpy
+Required-by: 
+Name: pettingzoo
+Version: 1.23.1
+Summary: Gymnasium for multi-agent reinforcement learning.
+Home-page: None
+Author: None
+Author-email: Farama Foundation <contact@farama.org>
+License: MIT License
+Location: /usr/local/lib/python3.8/dist-packages
+Requires: gymnasium, numpy
+Required-by: 
+Name: stable-baselines3
+Version: 2.1.0
+Summary: Pytorch version of Stable Baselines, implementations of reinforcement learning algorithms.
+Home-page: https://github.com/DLR-RM/stable-baselines3
+Author: Antonin Raffin
+Author-email: antonin.raffin@dlr.de
+License: MIT
+Location: /usr/local/lib/python3.8/dist-packages
+Requires: matplotlib, gymnasium, pandas, torch, cloudpickle, numpy
+Required-by: sb3-contrib, imitation
+Python 3.8.10
+[0m[ INFO] [1693431990.500186587]: Updated sim with live config: Rate=40 incoming rate=40[0m
+[0m[ INFO] [1693431990.508012836]: Using default queue size of 10 for publisher queues... [0m
+[0m[ INFO] [1693431990.520342905]: Loading scene [/home/rosdev/social_gym/config/gym_gen/scene.xml] for simulation[0m
+[0m[ INFO] [1693431990.540756953]: node initialized, now running [0m
+Service Mode

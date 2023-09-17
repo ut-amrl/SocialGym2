@@ -335,7 +335,10 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.last_reward_maps = []
 
         if not return_info:
-            return {agent: obs for agent, obs in zip(self.agents, observations)}
+            infos = {
+                agent: {} for agent in self.possible_agents if agent in self.agents
+            }
+            return {agent: obs for agent, obs in zip(self.agents, observations)}, infos
         else:
             infos = {
                 agent: {} for agent in self.possible_agents if agent in self.agents
@@ -423,12 +426,13 @@ class RosSocialEnv(ParallelEnv, EzPickle):
 
             } for agent, obs_map in zip(self.possible_agents, observation_maps) if agent in self.agents
         }
-        agent_infos["robot_data"] = agent_infos.pop(self.agents[0])
-        agent_infos["pedestrian_data"] = agent_infos.pop(self.agents[1])
+        agent_infos["robot_data"] = agent_infos[self.agents[0]]
+        agent_infos["pedestrian_data"] = agent_infos[self.agents[1]]
         agent_infos["pedestrian_data"] = [agent_infos["pedestrian_data"]] 
         agent_infos["collisions"] = 0
         agent_infos["success"] = False
         agent_infos["timestep"] = int(time.time())
+
 
         # if all([x.get('succeeded') for x in agent_infos.values()]):
         #     print('major reward')
@@ -437,6 +441,7 @@ class RosSocialEnv(ParallelEnv, EzPickle):
         self.terminations_ = list(agent_terminations.values())
 
         truncs = {agent: False if obs_map.get('success_observation', 0) == 0 else True for agent, obs_map in zip(self.agents, observation_maps)}
+        #print(agent_infos, flush=True)
 
         # return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos
         return agent_observations, agent_rewards, agent_terminations, truncs, agent_infos

@@ -1,5 +1,5 @@
 {
-  "num_agents": 2,
+  "num_agents": [[0,2]],
   "eval_num_agents": [3, 4, 5, 7, 10, 20],
   "train_length": 250000,
   "ending_eval_trials": 25,

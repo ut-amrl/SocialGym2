@@ -140,9 +140,12 @@ class GraphNavScenario(Scenario):
             allowed_agent_start_positions: List[int] = None,
             allowed_agent_goal_positions: List[int] = None,
             allowed_human_start_positions: List[int] = None,
-            allowed_human_goal_positions: List[int] = None
+            allowed_human_goal_positions: List[int] = None,
+            config_runner: bool = False,
+            all_config: bool = False,
+            partially_observable: bool = False
     ):
-        super().__init__(env_name=env_name)
+        super().__init__(env_name=env_name, config_runner=config_runner, all_config=all_config, partially_observable=partially_observable)
 
         self.allowed_agent_start_positions = allowed_agent_start_positions
         self.allowed_agent_goal_positions = allowed_agent_goal_positions
