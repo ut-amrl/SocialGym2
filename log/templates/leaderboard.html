@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SocialGym2 Multi-Agent Simulator Leaderboard</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    h1 {
+        color: #0056b3;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        font-size: 1.2em;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    th:hover {
+        background-color: #0056b3;
+    }
+
+    td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #e8f0fe;
+    }
+</style>
+<script>
+// Your existing sortTable function here
+</script>
+</head>
+<body>
+
+
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("leaderboardTable");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc"; 
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        // Loop through all rows except the first (header):
+        for (i = 1; i < rows.length - 1; i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          // Check if rows need to be switched:
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch= true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;      
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    </script>
+
+
+<div class="container">
+    <h1>SocialGym2 Multi-Agent Simulator Leaderboard</h1>
+    <table id="leaderboardTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Timestamp</th>
+                <th onclick="sortTable(1)">Success Rate</th>
+                <th onclick="sortTable(2)">Collisions</th>
+                <th onclick="sortTable(3)">Avg. Length</th>
+                <th onclick="sortTable(4)">Avg. Velocity Delta</th>
+                <th onclick="sortTable(5)">Time Still</th>
+                <th onclick="sortTable(6)">Incorrect Enter Rate</th>
+                <th onclick="sortTable(7)">Incorrect Exit Rate</th>
+                <!-- Add more headers for each field you want sortable -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.timestamp }}</td>
+                <td>{{ report.success_rate }}</td>
+                <td>{{ report.collisions }}</td>
+                <td>{{ report.avg_length }}</td>
+                <td>{{ report.avg_velocity_delta }}</td>
+                <td>{{ report.time_still }}</td>
+                <td>{{ report.incorrect_enter_rate }}</td>
+                <td>{{ report.incorrect_exit_rate }}</td>
+                <!-- Add more data cells for each field -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
