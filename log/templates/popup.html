@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popup</title>
+    <style>
+        /* Add your CSS styles for the popup here */
+    </style>
+</head>
+<body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p>File uploaded successfully! Details:</p>
+            <ul>
+                <li>Policy Algorithm SB3 Contrib: {{ policy_algo_sb3_contrib }}</li>
+                <li>Policy Algorithm Name: {{ policy_algo_name }}</li>
+                <li>Policy Name: {{ policy_name }}</li>
+                <li>Number of Steps: {{ n_steps }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Checkpoint Upload and Leaderboard</title>
+    <style>
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #eeeeee;
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+        }
+
+        .form-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            flex: 1;
+            margin-right: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .leaderboard-container {
+            padding: 20px;
+            background-color: #ffffff;
+            flex: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #004080;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            text-align: left;
+            margin: 10px 0 5px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #004080;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Leaderboard styles */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            font-size: 1.2em;
+        }
+
+        th {
+            background-color: #004080;
+            color: #fff;
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        th:hover {
+            background-color: #0056b3;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e8f0fe;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("leaderboardTable");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc"; 
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        // Loop through all rows except the first (header):
+        for (i = 1; i < rows.length - 1; i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          // Check if rows need to be switched:
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch= true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;      
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Upload Model Checkpoint</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showPopup(event)">
+                <label for="checkpoint">Model Checkpoint (zip file):</label>
+                <input type="file" name="checkpoint" accept=".zip" required>
+                
+                <label>Policy Algorithm SB3 Contrib:</label>
+                <div class="radio-group">
+                    <input type="radio" id="true" name="policy_algo_sb3_contrib" value="True" required>
+                    <label for="true">True</label>
+                    <input type="radio" id="false" name="policy_algo_sb3_contrib" value="False">
+                    <label for="false">False</label>
+                </div>
+                
+                <label for="policy_algo_name">Policy Algorithm Name:</label>
+                <input type="text" name="policy_algo_name" required>
+                
+                <label for="policy_name">Policy Name:</label>
+                <input type="text" name="policy_name" required>
+                
+                <label for="n_steps">Number of Steps:</label>
+                <select name="n_steps" required>
+                    <option value="1024">1024</option>
+                    <option value="2048">2048</option>
+                    <option value="4096">4096</option>
+                </select>
+                
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div class="leaderboard-container">
+            <h1>SocialGym2 Benchmarking Leaderboard</h1>
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Timestamp</th>
+                        <th onclick="sortTable(1)">Success Rate</th>
+                        <th onclick="sortTable(2)">Collisions</th>
+                        <th onclick="sortTable(3)">Avg. Length</th>
+                        <th onclick="sortTable(4)">Avg. Velocity Delta</th>
+                        <th onclick="sortTable(5)">Time Still</th>
+                        <th onclick="sortTable(6)">Incorrect Enter Rate</th>
+                        <th onclick="sortTable(7)">Incorrect Exit Rate</th>
+                        <!-- Add more headers for each field you want sortable -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ report.timestamp }}</td>
+                        <td>{{ report.success_rate }}</td>
+                        <td>{{ report.collisions }}</td>
+                        <td>{{ report.avg_length }}</td>
+                        <td>{{ report.avg_velocity_delta }}</td>
+                        <td>{{ report.time_still }}</td>
+                        <td>{{ report.incorrect_enter_rate }}</td>
+                        <td>{{ report.incorrect_exit_rate }}</td>
+                        <!-- Add more data cells for each field -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup-container" id="popupContainer">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <p>Model Configurations uploaded successfully! Below are the details:</p>
+        <ul>
+            <li>Policy Algorithm SB3 Contrib: <span id="popup-policy-algo-sb3-contrib"></span></li>
+            <li>Policy Algorithm Name: <span id="popup-policy-algo-name"></span></li>
+            <li>Policy Name: <span id="popup-policy-name"></span></li>
+            <li>Number of Steps: <span id="popup-n-steps"></span></li>
+        </ul>
+        <p>Your model is being evaluated on benchmark scenarios. Results will be displayed on leaderboard after complete.</p>
+    </div>
+
+    <!-- JavaScript for handling the popup -->
+    <script>
+        function showPopup(event) {
+            event.preventDefault(); // Prevent the form submission
+            var popupOverlay = document.getElementById("popupOverlay");
+            var popupContainer = document.getElementById("popupContainer");
+            
+            // Get the form input values
+            var policy_algo_sb3_contrib = document.querySelector('input[name="policy_algo_sb3_contrib"]:checked').value;
+            var policy_algo_name = document.getElementsByName("policy_algo_name")[0].value;
+            var policy_name = document.getElementsByName("policy_name")[0].value;
+            var n_steps = document.getElementsByName("n_steps")[0].value;
+            
+            // Set the values in the popup
+            document.getElementById("popup-policy-algo-sb3-contrib").textContent = policy_algo_sb3_contrib;
+            document.getElementById("popup-policy-algo-name").textContent = policy_algo_name;
+            document.getElementById("popup-policy-name").textContent = policy_name;
+            document.getElementById("popup-n-steps").textContent = n_steps;
+            
+            // Show the popup
+            popupOverlay.style.display = "block";
+            popupContainer.style.display = "block";
+        }
+
+        function closePopup() {
+            var popupOverlay = document.getElementById("popupOverlay");
+            var popupContainer = document.getElementById("popupContainer");
+            
+            // Hide the popup
+            popupOverlay.style.display = "none";
+            popupContainer.style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Main Page</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+        .container {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+            width: 400px;
+        }
+        h1 {
+            color: navy;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            text-align: left;
+            margin: 10px 0 5px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #004080;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+</style>
+</head>
+<body>
+
+
+    <script>
+        function sortTable(n) {
+          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+          table = document.getElementById("leaderboardTable");
+          switching = true;
+          // Set the sorting direction to ascending:
+          dir = "asc"; 
+          while (switching) {
+            switching = false;
+            rows = table.rows;
+            // Loop through all rows except the first (header):
+            for (i = 1; i < rows.length - 1; i++) {
+              shouldSwitch = false;
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              // Check if rows need to be switched:
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  shouldSwitch= true;
+                  break;
+                }
+              }
+            }
+            if (shouldSwitch) {
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              switchcount ++;      
+            } else {
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        }
+        </script>
+
+<div class="container">
+    <div class="column form-column">
+        <h1>Upload Model Checkpoint</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="checkpoint">Model Checkpoint (zip file):</label>
+            <input type="file" name="checkpoint" accept=".zip" required>
+            
+            <label>Policy Algorithm SB3 Contrib:</label>
+            <div class="radio-group">
+                <input type="radio" id="true" name="policy_algo_sb3_contrib" value="True" required>
+                <label for="true">True</label>
+                <input type="radio" id="false" name="policy_algo_sb3_contrib" value="False">
+                <label for="false">False</label>
+            </div>
+            
+            <label for="policy_algo_name">Policy Algorithm Name:</label>
+            <input type="text" name="policy_algo_name" required>
+            
+            <label for="policy_name">Policy Name:</label>
+            <input type="text" name="policy_name" required>
+            
+            <label for="n_steps">Number of Steps:</label>
+            <select name="n_steps" required>
+                <option value="1024">1024</option>
+                <option value="2048">2048</option>
+                <option value="4096">4096</option>
+            </select>
+            
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    <div class="column leaderboard-column">
+        <h1>SocialGym2 Multi-Agent Simulator Leaderboard</h1>
+    <table id="leaderboardTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Timestamp</th>
+                <th onclick="sortTable(1)">Success Rate</th>
+                <th onclick="sortTable(2)">Collisions</th>
+                <th onclick="sortTable(3)">Avg. Length</th>
+                <th onclick="sortTable(4)">Avg. Velocity Delta</th>
+                <th onclick="sortTable(5)">Time Still</th>
+                <th onclick="sortTable(6)">Incorrect Enter Rate</th>
+                <th onclick="sortTable(7)">Incorrect Exit Rate</th>
+                <!-- Add more headers for each field you want sortable -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.timestamp }}</td>
+                <td>{{ report.success_rate }}</td>
+                <td>{{ report.collisions }}</td>
+                <td>{{ report.avg_length }}</td>
+                <td>{{ report.avg_velocity_delta }}</td>
+                <td>{{ report.time_still }}</td>
+                <td>{{ report.incorrect_enter_rate }}</td>
+                <td>{{ report.incorrect_exit_rate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+</body>
+</html>
