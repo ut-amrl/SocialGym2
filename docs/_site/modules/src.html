@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>src package &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -25,16 +26,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1y3vYhN6z55B0k7SRHf7gycan3rzWSsj8" class="logo" alt="Logo"/>
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +59,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">src package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/_site/modules/src.rst.txt" rel="nofollow"> View page source</a>
@@ -74,244 +71,102 @@
            <div itemprop="articleBody">
              
   <section id="src-package">
-<h1>src package<a class="headerlink" href="#src-package" title="Permalink to this heading"></a></h1>
+<h1>src package<a class="headerlink" href="#src-package" title="Permalink to this headline"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.environment.html">src.environment package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.callbacks.html">src.environment.callbacks package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.callbacks.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.callbacks.html#module-src.environment.callbacks.callbacks">src.environment.callbacks.callbacks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.callbacks.html#module-src.environment.callbacks">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.callbacks.html#src-environment-callbacks-callbacks-module">src.environment.callbacks.callbacks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.callbacks.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.environment_types.html">src.environment.environment_types package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.environment_types.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.environment_types.html#module-src.environment.environment_types.manual_zone">src.environment.environment_types.manual_zone module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.environment_types.html#module-src.environment.environment_types">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.environment_types.html#src-environment-environment-types-manual-zone-module">src.environment.environment_types.manual_zone module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.environment_types.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.extractors.html">src.environment.extractors package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.extractors.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.extractors.html#module-src.environment.extractors.lstm_agent_obs">src.environment.extractors.lstm_agent_obs module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.extractors.html#module-src.environment.extractors">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.extractors.html#src-environment-extractors-lstm-agent-obs-module">src.environment.extractors.lstm_agent_obs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.extractors.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.observations.html">src.environment.observations package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#module-src.environment.observations.common_observations">src.environment.observations.common_observations module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#module-src.environment.observations.observation">src.environment.observations.observation module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#module-src.environment.observations.observer">src.environment.observations.observer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#module-src.environment.observations">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#src-environment-observations-common-observations-module">src.environment.observations.common_observations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#src-environment-observations-observation-module">src.environment.observations.observation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#src-environment-observations-observer-module">src.environment.observations.observer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.observations.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.rewards.html">src.environment.rewards package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#module-src.environment.rewards.common_rewards">src.environment.rewards.common_rewards module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#module-src.environment.rewards.reward">src.environment.rewards.reward module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#module-src.environment.rewards.rewarder">src.environment.rewards.rewarder module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#module-src.environment.rewards">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#src-environment-rewards-common-rewards-module">src.environment.rewards.common_rewards module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#src-environment-rewards-reward-module">src.environment.rewards.reward module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#src-environment-rewards-rewarder-module">src.environment.rewards.rewarder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.rewards.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.scenarios.html">src.environment.scenarios package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#module-src.environment.scenarios.common_scenarios">src.environment.scenarios.common_scenarios module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#module-src.environment.scenarios.scenario">src.environment.scenarios.scenario module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#module-src.environment.scenarios">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#src-environment-scenarios-common-scenarios-module">src.environment.scenarios.common_scenarios module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#src-environment-scenarios-scenario-module">src.environment.scenarios.scenario module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.services.html">src.environment.services package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.services.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.services.html#module-src.environment.services.utmrs">src.environment.services.utmrs module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.services.html#module-src.environment.services">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.services.html#src-environment-services-utmrs-module">src.environment.services.utmrs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.services.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.utils.html">src.environment.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#module-src.environment.utils.evaluate_policy">src.environment.utils.evaluate_policy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#module-src.environment.utils.utils">src.environment.utils.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#module-src.environment.utils">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#src-environment-utils-evaluate-policy-module">src.environment.utils.evaluate_policy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#src-environment-utils-utils-module">src.environment.utils.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.utils.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="src.environment.wrappers.html">src.environment.wrappers package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.collision_episode_ender">src.environment.wrappers.collision_episode_ender module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.entropy_episode_ender">src.environment.wrappers.entropy_episode_ender module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.new_scenario_wrapper">src.environment.wrappers.new_scenario_wrapper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.reward_stripper">src.environment.wrappers.reward_stripper module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.tensorboard_writer">src.environment.wrappers.tensorboard_writer module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers.time_limit">src.environment.wrappers.time_limit module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-src.environment.wrappers">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-collision-episode-ender-module">src.environment.wrappers.collision_episode_ender module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-entropy-episode-ender-module">src.environment.wrappers.entropy_episode_ender module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-new-scenario-wrapper-module">src.environment.wrappers.new_scenario_wrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-reward-stripper-module">src.environment.wrappers.reward_stripper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-tensorboard-writer-module">src.environment.wrappers.tensorboard_writer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#src-environment-wrappers-time-limit-module">src.environment.wrappers.time_limit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.environment.wrappers.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-src.environment.ros_social_gym">src.environment.ros_social_gym module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.AgentColor"><code class="docutils literal notranslate"><span class="pre">AgentColor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.action_space"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.action_space()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.calculate_reward"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.calculate_reward()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.close"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.default_action"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.default_action()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.env_response_type"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.env_response_type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.launch_config"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.launch_config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.make_observation"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.make_observation()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.metadata"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.metadata</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.new_scenario"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.new_scenario()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.num_agents"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.num_agents</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.num_humans"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.num_humans</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.observation_space()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.observer"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.observer</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.render"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.render()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.reset"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.reset()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.rewarder"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.rewarder</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.seed"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.seed()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.sim_step"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.sim_step()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.state"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.state()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.html#src.environment.ros_social_gym.RosSocialEnv.step"><code class="docutils literal notranslate"><span class="pre">RosSocialEnv.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-src.environment">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.html#src-environment-ros-social-gym-module">src.environment.ros_social_gym module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.config_run">
-<span id="src-config-run-module"></span><h2>src.config_run module<a class="headerlink" href="#module-src.config_run" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.config_run.kinds">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.config_run.</span></span><span class="sig-name descname"><span class="pre">kinds</span></span><a class="headerlink" href="#src.config_run.kinds" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.config_run.kinds.ao">
-<span class="sig-name descname"><span class="pre">ao</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AO'</span></em><a class="headerlink" href="#src.config_run.kinds.ao" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.config_run.kinds.eo">
-<span class="sig-name descname"><span class="pre">eo</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EO'</span></em><a class="headerlink" href="#src.config_run.kinds.eo" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.config_run.kinds.sacadrl">
-<span class="sig-name descname"><span class="pre">sacadrl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SACADRL'</span></em><a class="headerlink" href="#src.config_run.kinds.sacadrl" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.config_run.run">
-<span class="sig-prename descclassname"><span class="pre">src.config_run.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_num_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate_eval_trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ending_eval_trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ending_eval_with_best</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existence_penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success_reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_collision_penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_penalty_scale_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforced_order_reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforced_order_track_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforced_order_penalty_for_incorrect_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforced_order_weak_signal_out_of_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty_for_multiple_agents_entering</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_distance_reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_distance_reward_clip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_ender</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_stripper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timelimit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timelimit_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_ender</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_max_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_max_timesteps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_constant_penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_constant_penalty_only_those_that_did_not_finish</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_reward_multiplier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entropy_multiply_negative_rewards_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_goal_distance_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_pose_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_pose_ignore_theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_velocity_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_velocity_ignore_theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_poses_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_poses_ignore_theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_poses_actual_positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_velocities_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_velocities_ignore_theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_algo_sb3_contrib</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_algo_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'PPO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MlpPolicy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_algo_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'envs_open'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continue_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'SACADRL'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.config_run.run" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>num_agents</strong> – Int or List[Int] - Either the exact number of agents to use, or an array of the format [[episode #,
-num of agents], …] which will alter the number of agents once that episode limit has been reached.  I.E. [[0, 3],
-[10, 4], [20, 5]] will initially train with 3 agents until episode 10 which will then change to 4 agents and then
-change to 5 once episode 20 is reached.</p></li>
-<li><p><strong>eval_num_agents</strong> – Int or List[Int] - Either the number of agents to evaluate on or a list of a number of agents
-to evaluate on (if list, [1, 2], evaluations will run for the number of specified episodes for 1 agent and then
-agian using 2 agents).</p></li>
-<li><p><strong>train_length</strong> – Int - Number of steps to train for.  (remember each agent requires a step, therefore 500 steps
-for training 5 agents means each agent will get 100 steps each.</p></li>
-<li><p><strong>eval_frequency</strong> – Int - Interval for running intermediate evaluation (in steps).   0&gt;= will effectively disable
-evaluation during training.</p></li>
-<li><p><strong>intermediate_eval_trials</strong> – Int - How many episodes to evaluate on during intermediate evaluation.</p></li>
-<li><p><strong>ending_eval_trials</strong> – Int - Number of episodes to evaluate for after training has completed.</p></li>
-<li><p><strong>ending_eval_with_best</strong> – Bool - After training, load up the best model seen during intermediate eval (if False,
-the most recent checkpoint will be loaded).</p></li>
-<li><p><strong>device</strong> – Str - The torch device to use (cpu/cuda:N/etc.) GPU is highly recommended.</p></li>
-<li><p><strong>partially_observable</strong> – Bool - whether or not LIDAR scans (and thus observations of the ego-agent) can be blocked
-by objects (walls/other agents/humans etc.)  If False then everything will be observable.</p></li>
-<li><p><strong>train</strong> – Bool - Run training</p></li>
-<li><p><strong>eval</strong> – Bool - Run evaluation</p></li>
-<li><p><strong>monitor</strong> – Bool - Show an RVIS window so you can watch the sim.</p></li>
-<li><p><strong>local</strong> – Bool - If you have graphnav and UTMRS running locally, this will tap the config_runner into those
-ROSModules.  Has some special requirements and isn’t recommended.</p></li>
-<li><p><strong>existence_penalty</strong> – Float - Existence Penalty amount (1 will be a reward of -1 per step).  Disabled if 0.</p></li>
-<li><p><strong>success_reward</strong> – Float - Reward amount for reaching the goal. Disabled if 0.</p></li>
-<li><p><strong>collision_penalty</strong> – Float - Penalty amount for colliding with a wall or agent (1 will be a reward of -1 per step).  Disabled if 0.</p></li>
-<li><p><strong>starting_collision_penalty</strong> – Float - Starting weight of the collision penalty if you want to scale it as training continues.</p></li>
-<li><p><strong>collision_penalty_scale_duration</strong> – Float - Number of steps to linearly scale the collision penalty from the
-starting_collision_penalty to the ending collision_penalty value over the specified number of STEPs. Disabled when 0</p></li>
-<li><p><strong>enforced_order_reward</strong> – Float - Penalty and Reward amount for entering/exiting the collision zone under specific
-conditions (controlled via other flags).</p></li>
-<li><p><strong>enforced_order_track_exit</strong> – Bool - Reward/Penalty for agents when they exit the conflict zone</p></li>
-<li><p><strong>enforced_order_penalty_for_incorrect_order</strong> – Bool - Penalty for out of order agents</p></li>
-<li><p><strong>enforced_order_weak_signal_out_of_zone</strong> – Bool - scaled (0.1 * enforced_order_reward) for agents at every
-timestep regardless of if they are in the conflict zone or not (scales to 1 once agents are in a collision zone).</p></li>
-<li><p><strong>penalty_for_multiple_agents_entering</strong> – Bool - Experimental flag that not only gives a penalty for agents out of
-order but also a penalty for when agents try to enter the conflict zone at the same time (agents are overlapping
-with the same edge of a conflict zone at the same time)</p></li>
-<li><p><strong>goal_distance_reward</strong> – Bool - include the goal distance reward.</p></li>
-<li><p><strong>goal_distance_reward_clip</strong> – Bool - clip the goal distance reward to [0, 1]</p></li>
-<li><p><strong>collision_ender</strong> – Bool - End episodes on collisions.</p></li>
-<li><p><strong>reward_stripper</strong> – Bool - When an agent succeeds and remains at the goal state, only give the at goal reward once
-and then 0 from then on (an attempt to make truncation work, truncation is not supported until <a class="reference external" href="https://github.com/DLR-RM/stable-baselines3/pull/780">https://github.com/DLR-RM/stable-baselines3/pull/780</a>
-is resolved.</p></li>
-<li><p><strong>timelimit</strong> – Bool - end episodes on a step timelimit.</p></li>
-<li><p><strong>timelimit_threshold</strong> – Int - the number of steps an episode is allowed to have (if the timelimit bool is set to True)</p></li>
-<li><p><strong>entropy_ender</strong> – Bool - End the episode if agents have not moved a sufficient amount over a length of time.</p></li>
-<li><p><strong>entropy_max_distance</strong> – Float - Distance threshold, if below during the duration of the timelimit the episode
-will end.  1 = one square in RVis (roughly 2meters)</p></li>
-<li><p><strong>entropy_max_timesteps</strong> – Int - number of timesteps that a sufficient distance must be traversed before ending the
-episode</p></li>
-<li><p><strong>entropy_reward</strong> – Bool - If an episode ends during the entropy wrapper, give a reward/penalty to agents determined
-by their final state and configuration flags.</p></li>
-<li><p><strong>entropy_constant_penalty</strong> – Int - If EntropyEnder ends an episode all agents recieve this penalty (1 is equal to -1 reward at the end of the episode).</p></li>
-<li><p><strong>entropy_constant_penalty_only_those_that_did_not_finish</strong> – Bool - Constant penalty only applies if the agents didn’t finish (reach their goal)</p></li>
-<li><p><strong>entropy_reward_multiplier</strong> – Int - instead of a constant reward, multiply the current reward (step before the episode ended)</p></li>
-<li><p><strong>entropy_multiply_negative_rewards_only</strong> – Bool - Only multiply rewards that are negative (indicating an agent was “stuck forever”)</p></li>
-<li><p><strong>collision_obs</strong> – Bool - Include the collision observation (must be true for the collision penalty)</p></li>
-<li><p><strong>agent_goal_distance_obs</strong> – Bool - Include the distance to the goal as an observation (must be true for the goal distance reward)</p></li>
-<li><p><strong>agent_pose_obs</strong> – Bool - Include the agents pose as an observation (x, y, and theta)</p></li>
-<li><p><strong>agent_pose_ignore_theta</strong> – Bool - Ignore the theta value in the pose observation (orientation)</p></li>
-<li><p><strong>agent_velocity_obs</strong> – Bool - Include the agents velocity as an observation (vx, vy, vtheta)</p></li>
-<li><p><strong>agent_velocity_ignore_theta</strong> – Bool - Ignore the theta value in the velocity observation</p></li>
-<li><p><strong>other_poses_obs</strong> – Bool - Include other agents/humans pose information (x, y, theta) as an observation</p></li>
-<li><p><strong>other_poses_ignore_theta</strong> – Bool - Ignore other agents/humans pose thetas</p></li>
-<li><p><strong>other_velocities_obs</strong> – Include other agents/humans velocities in the observation (vx, vy, vtheta)</p></li>
-<li><p><strong>other_velocities_ignore_theta</strong> – Bool - Ignore the velocity thetas of other agents</p></li>
-<li><p><strong>policy_algo_sb3_contrib</strong> – Bool - True if the policy you want to train has it’s base code in the SB3-Contrib library
-i.e. RecurrentPPO</p></li>
-<li><p><strong>policy_algo_name</strong> – Str - Name of the policy class you want to train as it appears in SB3 or SB3-Contrib</p></li>
-<li><p><strong>policy_name</strong> – Str - SB3 Policy structure (MlpPolicy for example)</p></li>
-<li><p><strong>policy_algo_kwargs</strong> – Dict - Any kwargs for the SB3 Policy.</p></li>
-<li><p><strong>debug</strong> – Bool - print statments and ALWAYS GO baseline (gives the action 0 to UTMRS for all agents all the time)</p></li>
-<li><p><strong>experiment_names</strong> – List[str] - List of scenarios currently supported by ConfigRunner (envs_door, envs_hallway,
-envs_intersection, envs_round_about, envs_open)</p></li>
-<li><p><strong>run_name</strong> – Str - Name of the run that will also be used to store tensorbaord info and checkpoints of the model
-as well as evaluation data in <cite>{PROJECT ROOT}/data/{run_name}</cite> (can be a nested folder)</p></li>
-<li><p><strong>continue_from</strong> – Str - Policy checkpoint to load from (relative path from <cite>{PROJECT ROOT}/data</cite>)</p></li>
-<li><p><strong>run_type</strong> – Str - Helper for using SACADRL or AO/EO variants. (allowed values are SACADRL, AO, EO)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="src-config-run-module">
+<h2>src.config_run module<a class="headerlink" href="#src-config-run-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.multi_agent_optuna">
-<span id="src-multi-agent-optuna-module"></span><h2>src.multi_agent_optuna module<a class="headerlink" href="#module-src.multi_agent_optuna" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.multi_agent_optuna.objective">
-<span class="sig-prename descclassname"><span class="pre">src.multi_agent_optuna.</span></span><span class="sig-name descname"><span class="pre">objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.multi_agent_optuna.objective" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<section id="src-multi-agent-optuna-module">
+<h2>src.multi_agent_optuna module<a class="headerlink" href="#src-multi-agent-optuna-module" title="Permalink to this headline"></a></h2>
 </section>
 <section id="module-src">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 

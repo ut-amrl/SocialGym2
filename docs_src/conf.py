@@ -50,7 +50,7 @@ html_favicon = 'favicon.ico'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-html_logo = "https://drive.google.com/uc?id=1y3vYhN6z55B0k7SRHf7gycan3rzWSsj8"
+html_logo = "https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png"
 html_theme_options = {
     'logo_only': False,
     'display_version': False,

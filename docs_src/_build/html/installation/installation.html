@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -27,16 +28,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -70,7 +67,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/installation/installation.md.txt" rel="nofollow"> View page source</a>
@@ -82,7 +79,7 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <p>In this doc we are going to setup Social Gym’s <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">runner</span></code> which allows you to run <a class="reference external" href="https://github.com/ut-amrl/SocialGym2"><strong>Social Gym</strong></a> using a configuration file. If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installations tep you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the advanced installation which goes over setting up a debugger.</p>
 <!-- ### Why are there two installation guides for Social Gym 
 
@@ -93,36 +90,36 @@ Social Gym for running and experimenting from installing Social Gym for developi
 <!-- ### Let's Install Config Runner! -->
 <hr class="docutils" />
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
 <!-- You need to have installed Docker, have an NVIDIA GPU, and have installed the [**NVIDIA-container runtime**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker). -->
 <p><strong>WARNING</strong>: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We recommend uninstalling docker and docker-compose if you have GPU-related issues with the docker images and installing them via <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
 <hr class="docutils" />
 </section>
 <section id="step-1-clone-the-repo-and-checkout-main">
-<h2>Step 1: Clone the repo and checkout main<a class="headerlink" href="#step-1-clone-the-repo-and-checkout-main" title="Permalink to this heading"></a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ut-amrl/SocialGym2.git
-git<span class="w"> </span>checkout<span class="w"> </span>main
+<h2>Step 1: Clone the repo and checkout main<a class="headerlink" href="#step-1-clone-the-repo-and-checkout-main" title="Permalink to this headline"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:ut-amrl/SocialGym2.git
+git checkout main
 </pre></div>
 </div>
 <p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)</p>
 </section>
 <section id="step-2-install-requirements-and-run-the-install-script">
-<h2>Step 2: Install requirements and run the install script!<a class="headerlink" href="#step-2-install-requirements-and-run-the-install-script" title="Permalink to this heading"></a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>./scripts/install_config_runner.py
+<h2>Step 2: Install requirements and run the install script!<a class="headerlink" href="#step-2-install-requirements-and-run-the-install-script" title="Permalink to this headline"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 ./scripts/install_config_runner.py
 </pre></div>
 </div>
 <p>Expect this to take a while (20-40m depending on your machine, mostly for the last step.).</p>
 </section>
 <section id="step-3-run-the-config-runner">
-<h2>Step 3: Run the Config Runner!<a class="headerlink" href="#step-3-run-the-config-runner" title="Permalink to this heading"></a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>config_runner/run.py<span class="w"> </span>-c<span class="w"> </span>1_31_23/door/sacadrl.json
+<h2>Step 3: Run the Config Runner!<a class="headerlink" href="#step-3-run-the-config-runner" title="Permalink to this headline"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 config_runner/run.py -c 1_31_23/door/sacadrl.json
 </pre></div>
 </div>
 <hr class="docutils" />
 <p><strong>NOTE</strong>: If you do NOT see windows, there’s a problem with the docker file.</p>
 <p>First try running</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>xhost<span class="w"> </span>+
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo xhost +
 </pre></div>
 </div>
 <p>and repeat the command.  If it still fails to show windows then try adding</p>

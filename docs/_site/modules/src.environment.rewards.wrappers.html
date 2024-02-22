@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>src.environment.rewards.wrappers package &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -25,16 +26,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1y3vYhN6z55B0k7SRHf7gycan3rzWSsj8" class="logo" alt="Logo"/>
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +59,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">src.environment.rewards.wrappers package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/_site/modules/src.environment.rewards.wrappers.rst.txt" rel="nofollow"> View page source</a>
@@ -74,30 +71,15 @@
            <div itemprop="articleBody">
              
   <section id="src-environment-rewards-wrappers-package">
-<h1>src.environment.rewards.wrappers package<a class="headerlink" href="#src-environment-rewards-wrappers-package" title="Permalink to this heading"></a></h1>
+<h1>src.environment.rewards.wrappers package<a class="headerlink" href="#src-environment-rewards-wrappers-package" title="Permalink to this headline"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.rewards.wrappers.linear_weight_scheduler">
-<span id="src-environment-rewards-wrappers-linear-weight-scheduler-module"></span><h2>src.environment.rewards.wrappers.linear_weight_scheduler module<a class="headerlink" href="#module-src.environment.rewards.wrappers.linear_weight_scheduler" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.environment.rewards.wrappers.linear_weight_scheduler.LinearWeightScheduler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.rewards.wrappers.linear_weight_scheduler.</span></span><span class="sig-name descname"><span class="pre">LinearWeightScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../modules/src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><span class="pre">Reward</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.wrappers.linear_weight_scheduler.LinearWeightScheduler" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../modules/src.environment.rewards.html#src.environment.rewards.reward.Reward" title="src.environment.rewards.reward.Reward"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reward</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>linearly interpolates the weight value between min_weight and max_weight starting at min_weight then incrementally
-increasing the weight until max weight is achieved.</p>
-<p>Only works for increasing weights not decreasing - TODO - this is probably easy.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.environment.rewards.wrappers.linear_weight_scheduler.LinearWeightScheduler.name">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.rewards.wrappers.linear_weight_scheduler.LinearWeightScheduler.name" title="Permalink to this definition"></a></dt>
-<dd><p>The name of the reward/penalty (used in other places, often to keep track of the types of rewards)</p>
-</dd></dl>
-
-</dd></dl>
-
+<section id="src-environment-rewards-wrappers-linear-weight-scheduler-module">
+<h2>src.environment.rewards.wrappers.linear_weight_scheduler module<a class="headerlink" href="#src-environment-rewards-wrappers-linear-weight-scheduler-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.rewards.wrappers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.rewards.wrappers" title="Permalink to this heading"></a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 
