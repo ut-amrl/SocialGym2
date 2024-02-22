@@ -24,17 +24,17 @@ from src.environment.rewards import Rewarder, Success, ExistencePenalty, \
   GoalDistanceChange
 from src.environment.rewards.types.manual_zone import EnforcedOrder
 from src.environment.observations import Observer, AgentsGoalDistance, AgentsPose, SuccessObservation, \
-  AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables
+  AgentsVelocity, OthersPoses, OthersVelocities, CollisionObservation, OtherAgentObservables, AgentsGoal
 from src.environment.observations.types.manual_zone import AgentInZone, AgentZoneCurrentOrder, AgentZonePriorityOrder, \
   EnteringZone, ExitingZone, NumberOfAgentsEnteringZone, NumberOfAgentsExitingZone
 from src.environment.wrappers import NewScenarioWrapper, TensorboardWriter, EntropyEpisodeEnder, CollisionEpisodeEnder, \
-  RewardStripper, TimeLimitWrapper, ProgressBarWrapper
+  RewardStripper, TimeLimitWrapper, ProgressBarWrapper, SocialNavWrapper, social_nav_API
 from src.environment.extractors import LSTMAgentObs
 from src.environment.visuals.nav_map_viz import NavMapViz
 
 from src.environment.scenarios.common_scenarios import envs_door, envs_hallway, envs_intersection, envs_round_about, \
   envs_open
-from src.environment.scenarios import CycleScenario
+from src.environment.scenarios import CycleScenario, GraphNavScenario, ManualScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
@@ -42,7 +42,6 @@ from src.environment.utils.utils import get_tboard_writer, ROOT_FOLDER
 from tqdm import tqdm
 
 seed(1)
-
 
 class kinds:
   sacadrl = 'SACADRL'
@@ -86,6 +85,7 @@ def run(
 
         reward_stripper: bool = False,
 
+        socialnavAPI: bool = True,
         timelimit: bool = False,
         timelimit_threshold: int = 2000,
 
@@ -319,6 +319,14 @@ def run(
                                                all_config=monitor and not local)
     scenarios.append(scenario)
     zones.append(conflict_zone)
+  if 'envs_multi' in experiment_names:
+    # scenario = GraphNavScenario("multienv", partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
+    scenario = ManualScenario("multienv", agent_paths=[[0, 1], [1,0], [1, 2]], human_paths=[[0, 1]], partially_observable=partially_observable, config_runner=True if not monitor and not local else False, all_config=monitor and not local)
+
+    scenarios.append(scenario)
+    # conflict_zone = (0, 1, 1)
+    # zones.append(conflict_zone)
+
 
   observations = []
 
@@ -330,9 +338,9 @@ def run(
     observations.append(AgentsVelocity(ignore_theta=agent_velocity_ignore_theta, history_length=2))
   if collision_obs:
     observations.append(CollisionObservation())
-  observations.append(
-    SuccessObservation()
-  )
+  observations.append(SuccessObservation())
+  if socialnavAPI:
+    observations.append(AgentsGoal())
 
   observations.append(OtherAgentObservables(
     pos_x=other_poses_obs,
@@ -387,7 +395,7 @@ def run(
     ENV_CLASS = partial(ManualZoneEnv, zones)
   else:
     ENV_CLASS = partial(RosSocialEnv)
-
+  
   # nav_map_vis = NavMapViz(scenario.nav_map, scenario.nav_lines)
   env = ENV_CLASS(observer=observer, rewarder=rewarder, scenarios=scenarios, num_humans=0, num_agents=num_agents if isinstance(num_agents, int) else max(num_agents[-1][1], eval_num_agents[-1]), debug=debug)
 
@@ -408,6 +416,8 @@ def run(
     env = TimeLimitWrapper(env, max_steps=timelimit_threshold)
   if reward_stripper:
     env = RewardStripper(env)
+  if socialnavAPI:
+    env = SocialNavWrapper(env, metrics=social_nav_API.STANDARD_METRICS)    # SocialNavWrapper
 
   # env = ProgressBarWrapper(env, train_length * (num_agents if isinstance(num_agents, int) else num_agents[-1][1]))
 
@@ -435,7 +445,7 @@ def run(
   env = VecNormalize(env, norm_reward=True, norm_obs=True, clip_obs=10.)
   env = VecMonitor(env)
 
-  #TODO - allow this to work for 1 and 2 agents.
+  # TODO - allow this to work for 1 and 2 agents.
   policy_algo_kwargs['policy_kwargs'] = {"features_extractor_class": LSTMAgentObs, "features_extractor_kwargs": dict(observer=observer)}
 
   if policy_algo_sb3_contrib:

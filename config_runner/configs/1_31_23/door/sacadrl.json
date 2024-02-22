@@ -1,5 +1,5 @@
 {
-  "num_agents": [[0, 3], [35, 4], [70, 5]],
+  "num_agents": [[0,2]],
   "eval_num_agents": [3, 4, 5, 7, 10, 20],
   "train_length": 250000,
   "ending_eval_trials": 25,
@@ -11,7 +11,7 @@
   "policy_algo_kwargs": {"n_steps":  4096},
   "monitor": true,
 
-  "experiment_names": ["envs_door"],
+  "experiment_names": ["envs_multi"],
 
   "run_name": "1_31_23/door/sacadrl_1",
   "run_type": "SACADRL",
@@ -27,6 +27,7 @@
 
   "entropy_constant_penalty": -100000,
   "entropy_constant_penalty_only_those_that_did_not_finish": true,
+  "socialnavAPI": true,
 
   "timelimit": true,
   "timelimit_threshold": 3000

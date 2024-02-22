@@ -82,6 +82,8 @@ def create_new_env(name: str, template: str = None):
     out = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out.wait()
 
+    print("HI")
+
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{ROOT_FOLDER}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{AMRL_MAPS_FOLDER}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     subprocess.Popen(["sudo", "chmod", "-R", "a+rwX",  f"{UT_MULTI_ROBOT_SIM_MAPS_FOLDER}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
