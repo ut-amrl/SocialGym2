@@ -34,7 +34,7 @@ from src.environment.visuals.nav_map_viz import NavMapViz
 
 from src.environment.scenarios.common_scenarios import envs_door, envs_hallway, envs_intersection, envs_round_about, \
   envs_open
-from src.environment.scenarios import CycleScenario, GraphNavScenario
+from src.environment.scenarios import CycleScenario, GraphNavScenario, ManualScenario
 from src.environment.utils.utils import DATA_FOLDER
 from src.environment.utils.evaluate_policy import evaluate_policy
 import datetime
@@ -51,7 +51,7 @@ class kinds:
 
 def run(
         num_agents: Union[List[int], int] = 2,
-        eval_num_agents: Union[List[int], int] = None,
+        eval_num_agents: Union[List[int], int] = 2,
         train_length: int = 100_000,
         eval_frequency: int = 25_000,
         intermediate_eval_trials: int = 25,
@@ -89,7 +89,7 @@ def run(
         timelimit: bool = False,
         timelimit_threshold: int = 2000,
 
-        entropy_ender: bool = True,
+        entropy_ender: bool = False,
         entropy_max_distance: float = 0.25,
         entropy_max_timesteps: int = 100,
         entropy_reward: bool = True,
@@ -320,7 +320,14 @@ def run(
     scenarios.append(scenario)
     zones.append(conflict_zone)
   if 'envs_multi' in experiment_names:
-    scenario = GraphNavScenario("tmp/multi-scenario")
+    # scenario = GraphNavScenario("tmp/multi_scenario")
+    paths = [
+      [0, 1, 2, 3],
+      [3, 2, 1, 0],
+      [4, 5, 6, 7],
+      [7, 6, 5, 4]
+    ]
+    scenario = ManualScenario("tmp/multi-scenario", paths, paths) 
     scenarios.append(scenario)
 
 
