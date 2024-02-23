@@ -153,9 +153,9 @@ class ManualZoneEnv(RosSocialEnv):
         start = np.array(scenario.robot_positions[start_point])
         end = np.array(scenario.robot_positions[end_point])
 
-        if start.shape[0] > 1:
-            start = start[0]
-            end = end[0]
+        # if start.shape[0] > 1:
+            # start = start[0]
+            # end = end[0]
 
         line = end - start
         length = np.linalg.norm(line)
@@ -186,11 +186,11 @@ class ManualZoneEnv(RosSocialEnv):
         self.agents_priority_orders = random.sample(range(0, self.curr_num_agents), self.curr_num_agents)
         if return_info:
             res, info = super().reset(seed, return_info, options)
-            print("HERE 1", flush=True)
+            #print("HERE 1", flush=True)
             return res, info
         else:
             res, info = super().reset(seed, True, options)
-            print("HERE 2", flush=True)
+            #print("HERE 2", flush=True)
             return res, info
 
 

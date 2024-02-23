@@ -138,7 +138,7 @@ RUN pip3 install supersuit==3.9.0
 # RUN pip3 install pettingzoo==1.19.0
 # RUN pip3 install supersuit==3.5.0
 # RUN pip3 install "git+https://github.com/elliottower/SuperSuit.git@sb3-pettingzoo-compatibility"
-# RUN pip3 install gym==0.26.2
+RUN pip3 install gym==0.26.2
 # RUN pip3 install gym
 RUN pip3 install gymnasium
 RUN pip3 install git+https://github.com/Farama-Foundation/PettingZoo.git@a00c6c3badd90eeca874bfa4ddf4a51a1d17f7eb

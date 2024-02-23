@@ -178,13 +178,25 @@ def evaluate_policy(
         if render:
             env.render()
 
-    success_rate = successes / total
-    collision_rate = collisions / total
-    avg_length = lengths / total
-    avg_velocity_delta = velocity_delta / total
-    avg_time_still = (time_still / total) / max_num
-    incorrect_enter_rate = incorrect_enter_order / total
-    incorrect_exit_rate = incorrect_exit_order / total
+    try:
+        total = max(total, 1e-5)
+        max_num = max(max_num, 1e-5)
+
+        success_rate = successes / total
+        collision_rate = collisions / total
+        avg_length = lengths / total
+        avg_velocity_delta = velocity_delta / total
+        avg_time_still = (time_still / total) / max_num
+        incorrect_enter_rate = incorrect_enter_order / total
+        incorrect_exit_rate = incorrect_exit_order / total
+    except Exception:
+        success_rate = 0.0
+        collision_rate = 0.0
+        avg_length = 0.0
+        avg_velocity_delta = 0.0
+        avg_time_still = 0.0
+        incorrect_enter_rate = 0.0
+        incorrect_exit_rate = 0.0
 
     metrics['success_rate'] = success_rate
     metrics['collisions'] = collision_rate
