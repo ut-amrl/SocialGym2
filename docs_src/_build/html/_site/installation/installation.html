@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -25,16 +26,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1F1hEwQiFuwT7OGwYrJ6t8O9NqrlNk4RH" class="logo" alt="Logo"/>
+            <a href="../../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +59,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/_site/installation/installation.md.txt" rel="nofollow"> View page source</a>
@@ -74,20 +71,20 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <p>In this doc we are going to setup Social Gym’s <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">runner</span></code> which allows you to run Social Gym using a configuration
 file.  If all you need to do is train, evaluate, or test your installation of Social Gym, this is the only installation
 step you have to follow.  However, if you wish to contribute and develop on Social Gym, we recommend the more indepth
 installation guide which goes over setting up a debugger.</p>
 <section id="why-are-there-two-installation-guides-for-social-gym">
-<h2>Why are there two installation guides for Social Gym<a class="headerlink" href="#why-are-there-two-installation-guides-for-social-gym" title="Permalink to this heading"></a></h2>
+<h2>Why are there two installation guides for Social Gym<a class="headerlink" href="#why-are-there-two-installation-guides-for-social-gym" title="Permalink to this headline"></a></h2>
 <p>Social Gym uses ROS (Robot Operating System) submodules written in C, to ensure they installed correctly and can run on
 your machine, we use Docker.  However, this poses challenges for debugging both the Python code and the C code because
 everything has to communicate with each other.  To ease the process of setting Social Gym up, we separated installing
 Social Gym for running and experimenting from installing Social Gym for developing.</p>
 </section>
 <section id="let-s-install-config-runner">
-<h2>Let’s Install Config Runner!<a class="headerlink" href="#let-s-install-config-runner" title="Permalink to this heading"></a></h2>
+<h2>Let’s Install Config Runner!<a class="headerlink" href="#let-s-install-config-runner" title="Permalink to this headline"></a></h2>
 <hr class="docutils" />
 <p><strong>Note</strong>: We require you have installed Docker and Python 3.8 (version 3.8 may not be necessary but it’s what we use)</p>
 <p><strong>WARNING</strong>: The authors of this project have had numerous issues with Docker and Docker-Compose when installed via snap.  We
@@ -95,24 +92,24 @@ recommend uninstalling docker and docker-compose if you have GPU-related issues 
 <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p>
 <hr class="docutils" />
 <section id="clone-the-repo-and-checkout-main">
-<h3>1.) Clone the repo and checkout main<a class="headerlink" href="#clone-the-repo-and-checkout-main" title="Permalink to this heading"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ut-amrl/social_gym.git
-git<span class="w"> </span>checkout<span class="w"> </span>main
+<h3>1.) Clone the repo and checkout main<a class="headerlink" href="#clone-the-repo-and-checkout-main" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:ut-amrl/social_gym.git
+git checkout main
 </pre></div>
 </div>
 <p>Although we use Docker to run Social Gym’s internals, we have scripts to set up Social Gym as well as scripts that kick
 off the process written in python (so you still need to install stuff)</p>
 </section>
 <section id="install-requirements-and-run-the-install-script">
-<h3>2.) Install requirements and run the install script!<a class="headerlink" href="#install-requirements-and-run-the-install-script" title="Permalink to this heading"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./scripts/install_config_runner.py
+<h3>2.) Install requirements and run the install script!<a class="headerlink" href="#install-requirements-and-run-the-install-script" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python ./scripts/install_config_runner.py
 </pre></div>
 </div>
 <p>Expect this to take a while (20-40m depending on your machine, mostly for the last step.).</p>
 </section>
 <section id="run-the-config-runner">
-<h3>3.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this heading"></a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>config_runner/run.py<span class="w"> </span>-c<span class="w"> </span>1_31_23/door/sacadrl.json
+<h3>3.) Run the Config Runner!<a class="headerlink" href="#run-the-config-runner" title="Permalink to this headline"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python config_runner/run.py -c 1_31_23/door/sacadrl.json
 </pre></div>
 </div>
 <p>This should open an RVIS window (looks like a 2D grid with options on the side-panels).  It may CLOSE and re-open MANY
@@ -122,7 +119,7 @@ seconds.</p>
 <hr class="docutils" />
 <p><strong>NOTE</strong>: If you do NOT see windows, there’s a problem with the docker file.</p>
 <p>First try running</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>xhost<span class="w"> </span>+
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo xhost +
 </pre></div>
 </div>
 <p>and repeat the command.  If it still fails to show windows then try adding</p>
@@ -133,7 +130,7 @@ We will fill out more tips/tricks and common failures here as we experience them
 </section>
 <hr class="docutils" />
 <section id="have-fun">
-<h3>4.) Have fun!<a class="headerlink" href="#have-fun" title="Permalink to this heading"></a></h3>
+<h3>4.) Have fun!<a class="headerlink" href="#have-fun" title="Permalink to this headline"></a></h3>
 <p>You can now specify your own configurations and run your own training or evaluation jobs.  More documentation on this
 later.</p>
 <p>If you need to develop or debug Social Gym – you’ll have to follow the full installation guide on the next

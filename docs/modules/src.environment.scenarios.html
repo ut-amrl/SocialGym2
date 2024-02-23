@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>src.environment.scenarios package &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -25,16 +26,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1y3vYhN6z55B0k7SRHf7gycan3rzWSsj8" class="logo" alt="Logo"/>
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +59,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">src.environment.scenarios package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/modules/src.environment.scenarios.rst.txt" rel="nofollow"> View page source</a>
@@ -74,122 +71,33 @@
            <div itemprop="articleBody">
              
   <section id="src-environment-scenarios-package">
-<h1>src.environment.scenarios package<a class="headerlink" href="#src-environment-scenarios-package" title="Permalink to this heading"></a></h1>
+<h1>src.environment.scenarios package<a class="headerlink" href="#src-environment-scenarios-package" title="Permalink to this headline"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.environment.scenarios.types.html">src.environment.scenarios.types package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#module-src.environment.scenarios.types.cycle">src.environment.scenarios.types.cycle module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.cycle.CycleScenario"><code class="docutils literal notranslate"><span class="pre">CycleScenario</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.cycle.CycleScenario.generate_scenario"><code class="docutils literal notranslate"><span class="pre">CycleScenario.generate_scenario()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#module-src.environment.scenarios.types.graph_nav">src.environment.scenarios.types.graph_nav module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.graph_nav.GraphNavScenario"><code class="docutils literal notranslate"><span class="pre">GraphNavScenario</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.graph_nav.GraphNavScenario.generate_scenario"><code class="docutils literal notranslate"><span class="pre">GraphNavScenario.generate_scenario()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#module-src.environment.scenarios.types.manual">src.environment.scenarios.types.manual module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.manual.ManualScenario"><code class="docutils literal notranslate"><span class="pre">ManualScenario</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.environment.scenarios.types.html#src.environment.scenarios.types.manual.ManualScenario.generate_scenario"><code class="docutils literal notranslate"><span class="pre">ManualScenario.generate_scenario()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#module-src.environment.scenarios.types">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#src-environment-scenarios-types-cycle-module">src.environment.scenarios.types.cycle module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#src-environment-scenarios-types-graph-nav-module">src.environment.scenarios.types.graph_nav module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#src-environment-scenarios-types-manual-module">src.environment.scenarios.types.manual module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.environment.scenarios.types.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.scenarios.common_scenarios">
-<span id="src-environment-scenarios-common-scenarios-module"></span><h2>src.environment.scenarios.common_scenarios module<a class="headerlink" href="#module-src.environment.scenarios.common_scenarios" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.closed_door_1__opposing_sides">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">closed_door_1__opposing_sides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'t1'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.closed_door_1__opposing_sides" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.closed_door_1__same_goals">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">closed_door_1__same_goals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'t1'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.closed_door_1__same_goals" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.elevator_loading">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">elevator_loading</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.elevator_loading" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.envs_door">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">envs_door</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.envs_door" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.envs_hallway">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">envs_hallway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.envs_hallway" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.envs_intersection">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">envs_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.envs_intersection" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.envs_open">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">envs_open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.envs_open" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.envs_round_about">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">envs_round_about</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.envs_round_about" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.exp1_train_scenario">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">exp1_train_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'easy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.exp1_train_scenario" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.environment.scenarios.common_scenarios.exp2_train_scenario">
-<span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.common_scenarios.</span></span><span class="sig-name descname"><span class="pre">exp2_train_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'easy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.environment.scenarios.scenario.Scenario" title="src.environment.scenarios.scenario.Scenario"><span class="pre">Scenario</span></a></span></span><a class="headerlink" href="#src.environment.scenarios.common_scenarios.exp2_train_scenario" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<section id="src-environment-scenarios-common-scenarios-module">
+<h2>src.environment.scenarios.common_scenarios module<a class="headerlink" href="#src-environment-scenarios-common-scenarios-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.scenarios.scenario">
-<span id="src-environment-scenarios-scenario-module"></span><h2>src.environment.scenarios.scenario module<a class="headerlink" href="#module-src.environment.scenarios.scenario" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.environment.scenarios.scenario.Scenario">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.scenarios.scenario.</span></span><span class="sig-name descname"><span class="pre">Scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partially_observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_runner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.scenarios.scenario.Scenario" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.environment.scenarios.scenario.Scenario.generate_scenario">
-<span class="sig-name descname"><span class="pre">generate_scenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.scenarios.scenario.Scenario.generate_scenario" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.environment.scenarios.scenario.Scenario.load_nav_nodes">
-<span class="sig-name descname"><span class="pre">load_nav_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nav_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.scenarios.scenario.Scenario.load_nav_nodes" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.environment.scenarios.scenario.Scenario.make_scenario">
-<span class="sig-name descname"><span class="pre">make_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.scenarios.scenario.Scenario.make_scenario" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="src-environment-scenarios-scenario-module">
+<h2>src.environment.scenarios.scenario module<a class="headerlink" href="#src-environment-scenarios-scenario-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.scenarios">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.scenarios" title="Permalink to this heading"></a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 

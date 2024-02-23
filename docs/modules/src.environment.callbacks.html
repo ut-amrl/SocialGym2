@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>src.environment.callbacks package &mdash; Social Gym 2.0  documentation</title>
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -25,16 +26,12 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            Social Gym 2.0
-              <img src="https://drive.google.com/uc?id=1y3vYhN6z55B0k7SRHf7gycan3rzWSsj8" class="logo" alt="Logo"/>
+            <a href="../index.html" class="icon icon-home"> Social Gym 2.0
+            <img src="https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +59,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">src.environment.callbacks package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/modules/src.environment.callbacks.rst.txt" rel="nofollow"> View page source</a>
@@ -74,79 +71,15 @@
            <div itemprop="articleBody">
              
   <section id="src-environment-callbacks-package">
-<h1>src.environment.callbacks package<a class="headerlink" href="#src-environment-callbacks-package" title="Permalink to this heading"></a></h1>
+<h1>src.environment.callbacks package<a class="headerlink" href="#src-environment-callbacks-package" title="Permalink to this headline"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.callbacks.callbacks">
-<span id="src-environment-callbacks-callbacks-module"></span><h2>src.environment.callbacks.callbacks module<a class="headerlink" href="#module-src.environment.callbacks.callbacks" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.environment.callbacks.callbacks.EvalCallback">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.callbacks.callbacks.</span></span><span class="sig-name descname"><span class="pre">EvalCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.callbacks.callbacks.EvalCallback" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EventCallback</span></code></p>
-<p>Callback for evaluating an agent.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When using multiple environments, each call to  <code class="docutils literal notranslate"><span class="pre">env.step()</span></code>
-will effectively correspond to <code class="docutils literal notranslate"><span class="pre">n_envs</span></code> steps.
-To account for that, you can use <code class="docutils literal notranslate"><span class="pre">eval_freq</span> <span class="pre">=</span> <span class="pre">max(eval_freq</span> <span class="pre">//</span> <span class="pre">n_envs,</span> <span class="pre">1)</span></code></p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eval_env</strong> – The environment used for initialization</p></li>
-<li><p><strong>callback_on_new_best</strong> – Callback to trigger
-when there is a new best model according to the <code class="docutils literal notranslate"><span class="pre">mean_reward</span></code></p></li>
-<li><p><strong>callback_after_eval</strong> – Callback to trigger after every evaluation</p></li>
-<li><p><strong>n_eval_episodes</strong> – The number of episodes to test the agent</p></li>
-<li><p><strong>eval_freq</strong> – Evaluate the agent every <code class="docutils literal notranslate"><span class="pre">eval_freq</span></code> call of the callback.</p></li>
-<li><p><strong>log_path</strong> – Path to a folder where the evaluations (<code class="docutils literal notranslate"><span class="pre">evaluations.npz</span></code>)
-will be saved. It will be updated at each evaluation.</p></li>
-<li><p><strong>best_model_save_path</strong> – Path to a folder where the best model
-according to performance on the eval env will be saved.</p></li>
-<li><p><strong>deterministic</strong> – Whether the evaluation should
-use a stochastic or deterministic actions.</p></li>
-<li><p><strong>render</strong> – Whether to render or not the environment during evaluation</p></li>
-<li><p><strong>verbose</strong> – </p></li>
-<li><p><strong>warn</strong> – Passed to <code class="docutils literal notranslate"><span class="pre">evaluate_policy</span></code> (warns if <code class="docutils literal notranslate"><span class="pre">eval_env</span></code> has not been
-wrapped with a Monitor wrapper)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.environment.callbacks.callbacks.EvalCallback.update_child_locals">
-<span class="sig-name descname"><span class="pre">update_child_locals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locals_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.callbacks.callbacks.EvalCallback.update_child_locals" title="Permalink to this definition"></a></dt>
-<dd><p>Update the references to the local variables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>locals</strong> – the local variables during rollout collection</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="src.environment.callbacks.callbacks.OptunaCallback">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.callbacks.callbacks.</span></span><span class="sig-name descname"><span class="pre">OptunaCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.callbacks.callbacks.OptunaCallback" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCallback</span></code></p>
-<p>Stop the training once a threshold in episodic reward
-has been reached (i.e. when the model is good enough).</p>
-<p>It must be used with the <code class="docutils literal notranslate"><span class="pre">EvalCallback</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>reward_threshold</strong> – Minimum expected reward per episode
-to stop training.</p></li>
-<li><p><strong>verbose</strong> – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="src-environment-callbacks-callbacks-module">
+<h2>src.environment.callbacks.callbacks module<a class="headerlink" href="#src-environment-callbacks-callbacks-module" title="Permalink to this headline"></a></h2>
 </section>
-<section id="module-src.environment.callbacks">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment.callbacks" title="Permalink to this heading"></a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 </section>
 </section>
 

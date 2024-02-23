@@ -4,7 +4,7 @@ Welcome to the Social Gym 2.0 documentation!
 .. (Find the GitHub link at https://github.com/ut-amrl/social_gym https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif)
 
 
-.. image:: https://drive.google.com/uc?id=1-mdW21SIJiF4LUlxGxQClDlZhd5iHUDP
+.. image:: https://raw.githubusercontent.com/ut-amrl/SocialGym2/main/assets/sg2_sim.gif 
   :width: 400
   :align: center
 
