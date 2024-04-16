@@ -11,7 +11,7 @@ This is the codebase for our multi-agent simulator for real world social navigat
   <img src="https://obj.umiacs.umd.edu/badue-accepted/sim_demo.gif" width="400" />
 </p> -->
 # Read the paper 
- [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://arxiv.org/pdf/2303.05584.pdf)
+ [**SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces**](https://arxiv.org/pdf/2303.05584.pdf), AAAI 2024.
 
 # Installation
 
@@ -60,11 +60,14 @@ to the file `{PROJECT_ROOT}/config_runner/run.sh` on lines where we are setting 
 ---
 
 ```
-@article{sprague2023socialgym,
-  title={SOCIALGYM 2.0: Simulator for Multi-Agent Social Robot Navigation in Shared Human Spaces},
-  author={Sprague, Zayne and Chandra, Rohan and Holtz, Jarrett and Biswas, Joydeep},
-  journal={arXiv preprint arXiv:2303.05584},
-  year={2023}
+@inproceedings{chandra2024socialgym,
+  title={SOCIALGYM 2.0: Simulator for Multi-Robot Learning and Navigation in Shared Human Spaces},
+  author={Chandra, Rohan and Sprague, Zayne and Biswas, Joydeep},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={21},
+  pages={23778--23780},
+  year={2024}
 }
 ```
 
